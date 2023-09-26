@@ -1,0 +1,47 @@
+version: '1'
+services:
+  # MongoDB container
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./mongo-data:/data/db  # Persist MongoDB data
+
+  # Spring Boot application
+  buiness-app:
+    image: your-spring-boot-image:latest
+    container_name: spring-boot-app
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mongodb  # Ensure MongoDB is started first
+    environment:
+      SPRING_DATA_MONGODB_URI: mongodb://mongodb:27017/your-database-name  # MongoDB connection URL
+    networks:
+      - backend-network  # Create a custom network for backend communication
+
+  dal-app:
+    image: your-spring-boot-image:latest
+    container_name: spring-boot-app
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mongodb  # Ensure MongoDB is started first
+    environment:
+      SPRING_DATA_MONGODB_URI: mongodb://mongodb:27017/your-database-name  # MongoDB connection URL
+    networks:
+      - backend-network  # Create a custom network for backend communication
+
+  # Angular frontend
+  angular-frontend:
+    image: your-angular-frontend-image:latest
+    container_name: angular-frontend
+    ports:
+      - "80:80"
+    networks:
+      - backend-network  # Connect to the same custom network as the Spring Boot app
+
+networks:
+  backend-network:
