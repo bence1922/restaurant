@@ -1,1 +1,1 @@
-Springboot RESTful webapi
+REST API for a restaurant management system

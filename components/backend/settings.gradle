@@ -1,0 +1,5 @@
+rootProject.name = 'restaurant'
+
+include 'Api'
+include 'Bll'
+include 'Dal'
