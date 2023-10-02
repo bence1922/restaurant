@@ -1,0 +1,13 @@
+dependencies {
+	implementation project(':Dal')
+    implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
+	implementation 'org.springframework.boot:spring-boot-starter'
+}
+
+bootJar {
+    enabled = false
+}
+
+jar {
+    enabled = true
+}
