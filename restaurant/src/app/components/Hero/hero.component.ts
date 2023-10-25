@@ -9,5 +9,5 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./hero.component.scss'],
 })
 export class HeroComponent {
-  @Input() label: string;
+  @Input() label: string = "Label";
 }
