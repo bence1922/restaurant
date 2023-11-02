@@ -54,6 +54,24 @@
     src: url('./assets/ImperialScript-Regular.ttf');
 }
 
+@font-face {
+    font-family: 'Inika';
+    src: url('./assets/Inika-Regular.ttf');
+}
+
+@font-face {
+    font-family: 'InikaBold';
+    src: url('./assets/Inika-Bold.ttf');
+}
+
 .imperial{
     font-family: Imperial;
+}
+
+.inika{
+    font-family: Inika;
+}
+
+.inikaBold{
+    font-family: InikaBold;
 }
