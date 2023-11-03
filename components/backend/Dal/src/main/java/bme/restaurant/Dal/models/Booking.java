@@ -27,6 +27,7 @@ public class Booking {
             User customer,
             LocalDateTime start,
             LocalDateTime end) {
+        super();
         this.id = id;
         this.table = table;
         this.customer = customer;

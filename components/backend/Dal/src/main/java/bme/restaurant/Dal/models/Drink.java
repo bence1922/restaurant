@@ -14,6 +14,7 @@ public class Drink {
             String name,
             int price,
             int type) {
+        super();
         this.id = id;
         this.name = name;
         this.price = price;

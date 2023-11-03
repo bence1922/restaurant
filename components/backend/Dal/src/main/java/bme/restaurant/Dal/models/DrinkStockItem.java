@@ -8,13 +8,17 @@ import org.springframework.data.mongodb.core.mapping.DocumentReference;
 public class DrinkStockItem {
     @Id
     private String id;
-    
+
     @DocumentReference
     private Drink drink;
 
     private int quantity;
 
-    public DrinkStockItem(String id, Drink drink, int quantity) {
+    public DrinkStockItem(
+            String id,
+            Drink drink,
+            int quantity) {
+        super();
         this.id = id;
         this.drink = drink;
         this.quantity = quantity;

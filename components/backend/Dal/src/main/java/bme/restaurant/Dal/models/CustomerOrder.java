@@ -18,6 +18,7 @@ public class CustomerOrder {
             String id,
             User table,
             Order order) {
+        super();
         this.id = id;
         this.customer = table;
         this.order = order;

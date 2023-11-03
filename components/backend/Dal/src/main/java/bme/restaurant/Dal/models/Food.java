@@ -24,6 +24,7 @@ public class Food {
             int price,
             int type,
             List<RecipeLine> recipe) {
+        super();
         this.id = id;
         this.name = name;
         this.price = price;

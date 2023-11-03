@@ -19,6 +19,7 @@ public class Table {
             int number,
             int capacity,
             int status) {
+        super();
         this.id = id;
         this.number = number;
         this.capacity = capacity;

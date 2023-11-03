@@ -18,6 +18,7 @@ public class TableOrder {
             String id,
             Table table,
             Order order) {
+        super();
         this.id = id;
         this.table = table;
         this.order = order;

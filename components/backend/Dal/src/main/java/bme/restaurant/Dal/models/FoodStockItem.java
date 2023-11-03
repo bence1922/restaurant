@@ -18,6 +18,7 @@ public class FoodStockItem {
             String id,
             Ingredient ingredient,
             int quantity) {
+        super();
         this.id = id;
         this.ingredient = ingredient;
         this.quantity = quantity;

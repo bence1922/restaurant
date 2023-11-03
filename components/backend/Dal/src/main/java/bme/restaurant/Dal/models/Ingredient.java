@@ -19,6 +19,7 @@ public class Ingredient {
             String id,
             String name,
             int unit) {
+        super();
         this.id = id;
         this.name = name;
         this.unit = unit;

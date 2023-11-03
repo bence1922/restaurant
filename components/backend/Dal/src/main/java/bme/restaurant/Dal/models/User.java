@@ -28,6 +28,7 @@ public class User {
             String email,
             String passwordHash,
             int role) {
+        super();
         this.id = id;
         this.name = name;
         this.address = address;
