@@ -21,15 +21,13 @@ public class User {
     private int role;
 
     public User(
-            String id,
             String name,
             String address,
             String mobilNumber,
             String email,
             String passwordHash,
             int role) {
-        super();
-        this.id = id;
+        super();  
         this.name = name;
         this.address = address;
         this.mobilNumber = mobilNumber;

@@ -22,13 +22,11 @@ public class Booking {
     private LocalDateTime end;
 
     public Booking(
-            String id,
             Table table,
             User customer,
             LocalDateTime start,
             LocalDateTime end) {
-        super();
-        this.id = id;
+        super();  
         this.table = table;
         this.customer = customer;
         this.start = start;

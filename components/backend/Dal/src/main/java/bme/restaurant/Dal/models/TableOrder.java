@@ -15,11 +15,9 @@ public class TableOrder {
     private Order order;
 
     public TableOrder(
-            String id,
             Table table,
             Order order) {
-        super();
-        this.id = id;
+        super();  
         this.table = table;
         this.order = order;
     }

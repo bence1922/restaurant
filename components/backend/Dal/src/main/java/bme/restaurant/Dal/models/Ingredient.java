@@ -10,17 +10,15 @@ public class Ingredient {
 
     private String name;
 
-    private int unit;
+    private String unit;
 
     public Ingredient() {
     }
 
     public Ingredient(
-            String id,
             String name,
-            int unit) {
-        super();
-        this.id = id;
+            String unit) {
+        super();  
         this.name = name;
         this.unit = unit;
     }
@@ -41,11 +39,11 @@ public class Ingredient {
         this.name = name;
     }
 
-    public int getUnit() {
+    public String getUnit() {
         return unit;
     }
 
-    public void setUnit(int unit) {
+    public void setUnit(String unit) {
         this.unit = unit;
     }
 }

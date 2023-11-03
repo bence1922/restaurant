@@ -15,11 +15,9 @@ public class DrinkStockItem {
     private int quantity;
 
     public DrinkStockItem(
-            String id,
             Drink drink,
             int quantity) {
-        super();
-        this.id = id;
+        super();  
         this.drink = drink;
         this.quantity = quantity;
     }

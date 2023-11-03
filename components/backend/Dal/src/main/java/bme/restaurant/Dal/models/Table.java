@@ -15,12 +15,10 @@ public class Table {
     private int status;
 
     public Table(
-            String id,
             int number,
             int capacity,
             int status) {
-        super();
-        this.id = id;
+        super();  
         this.number = number;
         this.capacity = capacity;
         this.status = status;

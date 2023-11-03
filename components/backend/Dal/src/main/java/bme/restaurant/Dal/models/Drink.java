@@ -7,15 +7,13 @@ public class Drink {
 
     private int price;
 
-    private int type;
+    private String type;
 
     public Drink(
-            String id,
             String name,
             int price,
-            int type) {
-        super();
-        this.id = id;
+            String type) {
+        super();  
         this.name = name;
         this.price = price;
         this.type = type;
@@ -45,11 +43,11 @@ public class Drink {
         this.price = price;
     }
 
-    public int getType() {
+    public String getType() {
         return type;
     }
 
-    public void setType(int type) {
+    public void setType(String type) {
         this.type = type;
     }
 }

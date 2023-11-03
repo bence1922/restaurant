@@ -15,11 +15,9 @@ public class CustomerOrder {
     private Order order;
 
     public CustomerOrder(
-            String id,
             User table,
             Order order) {
-        super();
-        this.id = id;
+        super();  
         this.customer = table;
         this.order = order;
     }

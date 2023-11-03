@@ -11,8 +11,7 @@ public class Rating {
     private int score;
 
     public Rating(String id, int score) {
-        super();
-        this.id = id;
+        super();  
         this.score = score;
     }
 

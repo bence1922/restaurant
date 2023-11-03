@@ -14,18 +14,16 @@ public class Food {
 
     private int price;
 
-    private int type;
+    private String type;
 
     private List<RecipeLine> recipe;
 
     public Food(
-            String id,
             String name,
             int price,
-            int type,
+            String type,
             List<RecipeLine> recipe) {
-        super();
-        this.id = id;
+        super();  
         this.name = name;
         this.price = price;
         this.type = type;
@@ -56,19 +54,19 @@ public class Food {
         this.price = price;
     }
 
-    public int getType() {
-        return type;
-    }
-
-    public void setType(int type) {
-        this.type = type;
-    }
-
     public List<RecipeLine> getRecipe() {
         return recipe;
     }
 
     public void setRecipe(List<RecipeLine> recipe) {
         this.recipe = recipe;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

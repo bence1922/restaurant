@@ -15,11 +15,9 @@ public class FoodStockItem {
     private int quantity;
 
     public FoodStockItem(
-            String id,
             Ingredient ingredient,
             int quantity) {
-        super();
-        this.id = id;
+        super();  
         this.ingredient = ingredient;
         this.quantity = quantity;
     }
