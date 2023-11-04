@@ -24,6 +24,9 @@ public class Table {
         this.status = status;
     }
 
+    public Table() {
+    }
+
     public String getId() {
         return id;
     }
