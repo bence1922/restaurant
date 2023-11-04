@@ -1,10 +1,8 @@
 package bme.restaurant.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
-import bme.restaurant.dao.Table;
 import bme.restaurant.dao.TableOrder;
 import bme.restaurant.dto.Drink;
 import bme.restaurant.dto.DrinkOrderItem;

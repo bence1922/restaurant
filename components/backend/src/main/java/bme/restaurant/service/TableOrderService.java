@@ -1,6 +1,7 @@
 package bme.restaurant.service;
 
 import org.springframework.stereotype.Component;
+
 import bme.restaurant.dto.Order;
 
 @Component
