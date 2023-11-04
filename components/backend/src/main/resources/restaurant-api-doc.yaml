@@ -1,0 +1,640 @@
+openapi: 3.0.3
+info:
+  title: Swagger Restaurant
+  description: |-
+    This is a sample Restaruant
+  version: 1.0.1
+externalDocs:
+  description: Find out more about this program on github.
+  url: https://github.com/bence1922/restaurant
+servers:
+  - url: http://localhost:8084
+tags:
+  - name: employee
+  - name: table
+  - name: table-order
+  - name: costumer-order
+  - name: user
+
+paths:
+  /employee:
+    get:
+      tags:
+        - employee
+      summary: Get all employees
+      operationId: getEmployees
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Employee'          
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Employee'
+        '400':
+          description: Invalid status value
+    post:
+      tags:
+        - employee
+      summary: Add a new employee 
+      operationId: addEmployee
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Employee'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Employee'
+        '405':
+          description: Invalid input
+
+    put:
+      tags:
+        - employee
+      summary: Update an existing employee by name
+      operationId: updateEmployee
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Employee'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Employee'          
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Employee'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Imployee not found
+        '405':
+          description: Validation exception
+    delete:
+      tags:
+        - employee
+      summary: Delete a employee by name
+      operationId: deleteEmployee
+      parameters:
+        - name: name
+          in: path
+          description: Employee name to delete
+          required: true
+          schema:
+            type: string
+            example: "Nick Waiter"
+      responses:
+        '400':
+          description: Invalid name
+  /employee/findByName:
+    get:
+      tags:
+        - employee
+      summary: Finds Employee by name
+      operationId: findemployeeByName
+      parameters:
+        - name: name
+          in: query
+          description: Tags to filter by
+          required: true
+          schema:
+            type: string
+            example: "Nick Waiter"
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Employee'
+        '400':
+          description: Invalid name value
+  /table:
+    get:
+      tags:
+        - table
+      summary: List tables
+      description: Returns a single table
+      operationId: listTables
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Table'
+        '400':
+          description: Invalid table-number supplied
+        '404':
+          description: Table not found
+  /table/{table-number}:
+    get:
+      tags:
+        - table
+      summary: Finds table by number
+      description: Returns a single table
+      operationId: findTable
+      parameters:
+        - name: table-number
+          in: path
+          description: number of table to return
+          required: true
+          schema:
+            type: integer
+            format: int32
+            example: 10
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Table'
+        '400':
+          description: Invalid table-number supplied
+        '404':
+          description: Table not found
+    patch:
+      tags:
+        - table
+      summary: Create or update new table
+      operationId: patchTable
+      parameters:
+        - name: table-number
+          in: path
+          schema: { type: integer }
+          required: true
+        - name: capacity
+          in: header
+          schema: { type: integer }
+          required: false
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Table'
+        '405':
+          description: Invalid input
+    delete:
+      tags:
+        - table
+      summary: Deletes table by number
+      operationId: deleteTable
+      parameters:
+        - name: table-number
+          in: path
+          description: Table id to delete
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '400':
+          description: Invalid table id
+  /table-order:
+    get:
+      tags:
+        - table-order
+      summary: Query table orders
+      description: Place a new order in the store
+      operationId: queryTableOrders
+      parameters:
+        - name: table-number
+          in: header
+          schema: { type: integer }
+          required: false
+        - name: is-current
+          in: header
+          schema: { type: boolean }
+          required: false
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Order'
+        '405':
+          description: Invalid input
+  /table-order/{table-number}:
+    get:
+      tags:
+        - table-order
+      summary: Find the current order for the table
+      description: Place a new order in the store
+      operationId: findTableOrder
+      parameters:
+        - name: table-number
+          in: path
+          schema: { type: integer }
+          required: true
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+        '405':
+          description: Invalid input
+
+    post:
+      tags:
+        - table-order
+      summary: Place an order
+      description: Place a new order in the store
+      operationId: placeOrder
+      parameters:
+        - name: table-number
+          in: path
+          schema: { type: integer }
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Order'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+        '405':
+          description: Invalid input
+  /user:
+    post:
+      tags:
+        - user
+      summary: Create user
+      description: This can only be done by the logged in user.
+      operationId: createUser
+      requestBody:
+        description: Created user object
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        default:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/User'
+  /user/login:
+    get:
+      tags:
+        - user
+      summary: Logs user into the system
+      description: ''
+      operationId: loginUser
+      parameters:
+        - name: username
+          in: query
+          description: The user name for login
+          required: false
+          schema:
+            type: string
+        - name: password
+          in: query
+          description: The password for login in clear text
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          headers:
+            X-Rate-Limit:
+              description: calls per hour allowed by the user
+              schema:
+                type: integer
+                format: int32
+            X-Expires-After:
+              description: date in UTC when token expires
+              schema:
+                type: string
+                format: date-time
+          content:
+            application/xml:
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '400':
+          description: Invalid username/password supplied
+  /user/logout:
+    get:
+      tags:
+        - user
+      summary: Logs out current logged in user session
+      description: ''
+      operationId: logoutUser
+      parameters: []
+      responses:
+        default:
+          description: successful operation
+  /user/{username}:
+    get:
+      tags:
+        - user
+      summary: Get user by user name
+      description: ''
+      operationId: getUserByName
+      parameters:
+        - name: username
+          in: path
+          description: 'The name that needs to be fetched. Use user1 for testing. '
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'          
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Invalid username supplied
+        '404':
+          description: User not found
+    put:
+      tags:
+        - user
+      summary: Update user
+      description: This can only be done by the logged in user.
+      operationId: updateUser
+      parameters:
+        - name: username
+          in: path
+          description: name that need to be deleted
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Update an existent user in the store
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/User'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        default:
+          description: successful operation
+    delete:
+      tags:
+        - user
+      summary: Delete user
+      description: This can only be done by the logged in user.
+      operationId: deleteUser
+      parameters:
+        - name: username
+          in: path
+          description: The name that needs to be deleted
+          required: true
+          schema:
+            type: string
+      responses:
+        '400':
+          description: Invalid username supplied
+        '404':
+          description: User not found
+
+components:
+  schemas:
+    Customer:
+      required:
+        - userId
+        - name
+      type: object
+      properties:
+        userId:
+          type: string
+          example: ObjectId('6544cd596955fe0a1c04fba9')
+        name:
+          type: string
+          example: Gipsz Jakap
+    Table:
+      required:
+        - number
+        - capacity
+      type: object
+      properties:
+        number:
+          type: integer
+          format: int32
+          example: 10
+        capacity:
+          type: integer
+          format: int32
+          example: 10
+        status:
+          type: string
+          enum:
+            - booked
+            - free
+    Booking:
+      required:
+        - table
+        - customer
+        - startingDate
+        - endingDate
+      type: object
+      properties:
+        table:
+          $ref: '#/components/schemas/Table'
+        customer:
+          $ref: '#/components/schemas/Customer'
+        startingDate:
+          type: string
+          format: date-time
+        endingDate:
+          type: string
+          format: date-time
+    Food:
+      required:
+        - name
+        - price
+      type: object
+      properties:
+        id:
+          type: string
+          example: 6544cd596955fe0a1c04fba9
+        name:
+          type: string
+          example: Hamburger
+        price:
+          type: integer
+          example: 400
+        recipe:
+          type: array
+          items:
+            type: object
+            properties:
+              ingerient:
+                type: string
+              unit:
+                type: string
+                enum:
+                  - g
+                  - dkg
+              quantity:
+                type: integer
+    FoodOrderItem:
+        required:
+          - food
+          - quantity
+        type: object
+        properties:
+          food: 
+            $ref: '#/components/schemas/Food'
+          quantity:
+            type: integer
+            format: int32
+            example: 1
+    Drink:
+      required:
+        - name
+        - price
+      type: object
+      properties:
+        id:
+          type: string
+          example: 6544cd596955fe0a1c04fba9
+        name:
+          type: string
+          example: Cola
+        price:
+          type: integer
+          example: 400
+    DrinkOrderItem:
+        required:
+          - drink
+          - quantity
+        type: object
+        properties:
+          drink: 
+            $ref: '#/components/schemas/Drink'
+          quantity:
+            type: integer
+            format: int32
+            example: 1
+    Order:
+      required:
+        - foods
+        - drinks
+      type: object
+      properties:
+        status:
+          type: string
+          enum: [placed, cooking, delivering, delivered]
+        foods:
+          type: array
+          items:
+            $ref: '#/components/schemas/FoodOrderItem'
+        drinks:
+          type: array
+          items:
+            $ref: '#/components/schemas/DrinkOrderItem'
+    FoodStockItem:
+      required:
+        - name
+        - quantity
+        - unit
+      type: object
+      properties:
+        name:
+          type: string
+          example: hús
+        quantity:
+          type: integer
+          format: int32
+          example: 1
+        unit:
+          type: string
+          example: kg
+          enum:
+            - kg
+            - liter
+            - g
+            - dkg
+            - dl
+    DrinkStockItem:
+      required:
+        - name
+        - quantity
+      type: object
+      properties:
+        name:
+          type: string
+          example: coke
+        quantity:
+          type: integer
+          format: int32
+          example: 1
+    Employee:
+      required:
+        - role
+      type: object
+      properties:
+        name:
+          type: string
+          example: Nick Waiter
+        role:
+          type: string
+          enum:
+            - waiter
+            - manager
+    User:
+      required:
+        - name
+        - password
+      type: object
+      properties:
+        name:
+          type: string
+          example: Nick User
+        role:
+          type: string
+          enum:
+            - waiter
+            - manager
+            - customer
