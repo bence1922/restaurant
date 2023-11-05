@@ -1,5 +1,11 @@
 @import "~primeflex/primeflex.css";
 
+body{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
 :root {
     --surface-a: #111111;
     --surface-b: #000000;
