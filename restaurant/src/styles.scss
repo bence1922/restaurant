@@ -1,5 +1,21 @@
 @import "~primeflex/primeflex.css";
 
+$text-color: #ecd1bd;
+
+h1, h2, h3, h4, h5, h6, p, span, a{
+    color: var(--text-color);
+}
+
+a{
+    text-decoration: none;
+}
+
+body{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
 :root {
     --surface-a: #111111;
     --surface-b: #000000;
