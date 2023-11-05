@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
 import bme.restaurant.api.TableOrderApi;
-import bme.restaurant.dto.Order;
+import bme.restaurant.dto.OrderDTO;
 import bme.restaurant.service.TableOrderService;
 
 @RestController
@@ -16,7 +16,7 @@ public class TableOrderController implements TableOrderApi {
     TableOrderService tableOrderService;
 
     @Override
-    public ResponseEntity<Order> findTableOrder(Integer tableNumber) {
+    public ResponseEntity<OrderDTO> findTableOrder(Integer tableNumber) {
         var response = tableOrderService.findTableOrder(tableNumber);
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }

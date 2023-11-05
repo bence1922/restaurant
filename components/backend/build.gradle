@@ -1,7 +1,6 @@
 plugins {
 	id 'java'
 	id 'java-library'
-	id 'application'
 	id 'org.springframework.boot' version '3.1.4'
 	id 'io.spring.dependency-management' version '1.1.3'
 	id "org.openapi.generator" version "7.0.1"
@@ -48,8 +47,9 @@ openApiGenerate {
   generatorName = "spring"
   inputSpec = "$rootDir/src/main/resources/restaurant-api-doc.yaml".toString()
   outputDir = "$rootDir/build/generated/openapi".toString()
-  apiPackage = "bme.restaurant"
+  apiPackage = "bme.restaurant.api"
   modelPackage = "bme.restaurant.dto"
+  modelNameSuffix = "DTO"
   configOptions = [
       dateLibrary: "java8",
 	  interfaceOnly: "true",
@@ -57,17 +57,7 @@ openApiGenerate {
   ]
 }
 
-sourceSets {
-	main {
-		java {
-			srcDirs = [
-				"$rootDir/src/main/java".toString(),
-				"$rootDir/build/generated/openapi/src/main/java".toString()
-			]
-		}
-	}
-}
-
-application {
-    mainClass = 'bme.restaurant.SpringApp'
+tasks.register('openapiCopy', Copy) {
+    from layout.buildDirectory.dir("$rootDir/build/generated/openapi/src/main/java/bme/restaurant")
+    into layout.buildDirectory.dir("$rootDir/src/main/java/bme/restaurant")
 }
