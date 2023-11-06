@@ -109,6 +109,10 @@ a:active {
     text-decoration: underline;
 }
 
+label{
+    font-family: Inika;
+    color: var(--text-color-secondary);
+}
 
 .p-component-overlay{
     background-color:rgba(0,0,0,.4);
