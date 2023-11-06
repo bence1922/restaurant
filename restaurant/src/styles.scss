@@ -1,6 +1,22 @@
 @import "~primeflex/primeflex.css";
 @import "primeicons/primeicons.css";
 
+$text-color: #ecd1bd;
+
+h1, h2, h3, h4, h5, h6, p, span, a{
+    color: var(--text-color);
+}
+
+a{
+    text-decoration: none;
+}
+
+body{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
 :root {
     --surface-a: #111111;
     --surface-b: #000000;
@@ -6084,3 +6100,4 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon{
 .p-datatable .p-datatable-tbody>tr.p-datatable-dragpoint-bottom>td{
     box-shadow:inset 0 -2px 0 0 #b47538
 }
+

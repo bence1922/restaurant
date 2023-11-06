@@ -4,6 +4,7 @@ import { NxWelcomeComponent } from './nx-welcome.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 
 
+
 @Component({
   standalone: true,
   imports: [NxWelcomeComponent, RouterModule, NavbarComponent],
