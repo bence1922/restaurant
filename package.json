@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "primeflex": "^3.3.1",
+    "primeicons": "^6.0.1",
     "primeng": "^14.2.14-lts",
     "sass-loader": "^13.3.2",
     "style-loader": "^3.3.3"

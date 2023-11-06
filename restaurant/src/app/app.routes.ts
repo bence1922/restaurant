@@ -12,7 +12,6 @@ export const appRoutes: Route[] = [
     {path:'profile', component: ProfileComponent},
     {path:'reservation', component: ReservationComponent},
     {path:'about-us', component: AboutUsComponent},
-    {path: 'hero', component: HeroComponent}
 ];
 
 
