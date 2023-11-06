@@ -7,7 +7,7 @@ import { AboutUsComponent } from './components/AboutUs/about-us.component';
 //import { HeroComponent } from './components/Hero/hero.component';
 
 export const appRoutes: Route[] = [
-    //{path: 'login', component: HomeComponent},
+
     {
         path: '',
         //[canActivate: [AuthGuard]] // TODO: Add AuthGuard
