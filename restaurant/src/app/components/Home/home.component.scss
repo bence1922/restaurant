@@ -1,0 +1,26 @@
+.image-container{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.login{
+    background-color: #A89281;
+}
+
+.text{
+    font-size: large;
+    font-size: 64px;
+    color: var(--text-color) !important;
+}
+
+hr{
+    margin-top: 0;
+    margin-bottom: 1.7rem;
+    border-color: var(--text-color) !important;
+    border-width: 2px;
+}
+
+li{
+    padding: 6px;
+    font-size: 24px;
+}

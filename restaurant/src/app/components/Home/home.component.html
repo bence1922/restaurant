@@ -1,1 +1,72 @@
 <app-hero label="Home"></app-hero>
+
+
+<div class="grid about-us">
+    <div class="col-8 col-offset-2 p-6 image-container">
+        <p-image src="https://primefaces.org/cdn/primeng/images/galleria/galleria1.jpg" alt="Image" width="250" height="200"></p-image>
+        <!--<p-image src="https://primefaces.org/cdn/primeng/images/galleria/galleria1.jpg" alt="Image" width="250" [preview]="true">
+            <ng-template pTemplate="indicator">
+                <span>About Us</span>
+            </ng-template>
+        </p-image>-->
+        <p-card class="text-center" header="About Us" [style]="{width: '250px', height: '200px'}">
+            <ng-template pTemplate="content">
+                <div class="flex align-items-center justify-content-center text-center">Experience culinary artistry and exceptional hospitality at our restaurant.</div>
+            </ng-template>
+            <ng-template pTemplate="footer" [style]="{padding: 0}">
+                <p-button size="small" type="button" label="Learn More" ></p-button>
+            </ng-template>
+        </p-card>
+        <p-image src="https://primefaces.org/cdn/primeng/images/galleria/galleria1.jpg" alt="Image" width="250" height="200"></p-image>
+    </div>
+</div>
+
+
+<div class="grid login" width=100%>
+    <div class="col-8 col-offset-2">
+        <div class="col-12 text imperial" >
+            Log in
+        </div>
+        <hr>
+        <div class="col-12">
+            <p-splitter [style]="{width:'100%', background: 'transparent', border: 'none'}">
+                <ng-template pTemplate>
+                    <div class="col flex align-items-center justify-content-center">
+                        <p-image src="https://primefaces.org/cdn/primeng/images/galleria/galleria1.jpg" alt="Image" width="250" height="200"></p-image>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate>
+                    <div class="col flex align-items-center justify-content-center">
+                        <ul>
+                            <li>Reservation</li>
+                            <li>Order</li>
+                            <li>Get Points and coupons</li>
+                            <li>Add review</li>
+                        </ul>
+                    </div>
+                </ng-template>
+            </p-splitter>
+        </div>
+    </div>
+</div>
+
+
+<div class="grid menu-items">
+    <div class="col-8 col-offset-2">
+        <div class="col-12 text imperial flex justify-content-center" >
+            Menu
+        </div>
+        <!--
+        <p-galleria [(values)]="images" [containerStyle]="{'max-width': 900px}" [responsiveOptions]="responsiveOptions" [numVisible]="5">
+            <ng-template let-item pTemplate="item">
+                <img [src]="item.itemImageSrc" style="{width: 100%}">
+            </ng-template>
+            <ng-template let-item pTemplate="thumbnail">
+                <div class="grid grid-nogutter justify-content-center">
+                    <img [src]="item.thumbnailImageSrc" style="{width: 100%}"/>
+                </div>
+            </ng-template>
+        </p-galleria>
+        -->
+    </div>
+</div>
