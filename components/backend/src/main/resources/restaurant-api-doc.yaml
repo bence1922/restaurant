@@ -40,17 +40,20 @@ paths:
                   $ref: '#/components/schemas/Employee'
         '400':
           description: Invalid status value
-    post:
+  /employee/{employeeId}:
+    parameters:
+      - name: employeeId
+        in: path
+        description: The ID of the employee
+        required: true
+        schema:
+          type: integer
+          example: 1
+    get:
       tags:
         - employee
-      summary: Add a new employee 
-      operationId: addEmployee
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Employee'
-        required: true
+      summary: Get an employee by ID
+      operationId: getEmployeeById
       responses:
         '200':
           description: Successful operation
@@ -58,14 +61,14 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Employee'
-        '405':
-          description: Invalid input
+        '404':
+          description: Employee not found
 
     put:
       tags:
         - employee
-      summary: Update an existing employee by name
-      operationId: updateEmployee
+      summary: Update an existing employee by ID
+      operationId: updateEmployeeById
       requestBody:
         content:
           application/json:
@@ -77,56 +80,56 @@ paths:
           description: Successful operation
           content:
             application/json:
-              schema:
-                $ref: '#/components/schemas/Employee'          
-            application/xml:
               schema:
                 $ref: '#/components/schemas/Employee'
         '400':
           description: Invalid ID supplied
         '404':
-          description: Imployee not found
+          description: Employee not found
         '405':
           description: Validation exception
-    delete:
+    patch:
       tags:
         - employee
-      summary: Delete a employee by name
-      operationId: deleteEmployee
-      parameters:
-        - name: name
-          in: path
-          description: Employee name to delete
-          required: true
-          schema:
-            type: string
-            example: "Nick Waiter"
-      responses:
-        '400':
-          description: Invalid name
-  /employee/findByName:
-    get:
-      tags:
-        - employee
-      summary: Finds Employee by name
-      operationId: findemployeeByName
+      summary: Update attributes of an employee by ID
+      operationId: patchEmployeeById
       parameters:
         - name: name
           in: query
-          description: Tags to filter by
-          required: true
+          description: New name for the employee
+          required: false
           schema:
             type: string
-            example: "Nick Waiter"
+        - name: role
+          in: query
+          description: New role for the employee
+          required: false
+          schema:
+            type: string
+            enum:
+              - waiter
+              - manager
       responses:
         '200':
-          description: successful operation
+          description: Successful operation
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Employee'
         '400':
-          description: Invalid name value
+          description: Invalid ID supplied
+        '404':
+          description: Employee not found
+    delete:
+      tags:
+        - employee
+      summary: Delete an employee by ID
+      operationId: deleteEmployeeById
+      responses:
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Employee not found
   /table:
     get:
       tags:
