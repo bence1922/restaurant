@@ -5,6 +5,7 @@ import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
+import java.math.BigDecimal;
 import org.openapitools.jackson.nullable.JsonNullable;
 import java.time.OffsetDateTime;
 import jakarta.validation.Valid;
@@ -16,52 +17,18 @@ import java.util.*;
 import jakarta.annotation.Generated;
 
 /**
- * DrinkDTO
+ * MenuItemDTO
  */
 
-@JsonTypeName("Drink")
+@JsonTypeName("MenuItem")
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-11-12T22:48:22.982257200+01:00[Europe/Budapest]")
-public class DrinkDTO {
-
-  private String id;
+public class MenuItemDTO {
 
   private String name;
 
-  private Integer price;
+  private BigDecimal price;
 
-  public DrinkDTO() {
-    super();
-  }
-
-  /**
-   * Constructor with only required parameters
-   */
-  public DrinkDTO(String name, Integer price) {
-    this.name = name;
-    this.price = price;
-  }
-
-  public DrinkDTO id(String id) {
-    this.id = id;
-    return this;
-  }
-
-  /**
-   * Get id
-   * @return id
-  */
-  
-  @Schema(name = "id", example = "6544cd596955fe0a1c04fba9", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
-  @JsonProperty("id")
-  public String getId() {
-    return id;
-  }
-
-  public void setId(String id) {
-    this.id = id;
-  }
-
-  public DrinkDTO name(String name) {
+  public MenuItemDTO name(String name) {
     this.name = name;
     return this;
   }
@@ -70,8 +37,8 @@ public class DrinkDTO {
    * Get name
    * @return name
   */
-  @NotNull 
-  @Schema(name = "name", example = "Cola", requiredMode = Schema.RequiredMode.REQUIRED)
+  
+  @Schema(name = "name", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("name")
   public String getName() {
     return name;
@@ -81,7 +48,7 @@ public class DrinkDTO {
     this.name = name;
   }
 
-  public DrinkDTO price(Integer price) {
+  public MenuItemDTO price(BigDecimal price) {
     this.price = price;
     return this;
   }
@@ -90,14 +57,14 @@ public class DrinkDTO {
    * Get price
    * @return price
   */
-  @NotNull 
-  @Schema(name = "price", example = "400", requiredMode = Schema.RequiredMode.REQUIRED)
+  @Valid 
+  @Schema(name = "price", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("price")
-  public Integer getPrice() {
+  public BigDecimal getPrice() {
     return price;
   }
 
-  public void setPrice(Integer price) {
+  public void setPrice(BigDecimal price) {
     this.price = price;
   }
 
@@ -109,22 +76,20 @@ public class DrinkDTO {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    DrinkDTO drink = (DrinkDTO) o;
-    return Objects.equals(this.id, drink.id) &&
-        Objects.equals(this.name, drink.name) &&
-        Objects.equals(this.price, drink.price);
+    MenuItemDTO menuItem = (MenuItemDTO) o;
+    return Objects.equals(this.name, menuItem.name) &&
+        Objects.equals(this.price, menuItem.price);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, name, price);
+    return Objects.hash(name, price);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class DrinkDTO {\n");
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("class MenuItemDTO {\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    price: ").append(toIndentedString(price)).append("\n");
     sb.append("}");

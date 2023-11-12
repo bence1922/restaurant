@@ -32,7 +32,7 @@ import java.util.Map;
 import java.util.Optional;
 import jakarta.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-11-05T11:07:26.572702200+01:00[Europe/Budapest]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-11-12T22:48:22.982257200+01:00[Europe/Budapest]")
 @Validated
 @Tag(name = "table", description = "the table API")
 public interface TableApi {
@@ -44,7 +44,7 @@ public interface TableApi {
     /**
      * DELETE /table/{table-number} : Deletes table by number
      *
-     * @param tableNumber Table id to delete (required)
+     * @param tableNumber number of table to return (required)
      * @return Invalid table id (status code 400)
      */
     @Operation(
@@ -60,7 +60,7 @@ public interface TableApi {
         value = "/table/{table-number}"
     )
     default ResponseEntity<Void> deleteTable(
-        @Parameter(name = "table-number", description = "Table id to delete", required = true, in = ParameterIn.PATH) @PathVariable("table-number") Integer tableNumber
+        @Parameter(name = "table-number", description = "number of table to return", required = true, in = ParameterIn.PATH) @PathVariable("table-number") Integer tableNumber
     ) {
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 
@@ -155,16 +155,16 @@ public interface TableApi {
 
 
     /**
-     * PATCH /table/{table-number} : Create or update new table
+     * PATCH /table/{table-number} : Create or update table by number
      *
-     * @param tableNumber  (required)
+     * @param tableNumber number of table to return (required)
      * @param capacity  (optional)
      * @return Successful operation (status code 200)
      *         or Invalid input (status code 405)
      */
     @Operation(
         operationId = "patchTable",
-        summary = "Create or update new table",
+        summary = "Create or update table by number",
         tags = { "table" },
         responses = {
             @ApiResponse(responseCode = "200", description = "Successful operation", content = {
@@ -179,7 +179,7 @@ public interface TableApi {
         produces = { "application/json" }
     )
     default ResponseEntity<TableDTO> patchTable(
-        @Parameter(name = "table-number", description = "", required = true, in = ParameterIn.PATH) @PathVariable("table-number") Integer tableNumber,
+        @Parameter(name = "table-number", description = "number of table to return", required = true, in = ParameterIn.PATH) @PathVariable("table-number") Integer tableNumber,
         @Parameter(name = "capacity", description = "", in = ParameterIn.HEADER) @RequestHeader(value = "capacity", required = false) Integer capacity
     ) {
         getRequest().ifPresent(request -> {

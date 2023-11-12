@@ -21,7 +21,7 @@ import jakarta.annotation.Generated;
  */
 
 @JsonTypeName("Food_recipe_inner")
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-11-05T11:07:26.572702200+01:00[Europe/Budapest]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-11-12T22:48:22.982257200+01:00[Europe/Budapest]")
 public class FoodRecipeInnerDTO {
 
   private String ingerient;

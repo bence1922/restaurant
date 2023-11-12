@@ -5,7 +5,6 @@
  */
 package bme.restaurant.api;
 
-import java.time.OffsetDateTime;
 import bme.restaurant.dto.UserDTO;
 import io.swagger.v3.oas.annotations.ExternalDocumentation;
 import io.swagger.v3.oas.annotations.Operation;
@@ -33,7 +32,7 @@ import java.util.Map;
 import java.util.Optional;
 import jakarta.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-11-05T11:07:26.572702200+01:00[Europe/Budapest]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-11-12T22:48:22.982257200+01:00[Europe/Budapest]")
 @Validated
 @Tag(name = "user", description = "the user API")
 public interface UserApi {
@@ -43,57 +42,10 @@ public interface UserApi {
     }
 
     /**
-     * POST /user : Create user
-     * This can only be done by the logged in user.
-     *
-     * @param userDTO Created user object (optional)
-     * @return successful operation (status code 200)
-     */
-    @Operation(
-        operationId = "createUser",
-        summary = "Create user",
-        description = "This can only be done by the logged in user.",
-        tags = { "user" },
-        responses = {
-            @ApiResponse(responseCode = "default", description = "successful operation", content = {
-                @Content(mediaType = "application/json", schema = @Schema(implementation = UserDTO.class)),
-                @Content(mediaType = "application/xml", schema = @Schema(implementation = UserDTO.class))
-            })
-        }
-    )
-    @RequestMapping(
-        method = RequestMethod.POST,
-        value = "/user",
-        produces = { "application/json", "application/xml" },
-        consumes = { "application/json" }
-    )
-    default ResponseEntity<UserDTO> createUser(
-        @Parameter(name = "UserDTO", description = "Created user object") @Valid @RequestBody(required = false) UserDTO userDTO
-    ) {
-        getRequest().ifPresent(request -> {
-            for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
-                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                    String exampleString = "{ \"role\" : \"waiter\", \"name\" : \"Nick User\" }";
-                    ApiUtil.setExampleResponse(request, "application/json", exampleString);
-                    break;
-                }
-                if (mediaType.isCompatibleWith(MediaType.valueOf("application/xml"))) {
-                    String exampleString = "<null> <name>Nick User</name> <role>aeiou</role> </null>";
-                    ApiUtil.setExampleResponse(request, "application/xml", exampleString);
-                    break;
-                }
-            }
-        });
-        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
-
-    }
-
-
-    /**
      * DELETE /user/{username} : Delete user
      * This can only be done by the logged in user.
      *
-     * @param username The name that needs to be deleted (required)
+     * @param username  (required)
      * @return Invalid username supplied (status code 400)
      *         or User not found (status code 404)
      */
@@ -112,7 +64,7 @@ public interface UserApi {
         value = "/user/{username}"
     )
     default ResponseEntity<Void> deleteUser(
-        @Parameter(name = "username", description = "The name that needs to be deleted", required = true, in = ParameterIn.PATH) @PathVariable("username") String username
+        @Parameter(name = "username", description = "", required = true, in = ParameterIn.PATH) @PathVariable("username") String username
     ) {
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 
@@ -120,46 +72,35 @@ public interface UserApi {
 
 
     /**
-     * GET /user/{username} : Get user by user name
+     * GET /user : Get all users
      * 
      *
-     * @param username The name that needs to be fetched. Use user1 for testing.  (required)
-     * @return successful operation (status code 200)
-     *         or Invalid username supplied (status code 400)
-     *         or User not found (status code 404)
+     * @return A list of users (status code 200)
      */
     @Operation(
-        operationId = "getUserByName",
-        summary = "Get user by user name",
+        operationId = "getUsers",
+        summary = "Get all users",
         description = "",
         tags = { "user" },
         responses = {
-            @ApiResponse(responseCode = "200", description = "successful operation", content = {
-                @Content(mediaType = "application/json", schema = @Schema(implementation = UserDTO.class)),
-                @Content(mediaType = "application/xml", schema = @Schema(implementation = UserDTO.class))
-            }),
-            @ApiResponse(responseCode = "400", description = "Invalid username supplied"),
-            @ApiResponse(responseCode = "404", description = "User not found")
+            @ApiResponse(responseCode = "200", description = "A list of users", content = {
+                @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = UserDTO.class)))
+            })
         }
     )
     @RequestMapping(
         method = RequestMethod.GET,
-        value = "/user/{username}",
-        produces = { "application/json", "application/xml" }
+        value = "/user",
+        produces = { "application/json" }
     )
-    default ResponseEntity<UserDTO> getUserByName(
-        @Parameter(name = "username", description = "The name that needs to be fetched. Use user1 for testing. ", required = true, in = ParameterIn.PATH) @PathVariable("username") String username
+    default ResponseEntity<List<UserDTO>> getUsers(
+        
     ) {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                    String exampleString = "{ \"role\" : \"waiter\", \"name\" : \"Nick User\" }";
+                    String exampleString = "[ { \"password\" : \"password\", \"name\" : \"Nick User\" }, { \"password\" : \"password\", \"name\" : \"Nick User\" } ]";
                     ApiUtil.setExampleResponse(request, "application/json", exampleString);
-                    break;
-                }
-                if (mediaType.isCompatibleWith(MediaType.valueOf("application/xml"))) {
-                    String exampleString = "<User> <name>Nick User</name> <role>aeiou</role> </User>";
-                    ApiUtil.setExampleResponse(request, "application/xml", exampleString);
                     break;
                 }
             }
@@ -170,35 +111,30 @@ public interface UserApi {
 
 
     /**
-     * GET /user/login : Logs user into the system
-     * 
+     * POST /user/login : User login
      *
-     * @param username The user name for login (optional)
-     * @param password The password for login in clear text (optional)
-     * @return successful operation (status code 200)
-     *         or Invalid username/password supplied (status code 400)
+     * @param userDTO  (required)
+     * @return User successfully logged in (status code 200)
+     *         or Unauthorized (status code 401)
+     *         or Invalid request (status code 400)
      */
     @Operation(
         operationId = "loginUser",
-        summary = "Logs user into the system",
-        description = "",
+        summary = "User login",
         tags = { "user" },
         responses = {
-            @ApiResponse(responseCode = "200", description = "successful operation", content = {
-                @Content(mediaType = "application/xml", schema = @Schema(implementation = String.class)),
-                @Content(mediaType = "application/json", schema = @Schema(implementation = String.class))
-            }),
-            @ApiResponse(responseCode = "400", description = "Invalid username/password supplied")
+            @ApiResponse(responseCode = "200", description = "User successfully logged in"),
+            @ApiResponse(responseCode = "401", description = "Unauthorized"),
+            @ApiResponse(responseCode = "400", description = "Invalid request")
         }
     )
     @RequestMapping(
-        method = RequestMethod.GET,
+        method = RequestMethod.POST,
         value = "/user/login",
-        produces = { "application/xml", "application/json" }
+        consumes = { "application/json" }
     )
-    default ResponseEntity<String> loginUser(
-        @Parameter(name = "username", description = "The user name for login", in = ParameterIn.QUERY) @Valid @RequestParam(value = "username", required = false) String username,
-        @Parameter(name = "password", description = "The password for login in clear text", in = ParameterIn.QUERY) @Valid @RequestParam(value = "password", required = false) String password
+    default ResponseEntity<Void> loginUser(
+        @Parameter(name = "UserDTO", description = "", required = true) @Valid @RequestBody UserDTO userDTO
     ) {
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 
@@ -206,9 +142,10 @@ public interface UserApi {
 
 
     /**
-     * GET /user/logout : Logs out current logged in user session
+     * POST /user/logout : Logs out current logged in user session
      * 
      *
+     * @param username  (required)
      * @return successful operation (status code 200)
      */
     @Operation(
@@ -221,11 +158,11 @@ public interface UserApi {
         }
     )
     @RequestMapping(
-        method = RequestMethod.GET,
+        method = RequestMethod.POST,
         value = "/user/logout"
     )
     default ResponseEntity<Void> logoutUser(
-        
+        @NotNull @Parameter(name = "username", description = "", required = true, in = ParameterIn.HEADER) @RequestHeader(value = "username", required = true) String username
     ) {
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 
@@ -233,30 +170,28 @@ public interface UserApi {
 
 
     /**
-     * PUT /user/{username} : Update user
-     * This can only be done by the logged in user.
+     * POST /user/register : Register a new user
      *
-     * @param username name that need to be deleted (required)
-     * @param userDTO Update an existent user in the store (optional)
-     * @return successful operation (status code 200)
+     * @param userDTO  (required)
+     * @return User successfully registered (status code 201)
+     *         or Invalid request (status code 400)
      */
     @Operation(
-        operationId = "updateUser",
-        summary = "Update user",
-        description = "This can only be done by the logged in user.",
+        operationId = "registerUser",
+        summary = "Register a new user",
         tags = { "user" },
         responses = {
-            @ApiResponse(responseCode = "default", description = "successful operation")
+            @ApiResponse(responseCode = "201", description = "User successfully registered"),
+            @ApiResponse(responseCode = "400", description = "Invalid request")
         }
     )
     @RequestMapping(
-        method = RequestMethod.PUT,
-        value = "/user/{username}",
-        consumes = { "application/json", "application/xml", "application/x-www-form-urlencoded" }
+        method = RequestMethod.POST,
+        value = "/user/register",
+        consumes = { "application/json" }
     )
-    default ResponseEntity<Void> updateUser(
-        @Parameter(name = "username", description = "name that need to be deleted", required = true, in = ParameterIn.PATH) @PathVariable("username") String username,
-        @Parameter(name = "UserDTO", description = "Update an existent user in the store") @Valid @RequestBody(required = false) UserDTO userDTO
+    default ResponseEntity<Void> registerUser(
+        @Parameter(name = "UserDTO", description = "", required = true) @Valid @RequestBody UserDTO userDTO
     ) {
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 

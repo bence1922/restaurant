@@ -26,8 +26,10 @@ import jakarta.annotation.Generated;
  */
 
 @JsonTypeName("Order")
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-11-05T11:07:26.572702200+01:00[Europe/Budapest]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-11-12T22:48:22.982257200+01:00[Europe/Budapest]")
 public class OrderDTO {
+
+  private String id;
 
   /**
    * Gets or Sets status
@@ -86,6 +88,26 @@ public class OrderDTO {
   public OrderDTO(List<@Valid FoodOrderItemDTO> foods, List<@Valid DrinkOrderItemDTO> drinks) {
     this.foods = foods;
     this.drinks = drinks;
+  }
+
+  public OrderDTO id(String id) {
+    this.id = id;
+    return this;
+  }
+
+  /**
+   * Get id
+   * @return id
+  */
+  
+  @Schema(name = "id", example = "6544cd596955fe0a1c04fba9", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("id")
+  public String getId() {
+    return id;
+  }
+
+  public void setId(String id) {
+    this.id = id;
   }
 
   public OrderDTO status(StatusEnum status) {
@@ -173,20 +195,22 @@ public class OrderDTO {
       return false;
     }
     OrderDTO order = (OrderDTO) o;
-    return Objects.equals(this.status, order.status) &&
+    return Objects.equals(this.id, order.id) &&
+        Objects.equals(this.status, order.status) &&
         Objects.equals(this.foods, order.foods) &&
         Objects.equals(this.drinks, order.drinks);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(status, foods, drinks);
+    return Objects.hash(id, status, foods, drinks);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class OrderDTO {\n");
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
     sb.append("    foods: ").append(toIndentedString(foods)).append("\n");
     sb.append("    drinks: ").append(toIndentedString(drinks)).append("\n");

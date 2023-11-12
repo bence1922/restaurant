@@ -21,10 +21,12 @@ import jakarta.annotation.Generated;
  */
 
 @JsonTypeName("Employee")
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-11-05T11:07:26.572702200+01:00[Europe/Budapest]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-11-12T22:48:22.982257200+01:00[Europe/Budapest]")
 public class EmployeeDTO {
 
   private String name;
+
+  private String userId;
 
   /**
    * Gets or Sets role
@@ -84,7 +86,7 @@ public class EmployeeDTO {
    * @return name
   */
   
-  @Schema(name = "name", example = "Nick Waiter", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @Schema(name = "name", example = "6544cd596955fe0a1c04fba9", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("name")
   public String getName() {
     return name;
@@ -92,6 +94,26 @@ public class EmployeeDTO {
 
   public void setName(String name) {
     this.name = name;
+  }
+
+  public EmployeeDTO userId(String userId) {
+    this.userId = userId;
+    return this;
+  }
+
+  /**
+   * Get userId
+   * @return userId
+  */
+  
+  @Schema(name = "userId", example = "Nick Waiter", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("userId")
+  public String getUserId() {
+    return userId;
+  }
+
+  public void setUserId(String userId) {
+    this.userId = userId;
   }
 
   public EmployeeDTO role(RoleEnum role) {
@@ -124,12 +146,13 @@ public class EmployeeDTO {
     }
     EmployeeDTO employee = (EmployeeDTO) o;
     return Objects.equals(this.name, employee.name) &&
+        Objects.equals(this.userId, employee.userId) &&
         Objects.equals(this.role, employee.role);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(name, role);
+    return Objects.hash(name, userId, role);
   }
 
   @Override
@@ -137,6 +160,7 @@ public class EmployeeDTO {
     StringBuilder sb = new StringBuilder();
     sb.append("class EmployeeDTO {\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    userId: ").append(toIndentedString(userId)).append("\n");
     sb.append("    role: ").append(toIndentedString(role)).append("\n");
     sb.append("}");
     return sb.toString();

@@ -5,7 +5,6 @@ import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
 import org.openapitools.jackson.nullable.JsonNullable;
 import java.time.OffsetDateTime;
 import jakarta.validation.Valid;
@@ -21,49 +20,12 @@ import jakarta.annotation.Generated;
  */
 
 @JsonTypeName("User")
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-11-05T11:07:26.572702200+01:00[Europe/Budapest]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-11-12T22:48:22.982257200+01:00[Europe/Budapest]")
 public class UserDTO {
 
   private String name;
 
-  /**
-   * Gets or Sets role
-   */
-  public enum RoleEnum {
-    WAITER("waiter"),
-    
-    MANAGER("manager"),
-    
-    CUSTOMER("customer");
-
-    private String value;
-
-    RoleEnum(String value) {
-      this.value = value;
-    }
-
-    @JsonValue
-    public String getValue() {
-      return value;
-    }
-
-    @Override
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    @JsonCreator
-    public static RoleEnum fromValue(String value) {
-      for (RoleEnum b : RoleEnum.values()) {
-        if (b.value.equals(value)) {
-          return b;
-        }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
-    }
-  }
-
-  private RoleEnum role;
+  private String password;
 
   public UserDTO() {
     super();
@@ -72,8 +34,9 @@ public class UserDTO {
   /**
    * Constructor with only required parameters
    */
-  public UserDTO(String name) {
+  public UserDTO(String name, String password) {
     this.name = name;
+    this.password = password;
   }
 
   public UserDTO name(String name) {
@@ -96,24 +59,24 @@ public class UserDTO {
     this.name = name;
   }
 
-  public UserDTO role(RoleEnum role) {
-    this.role = role;
+  public UserDTO password(String password) {
+    this.password = password;
     return this;
   }
 
   /**
-   * Get role
-   * @return role
+   * Get password
+   * @return password
   */
-  
-  @Schema(name = "role", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
-  @JsonProperty("role")
-  public RoleEnum getRole() {
-    return role;
+  @NotNull 
+  @Schema(name = "password", example = "password", requiredMode = Schema.RequiredMode.REQUIRED)
+  @JsonProperty("password")
+  public String getPassword() {
+    return password;
   }
 
-  public void setRole(RoleEnum role) {
-    this.role = role;
+  public void setPassword(String password) {
+    this.password = password;
   }
 
   @Override
@@ -126,12 +89,12 @@ public class UserDTO {
     }
     UserDTO user = (UserDTO) o;
     return Objects.equals(this.name, user.name) &&
-        Objects.equals(this.role, user.role);
+        Objects.equals(this.password, user.password);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(name, role);
+    return Objects.hash(name, password);
   }
 
   @Override
@@ -139,7 +102,7 @@ public class UserDTO {
     StringBuilder sb = new StringBuilder();
     sb.append("class UserDTO {\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
-    sb.append("    role: ").append(toIndentedString(role)).append("\n");
+    sb.append("    password: ").append(toIndentedString(password)).append("\n");
     sb.append("}");
     return sb.toString();
   }

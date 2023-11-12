@@ -57,7 +57,7 @@ openApiGenerate {
   ]
 }
 
-tasks.register('openapiCopy', Copy) {
+tasks.register('openApiCopy', Copy) {
     from layout.buildDirectory.dir("$rootDir/build/generated/openapi/src/main/java/bme/restaurant")
     into layout.buildDirectory.dir("$rootDir/src/main/java/bme/restaurant")
 }

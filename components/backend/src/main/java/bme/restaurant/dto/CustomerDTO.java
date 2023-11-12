@@ -20,12 +20,14 @@ import jakarta.annotation.Generated;
  */
 
 @JsonTypeName("Customer")
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-11-05T11:07:26.572702200+01:00[Europe/Budapest]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-11-12T22:48:22.982257200+01:00[Europe/Budapest]")
 public class CustomerDTO {
 
   private String userId;
 
   private String name;
+
+  private String email;
 
   public CustomerDTO() {
     super();
@@ -34,8 +36,7 @@ public class CustomerDTO {
   /**
    * Constructor with only required parameters
    */
-  public CustomerDTO(String userId, String name) {
-    this.userId = userId;
+  public CustomerDTO(String name) {
     this.name = name;
   }
 
@@ -48,8 +49,8 @@ public class CustomerDTO {
    * Get userId
    * @return userId
   */
-  @NotNull 
-  @Schema(name = "userId", example = "ObjectId('6544cd596955fe0a1c04fba9')", requiredMode = Schema.RequiredMode.REQUIRED)
+  
+  @Schema(name = "userId", example = "ObjectId('6544cd596955fe0a1c04fba9')", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("userId")
   public String getUserId() {
     return userId;
@@ -79,6 +80,26 @@ public class CustomerDTO {
     this.name = name;
   }
 
+  public CustomerDTO email(String email) {
+    this.email = email;
+    return this;
+  }
+
+  /**
+   * Get email
+   * @return email
+  */
+  
+  @Schema(name = "email", example = "gipsz@jakab.com", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("email")
+  public String getEmail() {
+    return email;
+  }
+
+  public void setEmail(String email) {
+    this.email = email;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -89,12 +110,13 @@ public class CustomerDTO {
     }
     CustomerDTO customer = (CustomerDTO) o;
     return Objects.equals(this.userId, customer.userId) &&
-        Objects.equals(this.name, customer.name);
+        Objects.equals(this.name, customer.name) &&
+        Objects.equals(this.email, customer.email);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(userId, name);
+    return Objects.hash(userId, name, email);
   }
 
   @Override
@@ -103,6 +125,7 @@ public class CustomerDTO {
     sb.append("class CustomerDTO {\n");
     sb.append("    userId: ").append(toIndentedString(userId)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    email: ").append(toIndentedString(email)).append("\n");
     sb.append("}");
     return sb.toString();
   }

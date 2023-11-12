@@ -2,8 +2,6 @@ package bme.restaurant.dto;
 
 import java.net.URI;
 import java.util.Objects;
-import bme.restaurant.dto.CustomerDTO;
-import bme.restaurant.dto.TableDTO;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
@@ -20,16 +18,16 @@ import java.util.*;
 import jakarta.annotation.Generated;
 
 /**
- * BookingDTO
+ * NewBookingDTO
  */
 
-@JsonTypeName("Booking")
+@JsonTypeName("NewBooking")
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-11-12T22:48:22.982257200+01:00[Europe/Budapest]")
-public class BookingDTO {
+public class NewBookingDTO {
 
-  private TableDTO table;
+  private Integer tableNumber;
 
-  private CustomerDTO customer;
+  private String customerId;
 
   @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
   private OffsetDateTime startingDate;
@@ -37,61 +35,61 @@ public class BookingDTO {
   @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
   private OffsetDateTime endingDate;
 
-  public BookingDTO() {
+  public NewBookingDTO() {
     super();
   }
 
   /**
    * Constructor with only required parameters
    */
-  public BookingDTO(TableDTO table, CustomerDTO customer, OffsetDateTime startingDate, OffsetDateTime endingDate) {
-    this.table = table;
-    this.customer = customer;
+  public NewBookingDTO(Integer tableNumber, String customerId, OffsetDateTime startingDate, OffsetDateTime endingDate) {
+    this.tableNumber = tableNumber;
+    this.customerId = customerId;
     this.startingDate = startingDate;
     this.endingDate = endingDate;
   }
 
-  public BookingDTO table(TableDTO table) {
-    this.table = table;
+  public NewBookingDTO tableNumber(Integer tableNumber) {
+    this.tableNumber = tableNumber;
     return this;
   }
 
   /**
-   * Get table
-   * @return table
+   * Get tableNumber
+   * @return tableNumber
   */
-  @NotNull @Valid 
-  @Schema(name = "table", requiredMode = Schema.RequiredMode.REQUIRED)
-  @JsonProperty("table")
-  public TableDTO getTable() {
-    return table;
+  @NotNull 
+  @Schema(name = "table-number", example = "3", requiredMode = Schema.RequiredMode.REQUIRED)
+  @JsonProperty("table-number")
+  public Integer getTableNumber() {
+    return tableNumber;
   }
 
-  public void setTable(TableDTO table) {
-    this.table = table;
+  public void setTableNumber(Integer tableNumber) {
+    this.tableNumber = tableNumber;
   }
 
-  public BookingDTO customer(CustomerDTO customer) {
-    this.customer = customer;
+  public NewBookingDTO customerId(String customerId) {
+    this.customerId = customerId;
     return this;
   }
 
   /**
-   * Get customer
-   * @return customer
+   * Get customerId
+   * @return customerId
   */
-  @NotNull @Valid 
-  @Schema(name = "customer", requiredMode = Schema.RequiredMode.REQUIRED)
-  @JsonProperty("customer")
-  public CustomerDTO getCustomer() {
-    return customer;
+  @NotNull 
+  @Schema(name = "customer-id", example = "6544cd596955fe0a1c04fba9", requiredMode = Schema.RequiredMode.REQUIRED)
+  @JsonProperty("customer-id")
+  public String getCustomerId() {
+    return customerId;
   }
 
-  public void setCustomer(CustomerDTO customer) {
-    this.customer = customer;
+  public void setCustomerId(String customerId) {
+    this.customerId = customerId;
   }
 
-  public BookingDTO startingDate(OffsetDateTime startingDate) {
+  public NewBookingDTO startingDate(OffsetDateTime startingDate) {
     this.startingDate = startingDate;
     return this;
   }
@@ -111,7 +109,7 @@ public class BookingDTO {
     this.startingDate = startingDate;
   }
 
-  public BookingDTO endingDate(OffsetDateTime endingDate) {
+  public NewBookingDTO endingDate(OffsetDateTime endingDate) {
     this.endingDate = endingDate;
     return this;
   }
@@ -139,24 +137,24 @@ public class BookingDTO {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    BookingDTO booking = (BookingDTO) o;
-    return Objects.equals(this.table, booking.table) &&
-        Objects.equals(this.customer, booking.customer) &&
-        Objects.equals(this.startingDate, booking.startingDate) &&
-        Objects.equals(this.endingDate, booking.endingDate);
+    NewBookingDTO newBooking = (NewBookingDTO) o;
+    return Objects.equals(this.tableNumber, newBooking.tableNumber) &&
+        Objects.equals(this.customerId, newBooking.customerId) &&
+        Objects.equals(this.startingDate, newBooking.startingDate) &&
+        Objects.equals(this.endingDate, newBooking.endingDate);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(table, customer, startingDate, endingDate);
+    return Objects.hash(tableNumber, customerId, startingDate, endingDate);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class BookingDTO {\n");
-    sb.append("    table: ").append(toIndentedString(table)).append("\n");
-    sb.append("    customer: ").append(toIndentedString(customer)).append("\n");
+    sb.append("class NewBookingDTO {\n");
+    sb.append("    tableNumber: ").append(toIndentedString(tableNumber)).append("\n");
+    sb.append("    customerId: ").append(toIndentedString(customerId)).append("\n");
     sb.append("    startingDate: ").append(toIndentedString(startingDate)).append("\n");
     sb.append("    endingDate: ").append(toIndentedString(endingDate)).append("\n");
     sb.append("}");
