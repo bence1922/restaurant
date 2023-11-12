@@ -4,13 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import bme.restaurant.dao.TableOrder;
-import bme.restaurant.dto.Drink;
-import bme.restaurant.dto.DrinkOrderItem;
-import bme.restaurant.dto.Food;
-import bme.restaurant.dto.FoodOrderItem;
-import bme.restaurant.dto.FoodRecipeInner;
-import bme.restaurant.dto.FoodRecipeInner.UnitEnum;
-import bme.restaurant.dto.Order;
+import bme.restaurant.dto.DrinkDTO;
+import bme.restaurant.dto.DrinkOrderItemDTO;
+import bme.restaurant.dto.FoodDTO;
+import bme.restaurant.dto.FoodOrderItemDTO;
+import bme.restaurant.dto.FoodRecipeInnerDTO;
+import bme.restaurant.dto.FoodRecipeInnerDTO.UnitEnum;
+import bme.restaurant.dto.OrderDTO;
 import bme.restaurant.repository.TableOrderRepository;
 import bme.restaurant.repository.TableRepository;
 
@@ -24,33 +24,33 @@ public class TableOrderServiceImpl implements TableOrderService {
     TableOrderRepository tableOrderRepo;
 
     @Override
-    public Order findTableOrder(Integer tableNumber) {
+    public OrderDTO findTableOrder(Integer tableNumber) {
         var table = tableRepo.findByNumber(tableNumber);
         var response = tableOrderRepo.findByTable(table);
         return mapOrder(response);
     }
 
-    private Order mapOrder(TableOrder entity) {
+    private OrderDTO mapOrder(TableOrder entity) {
         var order = entity.getOrder();
-        var orderDto = new Order();
+        var orderDto = new OrderDTO();
 
         for (var item : order.getFoods()) {
             var food = item.getFood();
-            var foodDto = new Food();
+            var foodDto = new FoodDTO();
 
             foodDto.setId(food.getId());
             foodDto.setName(food.getName());
             foodDto.setPrice(food.getPrice());
             for (var line : food.getRecipe()) {
-                var dtoLine = new FoodRecipeInner();
-                dtoLine.setIngerient(line.getIngredient().getName());
-                dtoLine.setUnit(UnitEnum.fromValue(line.getIngredient().getUnit()));
-                dtoLine.setQuantity(line.getQuantity());
+                var lineDto = new FoodRecipeInnerDTO();
+                lineDto.setIngerient(line.getIngredient().getName());
+                lineDto.setUnit(UnitEnum.fromValue(line.getIngredient().getUnit()));
+                lineDto.setQuantity(line.getQuantity());
 
-                foodDto.addRecipeItem(dtoLine);
+                foodDto.addRecipeItem(lineDto);
             }
 
-            var itemDto = new FoodOrderItem();
+            var itemDto = new FoodOrderItemDTO();
             itemDto.setQuantity(item.getQuantity());
             itemDto.setFood(foodDto);
 
@@ -59,13 +59,13 @@ public class TableOrderServiceImpl implements TableOrderService {
 
         for (var item : order.getDrinks()) {
             var drink = item.getDrink();
-            var drinkDto = new Drink();
+            var drinkDto = new DrinkDTO();
 
             drinkDto.setId(drink.getId());
             drinkDto.setName(drink.getName());
             drinkDto.setPrice(drink.getPrice());
 
-            var itemDto = new DrinkOrderItem();
+            var itemDto = new DrinkOrderItemDTO();
             itemDto.setQuantity(item.getQuantity());
             itemDto.setDrink(drinkDto);
 

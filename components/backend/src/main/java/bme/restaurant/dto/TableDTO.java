@@ -1,0 +1,181 @@
+package bme.restaurant.dto;
+
+import java.net.URI;
+import java.util.Objects;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import org.openapitools.jackson.nullable.JsonNullable;
+import java.time.OffsetDateTime;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.*;
+import io.swagger.v3.oas.annotations.media.Schema;
+
+
+import java.util.*;
+import jakarta.annotation.Generated;
+
+/**
+ * TableDTO
+ */
+
+@JsonTypeName("Table")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-11-12T22:48:22.982257200+01:00[Europe/Budapest]")
+public class TableDTO {
+
+  private Integer number;
+
+  private Integer capacity;
+
+  /**
+   * Gets or Sets status
+   */
+  public enum StatusEnum {
+    BOOKED("booked"),
+    
+    FREE("free");
+
+    private String value;
+
+    StatusEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static StatusEnum fromValue(String value) {
+      for (StatusEnum b : StatusEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
+
+  private StatusEnum status;
+
+  public TableDTO() {
+    super();
+  }
+
+  /**
+   * Constructor with only required parameters
+   */
+  public TableDTO(Integer number, Integer capacity) {
+    this.number = number;
+    this.capacity = capacity;
+  }
+
+  public TableDTO number(Integer number) {
+    this.number = number;
+    return this;
+  }
+
+  /**
+   * Get number
+   * @return number
+  */
+  @NotNull 
+  @Schema(name = "number", example = "10", requiredMode = Schema.RequiredMode.REQUIRED)
+  @JsonProperty("number")
+  public Integer getNumber() {
+    return number;
+  }
+
+  public void setNumber(Integer number) {
+    this.number = number;
+  }
+
+  public TableDTO capacity(Integer capacity) {
+    this.capacity = capacity;
+    return this;
+  }
+
+  /**
+   * Get capacity
+   * @return capacity
+  */
+  @NotNull 
+  @Schema(name = "capacity", example = "10", requiredMode = Schema.RequiredMode.REQUIRED)
+  @JsonProperty("capacity")
+  public Integer getCapacity() {
+    return capacity;
+  }
+
+  public void setCapacity(Integer capacity) {
+    this.capacity = capacity;
+  }
+
+  public TableDTO status(StatusEnum status) {
+    this.status = status;
+    return this;
+  }
+
+  /**
+   * Get status
+   * @return status
+  */
+  
+  @Schema(name = "status", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("status")
+  public StatusEnum getStatus() {
+    return status;
+  }
+
+  public void setStatus(StatusEnum status) {
+    this.status = status;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    TableDTO table = (TableDTO) o;
+    return Objects.equals(this.number, table.number) &&
+        Objects.equals(this.capacity, table.capacity) &&
+        Objects.equals(this.status, table.status);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(number, capacity, status);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class TableDTO {\n");
+    sb.append("    number: ").append(toIndentedString(number)).append("\n");
+    sb.append("    capacity: ").append(toIndentedString(capacity)).append("\n");
+    sb.append("    status: ").append(toIndentedString(status)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+}
+
