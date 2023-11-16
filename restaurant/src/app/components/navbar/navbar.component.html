@@ -2,12 +2,17 @@
     <div class="imperial text-4xl text-color">Fancy Logo</div>
     <div class=" flex inika text-color align-items-end text-lg">
         <a class="mx-6" href="/home">Home</a>
-        <a class="mx-6" href="/about-us">About us</a>
+        <a *ngIf="!user || user?.role=='customer'" class="mx-6" href="/about-us">About us</a>
+        <a *ngIf="user?.role=='manager' || user?.role=='waiter'" class="mx-6" href="/tables">Tables</a> <!--|| user?.role=='admin'-->
         <a class="mx-6" href="/menu">Menu</a>
-        <a class="mx-6" href="/reservation">Reservation</a>
-        <a class="mx-6" href="/order">Order</a>
+        <a *ngIf="!user || user?.role=='customer'" class="mx-6" href="/reservation">Reservation</a>
+        <a *ngIf="user?.role=='manager' || user?.role=='waiter'" class="mx-6" href="/reservation">Reservations</a>
+        <a *ngIf="!user || user?.role=='customer'" class="mx-6" href="/order">Order</a>
+        <a *ngIf="user?.role=='manager' || user?.role=='waiter'" class="mx-6" href="/orders">Orders</a> <!--|| user?.role=='admin'-->
+        <a *ngIf="user?.role=='manager'" class="mx-6" href="/employees">Employees</a> <!--|| user?.role=='admin'-->
+        <a *ngIf="user?.role=='manager' || user?.role=='waiter'" class="mx-6" href="/ingredients">Ingredients</a><!--|| user?.role=='admin'-->
     </div>
-    <div class="text-color">
-        Log out
+    <div class="text-color flex align-items-center">
+        {{user ? 'Log out' : 'Log in'}}
     </div>
 </div>
