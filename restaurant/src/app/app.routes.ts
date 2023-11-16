@@ -7,6 +7,7 @@ import { AboutUsComponent } from './components/AboutUs/about-us.component';
 import { ProfileProfileComponent } from './components/ProfileView/ProfileProfile/profile-profile.component';
 import { OrdersProfileComponent } from './components/ProfileView/OrdersProfile/orders-profile.component';
 import { ReservationsProfileComponent } from './components/ProfileView/ReservationsProfile/reservations-profile.component';
+import { OrderComponent } from './components/Order/order.component';
 import { EmployeesComponent } from './components/Employees/employees.component';
 //import { HeroComponent } from './components/Hero/hero.component';
 
@@ -25,16 +26,8 @@ export const appRoutes: Route[] = [
                             {path: 'reservations', component: ReservationsProfileComponent}]},
             {path:'reservation',  title:'Foglalás', component: ReservationComponent},
             {path:'about-us',  title:'Rólunk', component: AboutUsComponent},
-            {path:'employees', title:'Dolgozók', component: EmployeesComponent}
-            //{path: 'hero',  component: HeroComponent}
-        ]
-    },
-    
-];
-
-
-// // In the main application:
-// export const ROUTES: Route[] = [
+            {path: 'order', title:'Rendelés', component: OrderComponent},
+            {path:'employees', title:'Dolgozók', component: EmployeesComponent}]}]
 //     {path: 'admin', loadChildren: () => import('./admin/routes')},
 //     // ...
 //   ];
