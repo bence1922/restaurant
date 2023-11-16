@@ -1,23 +1,47 @@
 <div class="inika">
-    <div class="text-color-secondary text-xl mt-4">Current</div>
-    <div class="mx-4 my-2">
+    <div *ngIf="current!=null">
+        <div class="text-color-secondary text-xl mt-4">Current</div>
+        <div class="mx-4 my-2">
+            <div class="flex justify-content-between m-2">
+                <div class="flex-column">
+                    <div class="flex">
+                        <i class="pi pi-calendar text-color-secondary" ></i>
+                        <div class="text-color ml-2">2023.10.10 - 20:20</div>
+                    </div>
+                    <div class="text-color ml-5">{{price(current)}} Ft</div>
+                </div>
+                <div>
+                    <p-button severity="secondary" size="small" icon="pi pi-info-circle" (onClick)="openInfo = !openInfo"></p-button>
+                </div>
+            </div>
+            <div class="mx-6" *ngIf="openInfo">
+                <div class="my-3 text-color">Status - {{current.status}}</div>
+                <div class="text-color">Items</div>
+                <div *ngFor="let item of current.foods" class="ml-3">
+                    <div class="grid">
+                        <div class="col">{{item.food.name}}</div>
+                        <div class="col">{{item.food.price}} x {{item.quantity}}</div>
+                    </div>
+                </div>
+            </div>
+            <p-divider class="text-color-secondary mt-4"></p-divider>
+        </div>
+        <p-divider class="text-color mb-8"></p-divider>
+    </div>
+    <div class="text-color-secondary text-xl mt-4">Previous</div>
+    <div *ngFor="let order of orderList; index as i" class="my-3 mx-4">
         <div class="flex justify-content-between m-2">
             <div class="flex-column">
                 <div class="flex">
                     <i class="pi pi-calendar text-color-secondary" ></i>
                     <div class="text-color ml-2">2023.10.10 - 20:20</div>
                 </div>
-                <div class="text-color ml-5">5000 Ft</div>
+                <div class="text-color ml-5">{{price(order)}} Ft</div>
             </div>
             <div>
-                <p-button severity="secondary" size="small" icon="pi pi-info-circle"></p-button>
+                <p-button icon="pi pi-file-export" [rounded]="true" [text]="true"></p-button>
             </div>
         </div>
         <p-divider class="text-color-secondary"></p-divider>
-    </div>
-    <p-divider class="text-color mb-8"></p-divider>
-    <div class="text-color-secondary text-xl mt-4">Previous</div>
-    <div *ngFor="let order of orderList; index as i" class="my-3 mx-4">
-
     </div>
 </div>

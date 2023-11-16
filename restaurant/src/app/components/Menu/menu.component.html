@@ -7,13 +7,13 @@
                 <div class="flex inika col-10 col-offset-1 mb-3 justify-content-between">
                     <div class="mr-3 flex-grow-1" >
                         <div class="flex align-items-center">
-                            <div class="text-color uppercase text-lg">{{food.label}}</div>
+                            <div class="text-color uppercase text-lg">{{food.name}}</div>
                             <div class="flex-grow-1 px-3 h-full">
                                 <p-divider class="text-color-secondary"></p-divider>
                             </div>
-                            <div class="text-color-secondary text-lg">{{food.cost}} .-</div>
+                            <div class="text-color-secondary text-lg">{{food.price}} .-</div>
                         </div>
-                        <div class="text-color text-sm mx-4">{{food.description}}</div>
+                        <div class="text-color text-sm mx-4">{{foodRecipeToDescription(food.recipe)}}</div>
                     </div>
                     <p-button icon="pi pi-cart-plus" [rounded]="true" [text]="true"></p-button>
                 </div>

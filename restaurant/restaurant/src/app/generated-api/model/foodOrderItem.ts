@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { Food } from './food';
+import { Food } from '../../../../../src/app/data/food';
 
 
 export interface FoodOrderItem { 

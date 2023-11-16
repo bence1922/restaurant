@@ -9,13 +9,11 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { FoodRecipeInner } from './foodRecipeInner';
+import { Food } from './food';
 
 
-export interface Food { 
-    id?: string;
-    name: string;
-    price: number;
-    recipe?: Array<FoodRecipeInner>;
+export interface FoodOrderItem { 
+    food: Food;
+    quantity: number;
 }
 

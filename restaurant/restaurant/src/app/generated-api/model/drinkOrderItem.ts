@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { Drink } from './drink';
+import { Drink } from '../../../../../src/app/data/drink';
 
 
 export interface DrinkOrderItem { 
