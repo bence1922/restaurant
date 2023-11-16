@@ -4,7 +4,9 @@ import { HeroComponent } from '../Hero/hero.component';
 
 import { DividerModule } from 'primeng/divider';
 import { ButtonModule } from 'primeng/button';
-import { Food, FoodRecipeInner } from 'src/app/data/models';
+import { Food } from 'src/app/generated-api/model/food';
+import { FoodRecipeInner } from 'src/app/generated-api/model/foodRecipeInner';
+
 
 @Component({
   selector: 'app-menu',

@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DividerModule } from 'primeng/divider';
 import { ButtonModule } from 'primeng/button';
-import { Order } from 'src/app/data/order';
+import { Order } from 'src/app/generated-api/model/order';
+
 
 @Component({
   selector: 'app-orders-profile',

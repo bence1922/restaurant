@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DividerModule } from 'primeng/divider';
-import { Booking } from 'src/app/data/booking';
+import { Booking } from 'src/app/generated-api/model/booking';
+
 
 @Component({
   selector: 'app-reservations-profile',
