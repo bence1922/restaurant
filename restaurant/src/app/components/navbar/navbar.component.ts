@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { User } from 'src/app/generated-api/model/user';
 
@@ -9,16 +9,10 @@ import { User } from 'src/app/generated-api/model/user';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss'],
 })
-export class NavbarComponent {
+export class NavbarComponent{
   user: User | undefined;
 
-  constructor() {
-    if(!this.user || this.user?.role=="customer"){
-      console.log("customer");
-    }
-    if(this.user?.role=="manager" || this.user?.role=="waiter"){
-      console.log("employee");
-    }
+  updateUserJogkor(user: User){ //Kívülről meg kell hívni, amikor bejelentkezik a user
+    this.user = user;
   }
-
 }
