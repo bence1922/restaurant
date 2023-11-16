@@ -1,6 +1,6 @@
 {
   "extends": "./tsconfig.json",
-  "include": ["src/**/*.ts"],
+  "include": ["src/**/*.ts", "restaurant/src/app/generated-api/model/booking.ts", "restaurant/src/app/generated-api/model/customer.ts", "restaurant/src/app/generated-api/model/drink.ts", "restaurant/src/app/generated-api/model/drinkOrderItem.ts", "restaurant/src/app/generated-api/model/drinkStockItem.ts", "restaurant/src/app/generated-api/model/employee.ts", "restaurant/src/app/generated-api/model/food.ts", "restaurant/src/app/generated-api/model/foodOrderItem.ts", "restaurant/src/app/generated-api/model/foodRecipeInner.ts", "restaurant/src/app/generated-api/model/foodStockItem.ts", "restaurant/src/app/generated-api/model/models.ts", "restaurant/src/app/generated-api/model/order.ts", "restaurant/src/app/generated-api/model/table.ts", "restaurant/src/app/generated-api/model/user.ts"],
   "compilerOptions": {
     "types": ["jest", "node"]
   }

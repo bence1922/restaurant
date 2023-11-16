@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HeroComponent } from '../Hero/hero.component';
-import { Food } from 'src/app/data/Food';
+
 import { DividerModule } from 'primeng/divider';
 import { ButtonModule } from 'primeng/button';
+import { Food } from 'src/app/generated-api/model/food';
+import { FoodRecipeInner } from 'src/app/generated-api/model/foodRecipeInner';
+
 
 @Component({
   selector: 'app-menu',
@@ -21,10 +24,19 @@ export class MenuComponent implements OnInit {
     this.foodList= new Array<Food>
     for(let i = 0; i < 3; i++){
       this.foodList.push({
-        label: `Dish `+i,
-        description: "Small kitty warm kitty little balls of fur love blinks and purr purr purr purr yawn brown cats with pink ears.",
-        cost: 3000
+        name: `Dish `+i,
+        price: 3000
       })
     }
   }
-}
+
+  foodRecipeToDescription(recipe?: Array<FoodRecipeInner>){
+    var description= ""
+    if(recipe == null) return ""
+    else
+      recipe.forEach(function (item){
+        description.concat(item.ingerient!)
+      })
+      return description
+    }
+  }
