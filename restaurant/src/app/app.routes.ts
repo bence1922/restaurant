@@ -26,8 +26,8 @@ export const appRoutes: Route[] = [
                             {path: 'reservations', component: ReservationsProfileComponent}]},
             {path:'reservation',  title:'Foglalás', component: ReservationComponent},
             {path:'about-us',  title:'Rólunk', component: AboutUsComponent},
-            {path: 'order', title:'Rendelés', component: OrderComponent}
-            {path:'employees', title:'Dolgozók', component: EmployeesComponent}
+            {path: 'order', title:'Rendelés', component: OrderComponent},
+            {path:'employees', title:'Dolgozók', component: EmployeesComponent}]}]
 //     {path: 'admin', loadChildren: () => import('./admin/routes')},
 //     // ...
 //   ];
