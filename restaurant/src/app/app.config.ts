@@ -1,4 +1,5 @@
 import { ApplicationConfig } from '@angular/core';
+import { HttpClientModule, provideHttpClient } from '@angular/common/http';
 import {
   provideRouter,
   withEnabledBlockingInitialNavigation,
@@ -6,5 +7,7 @@ import {
 import { appRoutes } from './app.routes';
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideRouter(appRoutes)],
+  providers: [provideRouter(appRoutes),
+    provideHttpClient()
+  ],
 };
