@@ -1,0 +1,78 @@
+<app-hero label="Order"></app-hero>
+<div class="grid h-screen inika text-color" >
+    <div class="col-8 col-offset-2 surface-50 p-6">
+        <form>
+            <div>
+                <div class="grid">
+                    <div class="col-5 col-offset-1">
+                        <div class="field col-8">
+                            <label for="name" class="">Name *</label>
+                            <input id="name" formControlName="name" type="text" autocomplete="off" class="form-control text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                        </div>
+                        <div class="field col-8">
+                            <label for="email" class="">Email *</label>
+                            <input id="email" formControlName="email" type="text" autocomplete="off" class="form-control text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                        </div>
+                    </div>
+                    <div class="col-5 col-offset-1">
+                        <div class="field col-8">
+                            <label for="address" class="">Address *</label>
+                            <input id="address" formControlName="address" type="text" autocomplete="off" class="form-control text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                        </div>
+                        <div class="field col-8">
+                            <label for="phone" class="">Phone *</label>
+                            <input id="phone" formControlName="phone" type="text" autocomplete="off" class="form-control text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                        </div>
+                    </div>
+                </div>
+                <div class="field col-10 col-offset-1">
+                    <label for="note" class="">Note</label>
+                    <input id="note" formControlName="note" type="text" autocomplete="off" class="form-control text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                </div>
+            </div>
+            <p-divider class="text-color mb-8"></p-divider>
+            <div *ngFor="let food of order.foods; index as i" class="flex justify-content-between my-3">
+                <div class="flex inika col-8 col-offset-1 justify-content-between">
+                    <div class="mr-3 flex-grow-1">
+                        <div class="flex align-items-center">
+                            <div class="text-color uppercase text-lg">{{food.food.name}}</div>
+                            <div class="flex-grow-1 px-3 h-full">
+                                <p-divider class="text-color-secondary"></p-divider>
+                            </div>
+                            <div class="text-color-secondary text-lg">{{food.food.price}} .-</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex mr-6 align-items-center">
+                    <p-button icon="pi pi-minus-circle" [rounded]="true" [text]="true" (onClick)="decrease(true, i)"></p-button>
+                    <div>{{food.quantity}}</div>
+                    <p-button icon="pi pi-plus-circle" [rounded]="true" [text]="true" (onClick)="increase(true, i)"></p-button>
+                </div>
+            </div>
+            <div *ngFor="let drink of order.drinks; index as i" class="flex justify-content-between my-3">
+                <div class="flex inika col-8 col-offset-1 justify-content-between">
+                    <div class="mr-3 flex-grow-1">
+                        <div class="flex align-items-center">
+                            <div class="text-color uppercase text-lg">{{drink.drink.name}}</div>
+                            <div class="flex-grow-1 px-3 h-full">
+                                <p-divider class="text-color-secondary"></p-divider>
+                            </div>
+                            <div class="text-color-secondary text-lg">{{drink.drink.price}} .-</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex mr-6 align-items-center">
+                    <p-button icon="pi pi-minus-circle" [rounded]="true" [text]="true" (onClick)="decrease(false, i)"></p-button>
+                    <div>{{drink.quantity}}</div>
+                    <p-button icon="pi pi-plus-circle" [rounded]="true" [text]="true" (onClick)="increase(false, i)"></p-button>
+                </div>
+            </div>
+            <p-divider class="text-color mb-8"></p-divider>
+            <div class="flex justify-content-end mr-5 mt-3 text-lg">Total: {{total()}} Ft</div>
+            <div>You get 90 points for this order</div>
+            <div class=" flex justify-content-center">
+                <p-button severity="secondary" >Order</p-button>
+            </div>
+        </form>
+    </div>
+</div>

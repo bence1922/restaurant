@@ -7,6 +7,7 @@ import { AboutUsComponent } from './components/AboutUs/about-us.component';
 import { ProfileProfileComponent } from './components/ProfileView/ProfileProfile/profile-profile.component';
 import { OrdersProfileComponent } from './components/ProfileView/OrdersProfile/orders-profile.component';
 import { ReservationsProfileComponent } from './components/ProfileView/ReservationsProfile/reservations-profile.component';
+import { OrderComponent } from './components/Order/order.component';
 //import { HeroComponent } from './components/Hero/hero.component';
 
 export const appRoutes: Route[] = [
@@ -24,6 +25,7 @@ export const appRoutes: Route[] = [
                             {path: 'reservations', component: ReservationsProfileComponent}]},
             {path:'reservation',  title:'Foglalás', component: ReservationComponent},
             {path:'about-us',  title:'Rólunk', component: AboutUsComponent},
+            {path: 'order', title:'Rendelés', component: OrderComponent}
             //{path: 'hero',  component: HeroComponent}
         ]
     },
