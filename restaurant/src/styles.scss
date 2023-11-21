@@ -2515,7 +2515,7 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon{
     border:2px solid #ecd1bd;
     border-width:0 0 2px 0;
     font-weight:600;
-    color:#ecd1bd;
+    color: var(--text-color-secondary);
     background:#111;
     transition:box-shadow .3s
 }
