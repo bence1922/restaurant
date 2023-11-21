@@ -1,16 +1,21 @@
-<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-  <mat-form-field>
-    <input matInput placeholder="Username" formControlName="username">
-  </mat-form-field>
-  <mat-form-field>
-    <input matInput type="password" placeholder="Password" formControlName="password">
-  </mat-form-field>
-
-  <div class="button-container">
-    <button mat-button type="submit">Bejelentkezés</button>
-    <button mat-button>Registration</button>
-  </div>
-</form>
-<button mat-icon-button class="close-button" (click)="closeDialog()">
-  <mat-icon>close</mat-icon>
-</button>
+<div class="login-container grid nested-grid mt-8 align-items-center justify-content-center surface-50">
+        <div class="col-12 justify-content-center text-center text-xl">
+            <h1 class="imperial text-color">Log In</h1>
+        </div>
+            <div class="formgrid">
+                <form #loginForm="ngForm" (ngSubmit)="submitLoginForm(loginForm)">
+                <div class="field ">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" [(ngModel)]="username" required class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                </div>
+                <div class="field">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" [(ngModel)]="password" required class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                </div>
+                <div class="field col m-4 justify-content-evenly flex">
+                    <button type="submit">Bejelentkezés</button>
+                    <button type="button" (click)="goToRegistration()">Registration</button>
+                </div>
+                </form>
+            </div>
+</div>

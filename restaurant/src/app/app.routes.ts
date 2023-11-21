@@ -11,6 +11,8 @@ import { OrderComponent } from './components/Order/order.component';
 import { EmployeesComponent } from './components/Employees/employees.component';
 import { RoleGuard } from './guards/auth.guard';
 import { IngredientsComponent } from './components/Ingredients/ingredients.component';
+import { LoginComponent } from './components/login/login.component';
+import { RegistrationComponent } from './components/registration/registration.component';
 //import { HeroComponent } from './components/Hero/hero.component';
 
 export const appRoutes: Route[] = [
@@ -30,7 +32,9 @@ export const appRoutes: Route[] = [
             {path:'about-us',  title:'Rólunk', component: AboutUsComponent, canActivate: [RoleGuard], data: {roles: ['everyone']}},
             {path: 'order', title:'Rendelés', component: OrderComponent, canActivate: [RoleGuard], data: {roles: ['everyone']}},
             {path:'employees', title:'Dolgozók', component: EmployeesComponent, canActivate: [RoleGuard], data: {roles: ['admin']}},
-            {path: 'ingredients', title:'Alapanyagok', component: IngredientsComponent}
+            {path: 'ingredients', title:'Alapanyagok', component: IngredientsComponent, canActivate: [RoleGuard], data: {roles: ['admin']}},
+            {path: 'login', title:'Log In', component: LoginComponent, canActivate: [RoleGuard], data: {roles: ['everyone']}},
+            {path: 'registration', title:'Registration', component: RegistrationComponent, canActivate: [RoleGuard], data: {roles: ['everyone']}},
 ]}]
 //     {path: 'admin', loadChildren: () => import('./admin/routes')},
 //     // ...
