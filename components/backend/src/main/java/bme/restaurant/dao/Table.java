@@ -3,6 +3,9 @@ package bme.restaurant.dao;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import bme.restaurant.dto.TableDTO;
+import bme.restaurant.dto.TableDTO.StatusEnum;
+
 @Document(collection = "tables")
 public class Table {
     @Id
@@ -12,12 +15,12 @@ public class Table {
 
     private int capacity;
 
-    private int status;
+    private String status;
 
     public Table(
             int number,
             int capacity,
-            int status) {
+            String status) {
         super();  
         this.number = number;
         this.capacity = capacity;
@@ -51,11 +54,28 @@ public class Table {
         this.capacity = capacity;
     }
 
-    public int getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(String status) {
         this.status = status;
+    }
+
+    public TableDTO toDTO(){
+        var dto = new TableDTO(
+            number,
+            capacity
+        );
+        dto.setStatus(StatusEnum.fromValue(status));
+        return dto;
+    }
+
+    public static Table fromDTO(TableDTO dto){
+        return new Table(
+            dto.getNumber(),
+            dto.getCapacity(),
+            dto.getStatus().getValue()
+        );
     }
 }

@@ -6,5 +6,5 @@ import bme.restaurant.dto.OrderDTO;
 
 @Component
 public interface TableOrderService {
-    public OrderDTO findTableOrder(Integer tableNumber);
+    OrderDTO findTableOrder(Integer tableNumber);
 }

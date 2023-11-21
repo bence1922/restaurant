@@ -5,7 +5,6 @@ import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
-import java.math.BigDecimal;
 import org.openapitools.jackson.nullable.JsonNullable;
 import java.time.OffsetDateTime;
 import jakarta.validation.Valid;
@@ -21,12 +20,12 @@ import jakarta.annotation.Generated;
  */
 
 @JsonTypeName("MenuItem")
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-11-12T22:48:22.982257200+01:00[Europe/Budapest]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-11-21T18:28:48.793104700+01:00[Europe/Budapest]")
 public class MenuItemDTO {
 
   private String name;
 
-  private BigDecimal price;
+  private Integer price;
 
   public MenuItemDTO name(String name) {
     this.name = name;
@@ -48,7 +47,7 @@ public class MenuItemDTO {
     this.name = name;
   }
 
-  public MenuItemDTO price(BigDecimal price) {
+  public MenuItemDTO price(Integer price) {
     this.price = price;
     return this;
   }
@@ -57,14 +56,14 @@ public class MenuItemDTO {
    * Get price
    * @return price
   */
-  @Valid 
+  
   @Schema(name = "price", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("price")
-  public BigDecimal getPrice() {
+  public Integer getPrice() {
     return price;
   }
 
-  public void setPrice(BigDecimal price) {
+  public void setPrice(Integer price) {
     this.price = price;
   }
 

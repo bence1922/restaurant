@@ -5,7 +5,6 @@
  */
 package bme.restaurant.api;
 
-import java.math.BigDecimal;
 import bme.restaurant.dto.DrinkDTO;
 import bme.restaurant.dto.FoodDTO;
 import bme.restaurant.dto.MenuItemDTO;
@@ -35,7 +34,7 @@ import java.util.Map;
 import java.util.Optional;
 import jakarta.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-11-12T22:48:22.982257200+01:00[Europe/Budapest]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-11-21T18:28:48.793104700+01:00[Europe/Budapest]")
 @Validated
 @Tag(name = "menu", description = "the menu API")
 public interface MenuApi {
@@ -187,7 +186,7 @@ public interface MenuApi {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                    String exampleString = "{ \"price\" : 0.8008281904610115, \"name\" : \"name\" }";
+                    String exampleString = "{ \"price\" : 0, \"name\" : \"name\" }";
                     ApiUtil.setExampleResponse(request, "application/json", exampleString);
                     break;
                 }
@@ -339,7 +338,7 @@ public interface MenuApi {
     default ResponseEntity<Void> updateDrink(
         @Parameter(name = "drinkId", description = "ID of the menu item to retrieve/update/delete", required = true, in = ParameterIn.PATH) @PathVariable("drinkId") Long drinkId,
         @Parameter(name = "name", description = "New name for the menu item", in = ParameterIn.QUERY) @Valid @RequestParam(value = "name", required = false) String name,
-        @Parameter(name = "price", description = "New price for the menu item", in = ParameterIn.QUERY) @Valid @RequestParam(value = "price", required = false) BigDecimal price
+        @Parameter(name = "price", description = "New price for the menu item", in = ParameterIn.QUERY) @Valid @RequestParam(value = "price", required = false) Integer price
     ) {
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 

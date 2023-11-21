@@ -26,6 +26,8 @@ dependencies {
 	implementation 'javax.validation:validation-api:2.0.1.Final'
 	implementation 'javax.xml.bind:jaxb-api:2.3.1'
 
+	implementation 'org.mindrot:jbcrypt:0.4'
+
 	compileOnly 'javax.servlet:servlet-api:2.5'
 }
 
@@ -60,4 +62,17 @@ openApiGenerate {
 tasks.register('openApiCopy', Copy) {
     from layout.buildDirectory.dir("$rootDir/build/generated/openapi/src/main/java/bme/restaurant")
     into layout.buildDirectory.dir("$rootDir/src/main/java/bme/restaurant")
+}
+
+tasks.register('openApiClean', Delete) {
+	delete fileTree("$rootDir/build/generated/openapi")
+    delete fileTree("$rootDir/src/main/java/bme/restaurant/api")
+    delete fileTree("$rootDir/src/main/java/bme/restaurant/dto")
+}
+
+tasks.register('openApiRegenerate') {
+    dependsOn 'openApiClean', 'openApiGenerate', 'openApiCopy'
+
+	tasks.findByName('openApiGenerate').mustRunAfter 'openApiClean'
+    tasks.findByName('openApiCopy').mustRunAfter 'openApiGenerate'
 }
