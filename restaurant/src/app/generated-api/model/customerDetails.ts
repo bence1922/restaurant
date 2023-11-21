@@ -9,19 +9,18 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import { Order } from './order';
 
 
-export interface Employee { 
-    name?: string;
+export interface CustomerDetails { 
     userId?: string;
-    role: Employee.RoleEnum;
+    name: string;
+    email?: string;
+    mobil?: string;
+    address?: string;
+    company?: string;
+    tax?: string;
+    points?: number;
+    orders?: Array<Order>;
 }
-export namespace Employee {
-    export type RoleEnum = 'waiter' | 'manager';
-    export const RoleEnum = {
-        Waiter: 'waiter' as RoleEnum,
-        Manager: 'manager' as RoleEnum
-    };
-}
-
 

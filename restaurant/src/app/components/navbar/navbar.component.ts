@@ -4,6 +4,11 @@ import { User } from 'src/app/generated-api/model/user';
 import { LoginComponent } from '../login/login.component';
 import { Router } from '@angular/router';
 
+interface LocalUser {
+  name: string;
+  password: string;
+  roles: string[];
+}
 @Component({
   selector: 'app-navbar',
   standalone: true,
@@ -12,14 +17,14 @@ import { Router } from '@angular/router';
   styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent{
-  user: User | undefined;
+  user: LocalUser | undefined;
   showLoginPopup: boolean = false;
 
   constructor(
     private router: Router,
   ) {}
 
-  updateUserJogkor(user: User){ //Kívülről meg kell hívni, amikor bejelentkezik a user
+  updateUserJogkor(user: LocalUser){ //Kívülről meg kell hívni, amikor bejelentkezik a user
     this.user = user;
   }
 

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from '../generated-api/api/auth.service';
 
@@ -8,7 +8,9 @@ import { AuthService } from '../generated-api/api/auth.service';
 })
 export class RoleGuard implements CanActivate {
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService,
+    private router: Router,
+    ) {}
 
   canActivate(
     next: ActivatedRouteSnapshot,
@@ -19,7 +21,7 @@ export class RoleGuard implements CanActivate {
     if (this.authService.hasAnyRole(allowedRoles)) {
       return true;
     } else {
-      // Redirect or handle unauthorized access
+      this.router.navigate(['/login']);
       return false;
     }
   }

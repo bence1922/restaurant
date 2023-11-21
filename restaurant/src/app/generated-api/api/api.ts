@@ -1,9 +1,17 @@
+export * from './booking.service';
+import { BookingService } from './booking.service';
+export * from './customer.service';
+import { CustomerService } from './customer.service';
+export * from './customerOrder.service';
+import { CustomerOrderService } from './customerOrder.service';
 export * from './employee.service';
 import { EmployeeService } from './employee.service';
+export * from './menu.service';
+import { MenuService } from './menu.service';
 export * from './table.service';
 import { TableService } from './table.service';
 export * from './tableOrder.service';
 import { TableOrderService } from './tableOrder.service';
 export * from './user.service';
 import { UserService } from './user.service';
-export const APIS = [EmployeeService, TableService, TableOrderService, UserService];
+export const APIS = [BookingService, CustomerService, CustomerOrderService, EmployeeService, MenuService, TableService, TableOrderService, UserService];

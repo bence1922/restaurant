@@ -11,17 +11,8 @@
  */
 
 
-export interface Employee { 
+export interface MenuItem { 
     name?: string;
-    userId?: string;
-    role: Employee.RoleEnum;
+    price?: number;
 }
-export namespace Employee {
-    export type RoleEnum = 'waiter' | 'manager';
-    export const RoleEnum = {
-        Waiter: 'waiter' as RoleEnum,
-        Manager: 'manager' as RoleEnum
-    };
-}
-
 
