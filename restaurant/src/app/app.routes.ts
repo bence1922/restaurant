@@ -11,6 +11,9 @@ import { OrderComponent } from './components/Order/order.component';
 import { EmployeesComponent } from './components/Employees/employees.component';
 import { IngredientsComponent } from './components/Ingredients/ingredients.component';
 import { TablesComponent } from './components/Tables/tables.component';
+import { OrderAdminComponent } from './components/OrderAdminView/OrderAdmin/order-admin.component';
+import { OrderAdminInPlaceComponent } from './components/OrderAdminView/OrderAdmin_InPlace/order-admin-in-place.component';
+import { OrderAdminDeliveryComponent } from './components/OrderAdminView/OrderAdmin_Delivery/order-admin-delivery.component';
 //import { HeroComponent } from './components/Hero/hero.component';
 
 export const appRoutes: Route[] = [
@@ -31,7 +34,12 @@ export const appRoutes: Route[] = [
             {path: 'order', title:'Rendelés', component: OrderComponent},
             {path:'employees', title:'Dolgozók', component: EmployeesComponent},
             {path: 'ingredients', title:'Alapanyagok', component: IngredientsComponent},
-            {path: 'tables', title:"Asztalok", component: TablesComponent}
+            {path: 'tables', title:"Asztalok", component: TablesComponent},
+            {path: 'orderadmin', title: "Rednelések", component: OrderAdminComponent,
+                    children:[
+                        {path: 'inplace', component: OrderAdminInPlaceComponent },
+                        {path: 'delivery', component: OrderAdminDeliveryComponent }
+                    ]},
 ]}]
 //     {path: 'admin', loadChildren: () => import('./admin/routes')},
 //     // ...

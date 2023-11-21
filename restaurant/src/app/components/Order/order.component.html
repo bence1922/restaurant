@@ -71,8 +71,11 @@
             <div class="flex justify-content-end mr-5 mt-3 text-lg">Total: {{total()}} Ft</div>
             <div>You get 90 points for this order</div>
             <div class=" flex justify-content-center">
-                <p-button severity="secondary" >Order</p-button>
+                <p-button severity="secondary" (onClick)="placeOrder()">Order</p-button>
             </div>
         </form>
+
+        <div class="flex justify-content-center my-6" *ngIf="orderplaced">Order placed successfully</div>
+        <a class="flex justify-content-end mt-6 mr-6" href="/profile/orders">Go to my orders -></a>
     </div>
 </div>
