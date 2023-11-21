@@ -10,6 +10,7 @@ import { ReservationsProfileComponent } from './components/ProfileView/Reservati
 import { OrderComponent } from './components/Order/order.component';
 import { EmployeesComponent } from './components/Employees/employees.component';
 import { IngredientsComponent } from './components/Ingredients/ingredients.component';
+import { TablesComponent } from './components/Tables/tables.component';
 //import { HeroComponent } from './components/Hero/hero.component';
 
 export const appRoutes: Route[] = [
@@ -29,7 +30,8 @@ export const appRoutes: Route[] = [
             {path:'about-us',  title:'Rólunk', component: AboutUsComponent},
             {path: 'order', title:'Rendelés', component: OrderComponent},
             {path:'employees', title:'Dolgozók', component: EmployeesComponent},
-            {path: 'ingredients', title:'Alapanyagok', component: IngredientsComponent}
+            {path: 'ingredients', title:'Alapanyagok', component: IngredientsComponent},
+            {path: 'tables', title:"Asztalok", component: TablesComponent}
 ]}]
 //     {path: 'admin', loadChildren: () => import('./admin/routes')},
 //     // ...

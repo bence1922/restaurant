@@ -1,0 +1,72 @@
+<app-hero label="Tables"></app-hero>
+<div class="grid inika">
+    <div class="col-8 col-offset-2 surface-50 p-6">
+        <div>
+            <p-table
+                [value]="tables"
+                [paginator]="true"
+                [rows]="10"
+                [resizableColumns]="true"
+                dataKey="number" editMode="row">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th pSortableColumn="number" pResizableColumn>Number <p-sortIcon field="number"></p-sortIcon></th>
+                        <th pSortableColumn="capacity">Capacity <p-sortIcon field="capacity"></p-sortIcon></th>
+                        <th class="w-6rem">Action</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-item let-editing="editing" let-ri="rowIndex">
+                    <tr [pEditableRow]="item">
+                        <td>
+                            <p-cellEditor>
+                                <ng-template pTemplate="input">
+                                    <input pInputText type="number">
+                                </ng-template>
+                                <ng-template pTemplate="output">
+                                    {{item.number}}
+                                </ng-template>
+                            </p-cellEditor>
+                        </td>
+                        <td>
+                            <p-cellEditor>
+                                <ng-template pTemplate="input">
+                                    <input pInputText type="number">
+                                </ng-template>
+                                <ng-template pTemplate="output">
+                                    {{item.capacity}}
+                                </ng-template>
+                            </p-cellEditor>
+                        </td>
+                        <td>
+                            <p-button *ngIf="!editing" pInitEditableRow icon="pi pi-pencil" [rounded]="true" [text]="true" (click)="onRowEditInit(item)"></p-button>
+                            <p-button *ngIf="!editing" icon="pi pi-trash" [rounded]="true" [text]="true"></p-button>
+                            <p-button *ngIf="editing" pSaveEditableRow icon="pi pi-check" [rounded]="true" [text]="true" (click)="onRowEditSave(item)"></p-button>
+                            <p-button *ngIf="editing" pCancelEditableRow icon="pi pi-times" [rounded]="true" [text]="true" (click)="onRowEditCancel(item, ri)"></p-button>
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="paginatorleft">
+                    <p-button type="button" icon="pi pi-plus" styleClass="p-button-text" (onClick)="newTableFormOpenBtnClick()"></p-button>
+                </ng-template>
+            </p-table>
+        </div>
+        <div *ngIf="newTableFormOpen" class="mt-6 ml-6">
+            <div class="text-lg text-color">New Table</div>
+            <form>
+                <div class="col-5 col-offset-1">
+                    <div class="field">
+                        <label for="number" class="">Number *</label>
+                        <input id="number" formControlName="number" type="number" autocomplete="off" class="form-control text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                    </div>
+                    <div class="field">
+                        <label for="capacity" class="">Capacity *</label>
+                        <input id="capacity" formControlName="capacity" type="number" autocomplete="off" class="form-control text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                    </div>
+                    <div class="flex justify-content-center">
+                        <p-button severity="secondary">Save</p-button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
