@@ -22,7 +22,7 @@ import jakarta.annotation.Generated;
  */
 
 @JsonTypeName("NewBooking")
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-11-12T22:48:22.982257200+01:00[Europe/Budapest]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-11-21T18:28:48.793104700+01:00[Europe/Budapest]")
 public class NewBookingDTO {
 
   private Integer tableNumber;
@@ -35,6 +35,8 @@ public class NewBookingDTO {
   @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
   private OffsetDateTime endingDate;
 
+  private Integer peopleCount;
+
   public NewBookingDTO() {
     super();
   }
@@ -42,11 +44,12 @@ public class NewBookingDTO {
   /**
    * Constructor with only required parameters
    */
-  public NewBookingDTO(Integer tableNumber, String customerId, OffsetDateTime startingDate, OffsetDateTime endingDate) {
+  public NewBookingDTO(Integer tableNumber, String customerId, OffsetDateTime startingDate, OffsetDateTime endingDate, Integer peopleCount) {
     this.tableNumber = tableNumber;
     this.customerId = customerId;
     this.startingDate = startingDate;
     this.endingDate = endingDate;
+    this.peopleCount = peopleCount;
   }
 
   public NewBookingDTO tableNumber(Integer tableNumber) {
@@ -129,6 +132,26 @@ public class NewBookingDTO {
     this.endingDate = endingDate;
   }
 
+  public NewBookingDTO peopleCount(Integer peopleCount) {
+    this.peopleCount = peopleCount;
+    return this;
+  }
+
+  /**
+   * Get peopleCount
+   * @return peopleCount
+  */
+  @NotNull 
+  @Schema(name = "peopleCount", requiredMode = Schema.RequiredMode.REQUIRED)
+  @JsonProperty("peopleCount")
+  public Integer getPeopleCount() {
+    return peopleCount;
+  }
+
+  public void setPeopleCount(Integer peopleCount) {
+    this.peopleCount = peopleCount;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -141,12 +164,13 @@ public class NewBookingDTO {
     return Objects.equals(this.tableNumber, newBooking.tableNumber) &&
         Objects.equals(this.customerId, newBooking.customerId) &&
         Objects.equals(this.startingDate, newBooking.startingDate) &&
-        Objects.equals(this.endingDate, newBooking.endingDate);
+        Objects.equals(this.endingDate, newBooking.endingDate) &&
+        Objects.equals(this.peopleCount, newBooking.peopleCount);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(tableNumber, customerId, startingDate, endingDate);
+    return Objects.hash(tableNumber, customerId, startingDate, endingDate, peopleCount);
   }
 
   @Override
@@ -157,6 +181,7 @@ public class NewBookingDTO {
     sb.append("    customerId: ").append(toIndentedString(customerId)).append("\n");
     sb.append("    startingDate: ").append(toIndentedString(startingDate)).append("\n");
     sb.append("    endingDate: ").append(toIndentedString(endingDate)).append("\n");
+    sb.append("    peopleCount: ").append(toIndentedString(peopleCount)).append("\n");
     sb.append("}");
     return sb.toString();
   }
