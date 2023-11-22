@@ -16,9 +16,9 @@ export class ProfileComponent implements OnInit  {
 
   ngOnInit(){
     this.tabmenuItems = [
-      {label: 'Profile', routerLink: "datas" },
-      {label: 'Reservations', routerLink: "reservations"},
-      {label: 'Orders', routerLink: "orders"},
+      {label: 'Profile', routerLink: "profile/datas" },
+      {label: 'Reservations', routerLink: "profile/reservations"},
+      {label: 'Orders', routerLink: "profile/orders"},
     ]
   }
 }

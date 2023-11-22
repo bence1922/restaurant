@@ -12,6 +12,10 @@ import { EmployeesComponent } from './components/Employees/employees.component';
 import { RoleGuard } from './guards/auth.guard';
 import { IngredientsComponent } from './components/Ingredients/ingredients.component';
 import { TablesComponent } from './components/Tables/tables.component';
+import { OrderAdminComponent } from './components/OrderAdminView/OrderAdmin/order-admin.component';
+import { OrderAdminInPlaceComponent } from './components/OrderAdminView/OrderAdmin_InPlace/order-admin-in-place.component';
+import { OrderAdminDeliveryComponent } from './components/OrderAdminView/OrderAdmin_Delivery/order-admin-delivery.component';
+
 import { LoginComponent } from './components/login/login.component';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { AdminReservationsComponent } from './components/AdminReservations/admin-reservations.component';
@@ -30,6 +34,12 @@ export const appRoutes: Route[] = [
                 children:[{path: 'datas', component: ProfileProfileComponent},
                             {path: 'orders', component: OrdersProfileComponent},
                             {path: 'reservations', component: ReservationsProfileComponent}]},
+            {path: 'tables', title:"Asztalok", component: TablesComponent, canActivate: [RoleGuard], data: {roles: ['admin', 'waiter', 'manager']}},
+            {path: 'orderadmin', title: "Rednelések", component: OrderAdminComponent, canActivate: [RoleGuard], data: {roles: ['admin', 'waiter', 'manager']},
+                    children:[
+                        {path: 'inplace', component: OrderAdminInPlaceComponent },
+                        {path: 'delivery', component: OrderAdminDeliveryComponent }
+                    ]},
             {path:'reservation',  title:'Foglalás', component: ReservationComponent, canActivate: [RoleGuard], data: {roles: ['everyone']}},
             {path:'about-us',  title:'Rólunk', component: AboutUsComponent, canActivate: [RoleGuard], data: {roles: ['everyone']}},
             {path: 'order', title:'Rendelés', component: OrderComponent, canActivate: [RoleGuard], data: {roles: ['everyone']}},

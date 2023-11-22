@@ -4,17 +4,20 @@ import { HeroComponent } from '../Hero/hero.component';
 import { DividerModule } from 'primeng/divider';
 import { ButtonModule } from 'primeng/button';
 import { Order, User } from 'src/app/generated-api';
+import { RatingModule } from 'primeng/rating';
 
 @Component({
   selector: 'app-order',
   standalone: true,
-  imports: [CommonModule, HeroComponent, DividerModule, ButtonModule],
+  imports: [CommonModule, HeroComponent, DividerModule, ButtonModule, RatingModule],
   templateUrl: './order.component.html',
   styleUrls: ['./order.component.scss'],
 })
 export class OrderComponent implements OnInit {
   user!: User; 
   order!: Order; 
+  orderplaced: boolean=false
+ 
 
   ngOnInit(): void {
       this.user = {
@@ -43,6 +46,11 @@ export class OrderComponent implements OnInit {
           },
         ]
       }
+  }
+
+  placeOrder(){
+    //TODO
+    this.orderplaced=true
   }
 
   total(){
