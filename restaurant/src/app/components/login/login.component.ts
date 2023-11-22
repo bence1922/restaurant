@@ -5,6 +5,7 @@ import { CardModule } from 'primeng/card';
 import { Router } from '@angular/router';
 import { UserService } from '../../generated-api/api/user.service';
 import { User } from '../../generated-api/model/user';
+import { AuthService } from 'src/app/generated-api/api/auth.service';
 
 
 @Component({
@@ -23,6 +24,7 @@ export class LoginComponent {
   constructor(
     private router: Router,
     private userService: UserService,
+    private authService: AuthService,
   ) {}
 
   submitLoginForm(form: any) {
@@ -31,8 +33,8 @@ export class LoginComponent {
       // Call your login API with this.username and this.password
       // Example: this.authService.login(this.username, this.password);
       this.userService.loginUser(user).subscribe(
-        (roles: string[]) => {
-          console.log(roles);
+        (user: User) => {
+          this.authService.storeUser(user);
           this.router.navigate(['/']);
         },
         (error) => {

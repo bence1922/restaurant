@@ -3,12 +3,9 @@ import { CommonModule } from '@angular/common';
 import { User } from 'src/app/generated-api/model/user';
 import { LoginComponent } from '../login/login.component';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/generated-api/api/auth.service';
 
-interface LocalUser {
-  name: string;
-  password: string;
-  roles: string[];
-}
+
 @Component({
   selector: 'app-navbar',
   standalone: true,
@@ -17,15 +14,28 @@ interface LocalUser {
   styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent{
-  user: LocalUser | undefined;
   showLoginPopup: boolean = false;
+  isloggedIn: boolean = false;
 
   constructor(
     private router: Router,
+    private authService: AuthService,
   ) {}
 
-  updateUserJogkor(user: LocalUser){ //Kívülről meg kell hívni, amikor bejelentkezik a user
-    this.user = user;
+  ngOnInit(): void {
+    this.isloggedIn = this.authService.isLoggedIn();
+    this.hasOneOfTheRoles(['admin', 'user']);
+  }
+
+  hasOneOfTheRoles(roles: string[]): boolean{
+    if(this.isloggedIn){
+      for(let role of roles){
+        if(this.authService.hasRole(role)){
+          return true;
+        }
+      }
+    }
+    return false;
   }
 
   redirectToLogin(){
