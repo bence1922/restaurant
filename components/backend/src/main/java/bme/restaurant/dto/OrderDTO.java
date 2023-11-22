@@ -8,9 +8,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.openapitools.jackson.nullable.JsonNullable;
 import java.time.OffsetDateTime;
 import jakarta.validation.Valid;
@@ -26,7 +28,7 @@ import jakarta.annotation.Generated;
  */
 
 @JsonTypeName("Order")
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-11-12T22:48:22.982257200+01:00[Europe/Budapest]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-11-21T18:28:48.793104700+01:00[Europe/Budapest]")
 public class OrderDTO {
 
   private String id;
@@ -71,6 +73,11 @@ public class OrderDTO {
   }
 
   private StatusEnum status;
+
+  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+  private OffsetDateTime date;
+
+  private String note;
 
   @Valid
   private List<@Valid FoodOrderItemDTO> foods = new ArrayList<>();
@@ -128,6 +135,46 @@ public class OrderDTO {
 
   public void setStatus(StatusEnum status) {
     this.status = status;
+  }
+
+  public OrderDTO date(OffsetDateTime date) {
+    this.date = date;
+    return this;
+  }
+
+  /**
+   * Get date
+   * @return date
+  */
+  @Valid 
+  @Schema(name = "date", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("date")
+  public OffsetDateTime getDate() {
+    return date;
+  }
+
+  public void setDate(OffsetDateTime date) {
+    this.date = date;
+  }
+
+  public OrderDTO note(String note) {
+    this.note = note;
+    return this;
+  }
+
+  /**
+   * Get note
+   * @return note
+  */
+  
+  @Schema(name = "note", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("note")
+  public String getNote() {
+    return note;
+  }
+
+  public void setNote(String note) {
+    this.note = note;
   }
 
   public OrderDTO foods(List<@Valid FoodOrderItemDTO> foods) {
@@ -197,13 +244,15 @@ public class OrderDTO {
     OrderDTO order = (OrderDTO) o;
     return Objects.equals(this.id, order.id) &&
         Objects.equals(this.status, order.status) &&
+        Objects.equals(this.date, order.date) &&
+        Objects.equals(this.note, order.note) &&
         Objects.equals(this.foods, order.foods) &&
         Objects.equals(this.drinks, order.drinks);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, status, foods, drinks);
+    return Objects.hash(id, status, date, note, foods, drinks);
   }
 
   @Override
@@ -212,6 +261,8 @@ public class OrderDTO {
     sb.append("class OrderDTO {\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
+    sb.append("    date: ").append(toIndentedString(date)).append("\n");
+    sb.append("    note: ").append(toIndentedString(note)).append("\n");
     sb.append("    foods: ").append(toIndentedString(foods)).append("\n");
     sb.append("    drinks: ").append(toIndentedString(drinks)).append("\n");
     sb.append("}");

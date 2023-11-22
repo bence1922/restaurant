@@ -483,8 +483,57 @@ paths:
       responses:
         '200':
           description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Booking'
+
         '405':
           description: Invalid input
+  /booking/{id}:
+    parameters:
+      - name: id
+        in: path
+        schema: { type: string }
+        required: true
+    get:
+      tags:
+        - booking
+      summary: Get booking
+      operationId: getBooking
+      responses:
+          '200':
+            description: successful operation
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/Booking'
+
+          '405':
+            description: Invalid input
+    patch:
+      tags:
+        - booking
+      summary: Update booking status
+      operationId: bookingStatusUpdate
+      parameters:
+        - name: status
+          in: header
+          schema: 
+            type: string
+            enum:
+              - pending
+              - accepted
+          required: true
+      responses:
+          '200':
+            description: successful operation
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/Booking'
+          '405':
+            description: Invalid input
   /booking/table:
     get:
       tags:
@@ -498,13 +547,13 @@ paths:
           schema:
             type: string
             format: date-time
-          required: false
+          required: true
         - name: to
           in: header
           schema:
             type: string
             format: date-time
-          required: false
+          required: true
       responses:
         '200':
           description: successful operation
@@ -777,7 +826,7 @@ paths:
           in: query
           description: New price for the menu item
           schema:
-            type: number
+            type: integer
       responses:
         '200':
           description: Menu item partially updated successfully
@@ -950,17 +999,21 @@ components:
           example: 10
         status:
           type: string
-          enum:
-            - booked
-            - free
+          enum: [booked, free]
     Booking:
       required:
+        - id
         - table
         - customer
         - startingDate
         - endingDate
+        - status
+        - peopleCount
       type: object
       properties:
+        id:
+          type: string
+          example: ObjectId('6544cd596955fe0a1c04fba9')
         table:
           $ref: '#/components/schemas/Table'
         customer:
@@ -971,12 +1024,18 @@ components:
         endingDate:
           type: string
           format: date-time
+        status:
+          type: string
+          enum: [pending, accepted]
+        peopleCount:
+          type: integer
     NewBooking:
       required:
         - table-number
         - customer-id
         - startingDate
         - endingDate
+        - peopleCount
       type: object
       properties:
         table-number:
@@ -991,6 +1050,8 @@ components:
         endingDate:
           type: string
           format: date-time
+        peopleCount:
+          type: integer
     Food:
       required:
         - name
@@ -1071,6 +1132,11 @@ components:
         status:
           type: string
           enum: [placed, cooking, delivering, delivered]
+        date:
+          type: string
+          format: date-time
+        note:
+          type: string
         foods:
           type: array
           items:
@@ -1156,4 +1222,4 @@ components:
         name:
           type: string
         price:
-          type: number
+          type: integer

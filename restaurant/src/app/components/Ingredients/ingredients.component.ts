@@ -1,8 +1,8 @@
 import { Component,OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HeroComponent } from '../Hero/hero.component';
-import { Food, FoodStockItem } from 'src/app/generated-api';
-import { SortableColumn, TableModule } from 'primeng/table';
+import { FoodStockItem } from 'src/app/generated-api';
+import {  TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputNumberModule } from 'primeng/inputnumber';
