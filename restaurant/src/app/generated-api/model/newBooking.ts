@@ -11,9 +11,10 @@
  */
 
 
-export interface Customer { 
-    userId?: string;
-    name: string;
-    email?: string;
+export interface NewBooking { 
+    table_number: number;
+    customer_id: string;
+    startingDate: string;
+    endingDate: string;
 }
 

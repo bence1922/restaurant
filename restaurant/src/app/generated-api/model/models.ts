@@ -1,5 +1,7 @@
 export * from './booking';
 export * from './customer';
+export * from './customerDetails';
+export * from './customerOrder';
 export * from './drink';
 export * from './drinkOrderItem';
 export * from './drinkStockItem';
@@ -8,6 +10,8 @@ export * from './food';
 export * from './foodOrderItem';
 export * from './foodRecipeInner';
 export * from './foodStockItem';
+export * from './menuItem';
+export * from './newBooking';
 export * from './order';
 export * from './table';
 export * from './user';

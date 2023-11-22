@@ -9,11 +9,12 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import { Order } from './order';
+import { Customer } from './customer';
 
 
-export interface Customer { 
-    userId?: string;
-    name: string;
-    email?: string;
+export interface CustomerOrder { 
+    customer?: Customer;
+    order?: Order;
 }
 

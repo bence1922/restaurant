@@ -13,8 +13,8 @@ import { DrinkOrderItem } from './drinkOrderItem';
 import { FoodOrderItem } from './foodOrderItem';
 
 
-
 export interface Order { 
+    id?: string;
     status?: Order.StatusEnum;
     foods: Array<FoodOrderItem>;
     drinks: Array<DrinkOrderItem>;

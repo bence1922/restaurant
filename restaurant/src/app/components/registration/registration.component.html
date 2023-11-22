@@ -1,0 +1,25 @@
+<div class="login-container grid nested-grid mt-8 align-items-center justify-content-center surface-50">
+        <div class="col-12 justify-content-center text-center text-xl">
+            <h1 class="imperial text-color">Registration</h1>
+        </div>
+            <div class="formgrid">
+                <form #loginForm="ngForm" (ngSubmit)="submitLoginForm(loginForm)">
+                <div class="field ">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" [(ngModel)]="username" required class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                </div>
+                <div class="field">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" [(ngModel)]="password" required class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                </div>
+                <div class="field">
+                    <label for="password_again">Password again:</label>
+                    <input type="password_again" id="password_again" name="password_again" [(ngModel)]="password_again" required class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                </div>
+                <div class="field col m-4 justify-content-evenly flex">
+                    <button type="submit">Registration</button>
+                    <button type="button" (click)="goToLogin()">Already have an account</button>
+                </div>
+                </form>
+            </div>
+</div>

@@ -13,15 +13,6 @@
 
 export interface User { 
     name: string;
-    role?: User.RoleEnum;
+    password: string;
 }
-export namespace User {
-    export type RoleEnum = 'waiter' | 'manager' | 'customer';
-    export const RoleEnum = {
-        Waiter: 'waiter' as RoleEnum,
-        Manager: 'manager' as RoleEnum,
-        Customer: 'customer' as RoleEnum
-    };
-}
-
 
