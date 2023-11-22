@@ -16,52 +16,30 @@ import java.util.*;
 import jakarta.annotation.Generated;
 
 /**
- * DrinkDTO
+ * UserLoginDTO
  */
 
-@JsonTypeName("Drink")
+@JsonTypeName("UserLogin")
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-11-23T00:54:23.413633600+01:00[Europe/Budapest]")
-public class DrinkDTO {
-
-  private String id;
+public class UserLoginDTO {
 
   private String name;
 
-  private Integer price;
+  private String password;
 
-  public DrinkDTO() {
+  public UserLoginDTO() {
     super();
   }
 
   /**
    * Constructor with only required parameters
    */
-  public DrinkDTO(String name, Integer price) {
+  public UserLoginDTO(String name, String password) {
     this.name = name;
-    this.price = price;
+    this.password = password;
   }
 
-  public DrinkDTO id(String id) {
-    this.id = id;
-    return this;
-  }
-
-  /**
-   * Get id
-   * @return id
-  */
-  
-  @Schema(name = "id", example = "6544cd596955fe0a1c04fba9", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
-  @JsonProperty("id")
-  public String getId() {
-    return id;
-  }
-
-  public void setId(String id) {
-    this.id = id;
-  }
-
-  public DrinkDTO name(String name) {
+  public UserLoginDTO name(String name) {
     this.name = name;
     return this;
   }
@@ -71,7 +49,7 @@ public class DrinkDTO {
    * @return name
   */
   @NotNull 
-  @Schema(name = "name", example = "Cola", requiredMode = Schema.RequiredMode.REQUIRED)
+  @Schema(name = "name", example = "Nick User", requiredMode = Schema.RequiredMode.REQUIRED)
   @JsonProperty("name")
   public String getName() {
     return name;
@@ -81,24 +59,24 @@ public class DrinkDTO {
     this.name = name;
   }
 
-  public DrinkDTO price(Integer price) {
-    this.price = price;
+  public UserLoginDTO password(String password) {
+    this.password = password;
     return this;
   }
 
   /**
-   * Get price
-   * @return price
+   * Get password
+   * @return password
   */
   @NotNull 
-  @Schema(name = "price", example = "400", requiredMode = Schema.RequiredMode.REQUIRED)
-  @JsonProperty("price")
-  public Integer getPrice() {
-    return price;
+  @Schema(name = "password", example = "password", requiredMode = Schema.RequiredMode.REQUIRED)
+  @JsonProperty("password")
+  public String getPassword() {
+    return password;
   }
 
-  public void setPrice(Integer price) {
-    this.price = price;
+  public void setPassword(String password) {
+    this.password = password;
   }
 
   @Override
@@ -109,24 +87,22 @@ public class DrinkDTO {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    DrinkDTO drink = (DrinkDTO) o;
-    return Objects.equals(this.id, drink.id) &&
-        Objects.equals(this.name, drink.name) &&
-        Objects.equals(this.price, drink.price);
+    UserLoginDTO userLogin = (UserLoginDTO) o;
+    return Objects.equals(this.name, userLogin.name) &&
+        Objects.equals(this.password, userLogin.password);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, name, price);
+    return Objects.hash(name, password);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class DrinkDTO {\n");
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("class UserLoginDTO {\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
-    sb.append("    price: ").append(toIndentedString(price)).append("\n");
+    sb.append("    password: ").append(toIndentedString(password)).append("\n");
     sb.append("}");
     return sb.toString();
   }

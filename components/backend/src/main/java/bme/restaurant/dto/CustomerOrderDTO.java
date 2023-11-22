@@ -2,8 +2,8 @@ package bme.restaurant.dto;
 
 import java.net.URI;
 import java.util.Objects;
-import bme.restaurant.dto.CustomerDTO;
 import bme.restaurant.dto.OrderDTO;
+import bme.restaurant.dto.UserDTO;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
@@ -22,14 +22,14 @@ import jakarta.annotation.Generated;
  */
 
 @JsonTypeName("CustomerOrder")
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-11-21T18:28:48.793104700+01:00[Europe/Budapest]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-11-23T00:54:23.413633600+01:00[Europe/Budapest]")
 public class CustomerOrderDTO {
 
-  private CustomerDTO customer;
+  private UserDTO customer;
 
   private OrderDTO order;
 
-  public CustomerOrderDTO customer(CustomerDTO customer) {
+  public CustomerOrderDTO customer(UserDTO customer) {
     this.customer = customer;
     return this;
   }
@@ -41,11 +41,11 @@ public class CustomerOrderDTO {
   @Valid 
   @Schema(name = "customer", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("customer")
-  public CustomerDTO getCustomer() {
+  public UserDTO getCustomer() {
     return customer;
   }
 
-  public void setCustomer(CustomerDTO customer) {
+  public void setCustomer(UserDTO customer) {
     this.customer = customer;
   }
 

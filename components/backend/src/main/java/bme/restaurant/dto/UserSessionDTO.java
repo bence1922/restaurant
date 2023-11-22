@@ -2,6 +2,7 @@ package bme.restaurant.dto;
 
 import java.net.URI;
 import java.util.Objects;
+import bme.restaurant.dto.UserDTO;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
@@ -16,32 +17,33 @@ import java.util.*;
 import jakarta.annotation.Generated;
 
 /**
- * DrinkDTO
+ * UserSessionDTO
  */
 
-@JsonTypeName("Drink")
+@JsonTypeName("UserSession")
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-11-23T00:54:23.413633600+01:00[Europe/Budapest]")
-public class DrinkDTO {
+public class UserSessionDTO {
 
   private String id;
 
-  private String name;
+  private UserDTO user;
 
-  private Integer price;
+  private String role;
 
-  public DrinkDTO() {
+  public UserSessionDTO() {
     super();
   }
 
   /**
    * Constructor with only required parameters
    */
-  public DrinkDTO(String name, Integer price) {
-    this.name = name;
-    this.price = price;
+  public UserSessionDTO(String id, UserDTO user, String role) {
+    this.id = id;
+    this.user = user;
+    this.role = role;
   }
 
-  public DrinkDTO id(String id) {
+  public UserSessionDTO id(String id) {
     this.id = id;
     return this;
   }
@@ -50,8 +52,8 @@ public class DrinkDTO {
    * Get id
    * @return id
   */
-  
-  @Schema(name = "id", example = "6544cd596955fe0a1c04fba9", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @NotNull 
+  @Schema(name = "id", example = "ObjectId('6544cd596955fe0a1c04fba9')", requiredMode = Schema.RequiredMode.REQUIRED)
   @JsonProperty("id")
   public String getId() {
     return id;
@@ -61,44 +63,44 @@ public class DrinkDTO {
     this.id = id;
   }
 
-  public DrinkDTO name(String name) {
-    this.name = name;
+  public UserSessionDTO user(UserDTO user) {
+    this.user = user;
     return this;
   }
 
   /**
-   * Get name
-   * @return name
+   * Get user
+   * @return user
   */
-  @NotNull 
-  @Schema(name = "name", example = "Cola", requiredMode = Schema.RequiredMode.REQUIRED)
-  @JsonProperty("name")
-  public String getName() {
-    return name;
+  @NotNull @Valid 
+  @Schema(name = "user", requiredMode = Schema.RequiredMode.REQUIRED)
+  @JsonProperty("user")
+  public UserDTO getUser() {
+    return user;
   }
 
-  public void setName(String name) {
-    this.name = name;
+  public void setUser(UserDTO user) {
+    this.user = user;
   }
 
-  public DrinkDTO price(Integer price) {
-    this.price = price;
+  public UserSessionDTO role(String role) {
+    this.role = role;
     return this;
   }
 
   /**
-   * Get price
-   * @return price
+   * Get role
+   * @return role
   */
   @NotNull 
-  @Schema(name = "price", example = "400", requiredMode = Schema.RequiredMode.REQUIRED)
-  @JsonProperty("price")
-  public Integer getPrice() {
-    return price;
+  @Schema(name = "role", example = "admin", requiredMode = Schema.RequiredMode.REQUIRED)
+  @JsonProperty("role")
+  public String getRole() {
+    return role;
   }
 
-  public void setPrice(Integer price) {
-    this.price = price;
+  public void setRole(String role) {
+    this.role = role;
   }
 
   @Override
@@ -109,24 +111,24 @@ public class DrinkDTO {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    DrinkDTO drink = (DrinkDTO) o;
-    return Objects.equals(this.id, drink.id) &&
-        Objects.equals(this.name, drink.name) &&
-        Objects.equals(this.price, drink.price);
+    UserSessionDTO userSession = (UserSessionDTO) o;
+    return Objects.equals(this.id, userSession.id) &&
+        Objects.equals(this.user, userSession.user) &&
+        Objects.equals(this.role, userSession.role);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, name, price);
+    return Objects.hash(id, user, role);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class DrinkDTO {\n");
+    sb.append("class UserSessionDTO {\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    name: ").append(toIndentedString(name)).append("\n");
-    sb.append("    price: ").append(toIndentedString(price)).append("\n");
+    sb.append("    user: ").append(toIndentedString(user)).append("\n");
+    sb.append("    role: ").append(toIndentedString(role)).append("\n");
     sb.append("}");
     return sb.toString();
   }

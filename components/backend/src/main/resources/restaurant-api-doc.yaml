@@ -20,6 +20,124 @@ tags:
   - name: menu
 
 paths:
+  /login:
+    post:
+      tags: 
+        - user
+      summary: User login
+      operationId: login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserSession'
+      responses:
+        '200':
+          description: User successfully logged in
+        '401':
+          description: Unauthorized
+        '400':
+          description: Invalid request
+  /logout:
+    get:
+      tags:
+        - user
+      summary: Logs out current logged in user
+      description: ''
+      operationId: logout
+      parameters: 
+        - name: username
+          in: header
+          required: true
+          schema:
+            type: string
+            example: 'almasbukta'
+      responses:
+        default:
+          description: successful operation
+  /password-reset:
+    patch:
+      tags: 
+        - user
+      summary: User login
+      operationId: passwordReset
+      parameters:
+        - name: oldPassword
+          in: header
+          schema: { type: string }
+          required: true
+        - name: newPassword
+          in: header
+          schema: { type: string }
+          required: true
+      responses:
+        '200':
+          description: User successfully logged in
+        '401':
+          description: Unauthorized
+        '400':
+          description: Invalid request
+  /user/{userId}:
+    parameters:
+      - name: userId
+        in: path
+        description: The ID of the user
+        required: true
+        schema:
+          type: string
+          example: "ObjectId('6544cd596955fe0a1c04fba9')"
+    get:
+      tags:
+        - user
+      summary: Get user by ID
+      operationId: getUserById
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '404':
+          description: Employee not found
+    put:
+      tags:
+        - user
+      summary: Update user by ID
+      operationId: updateUserById
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Employee not found
+        '405':
+          description: Validation exception
+    delete:
+      tags:
+        - user
+      summary: Delete user by ID
+      operationId: deleteEmployeeById
+      responses:
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Employee not found
+
+
+
   /employee:
     get:
       tags:
@@ -34,48 +152,19 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Employee'          
-            application/xml:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Employee'
+                  $ref: '#/components/schemas/User'          
         '400':
           description: Invalid status value
-  /employee/{employeeId}:
-    parameters:
-      - name: employeeId
-        in: path
-        description: The ID of the employee
-        required: true
-        schema:
-          type: integer
-          example: 1
-    get:
+    post:
       tags:
         - employee
-      summary: Get an employee by ID
-      operationId: getEmployeeById
-      responses:
-        '200':
-          description: Successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Employee'
-        '404':
-          description: Employee not found
-
-    put:
-      tags:
-        - employee
-      summary: Update an existing employee by ID
-      operationId: updateEmployeeById
+      summary: Register an employee
+      operationId: registerEmployee
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Employee'
+              $ref: '#/components/schemas/UserRegister'
         required: true
       responses:
         '200':
@@ -83,151 +172,18 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Employee'
+                $ref: '#/components/schemas/User'
         '400':
           description: Invalid ID supplied
         '404':
           description: Employee not found
         '405':
           description: Validation exception
-    patch:
-      tags:
-        - employee
-      summary: Update attributes of an employee by ID
-      operationId: patchEmployeeById
-      parameters:
-        - name: name
-          in: query
-          description: New name for the employee
-          required: false
-          schema:
-            type: string
-        - name: role
-          in: query
-          description: New role for the employee
-          required: false
-          schema:
-            type: string
-            enum:
-              - waiter
-              - manager
-      responses:
-        '200':
-          description: Successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Employee'
-        '400':
-          description: Invalid ID supplied
-        '404':
-          description: Employee not found
-    delete:
-      tags:
-        - employee
-      summary: Delete an employee by ID
-      operationId: deleteEmployeeById
-      responses:
-        '400':
-          description: Invalid ID supplied
-        '404':
-          description: Employee not found
-
-  /user:
-    get:
-      tags:
-        - user
-      summary: Get all users
-      description: ''
-      operationId: getUsers
-      parameters: []
-      responses:
-        '200':
-          description: A list of users
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/User'
-  /user/register:
-    post:
-      tags: 
-        - user
-      summary: Register a new user
-      operationId: registerUser
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/User'
-      responses:
-        '201':
-          description: User successfully registered
-        '400':
-          description: Invalid request
-  /user/login:
-    post:
-      tags: 
-        - user
-      summary: User login
-      operationId: loginUser
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/User'
-      responses:
-        '200':
-          description: User successfully logged in
-        '401':
-          description: Unauthorized
-        '400':
-          description: Invalid request
-  /user/logout:
-    post:
-      tags:
-        - user
-      summary: Logs out current logged in user session
-      description: ''
-      operationId: logoutUser
-      parameters: 
-        - name: username
-          in: header
-          required: true
-          schema:
-            type: string
-            example: 'almasbukta'
-      responses:
-        default:
-          description: successful operation
-  /user/{username}:  
-    parameters:
-      - name: username
-        in: path
-        required: true
-        schema:
-          type: string
-          example: 'almasbukta'
-    delete:
-      tags:
-        - user
-      summary: Delete user
-      description: This can only be done by the logged in user.
-      operationId: deleteUser
-      responses:
-        '400':
-          description: Invalid username supplied
-        '404':
-          description: User not found
-  
   /customer:
     get:
       tags: 
         - customer
-      summary: Get a list of customers
+      summary: Get all customers
       operationId: listCustomers
       responses:
         '200':
@@ -237,99 +193,23 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Customer'
+                  $ref: '#/components/schemas/User'
     post:
       tags: 
         - customer
-      summary: Create a new customer
-      operationId: createCustomer
+      summary: Customer registration
+      operationId: registerUser
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Customer'
+              $ref: '#/components/schemas/UserRegister'
       responses:
         '201':
-          description: Customer created successfully
+          description: User successfully registered
         '400':
           description: Invalid request
-  /customer/{customerId}:
-    parameters:
-      - name: customerId
-        in: path
-        description: ID of the customer to retrieve/update/delete
-        required: true
-        schema:
-          type: integer
-          format: int64
-    get:
-      tags: 
-        - customer
-      summary: Get customer details by ID
-      operationId: getCustomer
-      responses:
-        '200':
-          description: Customer details
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/CustomerDetails'
-        '404':
-          description: Customer not found
-    patch:
-      tags: 
-        - customer
-      summary: Partially update customer details by ID
-      operationId: createOrUpdateCustomer
-      parameters:
-        - name: name
-          in: query
-          description: New name for the customer
-          schema:
-            type: string
-        - name: email
-          in: query
-          description: New email for the customer
-          schema:
-            type: string
-        - name: mobil
-          in: query
-          description: New mobile number for the customer
-          schema:
-            type: string
-        - name: address
-          in: query
-          description: New address for the customer
-          schema:
-            type: string
-        - name: company
-          in: query
-          description: New company name for the customer
-          schema:
-            type: string
-        - name: tax
-          in: query
-          description: New tax ID for the customer
-          schema:
-            type: string
-      responses:
-        '200':
-          description: Customer partially updated successfully
-        '404':
-          description: Customer not found
-        '400':
-          description: Invalid request
-    delete:
-      tags: 
-        - customer
-      summary: Delete customer by ID
-      operationId: deleteCustomer
-      responses:
-        '204':
-          description: Customer deleted successfully
-        '404':
-          description: Customer not found 
   /invoice/{orderId}:
     parameters:
       - name: orderId
@@ -362,6 +242,8 @@ paths:
       summary: List tables
       description: Returns a single table
       operationId: listTables
+      security:
+        - sessionId: []
       responses:
         '200':
           description: successful operation
@@ -936,53 +818,6 @@ paths:
 
 components:
   schemas:
-    Customer:
-      required:
-        - name
-      type: object
-      properties:
-        userId:
-          type: string
-          example: ObjectId('6544cd596955fe0a1c04fba9')
-        name:
-          type: string
-          example: Gipsz Jakap
-        email:
-          type: string
-          example: gipsz@jakab.com
-    CustomerDetails:
-      required:
-        - name
-      type: object
-      properties:
-        userId:
-          type: string
-          example: ObjectId('6544cd596955fe0a1c04fba9')
-        name:
-          type: string
-          example: Gipsz Jakap
-        email:
-          type: string
-          example: gipsz@jakab.com
-        mobil:
-          type: string
-          example: +36709834234
-        address:
-          type: string
-          example: Budapest Lakatos utca 6.
-        company:
-          type: string
-          example: Gipsz Kft.
-        tax:
-          type: string
-          example: 3424-321-323
-        points:
-          type: integer
-          example: 100
-        orders:
-          type: array
-          items:  
-            $ref: '#/components/schemas/Order'
     Table:
       required:
         - number
@@ -1017,7 +852,7 @@ components:
         table:
           $ref: '#/components/schemas/Table'
         customer:
-          $ref: '#/components/schemas/Customer'
+          $ref: '#/components/schemas/User'
         startingDate:
           type: string
           format: date-time
@@ -1149,7 +984,7 @@ components:
       type: object
       properties:
         customer: 
-          $ref: '#/components/schemas/Customer'
+          $ref: '#/components/schemas/User'
         order: 
           $ref: '#/components/schemas/Order'
     FoodStockItem:
@@ -1188,23 +1023,31 @@ components:
           type: integer
           format: int32
           example: 1
-    Employee:
+    UserRegister:
       required:
-        - role
+        - name
+        - email
+        - mobil
+        - address
+        - password
       type: object
       properties:
         name:
           type: string
-          example: '6544cd596955fe0a1c04fba9'
-        userId:
+          example: Gipsz Jakap
+        email:
           type: string
-          example: Nick Waiter
-        role:
+          example: gipsz@jakab.com
+        mobil:
           type: string
-          enum:
-            - waiter
-            - manager
-    User:
+          example: +36709834234
+        address:
+          type: string
+          example: Budapest Lakatos utca 6.
+        password:
+          type: string
+          example: password
+    UserLogin:
       required:
         - name
         - password
@@ -1216,6 +1059,44 @@ components:
         password:
           type: string
           example: password
+    User:
+      required:
+        - name
+        - email
+        - mobil
+        - address
+      type: object
+      properties:
+        id:
+          type: string
+          example: ObjectId('6544cd596955fe0a1c04fba9')
+        name:
+          type: string
+          example: Gipsz Jakap
+        email:
+          type: string
+          example: gipsz@jakab.com
+        mobil:
+          type: string
+          example: +36709834234
+        address:
+          type: string
+          example: Budapest Lakatos utca 6.
+    UserSession:
+      required:
+        - id
+        - user
+        - role
+      type: object
+      properties:
+        id:
+          type: string
+          example: "ObjectId('6544cd596955fe0a1c04fba9')"
+        user:
+          $ref: '#/components/schemas/User'
+        role:
+          type: string
+          example: "admin"
     MenuItem:
       type: object
       properties:
@@ -1223,3 +1104,9 @@ components:
           type: string
         price:
           type: integer
+
+  securitySchemes:
+    sessionId:
+      type: apiKey
+      in: header
+      name: sessionId

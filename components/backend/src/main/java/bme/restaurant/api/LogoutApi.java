@@ -33,38 +33,35 @@ import jakarta.annotation.Generated;
 
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-11-23T00:54:23.413633600+01:00[Europe/Budapest]")
 @Validated
-@Tag(name = "customer", description = "the customer API")
-public interface InvoiceApi {
+@Tag(name = "user", description = "the user API")
+public interface LogoutApi {
 
     default Optional<NativeWebRequest> getRequest() {
         return Optional.empty();
     }
 
     /**
-     * GET /invoice/{orderId} : Get an invoice in PDF format by orderId
+     * GET /logout : Logs out current logged in user
+     * 
      *
-     * @param orderId ID of the order for which to generate an invoice (required)
-     * @return Invoice PDF (status code 200)
-     *         or Order not found (status code 404)
+     * @param username  (required)
+     * @return successful operation (status code 200)
      */
     @Operation(
-        operationId = "getInvoice",
-        summary = "Get an invoice in PDF format by orderId",
-        tags = { "customer" },
+        operationId = "logout",
+        summary = "Logs out current logged in user",
+        description = "",
+        tags = { "user" },
         responses = {
-            @ApiResponse(responseCode = "200", description = "Invoice PDF", content = {
-                @Content(mediaType = "application/pdf", schema = @Schema(implementation = org.springframework.core.io.Resource.class))
-            }),
-            @ApiResponse(responseCode = "404", description = "Order not found")
+            @ApiResponse(responseCode = "default", description = "successful operation")
         }
     )
     @RequestMapping(
         method = RequestMethod.GET,
-        value = "/invoice/{orderId}",
-        produces = { "application/pdf" }
+        value = "/logout"
     )
-    default ResponseEntity<org.springframework.core.io.Resource> getInvoice(
-        @Parameter(name = "orderId", description = "ID of the order for which to generate an invoice", required = true, in = ParameterIn.PATH) @PathVariable("orderId") String orderId
+    default ResponseEntity<Void> logout(
+        @NotNull @Parameter(name = "username", description = "", required = true, in = ParameterIn.HEADER) @RequestHeader(value = "username", required = true) String username
     ) {
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 

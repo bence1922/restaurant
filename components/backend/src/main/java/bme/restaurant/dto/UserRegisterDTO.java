@@ -16,14 +16,12 @@ import java.util.*;
 import jakarta.annotation.Generated;
 
 /**
- * UserDTO
+ * UserRegisterDTO
  */
 
-@JsonTypeName("User")
+@JsonTypeName("UserRegister")
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-11-23T00:54:23.413633600+01:00[Europe/Budapest]")
-public class UserDTO {
-
-  private String id;
+public class UserRegisterDTO {
 
   private String name;
 
@@ -33,41 +31,24 @@ public class UserDTO {
 
   private String address;
 
-  public UserDTO() {
+  private String password;
+
+  public UserRegisterDTO() {
     super();
   }
 
   /**
    * Constructor with only required parameters
    */
-  public UserDTO(String name, String email, String mobil, String address) {
+  public UserRegisterDTO(String name, String email, String mobil, String address, String password) {
     this.name = name;
     this.email = email;
     this.mobil = mobil;
     this.address = address;
+    this.password = password;
   }
 
-  public UserDTO id(String id) {
-    this.id = id;
-    return this;
-  }
-
-  /**
-   * Get id
-   * @return id
-  */
-  
-  @Schema(name = "id", example = "ObjectId('6544cd596955fe0a1c04fba9')", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
-  @JsonProperty("id")
-  public String getId() {
-    return id;
-  }
-
-  public void setId(String id) {
-    this.id = id;
-  }
-
-  public UserDTO name(String name) {
+  public UserRegisterDTO name(String name) {
     this.name = name;
     return this;
   }
@@ -87,7 +68,7 @@ public class UserDTO {
     this.name = name;
   }
 
-  public UserDTO email(String email) {
+  public UserRegisterDTO email(String email) {
     this.email = email;
     return this;
   }
@@ -107,7 +88,7 @@ public class UserDTO {
     this.email = email;
   }
 
-  public UserDTO mobil(String mobil) {
+  public UserRegisterDTO mobil(String mobil) {
     this.mobil = mobil;
     return this;
   }
@@ -127,7 +108,7 @@ public class UserDTO {
     this.mobil = mobil;
   }
 
-  public UserDTO address(String address) {
+  public UserRegisterDTO address(String address) {
     this.address = address;
     return this;
   }
@@ -147,6 +128,26 @@ public class UserDTO {
     this.address = address;
   }
 
+  public UserRegisterDTO password(String password) {
+    this.password = password;
+    return this;
+  }
+
+  /**
+   * Get password
+   * @return password
+  */
+  @NotNull 
+  @Schema(name = "password", example = "password", requiredMode = Schema.RequiredMode.REQUIRED)
+  @JsonProperty("password")
+  public String getPassword() {
+    return password;
+  }
+
+  public void setPassword(String password) {
+    this.password = password;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -155,28 +156,28 @@ public class UserDTO {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    UserDTO user = (UserDTO) o;
-    return Objects.equals(this.id, user.id) &&
-        Objects.equals(this.name, user.name) &&
-        Objects.equals(this.email, user.email) &&
-        Objects.equals(this.mobil, user.mobil) &&
-        Objects.equals(this.address, user.address);
+    UserRegisterDTO userRegister = (UserRegisterDTO) o;
+    return Objects.equals(this.name, userRegister.name) &&
+        Objects.equals(this.email, userRegister.email) &&
+        Objects.equals(this.mobil, userRegister.mobil) &&
+        Objects.equals(this.address, userRegister.address) &&
+        Objects.equals(this.password, userRegister.password);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, name, email, mobil, address);
+    return Objects.hash(name, email, mobil, address, password);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class UserDTO {\n");
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("class UserRegisterDTO {\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    email: ").append(toIndentedString(email)).append("\n");
     sb.append("    mobil: ").append(toIndentedString(mobil)).append("\n");
     sb.append("    address: ").append(toIndentedString(address)).append("\n");
+    sb.append("    password: ").append(toIndentedString(password)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -2,10 +2,12 @@ package bme.restaurant.controller;
 
 import java.time.OffsetDateTime;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.context.request.NativeWebRequest;
 
 import bme.restaurant.api.BookingApi;
 import bme.restaurant.dto.BookingDTO;
@@ -17,7 +19,6 @@ import jakarta.validation.constraints.NotNull;
 
 @RestController
 public class BookingController implements BookingApi {
-
     @Autowired
     private BookingServiceImpl bookingService;
 

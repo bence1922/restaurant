@@ -5,7 +5,8 @@
  */
 package bme.restaurant.api;
 
-import bme.restaurant.dto.EmployeeDTO;
+import bme.restaurant.dto.UserDTO;
+import bme.restaurant.dto.UserRegisterDTO;
 import io.swagger.v3.oas.annotations.ExternalDocumentation;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -32,7 +33,7 @@ import java.util.Map;
 import java.util.Optional;
 import jakarta.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-11-21T18:28:48.793104700+01:00[Europe/Budapest]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-11-23T00:54:23.413633600+01:00[Europe/Budapest]")
 @Validated
 @Tag(name = "employee", description = "the employee API")
 public interface EmployeeApi {
@@ -40,74 +41,6 @@ public interface EmployeeApi {
     default Optional<NativeWebRequest> getRequest() {
         return Optional.empty();
     }
-
-    /**
-     * DELETE /employee/{employeeId} : Delete an employee by ID
-     *
-     * @param employeeId The ID of the employee (required)
-     * @return Invalid ID supplied (status code 400)
-     *         or Employee not found (status code 404)
-     */
-    @Operation(
-        operationId = "deleteEmployeeById",
-        summary = "Delete an employee by ID",
-        tags = { "employee" },
-        responses = {
-            @ApiResponse(responseCode = "400", description = "Invalid ID supplied"),
-            @ApiResponse(responseCode = "404", description = "Employee not found")
-        }
-    )
-    @RequestMapping(
-        method = RequestMethod.DELETE,
-        value = "/employee/{employeeId}"
-    )
-    default ResponseEntity<Void> deleteEmployeeById(
-        @Parameter(name = "employeeId", description = "The ID of the employee", required = true, in = ParameterIn.PATH) @PathVariable("employeeId") Integer employeeId
-    ) {
-        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
-
-    }
-
-
-    /**
-     * GET /employee/{employeeId} : Get an employee by ID
-     *
-     * @param employeeId The ID of the employee (required)
-     * @return Successful operation (status code 200)
-     *         or Employee not found (status code 404)
-     */
-    @Operation(
-        operationId = "getEmployeeById",
-        summary = "Get an employee by ID",
-        tags = { "employee" },
-        responses = {
-            @ApiResponse(responseCode = "200", description = "Successful operation", content = {
-                @Content(mediaType = "application/json", schema = @Schema(implementation = EmployeeDTO.class))
-            }),
-            @ApiResponse(responseCode = "404", description = "Employee not found")
-        }
-    )
-    @RequestMapping(
-        method = RequestMethod.GET,
-        value = "/employee/{employeeId}",
-        produces = { "application/json" }
-    )
-    default ResponseEntity<EmployeeDTO> getEmployeeById(
-        @Parameter(name = "employeeId", description = "The ID of the employee", required = true, in = ParameterIn.PATH) @PathVariable("employeeId") Integer employeeId
-    ) {
-        getRequest().ifPresent(request -> {
-            for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
-                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                    String exampleString = "{ \"role\" : \"waiter\", \"name\" : \"6544cd596955fe0a1c04fba9\", \"userId\" : \"Nick Waiter\" }";
-                    ApiUtil.setExampleResponse(request, "application/json", exampleString);
-                    break;
-                }
-            }
-        });
-        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
-
-    }
-
 
     /**
      * GET /employee : Get all employees
@@ -121,8 +54,7 @@ public interface EmployeeApi {
         tags = { "employee" },
         responses = {
             @ApiResponse(responseCode = "200", description = "successful operation", content = {
-                @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = EmployeeDTO.class))),
-                @Content(mediaType = "application/xml", array = @ArraySchema(schema = @Schema(implementation = EmployeeDTO.class)))
+                @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = UserDTO.class)))
             }),
             @ApiResponse(responseCode = "400", description = "Invalid status value")
         }
@@ -130,66 +62,15 @@ public interface EmployeeApi {
     @RequestMapping(
         method = RequestMethod.GET,
         value = "/employee",
-        produces = { "application/json", "application/xml" }
+        produces = { "application/json" }
     )
-    default ResponseEntity<List<EmployeeDTO>> getEmployees(
+    default ResponseEntity<List<UserDTO>> getEmployees(
         
     ) {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                    String exampleString = "[ { \"role\" : \"waiter\", \"name\" : \"6544cd596955fe0a1c04fba9\", \"userId\" : \"Nick Waiter\" }, { \"role\" : \"waiter\", \"name\" : \"6544cd596955fe0a1c04fba9\", \"userId\" : \"Nick Waiter\" } ]";
-                    ApiUtil.setExampleResponse(request, "application/json", exampleString);
-                    break;
-                }
-                if (mediaType.isCompatibleWith(MediaType.valueOf("application/xml"))) {
-                    String exampleString = "<null> <name>6544cd596955fe0a1c04fba9</name> <userId>Nick Waiter</userId> <role>aeiou</role> </null>";
-                    ApiUtil.setExampleResponse(request, "application/xml", exampleString);
-                    break;
-                }
-            }
-        });
-        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
-
-    }
-
-
-    /**
-     * PATCH /employee/{employeeId} : Update attributes of an employee by ID
-     *
-     * @param employeeId The ID of the employee (required)
-     * @param name New name for the employee (optional)
-     * @param role New role for the employee (optional)
-     * @return Successful operation (status code 200)
-     *         or Invalid ID supplied (status code 400)
-     *         or Employee not found (status code 404)
-     */
-    @Operation(
-        operationId = "patchEmployeeById",
-        summary = "Update attributes of an employee by ID",
-        tags = { "employee" },
-        responses = {
-            @ApiResponse(responseCode = "200", description = "Successful operation", content = {
-                @Content(mediaType = "application/json", schema = @Schema(implementation = EmployeeDTO.class))
-            }),
-            @ApiResponse(responseCode = "400", description = "Invalid ID supplied"),
-            @ApiResponse(responseCode = "404", description = "Employee not found")
-        }
-    )
-    @RequestMapping(
-        method = RequestMethod.PATCH,
-        value = "/employee/{employeeId}",
-        produces = { "application/json" }
-    )
-    default ResponseEntity<EmployeeDTO> patchEmployeeById(
-        @Parameter(name = "employeeId", description = "The ID of the employee", required = true, in = ParameterIn.PATH) @PathVariable("employeeId") Integer employeeId,
-        @Parameter(name = "name", description = "New name for the employee", in = ParameterIn.QUERY) @Valid @RequestParam(value = "name", required = false) String name,
-        @Parameter(name = "role", description = "New role for the employee", in = ParameterIn.QUERY) @Valid @RequestParam(value = "role", required = false) String role
-    ) {
-        getRequest().ifPresent(request -> {
-            for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
-                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                    String exampleString = "{ \"role\" : \"waiter\", \"name\" : \"6544cd596955fe0a1c04fba9\", \"userId\" : \"Nick Waiter\" }";
+                    String exampleString = "[ { \"mobil\" : \"36709834234\", \"address\" : \"Budapest Lakatos utca 6.\", \"name\" : \"Gipsz Jakap\", \"id\" : \"ObjectId('6544cd596955fe0a1c04fba9')\", \"email\" : \"gipsz@jakab.com\" }, { \"mobil\" : \"36709834234\", \"address\" : \"Budapest Lakatos utca 6.\", \"name\" : \"Gipsz Jakap\", \"id\" : \"ObjectId('6544cd596955fe0a1c04fba9')\", \"email\" : \"gipsz@jakab.com\" } ]";
                     ApiUtil.setExampleResponse(request, "application/json", exampleString);
                     break;
                 }
@@ -201,22 +82,21 @@ public interface EmployeeApi {
 
 
     /**
-     * PUT /employee/{employeeId} : Update an existing employee by ID
+     * POST /employee : Register an employee
      *
-     * @param employeeId The ID of the employee (required)
-     * @param employeeDTO  (required)
+     * @param userRegisterDTO  (required)
      * @return Successful operation (status code 200)
      *         or Invalid ID supplied (status code 400)
      *         or Employee not found (status code 404)
      *         or Validation exception (status code 405)
      */
     @Operation(
-        operationId = "updateEmployeeById",
-        summary = "Update an existing employee by ID",
+        operationId = "registerEmployee",
+        summary = "Register an employee",
         tags = { "employee" },
         responses = {
             @ApiResponse(responseCode = "200", description = "Successful operation", content = {
-                @Content(mediaType = "application/json", schema = @Schema(implementation = EmployeeDTO.class))
+                @Content(mediaType = "application/json", schema = @Schema(implementation = UserDTO.class))
             }),
             @ApiResponse(responseCode = "400", description = "Invalid ID supplied"),
             @ApiResponse(responseCode = "404", description = "Employee not found"),
@@ -224,19 +104,18 @@ public interface EmployeeApi {
         }
     )
     @RequestMapping(
-        method = RequestMethod.PUT,
-        value = "/employee/{employeeId}",
+        method = RequestMethod.POST,
+        value = "/employee",
         produces = { "application/json" },
         consumes = { "application/json" }
     )
-    default ResponseEntity<EmployeeDTO> updateEmployeeById(
-        @Parameter(name = "employeeId", description = "The ID of the employee", required = true, in = ParameterIn.PATH) @PathVariable("employeeId") Integer employeeId,
-        @Parameter(name = "EmployeeDTO", description = "", required = true) @Valid @RequestBody EmployeeDTO employeeDTO
+    default ResponseEntity<UserDTO> registerEmployee(
+        @Parameter(name = "UserRegisterDTO", description = "", required = true) @Valid @RequestBody UserRegisterDTO userRegisterDTO
     ) {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                    String exampleString = "{ \"role\" : \"waiter\", \"name\" : \"6544cd596955fe0a1c04fba9\", \"userId\" : \"Nick Waiter\" }";
+                    String exampleString = "{ \"mobil\" : \"36709834234\", \"address\" : \"Budapest Lakatos utca 6.\", \"name\" : \"Gipsz Jakap\", \"id\" : \"ObjectId('6544cd596955fe0a1c04fba9')\", \"email\" : \"gipsz@jakab.com\" }";
                     ApiUtil.setExampleResponse(request, "application/json", exampleString);
                     break;
                 }
