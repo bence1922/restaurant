@@ -27,4 +27,3 @@ export class AuthService {
 
     
 }
-Írni: login adjon vissza mindent ami kell --> role-ok és mindenkinek (sime usernek is lehessenek role-jai, mert bejelentkezénél az kell) -user/waiter/manager/admin role-ok kellenek
