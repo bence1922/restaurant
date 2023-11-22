@@ -33,7 +33,7 @@ export const appRoutes: Route[] = [
             {path:'about-us',  title:'Rólunk', component: AboutUsComponent, canActivate: [RoleGuard], data: {roles: ['everyone']}},
             {path: 'order', title:'Rendelés', component: OrderComponent, canActivate: [RoleGuard], data: {roles: ['everyone']}},
             {path:'employees', title:'Dolgozók', component: EmployeesComponent, canActivate: [RoleGuard], data: {roles: ['admin']}},
-            {path: 'ingredients', title:'Alapanyagok', component: IngredientsComponent, canActivate: [RoleGuard], data: {roles: ['admin']}},
+            {path: 'ingredients', title:'Alapanyagok', component: IngredientsComponent, canActivate: [RoleGuard], data: {roles: ['admin', 'manager']}},
             {path: 'login', title:'Log In', component: LoginComponent, canActivate: [RoleGuard], data: {roles: ['everyone']}},
             {path: 'registration', title:'Registration', component: RegistrationComponent, canActivate: [RoleGuard], data: {roles: ['everyone']}},
             {path: 'tables', title:"Asztalok", component: TablesComponent, canActivate: [RoleGuard], data: {roles: ['admin', 'waiter', 'manager']}}

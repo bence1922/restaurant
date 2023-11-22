@@ -19,6 +19,8 @@ export class OrderComponent implements OnInit {
   ngOnInit(): void {
       this.user = {
         name:"Name name",
+        password:"Password",
+        roles:["admin"],
       }
 
       this.order = {
