@@ -16,8 +16,8 @@ export class OrderAdminComponent implements OnInit {
 
   ngOnInit(): void {
     this.tabmenuItems = [
-      {label: 'In Place', routerLink: "inplace" },
-      {label: 'Delivery', routerLink: "delivery"},
+      {label: 'In Place', routerLink: "orderadmin/inplace" },
+      {label: 'Delivery', routerLink: "orderadmin/delivery"},
     ]
   }
 }

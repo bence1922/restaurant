@@ -1,42 +1,61 @@
-<p-table                
-[value]="orders"
-[paginator]="true"
-[rows]="10"
-[resizableColumns]="true"
-dataKey="rowIndex" editMode="row">
-<ng-template pTemplate="header">
-    <tr>
-        <th style="width: 5rem"></th>
-        <th pSortableColumn="user" pResizableColumn>User name<p-sortIcon field="user"></p-sortIcon></th>
-        <th pSortableColumn="date">Date <p-sortIcon field="date"></p-sortIcon></th>
-        <th pSortableColumn="price">Price <p-sortIcon field="price"></p-sortIcon></th>
-        <th pSortableColumn="status">Status <p-sortIcon field="status"></p-sortIcon></th>
-        <th pSortableColumn="review">Review <p-sortIcon field="review"></p-sortIcon></th>
-        <th class="w-6rem">Action</th>
-    </tr>
-</ng-template>
-<ng-template pTemplate="body" let-order let-expanded="expanded">
-    <tr>
-        <td>
-            <p-button  [pRowToggler]="order" class="p-button-text p-button-rounded p-button-plain" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'" [text]="true"></p-button>
-        </td>
-        <td>user.name</td>
-        <td>date</td>
-        <td>{{calculatePrice(order)}}</td>
-        <td>{{order.status}}</td>
-        <td>review</td>
-        <td>
-            <p-button icon="pi pi-trash" (onclick)="deleteOrder(order)" [text]="true"></p-button>
-            <p-button icon="pi pi-file-export" (onClick)="export(order)" [text]="true"></p-button>
-            <p-splitButton label="Save" icon="pi pi-plus" [model]="splitbuttonData"></p-splitButton>
-        </td>
-    </tr>
-</ng-template>
-<ng-template pTemplate="rowexpansion" let-order>
-    <tr>
-        <td colspan="6">
-            <div>hahahaha</div>
-        </td>
-    </tr>
-</ng-template>
-</p-table>
+<div class="mt-6">
+    <p-table                
+    [value]="orders"
+    [paginator]="true"
+    [rows]="10"
+    [resizableColumns]="true"
+    dataKey="rowIndex" editMode="row">
+    <ng-template pTemplate="header">
+        <tr>
+            <th style="width: 3rem"></th>
+            <th pSortableColumn="user" pResizableColumn>User name<p-sortIcon field="user"></p-sortIcon></th>
+            <th pSortableColumn="date">Date <p-sortIcon field="date"></p-sortIcon></th>
+            <th pSortableColumn="price">Price <p-sortIcon field="price"></p-sortIcon></th>
+            <th pSortableColumn="status">Status <p-sortIcon field="status"></p-sortIcon></th>
+            <th pSortableColumn="review">Review <p-sortIcon field="review"></p-sortIcon></th>
+            <th class="w-6rem">Action</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-order let-expanded="expanded">
+        <tr>
+            <td>
+                <p-button  [pRowToggler]="order" class="p-button-text p-button-rounded p-button-plain" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'" [text]="true"></p-button>
+            </td>
+            <td>user.name</td>
+            <td>date</td>
+            <td>{{calculatePrice(order)}}</td>
+            <td>
+                <p-dropdown [options]="splitbuttonData" appendTo="body" :ngModel="order.status"></p-dropdown>
+            </td>
+            <td>
+                <p-rating  [disabled]="true" [cancel]="false"></p-rating>
+
+            </td>
+            <td>
+                <p-button icon="pi pi-trash" (onclick)="deleteOrder(order)" [text]="true"></p-button>
+                <p-button icon="pi pi-file-export" (onClick)="export(order)" [text]="true"></p-button>
+            </td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="rowexpansion" let-order>
+        <tr>
+            <td colspan="7">
+                <div class="text-color text-lg mb-2">Items</div>
+                <div *ngFor="let item of order.foods" class="ml-3">
+                    <div class="grid">
+                        <div class="col-2">{{item.food.name}}</div>
+                        <div class="col">{{item.food.price}} x {{item.quantity}}</div>
+                    </div>
+                </div>
+                <div *ngFor="let item of order.drinks" class="ml-3">
+                    <div class="grid">
+                        <div class="col-2">{{item.drink.name}}</div>
+                        <div class="col">{{item.drink.price}} x {{item.quantity}}</div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </ng-template>
+    </p-table>
+</div>
+

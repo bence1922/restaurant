@@ -1,10 +1,10 @@
 <app-hero label="Orders"></app-hero>
-<div class="grid h-screen">
+<div class="grid h-screen inika">
     <div class="col-8 col-offset-2 surface-50 p-6">
         <p-tabMenu [model] = "tabmenuItems" class="w-full justify-content-center">
             <ng-template pTemplate="item" let-item>
-                <a href='item.routerLink'>
-                        <span> {{ item.label }}</span>
+                <a href={{item.routerLink}}>
+                        <span class="m-2"> {{ item.label }}</span>
                 </a>
             </ng-template>
         </p-tabMenu>

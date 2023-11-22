@@ -6,12 +6,13 @@ import { ButtonModule } from 'primeng/button';
 import { TooltipModule } from 'primeng/tooltip';
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { MenuItem } from 'primeng/api';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RatingModule } from 'primeng/rating';
+import { DropdownModule } from 'primeng/dropdown';
 
 @Component({
   selector: 'app-order-admin-delivery',
   standalone: true,
-  imports: [CommonModule, TableModule, ButtonModule, TooltipModule,  SplitButtonModule ],
+  imports: [CommonModule, TableModule, ButtonModule, TooltipModule,  SplitButtonModule,RatingModule, DropdownModule ],
   templateUrl: './order-admin-delivery.component.html',
   styleUrls: ['./order-admin-delivery.component.scss'],
 })
