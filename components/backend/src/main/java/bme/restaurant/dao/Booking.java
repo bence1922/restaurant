@@ -105,7 +105,7 @@ public class Booking {
         return new BookingDTO(
             id,
             table.toDTO(),
-            customer.toCustomerDTO(),
+            customer.toDTO(),
             start.atZone(ZoneId.of("Europe/Budapest")).toOffsetDateTime(),
             end.atZone(ZoneId.of("Europe/Budapest")).toOffsetDateTime(),
             StatusEnum.fromValue(status),

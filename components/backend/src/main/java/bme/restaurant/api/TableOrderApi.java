@@ -32,7 +32,7 @@ import java.util.Map;
 import java.util.Optional;
 import jakarta.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-11-21T18:28:48.793104700+01:00[Europe/Budapest]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-11-23T00:54:23.413633600+01:00[Europe/Budapest]")
 @Validated
 @Tag(name = "table-order", description = "the table-order API")
 public interface TableOrderApi {

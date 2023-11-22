@@ -5,8 +5,8 @@
  */
 package bme.restaurant.api;
 
-import bme.restaurant.dto.CustomerDTO;
-import bme.restaurant.dto.CustomerDetailsDTO;
+import bme.restaurant.dto.UserDTO;
+import bme.restaurant.dto.UserRegisterDTO;
 import io.swagger.v3.oas.annotations.ExternalDocumentation;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -33,7 +33,7 @@ import java.util.Map;
 import java.util.Optional;
 import jakarta.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-11-21T18:28:48.793104700+01:00[Europe/Budapest]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-11-23T00:54:23.413633600+01:00[Europe/Budapest]")
 @Validated
 @Tag(name = "customer", description = "the customer API")
 public interface CustomerApi {
@@ -43,156 +43,17 @@ public interface CustomerApi {
     }
 
     /**
-     * POST /customer : Create a new customer
-     *
-     * @param customerDTO  (required)
-     * @return Customer created successfully (status code 201)
-     *         or Invalid request (status code 400)
-     */
-    @Operation(
-        operationId = "createCustomer",
-        summary = "Create a new customer",
-        tags = { "customer" },
-        responses = {
-            @ApiResponse(responseCode = "201", description = "Customer created successfully"),
-            @ApiResponse(responseCode = "400", description = "Invalid request")
-        }
-    )
-    @RequestMapping(
-        method = RequestMethod.POST,
-        value = "/customer",
-        consumes = { "application/json" }
-    )
-    default ResponseEntity<Void> createCustomer(
-        @Parameter(name = "CustomerDTO", description = "", required = true) @Valid @RequestBody CustomerDTO customerDTO
-    ) {
-        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
-
-    }
-
-
-    /**
-     * PATCH /customer/{customerId} : Partially update customer details by ID
-     *
-     * @param customerId ID of the customer to retrieve/update/delete (required)
-     * @param name New name for the customer (optional)
-     * @param email New email for the customer (optional)
-     * @param mobil New mobile number for the customer (optional)
-     * @param address New address for the customer (optional)
-     * @param company New company name for the customer (optional)
-     * @param tax New tax ID for the customer (optional)
-     * @return Customer partially updated successfully (status code 200)
-     *         or Customer not found (status code 404)
-     *         or Invalid request (status code 400)
-     */
-    @Operation(
-        operationId = "createOrUpdateCustomer",
-        summary = "Partially update customer details by ID",
-        tags = { "customer" },
-        responses = {
-            @ApiResponse(responseCode = "200", description = "Customer partially updated successfully"),
-            @ApiResponse(responseCode = "404", description = "Customer not found"),
-            @ApiResponse(responseCode = "400", description = "Invalid request")
-        }
-    )
-    @RequestMapping(
-        method = RequestMethod.PATCH,
-        value = "/customer/{customerId}"
-    )
-    default ResponseEntity<Void> createOrUpdateCustomer(
-        @Parameter(name = "customerId", description = "ID of the customer to retrieve/update/delete", required = true, in = ParameterIn.PATH) @PathVariable("customerId") Long customerId,
-        @Parameter(name = "name", description = "New name for the customer", in = ParameterIn.QUERY) @Valid @RequestParam(value = "name", required = false) String name,
-        @Parameter(name = "email", description = "New email for the customer", in = ParameterIn.QUERY) @Valid @RequestParam(value = "email", required = false) String email,
-        @Parameter(name = "mobil", description = "New mobile number for the customer", in = ParameterIn.QUERY) @Valid @RequestParam(value = "mobil", required = false) String mobil,
-        @Parameter(name = "address", description = "New address for the customer", in = ParameterIn.QUERY) @Valid @RequestParam(value = "address", required = false) String address,
-        @Parameter(name = "company", description = "New company name for the customer", in = ParameterIn.QUERY) @Valid @RequestParam(value = "company", required = false) String company,
-        @Parameter(name = "tax", description = "New tax ID for the customer", in = ParameterIn.QUERY) @Valid @RequestParam(value = "tax", required = false) String tax
-    ) {
-        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
-
-    }
-
-
-    /**
-     * DELETE /customer/{customerId} : Delete customer by ID
-     *
-     * @param customerId ID of the customer to retrieve/update/delete (required)
-     * @return Customer deleted successfully (status code 204)
-     *         or Customer not found (status code 404)
-     */
-    @Operation(
-        operationId = "deleteCustomer",
-        summary = "Delete customer by ID",
-        tags = { "customer" },
-        responses = {
-            @ApiResponse(responseCode = "204", description = "Customer deleted successfully"),
-            @ApiResponse(responseCode = "404", description = "Customer not found")
-        }
-    )
-    @RequestMapping(
-        method = RequestMethod.DELETE,
-        value = "/customer/{customerId}"
-    )
-    default ResponseEntity<Void> deleteCustomer(
-        @Parameter(name = "customerId", description = "ID of the customer to retrieve/update/delete", required = true, in = ParameterIn.PATH) @PathVariable("customerId") Long customerId
-    ) {
-        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
-
-    }
-
-
-    /**
-     * GET /customer/{customerId} : Get customer details by ID
-     *
-     * @param customerId ID of the customer to retrieve/update/delete (required)
-     * @return Customer details (status code 200)
-     *         or Customer not found (status code 404)
-     */
-    @Operation(
-        operationId = "getCustomer",
-        summary = "Get customer details by ID",
-        tags = { "customer" },
-        responses = {
-            @ApiResponse(responseCode = "200", description = "Customer details", content = {
-                @Content(mediaType = "application/json", schema = @Schema(implementation = CustomerDetailsDTO.class))
-            }),
-            @ApiResponse(responseCode = "404", description = "Customer not found")
-        }
-    )
-    @RequestMapping(
-        method = RequestMethod.GET,
-        value = "/customer/{customerId}",
-        produces = { "application/json" }
-    )
-    default ResponseEntity<CustomerDetailsDTO> getCustomer(
-        @Parameter(name = "customerId", description = "ID of the customer to retrieve/update/delete", required = true, in = ParameterIn.PATH) @PathVariable("customerId") Long customerId
-    ) {
-        getRequest().ifPresent(request -> {
-            for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
-                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                    String exampleString = "{ \"mobil\" : \"36709834234\", \"address\" : \"Budapest Lakatos utca 6.\", \"name\" : \"Gipsz Jakap\", \"company\" : \"Gipsz Kft.\", \"tax\" : \"3424-321-323\", \"orders\" : [ { \"date\" : \"2000-01-23T04:56:07.000+00:00\", \"note\" : \"note\", \"foods\" : [ { \"quantity\" : 1, \"food\" : { \"price\" : 400, \"name\" : \"Hamburger\", \"recipe\" : [ { \"unit\" : \"g\", \"quantity\" : 0, \"ingerient\" : \"ingerient\" }, { \"unit\" : \"g\", \"quantity\" : 0, \"ingerient\" : \"ingerient\" } ], \"id\" : \"6544cd596955fe0a1c04fba9\" } }, { \"quantity\" : 1, \"food\" : { \"price\" : 400, \"name\" : \"Hamburger\", \"recipe\" : [ { \"unit\" : \"g\", \"quantity\" : 0, \"ingerient\" : \"ingerient\" }, { \"unit\" : \"g\", \"quantity\" : 0, \"ingerient\" : \"ingerient\" } ], \"id\" : \"6544cd596955fe0a1c04fba9\" } } ], \"drinks\" : [ { \"quantity\" : 1, \"drink\" : { \"price\" : 400, \"name\" : \"Cola\", \"id\" : \"6544cd596955fe0a1c04fba9\" } }, { \"quantity\" : 1, \"drink\" : { \"price\" : 400, \"name\" : \"Cola\", \"id\" : \"6544cd596955fe0a1c04fba9\" } } ], \"id\" : \"6544cd596955fe0a1c04fba9\", \"status\" : \"placed\" }, { \"date\" : \"2000-01-23T04:56:07.000+00:00\", \"note\" : \"note\", \"foods\" : [ { \"quantity\" : 1, \"food\" : { \"price\" : 400, \"name\" : \"Hamburger\", \"recipe\" : [ { \"unit\" : \"g\", \"quantity\" : 0, \"ingerient\" : \"ingerient\" }, { \"unit\" : \"g\", \"quantity\" : 0, \"ingerient\" : \"ingerient\" } ], \"id\" : \"6544cd596955fe0a1c04fba9\" } }, { \"quantity\" : 1, \"food\" : { \"price\" : 400, \"name\" : \"Hamburger\", \"recipe\" : [ { \"unit\" : \"g\", \"quantity\" : 0, \"ingerient\" : \"ingerient\" }, { \"unit\" : \"g\", \"quantity\" : 0, \"ingerient\" : \"ingerient\" } ], \"id\" : \"6544cd596955fe0a1c04fba9\" } } ], \"drinks\" : [ { \"quantity\" : 1, \"drink\" : { \"price\" : 400, \"name\" : \"Cola\", \"id\" : \"6544cd596955fe0a1c04fba9\" } }, { \"quantity\" : 1, \"drink\" : { \"price\" : 400, \"name\" : \"Cola\", \"id\" : \"6544cd596955fe0a1c04fba9\" } } ], \"id\" : \"6544cd596955fe0a1c04fba9\", \"status\" : \"placed\" } ], \"userId\" : \"ObjectId('6544cd596955fe0a1c04fba9')\", \"email\" : \"gipsz@jakab.com\", \"points\" : 100 }";
-                    ApiUtil.setExampleResponse(request, "application/json", exampleString);
-                    break;
-                }
-            }
-        });
-        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
-
-    }
-
-
-    /**
-     * GET /customer : Get a list of customers
+     * GET /customer : Get all customers
      *
      * @return A list of customers (status code 200)
      */
     @Operation(
         operationId = "listCustomers",
-        summary = "Get a list of customers",
+        summary = "Get all customers",
         tags = { "customer" },
         responses = {
             @ApiResponse(responseCode = "200", description = "A list of customers", content = {
-                @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = CustomerDTO.class)))
+                @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = UserDTO.class)))
             })
         }
     )
@@ -201,18 +62,47 @@ public interface CustomerApi {
         value = "/customer",
         produces = { "application/json" }
     )
-    default ResponseEntity<List<CustomerDTO>> listCustomers(
+    default ResponseEntity<List<UserDTO>> listCustomers(
         
     ) {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                    String exampleString = "[ { \"name\" : \"Gipsz Jakap\", \"userId\" : \"ObjectId('6544cd596955fe0a1c04fba9')\", \"email\" : \"gipsz@jakab.com\" }, { \"name\" : \"Gipsz Jakap\", \"userId\" : \"ObjectId('6544cd596955fe0a1c04fba9')\", \"email\" : \"gipsz@jakab.com\" } ]";
+                    String exampleString = "[ { \"mobil\" : \"36709834234\", \"address\" : \"Budapest Lakatos utca 6.\", \"name\" : \"Gipsz Jakap\", \"id\" : \"ObjectId('6544cd596955fe0a1c04fba9')\", \"email\" : \"gipsz@jakab.com\" }, { \"mobil\" : \"36709834234\", \"address\" : \"Budapest Lakatos utca 6.\", \"name\" : \"Gipsz Jakap\", \"id\" : \"ObjectId('6544cd596955fe0a1c04fba9')\", \"email\" : \"gipsz@jakab.com\" } ]";
                     ApiUtil.setExampleResponse(request, "application/json", exampleString);
                     break;
                 }
             }
         });
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+
+    }
+
+
+    /**
+     * POST /customer : Customer registration
+     *
+     * @param userRegisterDTO  (required)
+     * @return User successfully registered (status code 201)
+     *         or Invalid request (status code 400)
+     */
+    @Operation(
+        operationId = "registerUser",
+        summary = "Customer registration",
+        tags = { "customer" },
+        responses = {
+            @ApiResponse(responseCode = "201", description = "User successfully registered"),
+            @ApiResponse(responseCode = "400", description = "Invalid request")
+        }
+    )
+    @RequestMapping(
+        method = RequestMethod.POST,
+        value = "/customer",
+        consumes = { "application/json" }
+    )
+    default ResponseEntity<Void> registerUser(
+        @Parameter(name = "UserRegisterDTO", description = "", required = true) @Valid @RequestBody UserRegisterDTO userRegisterDTO
+    ) {
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 
     }

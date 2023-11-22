@@ -2,8 +2,8 @@ package bme.restaurant.dto;
 
 import java.net.URI;
 import java.util.Objects;
-import bme.restaurant.dto.CustomerDTO;
 import bme.restaurant.dto.TableDTO;
+import bme.restaurant.dto.UserDTO;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
@@ -25,14 +25,14 @@ import jakarta.annotation.Generated;
  */
 
 @JsonTypeName("Booking")
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-11-21T18:28:48.793104700+01:00[Europe/Budapest]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-11-23T00:54:23.413633600+01:00[Europe/Budapest]")
 public class BookingDTO {
 
   private String id;
 
   private TableDTO table;
 
-  private CustomerDTO customer;
+  private UserDTO customer;
 
   @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
   private OffsetDateTime startingDate;
@@ -86,7 +86,7 @@ public class BookingDTO {
   /**
    * Constructor with only required parameters
    */
-  public BookingDTO(String id, TableDTO table, CustomerDTO customer, OffsetDateTime startingDate, OffsetDateTime endingDate, StatusEnum status, Integer peopleCount) {
+  public BookingDTO(String id, TableDTO table, UserDTO customer, OffsetDateTime startingDate, OffsetDateTime endingDate, StatusEnum status, Integer peopleCount) {
     this.id = id;
     this.table = table;
     this.customer = customer;
@@ -136,7 +136,7 @@ public class BookingDTO {
     this.table = table;
   }
 
-  public BookingDTO customer(CustomerDTO customer) {
+  public BookingDTO customer(UserDTO customer) {
     this.customer = customer;
     return this;
   }
@@ -148,11 +148,11 @@ public class BookingDTO {
   @NotNull @Valid 
   @Schema(name = "customer", requiredMode = Schema.RequiredMode.REQUIRED)
   @JsonProperty("customer")
-  public CustomerDTO getCustomer() {
+  public UserDTO getCustomer() {
     return customer;
   }
 
-  public void setCustomer(CustomerDTO customer) {
+  public void setCustomer(UserDTO customer) {
     this.customer = customer;
   }
 

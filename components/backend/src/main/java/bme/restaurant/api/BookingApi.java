@@ -36,7 +36,7 @@ import java.util.Map;
 import java.util.Optional;
 import jakarta.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-11-21T18:28:48.793104700+01:00[Europe/Budapest]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-11-23T00:54:23.413633600+01:00[Europe/Budapest]")
 @Validated
 @Tag(name = "booking", description = "the booking API")
 public interface BookingApi {
@@ -75,7 +75,7 @@ public interface BookingApi {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                    String exampleString = "{ \"endingDate\" : \"2000-01-23T04:56:07.000+00:00\", \"peopleCount\" : 0, \"id\" : \"ObjectId('6544cd596955fe0a1c04fba9')\", \"startingDate\" : \"2000-01-23T04:56:07.000+00:00\", \"table\" : { \"number\" : 10, \"capacity\" : 10, \"status\" : \"booked\" }, \"customer\" : { \"name\" : \"Gipsz Jakap\", \"userId\" : \"ObjectId('6544cd596955fe0a1c04fba9')\", \"email\" : \"gipsz@jakab.com\" }, \"status\" : \"pending\" }";
+                    String exampleString = "{ \"endingDate\" : \"2000-01-23T04:56:07.000+00:00\", \"peopleCount\" : 0, \"id\" : \"ObjectId('6544cd596955fe0a1c04fba9')\", \"startingDate\" : \"2000-01-23T04:56:07.000+00:00\", \"table\" : { \"number\" : 10, \"capacity\" : 10, \"status\" : \"booked\" }, \"customer\" : { \"mobil\" : \"36709834234\", \"address\" : \"Budapest Lakatos utca 6.\", \"name\" : \"Gipsz Jakap\", \"id\" : \"ObjectId('6544cd596955fe0a1c04fba9')\", \"email\" : \"gipsz@jakab.com\" }, \"status\" : \"pending\" }";
                     ApiUtil.setExampleResponse(request, "application/json", exampleString);
                     break;
                 }
@@ -117,7 +117,7 @@ public interface BookingApi {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                    String exampleString = "{ \"endingDate\" : \"2000-01-23T04:56:07.000+00:00\", \"peopleCount\" : 0, \"id\" : \"ObjectId('6544cd596955fe0a1c04fba9')\", \"startingDate\" : \"2000-01-23T04:56:07.000+00:00\", \"table\" : { \"number\" : 10, \"capacity\" : 10, \"status\" : \"booked\" }, \"customer\" : { \"name\" : \"Gipsz Jakap\", \"userId\" : \"ObjectId('6544cd596955fe0a1c04fba9')\", \"email\" : \"gipsz@jakab.com\" }, \"status\" : \"pending\" }";
+                    String exampleString = "{ \"endingDate\" : \"2000-01-23T04:56:07.000+00:00\", \"peopleCount\" : 0, \"id\" : \"ObjectId('6544cd596955fe0a1c04fba9')\", \"startingDate\" : \"2000-01-23T04:56:07.000+00:00\", \"table\" : { \"number\" : 10, \"capacity\" : 10, \"status\" : \"booked\" }, \"customer\" : { \"mobil\" : \"36709834234\", \"address\" : \"Budapest Lakatos utca 6.\", \"name\" : \"Gipsz Jakap\", \"id\" : \"ObjectId('6544cd596955fe0a1c04fba9')\", \"email\" : \"gipsz@jakab.com\" }, \"status\" : \"pending\" }";
                     ApiUtil.setExampleResponse(request, "application/json", exampleString);
                     break;
                 }
@@ -157,7 +157,7 @@ public interface BookingApi {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                    String exampleString = "{ \"endingDate\" : \"2000-01-23T04:56:07.000+00:00\", \"peopleCount\" : 0, \"id\" : \"ObjectId('6544cd596955fe0a1c04fba9')\", \"startingDate\" : \"2000-01-23T04:56:07.000+00:00\", \"table\" : { \"number\" : 10, \"capacity\" : 10, \"status\" : \"booked\" }, \"customer\" : { \"name\" : \"Gipsz Jakap\", \"userId\" : \"ObjectId('6544cd596955fe0a1c04fba9')\", \"email\" : \"gipsz@jakab.com\" }, \"status\" : \"pending\" }";
+                    String exampleString = "{ \"endingDate\" : \"2000-01-23T04:56:07.000+00:00\", \"peopleCount\" : 0, \"id\" : \"ObjectId('6544cd596955fe0a1c04fba9')\", \"startingDate\" : \"2000-01-23T04:56:07.000+00:00\", \"table\" : { \"number\" : 10, \"capacity\" : 10, \"status\" : \"booked\" }, \"customer\" : { \"mobil\" : \"36709834234\", \"address\" : \"Budapest Lakatos utca 6.\", \"name\" : \"Gipsz Jakap\", \"id\" : \"ObjectId('6544cd596955fe0a1c04fba9')\", \"email\" : \"gipsz@jakab.com\" }, \"status\" : \"pending\" }";
                     ApiUtil.setExampleResponse(request, "application/json", exampleString);
                     break;
                 }
@@ -203,7 +203,7 @@ public interface BookingApi {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                    String exampleString = "[ { \"endingDate\" : \"2000-01-23T04:56:07.000+00:00\", \"peopleCount\" : 0, \"id\" : \"ObjectId('6544cd596955fe0a1c04fba9')\", \"startingDate\" : \"2000-01-23T04:56:07.000+00:00\", \"table\" : { \"number\" : 10, \"capacity\" : 10, \"status\" : \"booked\" }, \"customer\" : { \"name\" : \"Gipsz Jakap\", \"userId\" : \"ObjectId('6544cd596955fe0a1c04fba9')\", \"email\" : \"gipsz@jakab.com\" }, \"status\" : \"pending\" }, { \"endingDate\" : \"2000-01-23T04:56:07.000+00:00\", \"peopleCount\" : 0, \"id\" : \"ObjectId('6544cd596955fe0a1c04fba9')\", \"startingDate\" : \"2000-01-23T04:56:07.000+00:00\", \"table\" : { \"number\" : 10, \"capacity\" : 10, \"status\" : \"booked\" }, \"customer\" : { \"name\" : \"Gipsz Jakap\", \"userId\" : \"ObjectId('6544cd596955fe0a1c04fba9')\", \"email\" : \"gipsz@jakab.com\" }, \"status\" : \"pending\" } ]";
+                    String exampleString = "[ { \"endingDate\" : \"2000-01-23T04:56:07.000+00:00\", \"peopleCount\" : 0, \"id\" : \"ObjectId('6544cd596955fe0a1c04fba9')\", \"startingDate\" : \"2000-01-23T04:56:07.000+00:00\", \"table\" : { \"number\" : 10, \"capacity\" : 10, \"status\" : \"booked\" }, \"customer\" : { \"mobil\" : \"36709834234\", \"address\" : \"Budapest Lakatos utca 6.\", \"name\" : \"Gipsz Jakap\", \"id\" : \"ObjectId('6544cd596955fe0a1c04fba9')\", \"email\" : \"gipsz@jakab.com\" }, \"status\" : \"pending\" }, { \"endingDate\" : \"2000-01-23T04:56:07.000+00:00\", \"peopleCount\" : 0, \"id\" : \"ObjectId('6544cd596955fe0a1c04fba9')\", \"startingDate\" : \"2000-01-23T04:56:07.000+00:00\", \"table\" : { \"number\" : 10, \"capacity\" : 10, \"status\" : \"booked\" }, \"customer\" : { \"mobil\" : \"36709834234\", \"address\" : \"Budapest Lakatos utca 6.\", \"name\" : \"Gipsz Jakap\", \"id\" : \"ObjectId('6544cd596955fe0a1c04fba9')\", \"email\" : \"gipsz@jakab.com\" }, \"status\" : \"pending\" } ]";
                     ApiUtil.setExampleResponse(request, "application/json", exampleString);
                     break;
                 }
@@ -247,7 +247,7 @@ public interface BookingApi {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                    String exampleString = "[ { \"endingDate\" : \"2000-01-23T04:56:07.000+00:00\", \"peopleCount\" : 0, \"id\" : \"ObjectId('6544cd596955fe0a1c04fba9')\", \"startingDate\" : \"2000-01-23T04:56:07.000+00:00\", \"table\" : { \"number\" : 10, \"capacity\" : 10, \"status\" : \"booked\" }, \"customer\" : { \"name\" : \"Gipsz Jakap\", \"userId\" : \"ObjectId('6544cd596955fe0a1c04fba9')\", \"email\" : \"gipsz@jakab.com\" }, \"status\" : \"pending\" }, { \"endingDate\" : \"2000-01-23T04:56:07.000+00:00\", \"peopleCount\" : 0, \"id\" : \"ObjectId('6544cd596955fe0a1c04fba9')\", \"startingDate\" : \"2000-01-23T04:56:07.000+00:00\", \"table\" : { \"number\" : 10, \"capacity\" : 10, \"status\" : \"booked\" }, \"customer\" : { \"name\" : \"Gipsz Jakap\", \"userId\" : \"ObjectId('6544cd596955fe0a1c04fba9')\", \"email\" : \"gipsz@jakab.com\" }, \"status\" : \"pending\" } ]";
+                    String exampleString = "[ { \"endingDate\" : \"2000-01-23T04:56:07.000+00:00\", \"peopleCount\" : 0, \"id\" : \"ObjectId('6544cd596955fe0a1c04fba9')\", \"startingDate\" : \"2000-01-23T04:56:07.000+00:00\", \"table\" : { \"number\" : 10, \"capacity\" : 10, \"status\" : \"booked\" }, \"customer\" : { \"mobil\" : \"36709834234\", \"address\" : \"Budapest Lakatos utca 6.\", \"name\" : \"Gipsz Jakap\", \"id\" : \"ObjectId('6544cd596955fe0a1c04fba9')\", \"email\" : \"gipsz@jakab.com\" }, \"status\" : \"pending\" }, { \"endingDate\" : \"2000-01-23T04:56:07.000+00:00\", \"peopleCount\" : 0, \"id\" : \"ObjectId('6544cd596955fe0a1c04fba9')\", \"startingDate\" : \"2000-01-23T04:56:07.000+00:00\", \"table\" : { \"number\" : 10, \"capacity\" : 10, \"status\" : \"booked\" }, \"customer\" : { \"mobil\" : \"36709834234\", \"address\" : \"Budapest Lakatos utca 6.\", \"name\" : \"Gipsz Jakap\", \"id\" : \"ObjectId('6544cd596955fe0a1c04fba9')\", \"email\" : \"gipsz@jakab.com\" }, \"status\" : \"pending\" } ]";
                     ApiUtil.setExampleResponse(request, "application/json", exampleString);
                     break;
                 }
