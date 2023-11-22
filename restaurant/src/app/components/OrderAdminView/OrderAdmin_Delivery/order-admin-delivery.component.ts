@@ -3,8 +3,6 @@ import { CommonModule } from '@angular/common';
 import { TableModule } from 'primeng/table';
 import { Order } from 'src/app/generated-api/model/models';
 import { ButtonModule } from 'primeng/button';
-import { TooltipModule } from 'primeng/tooltip';
-import { SplitButtonModule } from 'primeng/splitbutton';
 import { MenuItem } from 'primeng/api';
 import { RatingModule } from 'primeng/rating';
 import { DropdownModule } from 'primeng/dropdown';
@@ -12,16 +10,16 @@ import { DropdownModule } from 'primeng/dropdown';
 @Component({
   selector: 'app-order-admin-delivery',
   standalone: true,
-  imports: [CommonModule, TableModule, ButtonModule, TooltipModule,  SplitButtonModule,RatingModule, DropdownModule ],
+  imports: [CommonModule, TableModule, ButtonModule,  RatingModule, DropdownModule ],
   templateUrl: './order-admin-delivery.component.html',
   styleUrls: ['./order-admin-delivery.component.scss'],
 })
 export class OrderAdminDeliveryComponent implements OnInit {
   orders!: Order[] 
-  splitbuttonData!: MenuItem[]
+  statusData!: MenuItem[]
 
   ngOnInit(): void {
-    this.splitbuttonData=[
+    this.statusData=[
       {label: Order.StatusEnum.Placed,},
       {label: Order.StatusEnum.Cooking,},
       {label: Order.StatusEnum.Delivering,},

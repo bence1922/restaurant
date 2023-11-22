@@ -25,7 +25,7 @@
             <td>date</td>
             <td>{{calculatePrice(order)}}</td>
             <td>
-                <p-dropdown [options]="splitbuttonData" appendTo="body" :ngModel="order.status"></p-dropdown>
+                <p-dropdown [options]="statusData" appendTo="body" :ngModel="order.status"></p-dropdown>
             </td>
             <td>
                 <p-rating  [disabled]="true" [cancel]="false"></p-rating>

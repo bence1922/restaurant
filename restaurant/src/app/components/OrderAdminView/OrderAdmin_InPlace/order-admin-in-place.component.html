@@ -1,1 +1,96 @@
-<p>order-admin-in-place works!</p>
+<div class="mt-6">
+    <p-table    
+    [value]="orders"
+    [paginator]="true"
+    [rows]="10"
+    [resizableColumns]="true"
+    dataKey="rowIndex" editMode="row">
+    <ng-template pTemplate="header">
+        <tr>
+            <th style="width: 3rem"></th>
+            <th pSortableColumn="user" pResizableColumn>Table<p-sortIcon field="user"></p-sortIcon></th>
+            <th pSortableColumn="price">Price <p-sortIcon field="price"></p-sortIcon></th>
+            <th pSortableColumn="status">Status <p-sortIcon field="status"></p-sortIcon></th>
+            <th class="w-6rem">Action</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-order let-expanded="expanded">
+        <tr>
+            <td>
+                <p-button  [pRowToggler]="order" class="p-button-text p-button-rounded p-button-plain" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'" [text]="true"></p-button>
+            </td>
+            <td>user.name</td>
+            <td>{{calculatePrice(order)}}</td>
+            <td>
+                <p-dropdown [options]="statusData" [(ngModel)]="order.status" appendTo="body" :ngModel="order.status"></p-dropdown>
+            </td>
+            <td>
+                <p-button icon="pi pi-trash" (onclick)="deleteOrder(order)" [text]="true"></p-button>
+                <p-button icon="pi pi-credit-card" (onClick)="paid(order)" [text]="true"></p-button>
+            </td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="rowexpansion" let-order>
+        <tr>
+            <td colspan="6">
+                <div class="flex">
+                <div class="w-full">
+                    <div class="text-color text-lg mb-2">Items</div>
+                    <div *ngFor="let item of order.foods index as i" class="ml-3">
+                        <div class="grid flex align-items-center">
+                            <div class="col-2">{{item.food.name}}</div>
+                            <div class="col-4 flex align-items-center">{{item.food.price}} x 
+                                <p-button icon="pi pi-minus-circle" [rounded]="true" [text]="true" (onClick)="decrease(true, order, i)"></p-button>
+                                <div>{{item.quantity}}</div>
+                                <p-button icon="pi pi-plus-circle" [rounded]="true" [text]="true" (onClick)="increase(true, order, i)"></p-button>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngFor="let item of order.drinks index as i" class="ml-3">
+                        <div class="grid">
+                            <div class="col-2">{{item.drink.name}}</div>
+                            <div class="col-4 flex align-items-center">{{item.drink.price}} x 
+                                <p-button icon="pi pi-minus-circle" [rounded]="true" [text]="true" (onClick)="decrease(false, order, i)"></p-button>
+                                <div>{{item.quantity}}</div>
+                                <p-button icon="pi pi-plus-circle" [rounded]="true" [text]="true" (onClick)="increase(false, order, i)"></p-button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        <p-dropdown [options]="foodList" optionLabel="name" [(ngModel)]="selectedFood" placeholder="Select a food" appendTo="body" class="mx-3"></p-dropdown>
+                        <p-button class="mr-2" [text]="true" [rounded]="true" icon="pi pi-plus-circle" (onClick)="addOrderItem(true, order)"></p-button>
+                    </div>
+                    <div class="mt-3">
+                        <p-dropdown [options]="drinkList" optionLabel="name" [(ngModel)]="selectedDrink" placeholder="Select a drink" appendTo="body" class="mx-3"></p-dropdown>
+                        <p-button class="mr-2" [text]="true" [rounded]="true" icon="pi pi-plus-circle" (onClick)="addOrderItem(false, order)"></p-button>
+                    </div>
+                </div>
+            </div>
+            </td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="paginatorleft">
+        <p-button type="button" icon="pi pi-plus" styleClass="p-button-text" (onClick)="newOrder()"></p-button>
+    </ng-template>
+    </p-table>
+    <p-dialog header="This order will be closed" [(visible)]="dialogVisible" [style]="{width: '50vw'}">
+        <div class="flex my-4">
+            <div class="text-color-secondary text-lg mr-3">User: </div>
+            <p-dropdown appendTo="body"></p-dropdown>
+            <div class="ml-6">You can get {{calculatePoints(closingOrder!)}} points</div>
+        </div>
+        <div class="my-4">
+            <div class="text-color-secondary text-lg mr-3 mb-3">Add review</div>
+            <p-rating ></p-rating>
+        </div>
+        <div class="mt-4 flex">
+            <div class="text-color-secondary text-lg mr-3 mb-3">Total: </div>
+            <div>{{calculatePrice(closingOrder!)}} .-</div>
+        </div>
+        <ng-template pTemplate="footer">
+            <p-button icon="pi pi-check" (click)="closeOrder()" [text]="true" [rounded]="true"></p-button>
+        </ng-template>
+    </p-dialog>
+</div>
