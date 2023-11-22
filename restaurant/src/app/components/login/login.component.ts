@@ -6,12 +6,13 @@ import { Router } from '@angular/router';
 import { UserService } from '../../generated-api/api/user.service';
 import { User } from '../../generated-api/model/user';
 import { AuthService } from 'src/app/generated-api/api/auth.service';
+import { ButtonModule } from 'primeng/button';
 
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, FormsModule, CardModule],
+  imports: [CommonModule, FormsModule, CardModule, ButtonModule],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })

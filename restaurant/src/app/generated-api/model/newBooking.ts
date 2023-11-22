@@ -16,5 +16,6 @@ export interface NewBooking {
     customer_id: string;
     startingDate: string;
     endingDate: string;
+    peopleCount: number;
 }
 

@@ -14,9 +14,20 @@ import { Customer } from './customer';
 
 
 export interface Booking { 
+    id: string;
     table: Table;
     customer: Customer;
     startingDate: string;
     endingDate: string;
+    status: Booking.StatusEnum;
+    peopleCount: number;
 }
+export namespace Booking {
+    export type StatusEnum = 'pending' | 'accepted';
+    export const StatusEnum = {
+        Pending: 'pending' as StatusEnum,
+        Accepted: 'accepted' as StatusEnum
+    };
+}
+
 

@@ -14,6 +14,7 @@ import { IngredientsComponent } from './components/Ingredients/ingredients.compo
 import { TablesComponent } from './components/Tables/tables.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegistrationComponent } from './components/registration/registration.component';
+import { AdminReservationsComponent } from './components/AdminReservations/admin-reservations.component';
 //import { HeroComponent } from './components/Hero/hero.component';
 
 export const appRoutes: Route[] = [
@@ -36,7 +37,8 @@ export const appRoutes: Route[] = [
             {path: 'ingredients', title:'Alapanyagok', component: IngredientsComponent, canActivate: [RoleGuard], data: {roles: ['admin', 'manager']}},
             {path: 'login', title:'Log In', component: LoginComponent, canActivate: [RoleGuard], data: {roles: ['everyone']}},
             {path: 'registration', title:'Registration', component: RegistrationComponent, canActivate: [RoleGuard], data: {roles: ['everyone']}},
-            {path: 'tables', title:"Asztalok", component: TablesComponent, canActivate: [RoleGuard], data: {roles: ['admin', 'waiter', 'manager']}}
+            {path: 'tables', title:"Asztalok", component: TablesComponent, canActivate: [RoleGuard], data: {roles: ['admin', 'waiter', 'manager']}},
+            {path: 'reservations_admin', title:"Foglalások", component: AdminReservationsComponent, canActivate: [RoleGuard], data: {roles: ['admin','everyone']}},
 ]}]
 //     {path: 'admin', loadChildren: () => import('./admin/routes')},
 //     // ...
