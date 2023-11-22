@@ -15,7 +15,14 @@
                 </div>
             </div>
             <div class="mx-6" *ngIf="openInfo">
-                <div class="my-3 text-color">Status - {{current.status}}</div>
+                <div class="flex">
+                    <div class="my-3 text-color">Status - {{current.status}}</div>
+                    <div *ngIf="current.status?.match('delivered')">
+                        <form [formGroup]="formGroup" class="ml-6" >
+                            <p-rating formControlName="rating"></p-rating>
+                        </form>
+                    </div>
+                </div>
                 <div class="text-color">Items</div>
                 <div *ngFor="let item of current.foods" class="ml-3">
                     <div class="grid">
@@ -39,7 +46,10 @@
                 <div class="text-color ml-5">{{price(order)}} Ft</div>
             </div>
             <div>
-                <p-button icon="pi pi-file-export" [rounded]="true" [text]="true"></p-button>
+                <div class="flex">
+                    <p-rating  [readonly]="true" [cancel]="false"></p-rating>
+                    <p-button icon="pi pi-file-export" [rounded]="true" [text]="true" class="ml-8"></p-button>
+                </div>
             </div>
         </div>
         <p-divider class="text-color-secondary"></p-divider>
