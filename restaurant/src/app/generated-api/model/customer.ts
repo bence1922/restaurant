@@ -12,7 +12,8 @@
 
 
 export interface Customer { 
-    userId: string;
+    userId?: string;
     name: string;
+    email?: string;
 }
 

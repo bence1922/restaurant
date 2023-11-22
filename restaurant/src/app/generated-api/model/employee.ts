@@ -13,6 +13,7 @@
 
 export interface Employee { 
     name?: string;
+    userId?: string;
     role: Employee.RoleEnum;
 }
 export namespace Employee {

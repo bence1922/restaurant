@@ -3,6 +3,8 @@ package bme.restaurant.dao;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import bme.restaurant.dto.CustomerDTO;
+
 @Document(collection = "users")
 public class User {
     @Id
@@ -90,5 +92,13 @@ public class User {
 
     public void setRole(int role) {
         this.role = role;
+    }
+
+    public CustomerDTO toCustomerDTO() {
+        var dto = new CustomerDTO();
+        dto.setUserId(id);
+        dto.setName(name);
+        dto.setEmail(email);
+        return dto;
     }
 }

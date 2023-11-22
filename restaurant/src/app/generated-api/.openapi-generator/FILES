@@ -1,9 +1,12 @@
 .gitignore
-.openapi-generator-ignore
 README.md
 api.module.ts
 api/api.ts
+api/booking.service.ts
+api/customer.service.ts
+api/customerOrder.service.ts
 api/employee.service.ts
+api/menu.service.ts
 api/table.service.ts
 api/tableOrder.service.ts
 api/user.service.ts
@@ -13,6 +16,8 @@ git_push.sh
 index.ts
 model/booking.ts
 model/customer.ts
+model/customerDetails.ts
+model/customerOrder.ts
 model/drink.ts
 model/drinkOrderItem.ts
 model/drinkStockItem.ts
@@ -21,7 +26,9 @@ model/food.ts
 model/foodOrderItem.ts
 model/foodRecipeInner.ts
 model/foodStockItem.ts
+model/menuItem.ts
 model/models.ts
+model/newBooking.ts
 model/order.ts
 model/table.ts
 model/user.ts

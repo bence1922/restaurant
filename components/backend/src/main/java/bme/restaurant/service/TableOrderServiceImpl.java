@@ -18,10 +18,10 @@ import bme.restaurant.repository.TableRepository;
 public class TableOrderServiceImpl implements TableOrderService {
 
     @Autowired
-    TableRepository tableRepo;
+    private TableRepository tableRepo;
 
     @Autowired
-    TableOrderRepository tableOrderRepo;
+    private TableOrderRepository tableOrderRepo;
 
     @Override
     public OrderDTO findTableOrder(Integer tableNumber) {

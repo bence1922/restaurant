@@ -93,7 +93,7 @@ export class TableService {
 
     /**
      * Deletes table by number
-     * @param tableNumber Table id to delete
+     * @param tableNumber number of table to return
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
@@ -135,7 +135,7 @@ export class TableService {
             }
         }
 
-        let localVarPath = `/table/${this.configuration.encodeParam({name: "tableNumber", value: tableNumber, in: "path", style: "simple", explode: false, dataType: "number", dataFormat: "int32"})}`;
+        let localVarPath = `/table/${this.configuration.encodeParam({name: "tableNumber", value: tableNumber, in: "path", style: "simple", explode: false, dataType: "number", dataFormat: undefined})}`;
         return this.httpClient.request<any>('delete', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -194,7 +194,7 @@ export class TableService {
             }
         }
 
-        let localVarPath = `/table/${this.configuration.encodeParam({name: "tableNumber", value: tableNumber, in: "path", style: "simple", explode: false, dataType: "number", dataFormat: "int32"})}`;
+        let localVarPath = `/table/${this.configuration.encodeParam({name: "tableNumber", value: tableNumber, in: "path", style: "simple", explode: false, dataType: "number", dataFormat: undefined})}`;
         return this.httpClient.request<Table>('get', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -263,8 +263,8 @@ export class TableService {
     }
 
     /**
-     * Create or update new table
-     * @param tableNumber 
+     * Create or update table by number
+     * @param tableNumber number of table to return
      * @param capacity 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
