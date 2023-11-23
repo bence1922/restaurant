@@ -32,7 +32,7 @@ import java.util.Map;
 import java.util.Optional;
 import jakarta.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-11-23T00:54:23.413633600+01:00[Europe/Budapest]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-11-23T16:23:47.906689958+01:00[Europe/Budapest]")
 @Validated
 @Tag(name = "user", description = "the user API")
 public interface UserApi {
@@ -46,22 +46,22 @@ public interface UserApi {
      *
      * @param userId The ID of the user (required)
      * @return Invalid ID supplied (status code 400)
-     *         or Employee not found (status code 404)
+     *         or User not found (status code 404)
      */
     @Operation(
-        operationId = "deleteEmployeeById",
+        operationId = "deleteUserById",
         summary = "Delete user by ID",
         tags = { "user" },
         responses = {
             @ApiResponse(responseCode = "400", description = "Invalid ID supplied"),
-            @ApiResponse(responseCode = "404", description = "Employee not found")
+            @ApiResponse(responseCode = "404", description = "User not found")
         }
     )
     @RequestMapping(
         method = RequestMethod.DELETE,
         value = "/user/{userId}"
     )
-    default ResponseEntity<Void> deleteEmployeeById(
+    default ResponseEntity<Void> deleteUserById(
         @Parameter(name = "userId", description = "The ID of the user", required = true, in = ParameterIn.PATH) @PathVariable("userId") String userId
     ) {
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
@@ -74,7 +74,7 @@ public interface UserApi {
      *
      * @param userId The ID of the user (required)
      * @return Successful operation (status code 200)
-     *         or Employee not found (status code 404)
+     *         or User not found (status code 404)
      */
     @Operation(
         operationId = "getUserById",
@@ -84,7 +84,7 @@ public interface UserApi {
             @ApiResponse(responseCode = "200", description = "Successful operation", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = UserDTO.class))
             }),
-            @ApiResponse(responseCode = "404", description = "Employee not found")
+            @ApiResponse(responseCode = "404", description = "User not found")
         }
     )
     @RequestMapping(
@@ -116,7 +116,7 @@ public interface UserApi {
      * @param userDTO  (required)
      * @return Successful operation (status code 200)
      *         or Invalid ID supplied (status code 400)
-     *         or Employee not found (status code 404)
+     *         or User not found (status code 404)
      *         or Validation exception (status code 405)
      */
     @Operation(
@@ -128,7 +128,7 @@ public interface UserApi {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = UserDTO.class))
             }),
             @ApiResponse(responseCode = "400", description = "Invalid ID supplied"),
-            @ApiResponse(responseCode = "404", description = "Employee not found"),
+            @ApiResponse(responseCode = "404", description = "User not found"),
             @ApiResponse(responseCode = "405", description = "Validation exception")
         }
     )

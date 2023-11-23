@@ -31,7 +31,7 @@ import java.util.Map;
 import java.util.Optional;
 import jakarta.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-11-23T00:54:23.413633600+01:00[Europe/Budapest]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-11-23T16:23:47.906689958+01:00[Europe/Budapest]")
 @Validated
 @Tag(name = "user", description = "the user API")
 public interface PasswordResetApi {
@@ -41,20 +41,21 @@ public interface PasswordResetApi {
     }
 
     /**
-     * PATCH /password-reset : User login
+     * PATCH /password-reset : Password reset
      *
+     * @param userId The ID of the user (required)
      * @param oldPassword  (required)
      * @param newPassword  (required)
-     * @return User successfully logged in (status code 200)
+     * @return successfully updated (status code 200)
      *         or Unauthorized (status code 401)
      *         or Invalid request (status code 400)
      */
     @Operation(
         operationId = "passwordReset",
-        summary = "User login",
+        summary = "Password reset",
         tags = { "user" },
         responses = {
-            @ApiResponse(responseCode = "200", description = "User successfully logged in"),
+            @ApiResponse(responseCode = "200", description = "successfully updated"),
             @ApiResponse(responseCode = "401", description = "Unauthorized"),
             @ApiResponse(responseCode = "400", description = "Invalid request")
         }
@@ -64,6 +65,7 @@ public interface PasswordResetApi {
         value = "/password-reset"
     )
     default ResponseEntity<Void> passwordReset(
+        @Parameter(name = "userId", description = "The ID of the user", required = true, in = ParameterIn.PATH) @PathVariable("userId") String userId,
         @NotNull @Parameter(name = "oldPassword", description = "", required = true, in = ParameterIn.HEADER) @RequestHeader(value = "oldPassword", required = true) String oldPassword,
         @NotNull @Parameter(name = "newPassword", description = "", required = true, in = ParameterIn.HEADER) @RequestHeader(value = "newPassword", required = true) String newPassword
     ) {

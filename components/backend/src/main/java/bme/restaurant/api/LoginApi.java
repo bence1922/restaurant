@@ -5,6 +5,7 @@
  */
 package bme.restaurant.api;
 
+import bme.restaurant.dto.UserLoginDTO;
 import bme.restaurant.dto.UserSessionDTO;
 import io.swagger.v3.oas.annotations.ExternalDocumentation;
 import io.swagger.v3.oas.annotations.Operation;
@@ -32,7 +33,7 @@ import java.util.Map;
 import java.util.Optional;
 import jakarta.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-11-23T00:54:23.413633600+01:00[Europe/Budapest]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-11-23T16:23:47.906689958+01:00[Europe/Budapest]")
 @Validated
 @Tag(name = "user", description = "the user API")
 public interface LoginApi {
@@ -44,7 +45,7 @@ public interface LoginApi {
     /**
      * POST /login : User login
      *
-     * @param userSessionDTO  (required)
+     * @param userLoginDTO  (required)
      * @return User successfully logged in (status code 200)
      *         or Unauthorized (status code 401)
      *         or Invalid request (status code 400)
@@ -54,7 +55,9 @@ public interface LoginApi {
         summary = "User login",
         tags = { "user" },
         responses = {
-            @ApiResponse(responseCode = "200", description = "User successfully logged in"),
+            @ApiResponse(responseCode = "200", description = "User successfully logged in", content = {
+                @Content(mediaType = "application/json", schema = @Schema(implementation = UserSessionDTO.class))
+            }),
             @ApiResponse(responseCode = "401", description = "Unauthorized"),
             @ApiResponse(responseCode = "400", description = "Invalid request")
         }
@@ -62,11 +65,21 @@ public interface LoginApi {
     @RequestMapping(
         method = RequestMethod.POST,
         value = "/login",
+        produces = { "application/json" },
         consumes = { "application/json" }
     )
-    default ResponseEntity<Void> login(
-        @Parameter(name = "UserSessionDTO", description = "", required = true) @Valid @RequestBody UserSessionDTO userSessionDTO
+    default ResponseEntity<UserSessionDTO> login(
+        @Parameter(name = "UserLoginDTO", description = "", required = true) @Valid @RequestBody UserLoginDTO userLoginDTO
     ) {
+        getRequest().ifPresent(request -> {
+            for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
+                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
+                    String exampleString = "{ \"role\" : \"admin\", \"id\" : \"ObjectId('6544cd596955fe0a1c04fba9')\", \"user\" : { \"mobil\" : \"36709834234\", \"address\" : \"Budapest Lakatos utca 6.\", \"name\" : \"Gipsz Jakap\", \"id\" : \"ObjectId('6544cd596955fe0a1c04fba9')\", \"email\" : \"gipsz@jakab.com\" } }";
+                    ApiUtil.setExampleResponse(request, "application/json", exampleString);
+                    break;
+                }
+            }
+        });
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 
     }

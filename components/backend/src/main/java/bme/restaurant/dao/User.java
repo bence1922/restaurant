@@ -20,7 +20,7 @@ public class User {
 
     private String passwordHash;
 
-    private int role;
+    private String role;
 
     public User(
             String name,
@@ -28,7 +28,7 @@ public class User {
             String mobilNumber,
             String email,
             String passwordHash,
-            int role) {
+            String role) {
         super();  
         this.name = name;
         this.address = address;
@@ -86,11 +86,11 @@ public class User {
         this.passwordHash = passwordHash;
     }
 
-    public int getRole() {
+    public String getRole() {
         return role;
     }
 
-    public void setRole(int role) {
+    public void setRole(String role) {
         this.role = role;
     }
 
