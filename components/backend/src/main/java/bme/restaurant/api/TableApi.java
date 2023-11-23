@@ -32,7 +32,7 @@ import java.util.Map;
 import java.util.Optional;
 import jakarta.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-11-23T00:54:23.413633600+01:00[Europe/Budapest]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-11-23T22:27:38.107543100+01:00[Europe/Budapest]")
 @Validated
 @Tag(name = "table", description = "the table API")
 public interface TableApi {
@@ -53,6 +53,9 @@ public interface TableApi {
         tags = { "table" },
         responses = {
             @ApiResponse(responseCode = "400", description = "Invalid table id")
+        },
+        security = {
+            @SecurityRequirement(name = "sessionId")
         }
     )
     @RequestMapping(
@@ -87,6 +90,9 @@ public interface TableApi {
             }),
             @ApiResponse(responseCode = "400", description = "Invalid table-number supplied"),
             @ApiResponse(responseCode = "404", description = "Table not found")
+        },
+        security = {
+            @SecurityRequirement(name = "sessionId")
         }
     )
     @RequestMapping(
@@ -174,6 +180,9 @@ public interface TableApi {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = TableDTO.class))
             }),
             @ApiResponse(responseCode = "405", description = "Invalid input")
+        },
+        security = {
+            @SecurityRequirement(name = "sessionId")
         }
     )
     @RequestMapping(

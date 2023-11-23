@@ -50,31 +50,27 @@ paths:
       summary: Logs out current logged in user
       description: ''
       operationId: logout
-      parameters: 
-        - name: username
-          in: header
-          required: true
-          schema:
-            type: string
-            example: 'almasbukta'
+      security:
+        - sessionId: []
       responses:
         default:
           description: successful operation
   /password-reset:
-    parameters:
-      - name: userId
-        in: path
-        description: The ID of the user
-        required: true
-        schema:
-          type: string
-          example: "ObjectId('6544cd596955fe0a1c04fba9')"
     patch:
       tags: 
         - user
       summary: Password reset
       operationId: passwordReset
+      security:
+        - sessionId: []
       parameters:
+        - name: userId
+          in: header
+          description: The ID of the user
+          required: true
+          schema:
+            type: string
+            example: "ObjectId('6544cd596955fe0a1c04fba9')"
         - name: oldPassword
           in: header
           schema: { type: string }
@@ -104,6 +100,8 @@ paths:
         - user
       summary: Get user by ID
       operationId: getUserById
+      security:
+      - sessionId: []
       responses:
         '200':
           description: Successful operation
@@ -118,6 +116,8 @@ paths:
         - user
       summary: Update user by ID
       operationId: updateUserById
+      security:
+      - sessionId: []
       requestBody:
         content:
           application/json:
@@ -142,13 +142,13 @@ paths:
         - user
       summary: Delete user by ID
       operationId: deleteUserById
+      security:
+      - sessionId: []
       responses:
         '400':
           description: Invalid ID supplied
         '404':
           description: User not found
-
-
 
   /employee:
     get:
@@ -156,6 +156,8 @@ paths:
         - employee
       summary: Get all employees
       operationId: getEmployees
+      security:
+      - sessionId: []
       responses:
         '200':
           description: successful operation
@@ -172,6 +174,8 @@ paths:
         - employee
       summary: Register an employee
       operationId: registerEmployee
+      security:
+      - sessionId: []
       requestBody:
         content:
           application/json:
@@ -197,6 +201,8 @@ paths:
         - customer
       summary: Get all customers
       operationId: listCustomers
+      security:
+      - sessionId: []
       responses:
         '200':
           description: A list of customers
@@ -222,6 +228,43 @@ paths:
           description: User successfully registered
         '400':
           description: Invalid request
+  /customer/{customer-id}/booking:
+    parameters:
+      - name: customer-id
+        in: path
+        schema: { type: string }
+        required: true
+    get:
+      tags:
+        - customer
+      summary: Query bookings for customer
+      description: 
+      operationId: queryCustomerBookings
+      parameters:
+        - name: from
+          in: header
+          schema:
+            type: string
+            format: date-time
+          required: false
+        - name: to
+          in: header
+          schema:
+            type: string
+            format: date-time
+          required: false
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Booking'
+                      
+        '405':
+          description: Invalid input
   /invoice/{orderId}:
     parameters:
       - name: orderId
@@ -236,6 +279,8 @@ paths:
         - customer
       summary: Get an invoice in PDF format by orderId
       operationId: getInvoice
+      security:
+      - sessionId: []
       responses:
         '200':
           description: Invoice PDF
@@ -284,6 +329,8 @@ paths:
       summary: Finds table by number
       description: Returns a single table
       operationId: findTable
+      security:
+      - sessionId: []
       responses:
         '200':
           description: successful operation
@@ -300,6 +347,8 @@ paths:
         - table
       summary: Create or update table by number
       operationId: patchTable
+      security:
+      - sessionId: []
       parameters:
         - name: capacity
           in: header
@@ -319,10 +368,11 @@ paths:
         - table
       summary: Deletes table by number
       operationId: deleteTable
+      security:
+      - sessionId: []
       responses:
         '400':
           description: Invalid table id
-
   /booking:
     get:
       tags:
@@ -330,6 +380,8 @@ paths:
       summary: Query bookings
       description: 
       operationId: queryBookings
+      security:
+      - sessionId: []
       parameters:
         - name: table-number
           in: header
@@ -368,6 +420,8 @@ paths:
         - booking
       summary: Book table
       operationId: bookTable
+      security:
+      - sessionId: []
       requestBody:
         content:
           application/json:
@@ -395,6 +449,8 @@ paths:
         - booking
       summary: Get booking
       operationId: getBooking
+      security:
+      - sessionId: []
       responses:
           '200':
             description: successful operation
@@ -410,6 +466,8 @@ paths:
         - booking
       summary: Update booking status
       operationId: bookingStatusUpdate
+      security:
+      - sessionId: []
       parameters:
         - name: status
           in: header
@@ -428,13 +486,15 @@ paths:
                   $ref: '#/components/schemas/Booking'
           '405':
             description: Invalid input
-  /booking/table:
+  /booking/table/avaible:
     get:
       tags:
         - booking
       summary: Query avaible tables
       description: 
       operationId: queryTablesForBooking
+      security:
+      - sessionId: []
       parameters:
         - name: from
           in: header
@@ -460,43 +520,6 @@ paths:
                       
         '405':
           description: Invalid input
-  /booking/{customer-id}:
-    parameters:
-      - name: customer-id
-        in: path
-        schema: { type: string }
-        required: true
-    get:
-      tags:
-        - booking
-      summary: Query bookings for customer
-      description: 
-      operationId: queryCustomerBookings
-      parameters:
-        - name: from
-          in: header
-          schema:
-            type: string
-            format: date-time
-          required: false
-        - name: to
-          in: header
-          schema:
-            type: string
-            format: date-time
-          required: false
-      responses:
-        '200':
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Booking'
-                      
-        '405':
-          description: Invalid input
 
   /table-order:
     get:
@@ -505,6 +528,8 @@ paths:
       summary: Query table orders
       description: Place a new order in the store
       operationId: queryTableOrders
+      security:
+      - sessionId: []
       parameters:
         - name: table-number
           in: header
@@ -532,6 +557,8 @@ paths:
       summary: Find the current order for the table
       description: Place a new order in the store
       operationId: findTableOrder
+      security:
+      - sessionId: []
       parameters:
         - name: table-number
           in: path
@@ -553,6 +580,8 @@ paths:
       summary: Place an order
       description: Place a new order in the store
       operationId: placeOrder
+      security:
+      - sessionId: []
       parameters:
         - name: table-number
           in: path
@@ -580,6 +609,8 @@ paths:
       summary: Query customer orders
       description: 
       operationId: queryCustomerOrders
+      security:
+      - sessionId: []
       parameters:
         - name: customer-name
           in: header
@@ -612,6 +643,8 @@ paths:
       summary: Query orders for customer
       description: 
       operationId: queryCustomerOrderForCustomer
+      security:
+      - sessionId: []
       parameters:
         - name: is-current
           in: header
@@ -635,6 +668,8 @@ paths:
       summary: Place an order
       description:
       operationId: order
+      security:
+      - sessionId: []
       requestBody:
         content:
           application/json:
@@ -755,7 +790,6 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Food'
-
     post:
       tags:
         - menu
@@ -772,7 +806,6 @@ paths:
           description: Food item added successfully
         '400':
           description: Invalid request
-
   /menu/food/{foodId}:
     parameters:
       - name: foodId

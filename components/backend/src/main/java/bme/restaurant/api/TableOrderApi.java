@@ -32,7 +32,7 @@ import java.util.Map;
 import java.util.Optional;
 import jakarta.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-11-23T00:54:23.413633600+01:00[Europe/Budapest]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-11-23T22:27:38.107543100+01:00[Europe/Budapest]")
 @Validated
 @Tag(name = "table-order", description = "the table-order API")
 public interface TableOrderApi {
@@ -59,6 +59,9 @@ public interface TableOrderApi {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = OrderDTO.class))
             }),
             @ApiResponse(responseCode = "405", description = "Invalid input")
+        },
+        security = {
+            @SecurityRequirement(name = "sessionId")
         }
     )
     @RequestMapping(
@@ -102,6 +105,9 @@ public interface TableOrderApi {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = OrderDTO.class))
             }),
             @ApiResponse(responseCode = "405", description = "Invalid input")
+        },
+        security = {
+            @SecurityRequirement(name = "sessionId")
         }
     )
     @RequestMapping(
@@ -147,6 +153,9 @@ public interface TableOrderApi {
                 @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = OrderDTO.class)))
             }),
             @ApiResponse(responseCode = "405", description = "Invalid input")
+        },
+        security = {
+            @SecurityRequirement(name = "sessionId")
         }
     )
     @RequestMapping(

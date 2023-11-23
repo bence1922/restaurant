@@ -6,8 +6,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
 import bme.restaurant.api.LogoutApi;
+import bme.restaurant.auth.Authorize;
 import bme.restaurant.service.UserServiceImpl;
-import jakarta.validation.Valid;
 
 @RestController
 public class LogoutController implements LogoutApi {
@@ -15,8 +15,9 @@ public class LogoutController implements LogoutApi {
     private UserServiceImpl userService;
 
     @Override
-    public ResponseEntity<Void> logout(@Valid String userName) {
-        userService.logout(userName);
+    @Authorize(permission = "default")
+    public ResponseEntity<Void> logout() {
+        userService.logout();
         return ResponseEntity.ok().build();
     }
 }

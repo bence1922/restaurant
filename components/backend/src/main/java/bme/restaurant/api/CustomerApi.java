@@ -5,6 +5,9 @@
  */
 package bme.restaurant.api;
 
+import bme.restaurant.dto.BookingDTO;
+import org.springframework.format.annotation.DateTimeFormat;
+import java.time.OffsetDateTime;
 import bme.restaurant.dto.UserDTO;
 import bme.restaurant.dto.UserRegisterDTO;
 import io.swagger.v3.oas.annotations.ExternalDocumentation;
@@ -33,7 +36,7 @@ import java.util.Map;
 import java.util.Optional;
 import jakarta.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-11-23T16:23:47.906689958+01:00[Europe/Budapest]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-11-23T22:27:38.107543100+01:00[Europe/Budapest]")
 @Validated
 @Tag(name = "customer", description = "the customer API")
 public interface CustomerApi {
@@ -55,6 +58,9 @@ public interface CustomerApi {
             @ApiResponse(responseCode = "200", description = "A list of customers", content = {
                 @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = UserDTO.class)))
             })
+        },
+        security = {
+            @SecurityRequirement(name = "sessionId")
         }
     )
     @RequestMapping(
@@ -69,6 +75,50 @@ public interface CustomerApi {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
                     String exampleString = "[ { \"mobil\" : \"36709834234\", \"address\" : \"Budapest Lakatos utca 6.\", \"name\" : \"Gipsz Jakap\", \"id\" : \"ObjectId('6544cd596955fe0a1c04fba9')\", \"email\" : \"gipsz@jakab.com\" }, { \"mobil\" : \"36709834234\", \"address\" : \"Budapest Lakatos utca 6.\", \"name\" : \"Gipsz Jakap\", \"id\" : \"ObjectId('6544cd596955fe0a1c04fba9')\", \"email\" : \"gipsz@jakab.com\" } ]";
+                    ApiUtil.setExampleResponse(request, "application/json", exampleString);
+                    break;
+                }
+            }
+        });
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+
+    }
+
+
+    /**
+     * GET /customer/{customer-id}/booking : Query bookings for customer
+     *
+     * @param customerId  (required)
+     * @param from  (optional)
+     * @param to  (optional)
+     * @return successful operation (status code 200)
+     *         or Invalid input (status code 405)
+     */
+    @Operation(
+        operationId = "queryCustomerBookings",
+        summary = "Query bookings for customer",
+        tags = { "customer" },
+        responses = {
+            @ApiResponse(responseCode = "200", description = "successful operation", content = {
+                @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = BookingDTO.class)))
+            }),
+            @ApiResponse(responseCode = "405", description = "Invalid input")
+        }
+    )
+    @RequestMapping(
+        method = RequestMethod.GET,
+        value = "/customer/{customer-id}/booking",
+        produces = { "application/json" }
+    )
+    default ResponseEntity<List<BookingDTO>> queryCustomerBookings(
+        @Parameter(name = "customer-id", description = "", required = true, in = ParameterIn.PATH) @PathVariable("customer-id") String customerId,
+        @Parameter(name = "from", description = "", in = ParameterIn.HEADER) @RequestHeader(value = "from", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) OffsetDateTime from,
+        @Parameter(name = "to", description = "", in = ParameterIn.HEADER) @RequestHeader(value = "to", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) OffsetDateTime to
+    ) {
+        getRequest().ifPresent(request -> {
+            for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
+                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
+                    String exampleString = "[ { \"endingDate\" : \"2000-01-23T04:56:07.000+00:00\", \"peopleCount\" : 0, \"id\" : \"ObjectId('6544cd596955fe0a1c04fba9')\", \"startingDate\" : \"2000-01-23T04:56:07.000+00:00\", \"table\" : { \"number\" : 10, \"capacity\" : 10, \"status\" : \"booked\" }, \"customer\" : { \"mobil\" : \"36709834234\", \"address\" : \"Budapest Lakatos utca 6.\", \"name\" : \"Gipsz Jakap\", \"id\" : \"ObjectId('6544cd596955fe0a1c04fba9')\", \"email\" : \"gipsz@jakab.com\" }, \"status\" : \"pending\" }, { \"endingDate\" : \"2000-01-23T04:56:07.000+00:00\", \"peopleCount\" : 0, \"id\" : \"ObjectId('6544cd596955fe0a1c04fba9')\", \"startingDate\" : \"2000-01-23T04:56:07.000+00:00\", \"table\" : { \"number\" : 10, \"capacity\" : 10, \"status\" : \"booked\" }, \"customer\" : { \"mobil\" : \"36709834234\", \"address\" : \"Budapest Lakatos utca 6.\", \"name\" : \"Gipsz Jakap\", \"id\" : \"ObjectId('6544cd596955fe0a1c04fba9')\", \"email\" : \"gipsz@jakab.com\" }, \"status\" : \"pending\" } ]";
                     ApiUtil.setExampleResponse(request, "application/json", exampleString);
                     break;
                 }
