@@ -31,7 +31,7 @@ import java.util.Map;
 import java.util.Optional;
 import jakarta.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-11-23T00:54:23.413633600+01:00[Europe/Budapest]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-11-23T22:27:38.107543100+01:00[Europe/Budapest]")
 @Validated
 @Tag(name = "user", description = "the user API")
 public interface LogoutApi {
@@ -44,7 +44,6 @@ public interface LogoutApi {
      * GET /logout : Logs out current logged in user
      * 
      *
-     * @param username  (required)
      * @return successful operation (status code 200)
      */
     @Operation(
@@ -54,6 +53,9 @@ public interface LogoutApi {
         tags = { "user" },
         responses = {
             @ApiResponse(responseCode = "default", description = "successful operation")
+        },
+        security = {
+            @SecurityRequirement(name = "sessionId")
         }
     )
     @RequestMapping(
@@ -61,7 +63,7 @@ public interface LogoutApi {
         value = "/logout"
     )
     default ResponseEntity<Void> logout(
-        @NotNull @Parameter(name = "username", description = "", required = true, in = ParameterIn.HEADER) @RequestHeader(value = "username", required = true) String username
+        
     ) {
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 

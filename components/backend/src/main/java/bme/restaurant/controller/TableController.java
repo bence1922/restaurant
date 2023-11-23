@@ -9,34 +9,24 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.NativeWebRequest;
 
 import bme.restaurant.api.TableApi;
+import bme.restaurant.auth.Authorize;
 import bme.restaurant.dto.TableDTO;
 import bme.restaurant.service.TableService;
 
 @RestController
 public class TableController implements TableApi {
-
-    @Autowired
-    private NativeWebRequest request;
-
-    @Override
-    public Optional<NativeWebRequest> getRequest() {
-        return Optional.of(request);
-    }
-
     @Autowired
     TableService tableService;
 
     @Override
+    @Authorize(permission = "table-read")
     public ResponseEntity<List<TableDTO>> listTables() {
-        var headers = getRequest().get().getHeaderNames();
-        while (headers.hasNext()) {
-            System.out.println(headers.next());
-        }
         var response = tableService.listTables();
         return ResponseEntity.ok(response);
     }
 
     @Override
+    @Authorize(permission = "table-read")
     public ResponseEntity<TableDTO> findTable(Integer tableNumber) {
         var response = tableService.findTable(tableNumber);
         if (response != null){        
@@ -48,12 +38,14 @@ public class TableController implements TableApi {
     }
 
     @Override
+    @Authorize(permission = "table-write")
     public ResponseEntity<TableDTO> patchTable(Integer tableNumber, Integer capacity) {
         var response = tableService.createOrUpdateTable(tableNumber, capacity);
         return ResponseEntity.ok(response);
     }
 
     @Override
+    @Authorize(permission = "table-delete")
     public ResponseEntity<Void> deleteTable(Integer tableNumber) {
         tableService.deleteTable(tableNumber);
         return ResponseEntity.ok().build();
