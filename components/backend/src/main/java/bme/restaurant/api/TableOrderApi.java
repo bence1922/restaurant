@@ -6,6 +6,7 @@
 package bme.restaurant.api;
 
 import bme.restaurant.dto.OrderDTO;
+import bme.restaurant.dto.TableOrderDTO;
 import io.swagger.v3.oas.annotations.ExternalDocumentation;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -32,7 +33,7 @@ import java.util.Map;
 import java.util.Optional;
 import jakarta.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-11-23T22:27:38.107543100+01:00[Europe/Budapest]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-11-24T19:02:19.052817200+01:00[Europe/Budapest]")
 @Validated
 @Tag(name = "table-order", description = "the table-order API")
 public interface TableOrderApi {
@@ -56,7 +57,7 @@ public interface TableOrderApi {
         tags = { "table-order" },
         responses = {
             @ApiResponse(responseCode = "200", description = "successful operation", content = {
-                @Content(mediaType = "application/json", schema = @Schema(implementation = OrderDTO.class))
+                @Content(mediaType = "application/json", schema = @Schema(implementation = TableOrderDTO.class))
             }),
             @ApiResponse(responseCode = "405", description = "Invalid input")
         },
@@ -69,13 +70,13 @@ public interface TableOrderApi {
         value = "/table-order/{table-number}",
         produces = { "application/json" }
     )
-    default ResponseEntity<OrderDTO> findTableOrder(
+    default ResponseEntity<TableOrderDTO> findTableOrder(
         @Parameter(name = "table-number", description = "", required = true, in = ParameterIn.PATH) @PathVariable("table-number") Integer tableNumber
     ) {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                    String exampleString = "{ \"date\" : \"2000-01-23T04:56:07.000+00:00\", \"note\" : \"note\", \"foods\" : [ { \"quantity\" : 1, \"food\" : { \"price\" : 400, \"name\" : \"Hamburger\", \"recipe\" : [ { \"unit\" : \"g\", \"quantity\" : 0, \"ingerient\" : \"ingerient\" }, { \"unit\" : \"g\", \"quantity\" : 0, \"ingerient\" : \"ingerient\" } ], \"id\" : \"6544cd596955fe0a1c04fba9\" } }, { \"quantity\" : 1, \"food\" : { \"price\" : 400, \"name\" : \"Hamburger\", \"recipe\" : [ { \"unit\" : \"g\", \"quantity\" : 0, \"ingerient\" : \"ingerient\" }, { \"unit\" : \"g\", \"quantity\" : 0, \"ingerient\" : \"ingerient\" } ], \"id\" : \"6544cd596955fe0a1c04fba9\" } } ], \"drinks\" : [ { \"quantity\" : 1, \"drink\" : { \"price\" : 400, \"name\" : \"Cola\", \"id\" : \"6544cd596955fe0a1c04fba9\" } }, { \"quantity\" : 1, \"drink\" : { \"price\" : 400, \"name\" : \"Cola\", \"id\" : \"6544cd596955fe0a1c04fba9\" } } ], \"id\" : \"6544cd596955fe0a1c04fba9\", \"status\" : \"placed\" }";
+                    String exampleString = "{ \"table\" : { \"number\" : 10, \"capacity\" : 10, \"status\" : \"booked\" }, \"order\" : { \"date\" : \"2000-01-23T04:56:07.000+00:00\", \"note\" : \"note\", \"foods\" : [ { \"quantity\" : 1, \"food\" : { \"price\" : 400, \"name\" : \"Hamburger\", \"recipe\" : [ { \"unit\" : \"g\", \"quantity\" : 0, \"ingerient\" : \"ingerient\" }, { \"unit\" : \"g\", \"quantity\" : 0, \"ingerient\" : \"ingerient\" } ], \"id\" : \"6544cd596955fe0a1c04fba9\", \"type\" : \"Főétel\" } }, { \"quantity\" : 1, \"food\" : { \"price\" : 400, \"name\" : \"Hamburger\", \"recipe\" : [ { \"unit\" : \"g\", \"quantity\" : 0, \"ingerient\" : \"ingerient\" }, { \"unit\" : \"g\", \"quantity\" : 0, \"ingerient\" : \"ingerient\" } ], \"id\" : \"6544cd596955fe0a1c04fba9\", \"type\" : \"Főétel\" } } ], \"drinks\" : [ { \"quantity\" : 1, \"drink\" : { \"price\" : 400, \"name\" : \"Cola\", \"id\" : \"6544cd596955fe0a1c04fba9\", \"type\" : \"Üdítő\" } }, { \"quantity\" : 1, \"drink\" : { \"price\" : 400, \"name\" : \"Cola\", \"id\" : \"6544cd596955fe0a1c04fba9\", \"type\" : \"Üdítő\" } } ], \"id\" : \"6544cd596955fe0a1c04fba9\", \"status\" : \"placed\" } }";
                     ApiUtil.setExampleResponse(request, "application/json", exampleString);
                     break;
                 }
@@ -102,7 +103,7 @@ public interface TableOrderApi {
         tags = { "table-order" },
         responses = {
             @ApiResponse(responseCode = "200", description = "successful operation", content = {
-                @Content(mediaType = "application/json", schema = @Schema(implementation = OrderDTO.class))
+                @Content(mediaType = "application/json", schema = @Schema(implementation = TableOrderDTO.class))
             }),
             @ApiResponse(responseCode = "405", description = "Invalid input")
         },
@@ -116,14 +117,14 @@ public interface TableOrderApi {
         produces = { "application/json" },
         consumes = { "application/json" }
     )
-    default ResponseEntity<OrderDTO> placeOrder(
+    default ResponseEntity<TableOrderDTO> placeOrder(
         @Parameter(name = "table-number", description = "", required = true, in = ParameterIn.PATH) @PathVariable("table-number") Integer tableNumber,
         @Parameter(name = "OrderDTO", description = "") @Valid @RequestBody(required = false) OrderDTO orderDTO
     ) {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                    String exampleString = "{ \"date\" : \"2000-01-23T04:56:07.000+00:00\", \"note\" : \"note\", \"foods\" : [ { \"quantity\" : 1, \"food\" : { \"price\" : 400, \"name\" : \"Hamburger\", \"recipe\" : [ { \"unit\" : \"g\", \"quantity\" : 0, \"ingerient\" : \"ingerient\" }, { \"unit\" : \"g\", \"quantity\" : 0, \"ingerient\" : \"ingerient\" } ], \"id\" : \"6544cd596955fe0a1c04fba9\" } }, { \"quantity\" : 1, \"food\" : { \"price\" : 400, \"name\" : \"Hamburger\", \"recipe\" : [ { \"unit\" : \"g\", \"quantity\" : 0, \"ingerient\" : \"ingerient\" }, { \"unit\" : \"g\", \"quantity\" : 0, \"ingerient\" : \"ingerient\" } ], \"id\" : \"6544cd596955fe0a1c04fba9\" } } ], \"drinks\" : [ { \"quantity\" : 1, \"drink\" : { \"price\" : 400, \"name\" : \"Cola\", \"id\" : \"6544cd596955fe0a1c04fba9\" } }, { \"quantity\" : 1, \"drink\" : { \"price\" : 400, \"name\" : \"Cola\", \"id\" : \"6544cd596955fe0a1c04fba9\" } } ], \"id\" : \"6544cd596955fe0a1c04fba9\", \"status\" : \"placed\" }";
+                    String exampleString = "{ \"table\" : { \"number\" : 10, \"capacity\" : 10, \"status\" : \"booked\" }, \"order\" : { \"date\" : \"2000-01-23T04:56:07.000+00:00\", \"note\" : \"note\", \"foods\" : [ { \"quantity\" : 1, \"food\" : { \"price\" : 400, \"name\" : \"Hamburger\", \"recipe\" : [ { \"unit\" : \"g\", \"quantity\" : 0, \"ingerient\" : \"ingerient\" }, { \"unit\" : \"g\", \"quantity\" : 0, \"ingerient\" : \"ingerient\" } ], \"id\" : \"6544cd596955fe0a1c04fba9\", \"type\" : \"Főétel\" } }, { \"quantity\" : 1, \"food\" : { \"price\" : 400, \"name\" : \"Hamburger\", \"recipe\" : [ { \"unit\" : \"g\", \"quantity\" : 0, \"ingerient\" : \"ingerient\" }, { \"unit\" : \"g\", \"quantity\" : 0, \"ingerient\" : \"ingerient\" } ], \"id\" : \"6544cd596955fe0a1c04fba9\", \"type\" : \"Főétel\" } } ], \"drinks\" : [ { \"quantity\" : 1, \"drink\" : { \"price\" : 400, \"name\" : \"Cola\", \"id\" : \"6544cd596955fe0a1c04fba9\", \"type\" : \"Üdítő\" } }, { \"quantity\" : 1, \"drink\" : { \"price\" : 400, \"name\" : \"Cola\", \"id\" : \"6544cd596955fe0a1c04fba9\", \"type\" : \"Üdítő\" } } ], \"id\" : \"6544cd596955fe0a1c04fba9\", \"status\" : \"placed\" } }";
                     ApiUtil.setExampleResponse(request, "application/json", exampleString);
                     break;
                 }
@@ -150,7 +151,7 @@ public interface TableOrderApi {
         tags = { "table-order" },
         responses = {
             @ApiResponse(responseCode = "200", description = "successful operation", content = {
-                @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = OrderDTO.class)))
+                @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = TableOrderDTO.class)))
             }),
             @ApiResponse(responseCode = "405", description = "Invalid input")
         },
@@ -163,14 +164,14 @@ public interface TableOrderApi {
         value = "/table-order",
         produces = { "application/json" }
     )
-    default ResponseEntity<List<OrderDTO>> queryTableOrders(
+    default ResponseEntity<List<TableOrderDTO>> queryTableOrders(
         @Parameter(name = "table-number", description = "", in = ParameterIn.HEADER) @RequestHeader(value = "table-number", required = false) Integer tableNumber,
         @Parameter(name = "is-current", description = "", in = ParameterIn.HEADER) @RequestHeader(value = "is-current", required = false) Boolean isCurrent
     ) {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                    String exampleString = "[ { \"date\" : \"2000-01-23T04:56:07.000+00:00\", \"note\" : \"note\", \"foods\" : [ { \"quantity\" : 1, \"food\" : { \"price\" : 400, \"name\" : \"Hamburger\", \"recipe\" : [ { \"unit\" : \"g\", \"quantity\" : 0, \"ingerient\" : \"ingerient\" }, { \"unit\" : \"g\", \"quantity\" : 0, \"ingerient\" : \"ingerient\" } ], \"id\" : \"6544cd596955fe0a1c04fba9\" } }, { \"quantity\" : 1, \"food\" : { \"price\" : 400, \"name\" : \"Hamburger\", \"recipe\" : [ { \"unit\" : \"g\", \"quantity\" : 0, \"ingerient\" : \"ingerient\" }, { \"unit\" : \"g\", \"quantity\" : 0, \"ingerient\" : \"ingerient\" } ], \"id\" : \"6544cd596955fe0a1c04fba9\" } } ], \"drinks\" : [ { \"quantity\" : 1, \"drink\" : { \"price\" : 400, \"name\" : \"Cola\", \"id\" : \"6544cd596955fe0a1c04fba9\" } }, { \"quantity\" : 1, \"drink\" : { \"price\" : 400, \"name\" : \"Cola\", \"id\" : \"6544cd596955fe0a1c04fba9\" } } ], \"id\" : \"6544cd596955fe0a1c04fba9\", \"status\" : \"placed\" }, { \"date\" : \"2000-01-23T04:56:07.000+00:00\", \"note\" : \"note\", \"foods\" : [ { \"quantity\" : 1, \"food\" : { \"price\" : 400, \"name\" : \"Hamburger\", \"recipe\" : [ { \"unit\" : \"g\", \"quantity\" : 0, \"ingerient\" : \"ingerient\" }, { \"unit\" : \"g\", \"quantity\" : 0, \"ingerient\" : \"ingerient\" } ], \"id\" : \"6544cd596955fe0a1c04fba9\" } }, { \"quantity\" : 1, \"food\" : { \"price\" : 400, \"name\" : \"Hamburger\", \"recipe\" : [ { \"unit\" : \"g\", \"quantity\" : 0, \"ingerient\" : \"ingerient\" }, { \"unit\" : \"g\", \"quantity\" : 0, \"ingerient\" : \"ingerient\" } ], \"id\" : \"6544cd596955fe0a1c04fba9\" } } ], \"drinks\" : [ { \"quantity\" : 1, \"drink\" : { \"price\" : 400, \"name\" : \"Cola\", \"id\" : \"6544cd596955fe0a1c04fba9\" } }, { \"quantity\" : 1, \"drink\" : { \"price\" : 400, \"name\" : \"Cola\", \"id\" : \"6544cd596955fe0a1c04fba9\" } } ], \"id\" : \"6544cd596955fe0a1c04fba9\", \"status\" : \"placed\" } ]";
+                    String exampleString = "[ { \"table\" : { \"number\" : 10, \"capacity\" : 10, \"status\" : \"booked\" }, \"order\" : { \"date\" : \"2000-01-23T04:56:07.000+00:00\", \"note\" : \"note\", \"foods\" : [ { \"quantity\" : 1, \"food\" : { \"price\" : 400, \"name\" : \"Hamburger\", \"recipe\" : [ { \"unit\" : \"g\", \"quantity\" : 0, \"ingerient\" : \"ingerient\" }, { \"unit\" : \"g\", \"quantity\" : 0, \"ingerient\" : \"ingerient\" } ], \"id\" : \"6544cd596955fe0a1c04fba9\", \"type\" : \"Főétel\" } }, { \"quantity\" : 1, \"food\" : { \"price\" : 400, \"name\" : \"Hamburger\", \"recipe\" : [ { \"unit\" : \"g\", \"quantity\" : 0, \"ingerient\" : \"ingerient\" }, { \"unit\" : \"g\", \"quantity\" : 0, \"ingerient\" : \"ingerient\" } ], \"id\" : \"6544cd596955fe0a1c04fba9\", \"type\" : \"Főétel\" } } ], \"drinks\" : [ { \"quantity\" : 1, \"drink\" : { \"price\" : 400, \"name\" : \"Cola\", \"id\" : \"6544cd596955fe0a1c04fba9\", \"type\" : \"Üdítő\" } }, { \"quantity\" : 1, \"drink\" : { \"price\" : 400, \"name\" : \"Cola\", \"id\" : \"6544cd596955fe0a1c04fba9\", \"type\" : \"Üdítő\" } } ], \"id\" : \"6544cd596955fe0a1c04fba9\", \"status\" : \"placed\" } }, { \"table\" : { \"number\" : 10, \"capacity\" : 10, \"status\" : \"booked\" }, \"order\" : { \"date\" : \"2000-01-23T04:56:07.000+00:00\", \"note\" : \"note\", \"foods\" : [ { \"quantity\" : 1, \"food\" : { \"price\" : 400, \"name\" : \"Hamburger\", \"recipe\" : [ { \"unit\" : \"g\", \"quantity\" : 0, \"ingerient\" : \"ingerient\" }, { \"unit\" : \"g\", \"quantity\" : 0, \"ingerient\" : \"ingerient\" } ], \"id\" : \"6544cd596955fe0a1c04fba9\", \"type\" : \"Főétel\" } }, { \"quantity\" : 1, \"food\" : { \"price\" : 400, \"name\" : \"Hamburger\", \"recipe\" : [ { \"unit\" : \"g\", \"quantity\" : 0, \"ingerient\" : \"ingerient\" }, { \"unit\" : \"g\", \"quantity\" : 0, \"ingerient\" : \"ingerient\" } ], \"id\" : \"6544cd596955fe0a1c04fba9\", \"type\" : \"Főétel\" } } ], \"drinks\" : [ { \"quantity\" : 1, \"drink\" : { \"price\" : 400, \"name\" : \"Cola\", \"id\" : \"6544cd596955fe0a1c04fba9\", \"type\" : \"Üdítő\" } }, { \"quantity\" : 1, \"drink\" : { \"price\" : 400, \"name\" : \"Cola\", \"id\" : \"6544cd596955fe0a1c04fba9\", \"type\" : \"Üdítő\" } } ], \"id\" : \"6544cd596955fe0a1c04fba9\", \"status\" : \"placed\" } } ]";
                     ApiUtil.setExampleResponse(request, "application/json", exampleString);
                     break;
                 }

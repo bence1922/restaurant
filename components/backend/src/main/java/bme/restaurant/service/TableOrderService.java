@@ -2,9 +2,9 @@ package bme.restaurant.service;
 
 import org.springframework.stereotype.Component;
 
-import bme.restaurant.dto.OrderDTO;
+import bme.restaurant.dto.TableOrderDTO;
 
 @Component
 public interface TableOrderService {
-    OrderDTO findTableOrder(Integer tableNumber);
+    TableOrderDTO findTableOrder(Integer tableNumber);
 }

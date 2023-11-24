@@ -32,7 +32,7 @@ public class UserServiceImpl implements UserService {
     public UserSessionDTO login(UserLoginDTO userLoginDTO) {
         User user = userRepo.findByName(userLoginDTO.getName());
         if (user != null) {
-            if (user.getPasswordHash().equals(BCrypt.hashpw(userLoginDTO.getPassword(), BCrypt.gensalt()))) {
+            if (BCrypt.checkpw(userLoginDTO.getPassword(), user.getPasswordHash())) {
                 UUID uuid = UUID.randomUUID();
                 String uniqueID = uuid.toString();
 
@@ -46,8 +46,9 @@ public class UserServiceImpl implements UserService {
                 UserSessionDTO userSessionDTO = new UserSessionDTO(uniqueID, user.toDTO(), user.getRole());
                 return userSessionDTO;
             }
+            throw new RuntimeException("Invalid password");
         }
-        return null;
+        throw new RuntimeException("Invalid username");
     }
 
     @Override
@@ -87,8 +88,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public void passwordReset(String userId, String oldPassword, String newPassword) {
         User user = userRepo.findById(userId).get();
-        if (user.getPasswordHash().equals(BCrypt.hashpw(oldPassword, BCrypt.gensalt())))
+        if (BCrypt.checkpw(oldPassword, user.getPasswordHash()))
             user.setPasswordHash(BCrypt.hashpw(newPassword, BCrypt.gensalt()));
+        throw new RuntimeException("Invalid old password");
     }
     
     @Override

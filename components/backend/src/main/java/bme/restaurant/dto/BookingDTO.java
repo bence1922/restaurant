@@ -25,7 +25,7 @@ import jakarta.annotation.Generated;
  */
 
 @JsonTypeName("Booking")
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-11-23T22:27:38.107543100+01:00[Europe/Budapest]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-11-24T19:02:19.052817200+01:00[Europe/Budapest]")
 public class BookingDTO {
 
   private String id;
@@ -78,6 +78,8 @@ public class BookingDTO {
   private StatusEnum status;
 
   private Integer peopleCount;
+
+  private String note;
 
   public BookingDTO() {
     super();
@@ -236,6 +238,26 @@ public class BookingDTO {
     this.peopleCount = peopleCount;
   }
 
+  public BookingDTO note(String note) {
+    this.note = note;
+    return this;
+  }
+
+  /**
+   * Get note
+   * @return note
+  */
+  
+  @Schema(name = "note", example = "az egyik fő egy kisbaba", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("note")
+  public String getNote() {
+    return note;
+  }
+
+  public void setNote(String note) {
+    this.note = note;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -251,12 +273,13 @@ public class BookingDTO {
         Objects.equals(this.startingDate, booking.startingDate) &&
         Objects.equals(this.endingDate, booking.endingDate) &&
         Objects.equals(this.status, booking.status) &&
-        Objects.equals(this.peopleCount, booking.peopleCount);
+        Objects.equals(this.peopleCount, booking.peopleCount) &&
+        Objects.equals(this.note, booking.note);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, table, customer, startingDate, endingDate, status, peopleCount);
+    return Objects.hash(id, table, customer, startingDate, endingDate, status, peopleCount, note);
   }
 
   @Override
@@ -270,6 +293,7 @@ public class BookingDTO {
     sb.append("    endingDate: ").append(toIndentedString(endingDate)).append("\n");
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
     sb.append("    peopleCount: ").append(toIndentedString(peopleCount)).append("\n");
+    sb.append("    note: ").append(toIndentedString(note)).append("\n");
     sb.append("}");
     return sb.toString();
   }

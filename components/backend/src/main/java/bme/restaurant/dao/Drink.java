@@ -54,11 +54,11 @@ public class Drink {
     }
     
     public DrinkDTO toDTO() {
-        return new DrinkDTO(
-            this.id,
-            this.name,
-            this.type,
-            this.price
-        );
+        var dto = new DrinkDTO();
+        dto.setId(id);
+        dto.setName(name);
+        dto.setPrice(price);
+        dto.setType(type); 
+        return dto;
     }
 }

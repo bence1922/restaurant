@@ -36,7 +36,7 @@ import java.util.Map;
 import java.util.Optional;
 import jakarta.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-11-23T22:27:38.107543100+01:00[Europe/Budapest]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-11-24T19:02:19.052817200+01:00[Europe/Budapest]")
 @Validated
 @Tag(name = "customer", description = "the customer API")
 public interface CustomerApi {
@@ -44,6 +44,42 @@ public interface CustomerApi {
     default Optional<NativeWebRequest> getRequest() {
         return Optional.empty();
     }
+
+    /**
+     * GET /customer/{userId}/invoice/{orderId} : Get an invoice in PDF format by orderId
+     *
+     * @param orderId ID of the order for which to generate an invoice (required)
+     * @param userId The ID of the user (required)
+     * @return Invoice PDF (status code 200)
+     *         or Order not found (status code 404)
+     */
+    @Operation(
+        operationId = "getInvoice",
+        summary = "Get an invoice in PDF format by orderId",
+        tags = { "customer" },
+        responses = {
+            @ApiResponse(responseCode = "200", description = "Invoice PDF", content = {
+                @Content(mediaType = "application/pdf", schema = @Schema(implementation = org.springframework.core.io.Resource.class))
+            }),
+            @ApiResponse(responseCode = "404", description = "Order not found")
+        },
+        security = {
+            @SecurityRequirement(name = "sessionId")
+        }
+    )
+    @RequestMapping(
+        method = RequestMethod.GET,
+        value = "/customer/{userId}/invoice/{orderId}",
+        produces = { "application/pdf" }
+    )
+    default ResponseEntity<org.springframework.core.io.Resource> getInvoice(
+        @Parameter(name = "orderId", description = "ID of the order for which to generate an invoice", required = true, in = ParameterIn.PATH) @PathVariable("orderId") String orderId,
+        @Parameter(name = "userId", description = "The ID of the user", required = true, in = ParameterIn.PATH) @PathVariable("userId") String userId
+    ) {
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+
+    }
+
 
     /**
      * GET /customer : Get all customers
@@ -86,9 +122,9 @@ public interface CustomerApi {
 
 
     /**
-     * GET /customer/{customer-id}/booking : Query bookings for customer
+     * GET /customer/{userId}/booking : Query bookings for customer
      *
-     * @param customerId  (required)
+     * @param userId  (required)
      * @param from  (optional)
      * @param to  (optional)
      * @return successful operation (status code 200)
@@ -107,18 +143,18 @@ public interface CustomerApi {
     )
     @RequestMapping(
         method = RequestMethod.GET,
-        value = "/customer/{customer-id}/booking",
+        value = "/customer/{userId}/booking",
         produces = { "application/json" }
     )
     default ResponseEntity<List<BookingDTO>> queryCustomerBookings(
-        @Parameter(name = "customer-id", description = "", required = true, in = ParameterIn.PATH) @PathVariable("customer-id") String customerId,
+        @Parameter(name = "userId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("userId") String userId,
         @Parameter(name = "from", description = "", in = ParameterIn.HEADER) @RequestHeader(value = "from", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) OffsetDateTime from,
         @Parameter(name = "to", description = "", in = ParameterIn.HEADER) @RequestHeader(value = "to", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) OffsetDateTime to
     ) {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                    String exampleString = "[ { \"endingDate\" : \"2000-01-23T04:56:07.000+00:00\", \"peopleCount\" : 0, \"id\" : \"ObjectId('6544cd596955fe0a1c04fba9')\", \"startingDate\" : \"2000-01-23T04:56:07.000+00:00\", \"table\" : { \"number\" : 10, \"capacity\" : 10, \"status\" : \"booked\" }, \"customer\" : { \"mobil\" : \"36709834234\", \"address\" : \"Budapest Lakatos utca 6.\", \"name\" : \"Gipsz Jakap\", \"id\" : \"ObjectId('6544cd596955fe0a1c04fba9')\", \"email\" : \"gipsz@jakab.com\" }, \"status\" : \"pending\" }, { \"endingDate\" : \"2000-01-23T04:56:07.000+00:00\", \"peopleCount\" : 0, \"id\" : \"ObjectId('6544cd596955fe0a1c04fba9')\", \"startingDate\" : \"2000-01-23T04:56:07.000+00:00\", \"table\" : { \"number\" : 10, \"capacity\" : 10, \"status\" : \"booked\" }, \"customer\" : { \"mobil\" : \"36709834234\", \"address\" : \"Budapest Lakatos utca 6.\", \"name\" : \"Gipsz Jakap\", \"id\" : \"ObjectId('6544cd596955fe0a1c04fba9')\", \"email\" : \"gipsz@jakab.com\" }, \"status\" : \"pending\" } ]";
+                    String exampleString = "[ { \"note\" : \"az egyik fő egy kisbaba\", \"endingDate\" : \"2000-01-23T04:56:07.000+00:00\", \"peopleCount\" : 0, \"id\" : \"ObjectId('6544cd596955fe0a1c04fba9')\", \"startingDate\" : \"2000-01-23T04:56:07.000+00:00\", \"table\" : { \"number\" : 10, \"capacity\" : 10, \"status\" : \"booked\" }, \"customer\" : { \"mobil\" : \"36709834234\", \"address\" : \"Budapest Lakatos utca 6.\", \"name\" : \"Gipsz Jakap\", \"id\" : \"ObjectId('6544cd596955fe0a1c04fba9')\", \"email\" : \"gipsz@jakab.com\" }, \"status\" : \"pending\" }, { \"note\" : \"az egyik fő egy kisbaba\", \"endingDate\" : \"2000-01-23T04:56:07.000+00:00\", \"peopleCount\" : 0, \"id\" : \"ObjectId('6544cd596955fe0a1c04fba9')\", \"startingDate\" : \"2000-01-23T04:56:07.000+00:00\", \"table\" : { \"number\" : 10, \"capacity\" : 10, \"status\" : \"booked\" }, \"customer\" : { \"mobil\" : \"36709834234\", \"address\" : \"Budapest Lakatos utca 6.\", \"name\" : \"Gipsz Jakap\", \"id\" : \"ObjectId('6544cd596955fe0a1c04fba9')\", \"email\" : \"gipsz@jakab.com\" }, \"status\" : \"pending\" } ]";
                     ApiUtil.setExampleResponse(request, "application/json", exampleString);
                     break;
                 }
@@ -133,14 +169,18 @@ public interface CustomerApi {
      * POST /customer : Customer registration
      *
      * @param userRegisterDTO  (required)
-     * @return User successfully registered (status code 201)
+     * @return Successful operation (status code 200)
+     *         or User successfully registered (status code 201)
      *         or Invalid request (status code 400)
      */
     @Operation(
-        operationId = "registerUser",
+        operationId = "registerCustomer",
         summary = "Customer registration",
         tags = { "customer" },
         responses = {
+            @ApiResponse(responseCode = "200", description = "Successful operation", content = {
+                @Content(mediaType = "application/json", schema = @Schema(implementation = UserDTO.class))
+            }),
             @ApiResponse(responseCode = "201", description = "User successfully registered"),
             @ApiResponse(responseCode = "400", description = "Invalid request")
         }
@@ -148,11 +188,21 @@ public interface CustomerApi {
     @RequestMapping(
         method = RequestMethod.POST,
         value = "/customer",
+        produces = { "application/json" },
         consumes = { "application/json" }
     )
-    default ResponseEntity<Void> registerUser(
+    default ResponseEntity<UserDTO> registerCustomer(
         @Parameter(name = "UserRegisterDTO", description = "", required = true) @Valid @RequestBody UserRegisterDTO userRegisterDTO
     ) {
+        getRequest().ifPresent(request -> {
+            for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
+                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
+                    String exampleString = "{ \"mobil\" : \"36709834234\", \"address\" : \"Budapest Lakatos utca 6.\", \"name\" : \"Gipsz Jakap\", \"id\" : \"ObjectId('6544cd596955fe0a1c04fba9')\", \"email\" : \"gipsz@jakab.com\" }";
+                    ApiUtil.setExampleResponse(request, "application/json", exampleString);
+                    break;
+                }
+            }
+        });
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 
     }

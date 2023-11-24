@@ -33,17 +33,17 @@ import java.util.Map;
 import java.util.Optional;
 import jakarta.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-11-23T22:27:38.107543100+01:00[Europe/Budapest]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-11-24T19:02:19.052817200+01:00[Europe/Budapest]")
 @Validated
-@Tag(name = "user", description = "the user API")
-public interface LoginApi {
+@Tag(name = "auth", description = "the auth API")
+public interface AuthApi {
 
     default Optional<NativeWebRequest> getRequest() {
         return Optional.empty();
     }
 
     /**
-     * POST /login : User login
+     * POST /auth/login : User login
      *
      * @param userLoginDTO  (required)
      * @return User successfully logged in (status code 200)
@@ -53,7 +53,7 @@ public interface LoginApi {
     @Operation(
         operationId = "login",
         summary = "User login",
-        tags = { "user" },
+        tags = { "auth" },
         responses = {
             @ApiResponse(responseCode = "200", description = "User successfully logged in", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = UserSessionDTO.class))
@@ -64,7 +64,7 @@ public interface LoginApi {
     )
     @RequestMapping(
         method = RequestMethod.POST,
-        value = "/login",
+        value = "/auth/login",
         produces = { "application/json" },
         consumes = { "application/json" }
     )
@@ -80,6 +80,73 @@ public interface LoginApi {
                 }
             }
         });
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+
+    }
+
+
+    /**
+     * GET /auth/logout : Logs out current logged in user
+     * 
+     *
+     * @return successful operation (status code 200)
+     */
+    @Operation(
+        operationId = "logout",
+        summary = "Logs out current logged in user",
+        description = "",
+        tags = { "auth" },
+        responses = {
+            @ApiResponse(responseCode = "default", description = "successful operation")
+        },
+        security = {
+            @SecurityRequirement(name = "sessionId")
+        }
+    )
+    @RequestMapping(
+        method = RequestMethod.GET,
+        value = "/auth/logout"
+    )
+    default ResponseEntity<Void> logout(
+        
+    ) {
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+
+    }
+
+
+    /**
+     * PATCH /auth/password-reset : Password reset
+     *
+     * @param userId The ID of the user (required)
+     * @param oldPassword  (required)
+     * @param newPassword  (required)
+     * @return successfully updated (status code 200)
+     *         or Unauthorized (status code 401)
+     *         or Invalid request (status code 400)
+     */
+    @Operation(
+        operationId = "passwordReset",
+        summary = "Password reset",
+        tags = { "auth" },
+        responses = {
+            @ApiResponse(responseCode = "200", description = "successfully updated"),
+            @ApiResponse(responseCode = "401", description = "Unauthorized"),
+            @ApiResponse(responseCode = "400", description = "Invalid request")
+        },
+        security = {
+            @SecurityRequirement(name = "sessionId")
+        }
+    )
+    @RequestMapping(
+        method = RequestMethod.PATCH,
+        value = "/auth/password-reset"
+    )
+    default ResponseEntity<Void> passwordReset(
+        @NotNull @Parameter(name = "userId", description = "The ID of the user", required = true, in = ParameterIn.HEADER) @RequestHeader(value = "userId", required = true) String userId,
+        @NotNull @Parameter(name = "oldPassword", description = "", required = true, in = ParameterIn.HEADER) @RequestHeader(value = "oldPassword", required = true) String oldPassword,
+        @NotNull @Parameter(name = "newPassword", description = "", required = true, in = ParameterIn.HEADER) @RequestHeader(value = "newPassword", required = true) String newPassword
+    ) {
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 
     }
