@@ -1,13 +1,9 @@
 package bme.restaurant.controller;
 
 import java.util.List;
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.context.request.NativeWebRequest;
-
 import bme.restaurant.api.TableApi;
 import bme.restaurant.auth.Authorize;
 import bme.restaurant.dto.TableDTO;

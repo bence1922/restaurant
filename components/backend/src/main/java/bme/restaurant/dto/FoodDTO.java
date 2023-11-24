@@ -24,12 +24,14 @@ import jakarta.annotation.Generated;
  */
 
 @JsonTypeName("Food")
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-11-23T22:27:38.107543100+01:00[Europe/Budapest]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-11-24T19:02:19.052817200+01:00[Europe/Budapest]")
 public class FoodDTO {
 
   private String id;
 
   private String name;
+
+  private String type;
 
   private Integer price;
 
@@ -43,8 +45,10 @@ public class FoodDTO {
   /**
    * Constructor with only required parameters
    */
-  public FoodDTO(String name, Integer price) {
+  public FoodDTO(String id, String name, String type, Integer price) {
+    this.id = id;
     this.name = name;
+    this.type = type;
     this.price = price;
   }
 
@@ -57,8 +61,8 @@ public class FoodDTO {
    * Get id
    * @return id
   */
-  
-  @Schema(name = "id", example = "6544cd596955fe0a1c04fba9", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @NotNull 
+  @Schema(name = "id", example = "6544cd596955fe0a1c04fba9", requiredMode = Schema.RequiredMode.REQUIRED)
   @JsonProperty("id")
   public String getId() {
     return id;
@@ -86,6 +90,26 @@ public class FoodDTO {
 
   public void setName(String name) {
     this.name = name;
+  }
+
+  public FoodDTO type(String type) {
+    this.type = type;
+    return this;
+  }
+
+  /**
+   * Get type
+   * @return type
+  */
+  @NotNull 
+  @Schema(name = "type", example = "Főétel", requiredMode = Schema.RequiredMode.REQUIRED)
+  @JsonProperty("type")
+  public String getType() {
+    return type;
+  }
+
+  public void setType(String type) {
+    this.type = type;
   }
 
   public FoodDTO price(Integer price) {
@@ -147,13 +171,14 @@ public class FoodDTO {
     FoodDTO food = (FoodDTO) o;
     return Objects.equals(this.id, food.id) &&
         Objects.equals(this.name, food.name) &&
+        Objects.equals(this.type, food.type) &&
         Objects.equals(this.price, food.price) &&
         Objects.equals(this.recipe, food.recipe);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, name, price, recipe);
+    return Objects.hash(id, name, type, price, recipe);
   }
 
   @Override
@@ -162,6 +187,7 @@ public class FoodDTO {
     sb.append("class FoodDTO {\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("    price: ").append(toIndentedString(price)).append("\n");
     sb.append("    recipe: ").append(toIndentedString(recipe)).append("\n");
     sb.append("}");

@@ -20,12 +20,14 @@ import jakarta.annotation.Generated;
  */
 
 @JsonTypeName("Drink")
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-11-23T22:27:38.107543100+01:00[Europe/Budapest]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-11-24T19:02:19.052817200+01:00[Europe/Budapest]")
 public class DrinkDTO {
 
   private String id;
 
   private String name;
+
+  private String type;
 
   private Integer price;
 
@@ -36,8 +38,10 @@ public class DrinkDTO {
   /**
    * Constructor with only required parameters
    */
-  public DrinkDTO(String name, Integer price) {
+  public DrinkDTO(String id, String name, String type, Integer price) {
+    this.id = id;
     this.name = name;
+    this.type = type;
     this.price = price;
   }
 
@@ -50,8 +54,8 @@ public class DrinkDTO {
    * Get id
    * @return id
   */
-  
-  @Schema(name = "id", example = "6544cd596955fe0a1c04fba9", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @NotNull 
+  @Schema(name = "id", example = "6544cd596955fe0a1c04fba9", requiredMode = Schema.RequiredMode.REQUIRED)
   @JsonProperty("id")
   public String getId() {
     return id;
@@ -79,6 +83,26 @@ public class DrinkDTO {
 
   public void setName(String name) {
     this.name = name;
+  }
+
+  public DrinkDTO type(String type) {
+    this.type = type;
+    return this;
+  }
+
+  /**
+   * Get type
+   * @return type
+  */
+  @NotNull 
+  @Schema(name = "type", example = "Üdítő", requiredMode = Schema.RequiredMode.REQUIRED)
+  @JsonProperty("type")
+  public String getType() {
+    return type;
+  }
+
+  public void setType(String type) {
+    this.type = type;
   }
 
   public DrinkDTO price(Integer price) {
@@ -112,12 +136,13 @@ public class DrinkDTO {
     DrinkDTO drink = (DrinkDTO) o;
     return Objects.equals(this.id, drink.id) &&
         Objects.equals(this.name, drink.name) &&
+        Objects.equals(this.type, drink.type) &&
         Objects.equals(this.price, drink.price);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, name, price);
+    return Objects.hash(id, name, type, price);
   }
 
   @Override
@@ -126,6 +151,7 @@ public class DrinkDTO {
     sb.append("class DrinkDTO {\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("    price: ").append(toIndentedString(price)).append("\n");
     sb.append("}");
     return sb.toString();

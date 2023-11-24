@@ -22,12 +22,12 @@ import jakarta.annotation.Generated;
  */
 
 @JsonTypeName("NewBooking")
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-11-23T22:27:38.107543100+01:00[Europe/Budapest]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-11-24T19:02:19.052817200+01:00[Europe/Budapest]")
 public class NewBookingDTO {
 
   private Integer tableNumber;
 
-  private String customerId;
+  private String userId;
 
   @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
   private OffsetDateTime startingDate;
@@ -37,6 +37,8 @@ public class NewBookingDTO {
 
   private Integer peopleCount;
 
+  private String note;
+
   public NewBookingDTO() {
     super();
   }
@@ -44,9 +46,9 @@ public class NewBookingDTO {
   /**
    * Constructor with only required parameters
    */
-  public NewBookingDTO(Integer tableNumber, String customerId, OffsetDateTime startingDate, OffsetDateTime endingDate, Integer peopleCount) {
+  public NewBookingDTO(Integer tableNumber, String userId, OffsetDateTime startingDate, OffsetDateTime endingDate, Integer peopleCount) {
     this.tableNumber = tableNumber;
-    this.customerId = customerId;
+    this.userId = userId;
     this.startingDate = startingDate;
     this.endingDate = endingDate;
     this.peopleCount = peopleCount;
@@ -72,24 +74,24 @@ public class NewBookingDTO {
     this.tableNumber = tableNumber;
   }
 
-  public NewBookingDTO customerId(String customerId) {
-    this.customerId = customerId;
+  public NewBookingDTO userId(String userId) {
+    this.userId = userId;
     return this;
   }
 
   /**
-   * Get customerId
-   * @return customerId
+   * Get userId
+   * @return userId
   */
   @NotNull 
-  @Schema(name = "customer-id", example = "6544cd596955fe0a1c04fba9", requiredMode = Schema.RequiredMode.REQUIRED)
-  @JsonProperty("customer-id")
-  public String getCustomerId() {
-    return customerId;
+  @Schema(name = "user-id", example = "6544cd596955fe0a1c04fba9", requiredMode = Schema.RequiredMode.REQUIRED)
+  @JsonProperty("user-id")
+  public String getUserId() {
+    return userId;
   }
 
-  public void setCustomerId(String customerId) {
-    this.customerId = customerId;
+  public void setUserId(String userId) {
+    this.userId = userId;
   }
 
   public NewBookingDTO startingDate(OffsetDateTime startingDate) {
@@ -152,6 +154,26 @@ public class NewBookingDTO {
     this.peopleCount = peopleCount;
   }
 
+  public NewBookingDTO note(String note) {
+    this.note = note;
+    return this;
+  }
+
+  /**
+   * Get note
+   * @return note
+  */
+  
+  @Schema(name = "note", example = "az egyik fő egy kisbaba", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("note")
+  public String getNote() {
+    return note;
+  }
+
+  public void setNote(String note) {
+    this.note = note;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -162,15 +184,16 @@ public class NewBookingDTO {
     }
     NewBookingDTO newBooking = (NewBookingDTO) o;
     return Objects.equals(this.tableNumber, newBooking.tableNumber) &&
-        Objects.equals(this.customerId, newBooking.customerId) &&
+        Objects.equals(this.userId, newBooking.userId) &&
         Objects.equals(this.startingDate, newBooking.startingDate) &&
         Objects.equals(this.endingDate, newBooking.endingDate) &&
-        Objects.equals(this.peopleCount, newBooking.peopleCount);
+        Objects.equals(this.peopleCount, newBooking.peopleCount) &&
+        Objects.equals(this.note, newBooking.note);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(tableNumber, customerId, startingDate, endingDate, peopleCount);
+    return Objects.hash(tableNumber, userId, startingDate, endingDate, peopleCount, note);
   }
 
   @Override
@@ -178,10 +201,11 @@ public class NewBookingDTO {
     StringBuilder sb = new StringBuilder();
     sb.append("class NewBookingDTO {\n");
     sb.append("    tableNumber: ").append(toIndentedString(tableNumber)).append("\n");
-    sb.append("    customerId: ").append(toIndentedString(customerId)).append("\n");
+    sb.append("    userId: ").append(toIndentedString(userId)).append("\n");
     sb.append("    startingDate: ").append(toIndentedString(startingDate)).append("\n");
     sb.append("    endingDate: ").append(toIndentedString(endingDate)).append("\n");
     sb.append("    peopleCount: ").append(toIndentedString(peopleCount)).append("\n");
+    sb.append("    note: ").append(toIndentedString(note)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -33,7 +33,7 @@ import java.util.Map;
 import java.util.Optional;
 import jakarta.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-11-23T22:27:38.107543100+01:00[Europe/Budapest]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-11-24T19:02:19.052817200+01:00[Europe/Budapest]")
 @Validated
 @Tag(name = "customer-order", description = "the customer-order API")
 public interface CustomerOrderApi {
@@ -43,9 +43,9 @@ public interface CustomerOrderApi {
     }
 
     /**
-     * POST /customer-order/{customer-id} : Place an order
+     * POST /customer-order/{userId} : Place an order
      *
-     * @param customerId  (required)
+     * @param userId  (required)
      * @param orderDTO  (optional)
      * @return successful operation (status code 200)
      *         or Invalid input (status code 405)
@@ -66,18 +66,18 @@ public interface CustomerOrderApi {
     )
     @RequestMapping(
         method = RequestMethod.POST,
-        value = "/customer-order/{customer-id}",
+        value = "/customer-order/{userId}",
         produces = { "application/json" },
         consumes = { "application/json" }
     )
     default ResponseEntity<OrderDTO> order(
-        @Parameter(name = "customer-id", description = "", required = true, in = ParameterIn.PATH) @PathVariable("customer-id") String customerId,
+        @Parameter(name = "userId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("userId") String userId,
         @Parameter(name = "OrderDTO", description = "") @Valid @RequestBody(required = false) OrderDTO orderDTO
     ) {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                    String exampleString = "{ \"date\" : \"2000-01-23T04:56:07.000+00:00\", \"note\" : \"note\", \"foods\" : [ { \"quantity\" : 1, \"food\" : { \"price\" : 400, \"name\" : \"Hamburger\", \"recipe\" : [ { \"unit\" : \"g\", \"quantity\" : 0, \"ingerient\" : \"ingerient\" }, { \"unit\" : \"g\", \"quantity\" : 0, \"ingerient\" : \"ingerient\" } ], \"id\" : \"6544cd596955fe0a1c04fba9\" } }, { \"quantity\" : 1, \"food\" : { \"price\" : 400, \"name\" : \"Hamburger\", \"recipe\" : [ { \"unit\" : \"g\", \"quantity\" : 0, \"ingerient\" : \"ingerient\" }, { \"unit\" : \"g\", \"quantity\" : 0, \"ingerient\" : \"ingerient\" } ], \"id\" : \"6544cd596955fe0a1c04fba9\" } } ], \"drinks\" : [ { \"quantity\" : 1, \"drink\" : { \"price\" : 400, \"name\" : \"Cola\", \"id\" : \"6544cd596955fe0a1c04fba9\" } }, { \"quantity\" : 1, \"drink\" : { \"price\" : 400, \"name\" : \"Cola\", \"id\" : \"6544cd596955fe0a1c04fba9\" } } ], \"id\" : \"6544cd596955fe0a1c04fba9\", \"status\" : \"placed\" }";
+                    String exampleString = "{ \"date\" : \"2000-01-23T04:56:07.000+00:00\", \"note\" : \"note\", \"foods\" : [ { \"quantity\" : 1, \"food\" : { \"price\" : 400, \"name\" : \"Hamburger\", \"recipe\" : [ { \"unit\" : \"g\", \"quantity\" : 0, \"ingerient\" : \"ingerient\" }, { \"unit\" : \"g\", \"quantity\" : 0, \"ingerient\" : \"ingerient\" } ], \"id\" : \"6544cd596955fe0a1c04fba9\", \"type\" : \"Főétel\" } }, { \"quantity\" : 1, \"food\" : { \"price\" : 400, \"name\" : \"Hamburger\", \"recipe\" : [ { \"unit\" : \"g\", \"quantity\" : 0, \"ingerient\" : \"ingerient\" }, { \"unit\" : \"g\", \"quantity\" : 0, \"ingerient\" : \"ingerient\" } ], \"id\" : \"6544cd596955fe0a1c04fba9\", \"type\" : \"Főétel\" } } ], \"drinks\" : [ { \"quantity\" : 1, \"drink\" : { \"price\" : 400, \"name\" : \"Cola\", \"id\" : \"6544cd596955fe0a1c04fba9\", \"type\" : \"Üdítő\" } }, { \"quantity\" : 1, \"drink\" : { \"price\" : 400, \"name\" : \"Cola\", \"id\" : \"6544cd596955fe0a1c04fba9\", \"type\" : \"Üdítő\" } } ], \"id\" : \"6544cd596955fe0a1c04fba9\", \"status\" : \"placed\" }";
                     ApiUtil.setExampleResponse(request, "application/json", exampleString);
                     break;
                 }
@@ -89,9 +89,9 @@ public interface CustomerOrderApi {
 
 
     /**
-     * GET /customer-order/{customer-id} : Query orders for customer
+     * GET /customer-order/{userId} : Query orders for customer
      *
-     * @param customerId  (required)
+     * @param userId  (required)
      * @param isCurrent  (optional)
      * @return successful operation (status code 200)
      *         or Invalid input (status code 405)
@@ -112,17 +112,17 @@ public interface CustomerOrderApi {
     )
     @RequestMapping(
         method = RequestMethod.GET,
-        value = "/customer-order/{customer-id}",
+        value = "/customer-order/{userId}",
         produces = { "application/json" }
     )
     default ResponseEntity<List<OrderDTO>> queryCustomerOrderForCustomer(
-        @Parameter(name = "customer-id", description = "", required = true, in = ParameterIn.PATH) @PathVariable("customer-id") String customerId,
+        @Parameter(name = "userId", description = "", required = true, in = ParameterIn.PATH) @PathVariable("userId") String userId,
         @Parameter(name = "is-current", description = "", in = ParameterIn.HEADER) @RequestHeader(value = "is-current", required = false) Boolean isCurrent
     ) {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                    String exampleString = "[ { \"date\" : \"2000-01-23T04:56:07.000+00:00\", \"note\" : \"note\", \"foods\" : [ { \"quantity\" : 1, \"food\" : { \"price\" : 400, \"name\" : \"Hamburger\", \"recipe\" : [ { \"unit\" : \"g\", \"quantity\" : 0, \"ingerient\" : \"ingerient\" }, { \"unit\" : \"g\", \"quantity\" : 0, \"ingerient\" : \"ingerient\" } ], \"id\" : \"6544cd596955fe0a1c04fba9\" } }, { \"quantity\" : 1, \"food\" : { \"price\" : 400, \"name\" : \"Hamburger\", \"recipe\" : [ { \"unit\" : \"g\", \"quantity\" : 0, \"ingerient\" : \"ingerient\" }, { \"unit\" : \"g\", \"quantity\" : 0, \"ingerient\" : \"ingerient\" } ], \"id\" : \"6544cd596955fe0a1c04fba9\" } } ], \"drinks\" : [ { \"quantity\" : 1, \"drink\" : { \"price\" : 400, \"name\" : \"Cola\", \"id\" : \"6544cd596955fe0a1c04fba9\" } }, { \"quantity\" : 1, \"drink\" : { \"price\" : 400, \"name\" : \"Cola\", \"id\" : \"6544cd596955fe0a1c04fba9\" } } ], \"id\" : \"6544cd596955fe0a1c04fba9\", \"status\" : \"placed\" }, { \"date\" : \"2000-01-23T04:56:07.000+00:00\", \"note\" : \"note\", \"foods\" : [ { \"quantity\" : 1, \"food\" : { \"price\" : 400, \"name\" : \"Hamburger\", \"recipe\" : [ { \"unit\" : \"g\", \"quantity\" : 0, \"ingerient\" : \"ingerient\" }, { \"unit\" : \"g\", \"quantity\" : 0, \"ingerient\" : \"ingerient\" } ], \"id\" : \"6544cd596955fe0a1c04fba9\" } }, { \"quantity\" : 1, \"food\" : { \"price\" : 400, \"name\" : \"Hamburger\", \"recipe\" : [ { \"unit\" : \"g\", \"quantity\" : 0, \"ingerient\" : \"ingerient\" }, { \"unit\" : \"g\", \"quantity\" : 0, \"ingerient\" : \"ingerient\" } ], \"id\" : \"6544cd596955fe0a1c04fba9\" } } ], \"drinks\" : [ { \"quantity\" : 1, \"drink\" : { \"price\" : 400, \"name\" : \"Cola\", \"id\" : \"6544cd596955fe0a1c04fba9\" } }, { \"quantity\" : 1, \"drink\" : { \"price\" : 400, \"name\" : \"Cola\", \"id\" : \"6544cd596955fe0a1c04fba9\" } } ], \"id\" : \"6544cd596955fe0a1c04fba9\", \"status\" : \"placed\" } ]";
+                    String exampleString = "[ { \"date\" : \"2000-01-23T04:56:07.000+00:00\", \"note\" : \"note\", \"foods\" : [ { \"quantity\" : 1, \"food\" : { \"price\" : 400, \"name\" : \"Hamburger\", \"recipe\" : [ { \"unit\" : \"g\", \"quantity\" : 0, \"ingerient\" : \"ingerient\" }, { \"unit\" : \"g\", \"quantity\" : 0, \"ingerient\" : \"ingerient\" } ], \"id\" : \"6544cd596955fe0a1c04fba9\", \"type\" : \"Főétel\" } }, { \"quantity\" : 1, \"food\" : { \"price\" : 400, \"name\" : \"Hamburger\", \"recipe\" : [ { \"unit\" : \"g\", \"quantity\" : 0, \"ingerient\" : \"ingerient\" }, { \"unit\" : \"g\", \"quantity\" : 0, \"ingerient\" : \"ingerient\" } ], \"id\" : \"6544cd596955fe0a1c04fba9\", \"type\" : \"Főétel\" } } ], \"drinks\" : [ { \"quantity\" : 1, \"drink\" : { \"price\" : 400, \"name\" : \"Cola\", \"id\" : \"6544cd596955fe0a1c04fba9\", \"type\" : \"Üdítő\" } }, { \"quantity\" : 1, \"drink\" : { \"price\" : 400, \"name\" : \"Cola\", \"id\" : \"6544cd596955fe0a1c04fba9\", \"type\" : \"Üdítő\" } } ], \"id\" : \"6544cd596955fe0a1c04fba9\", \"status\" : \"placed\" }, { \"date\" : \"2000-01-23T04:56:07.000+00:00\", \"note\" : \"note\", \"foods\" : [ { \"quantity\" : 1, \"food\" : { \"price\" : 400, \"name\" : \"Hamburger\", \"recipe\" : [ { \"unit\" : \"g\", \"quantity\" : 0, \"ingerient\" : \"ingerient\" }, { \"unit\" : \"g\", \"quantity\" : 0, \"ingerient\" : \"ingerient\" } ], \"id\" : \"6544cd596955fe0a1c04fba9\", \"type\" : \"Főétel\" } }, { \"quantity\" : 1, \"food\" : { \"price\" : 400, \"name\" : \"Hamburger\", \"recipe\" : [ { \"unit\" : \"g\", \"quantity\" : 0, \"ingerient\" : \"ingerient\" }, { \"unit\" : \"g\", \"quantity\" : 0, \"ingerient\" : \"ingerient\" } ], \"id\" : \"6544cd596955fe0a1c04fba9\", \"type\" : \"Főétel\" } } ], \"drinks\" : [ { \"quantity\" : 1, \"drink\" : { \"price\" : 400, \"name\" : \"Cola\", \"id\" : \"6544cd596955fe0a1c04fba9\", \"type\" : \"Üdítő\" } }, { \"quantity\" : 1, \"drink\" : { \"price\" : 400, \"name\" : \"Cola\", \"id\" : \"6544cd596955fe0a1c04fba9\", \"type\" : \"Üdítő\" } } ], \"id\" : \"6544cd596955fe0a1c04fba9\", \"status\" : \"placed\" } ]";
                     ApiUtil.setExampleResponse(request, "application/json", exampleString);
                     break;
                 }
@@ -167,7 +167,7 @@ public interface CustomerOrderApi {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                    String exampleString = "[ { \"customer\" : { \"mobil\" : \"36709834234\", \"address\" : \"Budapest Lakatos utca 6.\", \"name\" : \"Gipsz Jakap\", \"id\" : \"ObjectId('6544cd596955fe0a1c04fba9')\", \"email\" : \"gipsz@jakab.com\" }, \"order\" : { \"date\" : \"2000-01-23T04:56:07.000+00:00\", \"note\" : \"note\", \"foods\" : [ { \"quantity\" : 1, \"food\" : { \"price\" : 400, \"name\" : \"Hamburger\", \"recipe\" : [ { \"unit\" : \"g\", \"quantity\" : 0, \"ingerient\" : \"ingerient\" }, { \"unit\" : \"g\", \"quantity\" : 0, \"ingerient\" : \"ingerient\" } ], \"id\" : \"6544cd596955fe0a1c04fba9\" } }, { \"quantity\" : 1, \"food\" : { \"price\" : 400, \"name\" : \"Hamburger\", \"recipe\" : [ { \"unit\" : \"g\", \"quantity\" : 0, \"ingerient\" : \"ingerient\" }, { \"unit\" : \"g\", \"quantity\" : 0, \"ingerient\" : \"ingerient\" } ], \"id\" : \"6544cd596955fe0a1c04fba9\" } } ], \"drinks\" : [ { \"quantity\" : 1, \"drink\" : { \"price\" : 400, \"name\" : \"Cola\", \"id\" : \"6544cd596955fe0a1c04fba9\" } }, { \"quantity\" : 1, \"drink\" : { \"price\" : 400, \"name\" : \"Cola\", \"id\" : \"6544cd596955fe0a1c04fba9\" } } ], \"id\" : \"6544cd596955fe0a1c04fba9\", \"status\" : \"placed\" } }, { \"customer\" : { \"mobil\" : \"36709834234\", \"address\" : \"Budapest Lakatos utca 6.\", \"name\" : \"Gipsz Jakap\", \"id\" : \"ObjectId('6544cd596955fe0a1c04fba9')\", \"email\" : \"gipsz@jakab.com\" }, \"order\" : { \"date\" : \"2000-01-23T04:56:07.000+00:00\", \"note\" : \"note\", \"foods\" : [ { \"quantity\" : 1, \"food\" : { \"price\" : 400, \"name\" : \"Hamburger\", \"recipe\" : [ { \"unit\" : \"g\", \"quantity\" : 0, \"ingerient\" : \"ingerient\" }, { \"unit\" : \"g\", \"quantity\" : 0, \"ingerient\" : \"ingerient\" } ], \"id\" : \"6544cd596955fe0a1c04fba9\" } }, { \"quantity\" : 1, \"food\" : { \"price\" : 400, \"name\" : \"Hamburger\", \"recipe\" : [ { \"unit\" : \"g\", \"quantity\" : 0, \"ingerient\" : \"ingerient\" }, { \"unit\" : \"g\", \"quantity\" : 0, \"ingerient\" : \"ingerient\" } ], \"id\" : \"6544cd596955fe0a1c04fba9\" } } ], \"drinks\" : [ { \"quantity\" : 1, \"drink\" : { \"price\" : 400, \"name\" : \"Cola\", \"id\" : \"6544cd596955fe0a1c04fba9\" } }, { \"quantity\" : 1, \"drink\" : { \"price\" : 400, \"name\" : \"Cola\", \"id\" : \"6544cd596955fe0a1c04fba9\" } } ], \"id\" : \"6544cd596955fe0a1c04fba9\", \"status\" : \"placed\" } } ]";
+                    String exampleString = "[ { \"customer\" : { \"mobil\" : \"36709834234\", \"address\" : \"Budapest Lakatos utca 6.\", \"name\" : \"Gipsz Jakap\", \"id\" : \"ObjectId('6544cd596955fe0a1c04fba9')\", \"email\" : \"gipsz@jakab.com\" }, \"order\" : { \"date\" : \"2000-01-23T04:56:07.000+00:00\", \"note\" : \"note\", \"foods\" : [ { \"quantity\" : 1, \"food\" : { \"price\" : 400, \"name\" : \"Hamburger\", \"recipe\" : [ { \"unit\" : \"g\", \"quantity\" : 0, \"ingerient\" : \"ingerient\" }, { \"unit\" : \"g\", \"quantity\" : 0, \"ingerient\" : \"ingerient\" } ], \"id\" : \"6544cd596955fe0a1c04fba9\", \"type\" : \"Főétel\" } }, { \"quantity\" : 1, \"food\" : { \"price\" : 400, \"name\" : \"Hamburger\", \"recipe\" : [ { \"unit\" : \"g\", \"quantity\" : 0, \"ingerient\" : \"ingerient\" }, { \"unit\" : \"g\", \"quantity\" : 0, \"ingerient\" : \"ingerient\" } ], \"id\" : \"6544cd596955fe0a1c04fba9\", \"type\" : \"Főétel\" } } ], \"drinks\" : [ { \"quantity\" : 1, \"drink\" : { \"price\" : 400, \"name\" : \"Cola\", \"id\" : \"6544cd596955fe0a1c04fba9\", \"type\" : \"Üdítő\" } }, { \"quantity\" : 1, \"drink\" : { \"price\" : 400, \"name\" : \"Cola\", \"id\" : \"6544cd596955fe0a1c04fba9\", \"type\" : \"Üdítő\" } } ], \"id\" : \"6544cd596955fe0a1c04fba9\", \"status\" : \"placed\" } }, { \"customer\" : { \"mobil\" : \"36709834234\", \"address\" : \"Budapest Lakatos utca 6.\", \"name\" : \"Gipsz Jakap\", \"id\" : \"ObjectId('6544cd596955fe0a1c04fba9')\", \"email\" : \"gipsz@jakab.com\" }, \"order\" : { \"date\" : \"2000-01-23T04:56:07.000+00:00\", \"note\" : \"note\", \"foods\" : [ { \"quantity\" : 1, \"food\" : { \"price\" : 400, \"name\" : \"Hamburger\", \"recipe\" : [ { \"unit\" : \"g\", \"quantity\" : 0, \"ingerient\" : \"ingerient\" }, { \"unit\" : \"g\", \"quantity\" : 0, \"ingerient\" : \"ingerient\" } ], \"id\" : \"6544cd596955fe0a1c04fba9\", \"type\" : \"Főétel\" } }, { \"quantity\" : 1, \"food\" : { \"price\" : 400, \"name\" : \"Hamburger\", \"recipe\" : [ { \"unit\" : \"g\", \"quantity\" : 0, \"ingerient\" : \"ingerient\" }, { \"unit\" : \"g\", \"quantity\" : 0, \"ingerient\" : \"ingerient\" } ], \"id\" : \"6544cd596955fe0a1c04fba9\", \"type\" : \"Főétel\" } } ], \"drinks\" : [ { \"quantity\" : 1, \"drink\" : { \"price\" : 400, \"name\" : \"Cola\", \"id\" : \"6544cd596955fe0a1c04fba9\", \"type\" : \"Üdítő\" } }, { \"quantity\" : 1, \"drink\" : { \"price\" : 400, \"name\" : \"Cola\", \"id\" : \"6544cd596955fe0a1c04fba9\", \"type\" : \"Üdítő\" } } ], \"id\" : \"6544cd596955fe0a1c04fba9\", \"status\" : \"placed\" } } ]";
                     ApiUtil.setExampleResponse(request, "application/json", exampleString);
                     break;
                 }

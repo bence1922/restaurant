@@ -34,7 +34,7 @@ public class RecipeLine {
         this.quantity = quantity;
     }
 
-        public FoodRecipeInnerDTO toDTO(){
+    public FoodRecipeInnerDTO toDTO() {
         FoodRecipeInnerDTO foodRecipeInnerDTO = new FoodRecipeInnerDTO();
         foodRecipeInnerDTO.setIngerient(this.ingredient.getName());
         foodRecipeInnerDTO.setQuantity(this.quantity);

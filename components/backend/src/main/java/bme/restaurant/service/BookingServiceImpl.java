@@ -42,7 +42,7 @@ public class BookingServiceImpl implements BookingService {
     public BookingDTO bookTable(NewBookingDTO newBookingDTO) {
         // TODO: check if the booking is possible, maybe with the query tables for booking
         var table = tableRepo.findByNumber(newBookingDTO.getTableNumber());
-        var customer = userRepo.findById(newBookingDTO.getCustomerId());
+        var customer = userRepo.findById(newBookingDTO.getUserId());
         var booking = new Booking(
             table, 
             customer.get(), 

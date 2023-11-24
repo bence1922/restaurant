@@ -2,6 +2,8 @@ package bme.restaurant.dto;
 
 import java.net.URI;
 import java.util.Objects;
+import bme.restaurant.dto.OrderDTO;
+import bme.restaurant.dto.TableDTO;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
@@ -16,55 +18,55 @@ import java.util.*;
 import jakarta.annotation.Generated;
 
 /**
- * MenuItemDTO
+ * TableOrderDTO
  */
 
-@JsonTypeName("MenuItem")
+@JsonTypeName("TableOrder")
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-11-24T19:02:19.052817200+01:00[Europe/Budapest]")
-public class MenuItemDTO {
+public class TableOrderDTO {
 
-  private String name;
+  private TableDTO table;
 
-  private Integer price;
+  private OrderDTO order;
 
-  public MenuItemDTO name(String name) {
-    this.name = name;
+  public TableOrderDTO table(TableDTO table) {
+    this.table = table;
     return this;
   }
 
   /**
-   * Get name
-   * @return name
+   * Get table
+   * @return table
   */
-  
-  @Schema(name = "name", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
-  @JsonProperty("name")
-  public String getName() {
-    return name;
+  @Valid 
+  @Schema(name = "table", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("table")
+  public TableDTO getTable() {
+    return table;
   }
 
-  public void setName(String name) {
-    this.name = name;
+  public void setTable(TableDTO table) {
+    this.table = table;
   }
 
-  public MenuItemDTO price(Integer price) {
-    this.price = price;
+  public TableOrderDTO order(OrderDTO order) {
+    this.order = order;
     return this;
   }
 
   /**
-   * Get price
-   * @return price
+   * Get order
+   * @return order
   */
-  
-  @Schema(name = "price", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
-  @JsonProperty("price")
-  public Integer getPrice() {
-    return price;
+  @Valid 
+  @Schema(name = "order", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("order")
+  public OrderDTO getOrder() {
+    return order;
   }
 
-  public void setPrice(Integer price) {
-    this.price = price;
+  public void setOrder(OrderDTO order) {
+    this.order = order;
   }
 
   @Override
@@ -75,22 +77,22 @@ public class MenuItemDTO {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    MenuItemDTO menuItem = (MenuItemDTO) o;
-    return Objects.equals(this.name, menuItem.name) &&
-        Objects.equals(this.price, menuItem.price);
+    TableOrderDTO tableOrder = (TableOrderDTO) o;
+    return Objects.equals(this.table, tableOrder.table) &&
+        Objects.equals(this.order, tableOrder.order);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(name, price);
+    return Objects.hash(table, order);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class MenuItemDTO {\n");
-    sb.append("    name: ").append(toIndentedString(name)).append("\n");
-    sb.append("    price: ").append(toIndentedString(price)).append("\n");
+    sb.append("class TableOrderDTO {\n");
+    sb.append("    table: ").append(toIndentedString(table)).append("\n");
+    sb.append("    order: ").append(toIndentedString(order)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -75,19 +75,12 @@ public class Food {
     }
 
     public FoodDTO toDTO() {
-        FoodDTO foodDTO = new FoodDTO(
-            this.id,
-            this.name,
-            this.type,
-            this.price
-        );
-        if (this.recipe != null){
-            List<FoodRecipeInnerDTO> recipeLines = new ArrayList<FoodRecipeInnerDTO>();
-            for (RecipeLine recipeLine : this.recipe){
-                recipeLines.add(recipeLine.toDTO());
-            }
-            foodDTO.setRecipe(recipeLines);
-        }
+        var foodDTO = new FoodDTO();
+        foodDTO.setId(this.id);
+        foodDTO.setName(this.name);
+        foodDTO.setPrice(this.price);
+        foodDTO.setType(this.type);
+        foodDTO.setRecipe(recipe.stream().map((rl) -> rl.toDTO()).toList());
         return foodDTO;
     }
 }

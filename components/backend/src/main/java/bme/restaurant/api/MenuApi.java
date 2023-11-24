@@ -7,7 +7,6 @@ package bme.restaurant.api;
 
 import bme.restaurant.dto.DrinkDTO;
 import bme.restaurant.dto.FoodDTO;
-import bme.restaurant.dto.MenuItemDTO;
 import io.swagger.v3.oas.annotations.ExternalDocumentation;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -34,7 +33,7 @@ import java.util.Map;
 import java.util.Optional;
 import jakarta.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-11-23T22:27:38.107543100+01:00[Europe/Budapest]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-11-24T19:02:19.052817200+01:00[Europe/Budapest]")
 @Validated
 @Tag(name = "menu", description = "the menu API")
 public interface MenuApi {
@@ -122,7 +121,7 @@ public interface MenuApi {
         value = "/menu/drink/{drinkId}"
     )
     default ResponseEntity<Void> deleteDrink(
-        @Parameter(name = "drinkId", description = "ID of the menu item to retrieve/update/delete", required = true, in = ParameterIn.PATH) @PathVariable("drinkId") Long drinkId
+        @Parameter(name = "drinkId", description = "ID of the menu item to retrieve/update/delete", required = true, in = ParameterIn.PATH) @PathVariable("drinkId") String drinkId
     ) {
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 
@@ -150,7 +149,7 @@ public interface MenuApi {
         value = "/menu/food/{foodId}"
     )
     default ResponseEntity<Void> deleteFood(
-        @Parameter(name = "foodId", description = "ID of the menu item to retrieve/update/delete", required = true, in = ParameterIn.PATH) @PathVariable("foodId") Long foodId
+        @Parameter(name = "foodId", description = "ID of the menu item to retrieve/update/delete", required = true, in = ParameterIn.PATH) @PathVariable("foodId") String foodId
     ) {
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 
@@ -170,7 +169,7 @@ public interface MenuApi {
         tags = { "menu" },
         responses = {
             @ApiResponse(responseCode = "200", description = "Menu item details", content = {
-                @Content(mediaType = "application/json", schema = @Schema(implementation = MenuItemDTO.class))
+                @Content(mediaType = "application/json", schema = @Schema(implementation = DrinkDTO.class))
             }),
             @ApiResponse(responseCode = "404", description = "Menu item not found")
         }
@@ -180,13 +179,13 @@ public interface MenuApi {
         value = "/menu/drink/{drinkId}",
         produces = { "application/json" }
     )
-    default ResponseEntity<MenuItemDTO> getDrink(
-        @Parameter(name = "drinkId", description = "ID of the menu item to retrieve/update/delete", required = true, in = ParameterIn.PATH) @PathVariable("drinkId") Long drinkId
+    default ResponseEntity<DrinkDTO> getDrink(
+        @Parameter(name = "drinkId", description = "ID of the menu item to retrieve/update/delete", required = true, in = ParameterIn.PATH) @PathVariable("drinkId") String drinkId
     ) {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                    String exampleString = "{ \"price\" : 0, \"name\" : \"name\" }";
+                    String exampleString = "{ \"price\" : 400, \"name\" : \"Cola\", \"id\" : \"6544cd596955fe0a1c04fba9\", \"type\" : \"Üdítő\" }";
                     ApiUtil.setExampleResponse(request, "application/json", exampleString);
                     break;
                 }
@@ -223,7 +222,7 @@ public interface MenuApi {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                    String exampleString = "[ { \"price\" : 400, \"name\" : \"Cola\", \"id\" : \"6544cd596955fe0a1c04fba9\" }, { \"price\" : 400, \"name\" : \"Cola\", \"id\" : \"6544cd596955fe0a1c04fba9\" } ]";
+                    String exampleString = "[ { \"price\" : 400, \"name\" : \"Cola\", \"id\" : \"6544cd596955fe0a1c04fba9\", \"type\" : \"Üdítő\" }, { \"price\" : 400, \"name\" : \"Cola\", \"id\" : \"6544cd596955fe0a1c04fba9\", \"type\" : \"Üdítő\" } ]";
                     ApiUtil.setExampleResponse(request, "application/json", exampleString);
                     break;
                 }
@@ -258,12 +257,12 @@ public interface MenuApi {
         produces = { "application/json" }
     )
     default ResponseEntity<FoodDTO> getFood(
-        @Parameter(name = "foodId", description = "ID of the menu item to retrieve/update/delete", required = true, in = ParameterIn.PATH) @PathVariable("foodId") Long foodId
+        @Parameter(name = "foodId", description = "ID of the menu item to retrieve/update/delete", required = true, in = ParameterIn.PATH) @PathVariable("foodId") String foodId
     ) {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                    String exampleString = "{ \"price\" : 400, \"name\" : \"Hamburger\", \"recipe\" : [ { \"unit\" : \"g\", \"quantity\" : 0, \"ingerient\" : \"ingerient\" }, { \"unit\" : \"g\", \"quantity\" : 0, \"ingerient\" : \"ingerient\" } ], \"id\" : \"6544cd596955fe0a1c04fba9\" }";
+                    String exampleString = "{ \"price\" : 400, \"name\" : \"Hamburger\", \"recipe\" : [ { \"unit\" : \"g\", \"quantity\" : 0, \"ingerient\" : \"ingerient\" }, { \"unit\" : \"g\", \"quantity\" : 0, \"ingerient\" : \"ingerient\" } ], \"id\" : \"6544cd596955fe0a1c04fba9\", \"type\" : \"Főétel\" }";
                     ApiUtil.setExampleResponse(request, "application/json", exampleString);
                     break;
                 }
@@ -300,7 +299,7 @@ public interface MenuApi {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                    String exampleString = "[ { \"price\" : 400, \"name\" : \"Hamburger\", \"recipe\" : [ { \"unit\" : \"g\", \"quantity\" : 0, \"ingerient\" : \"ingerient\" }, { \"unit\" : \"g\", \"quantity\" : 0, \"ingerient\" : \"ingerient\" } ], \"id\" : \"6544cd596955fe0a1c04fba9\" }, { \"price\" : 400, \"name\" : \"Hamburger\", \"recipe\" : [ { \"unit\" : \"g\", \"quantity\" : 0, \"ingerient\" : \"ingerient\" }, { \"unit\" : \"g\", \"quantity\" : 0, \"ingerient\" : \"ingerient\" } ], \"id\" : \"6544cd596955fe0a1c04fba9\" } ]";
+                    String exampleString = "[ { \"price\" : 400, \"name\" : \"Hamburger\", \"recipe\" : [ { \"unit\" : \"g\", \"quantity\" : 0, \"ingerient\" : \"ingerient\" }, { \"unit\" : \"g\", \"quantity\" : 0, \"ingerient\" : \"ingerient\" } ], \"id\" : \"6544cd596955fe0a1c04fba9\", \"type\" : \"Főétel\" }, { \"price\" : 400, \"name\" : \"Hamburger\", \"recipe\" : [ { \"unit\" : \"g\", \"quantity\" : 0, \"ingerient\" : \"ingerient\" }, { \"unit\" : \"g\", \"quantity\" : 0, \"ingerient\" : \"ingerient\" } ], \"id\" : \"6544cd596955fe0a1c04fba9\", \"type\" : \"Főétel\" } ]";
                     ApiUtil.setExampleResponse(request, "application/json", exampleString);
                     break;
                 }
@@ -326,53 +325,78 @@ public interface MenuApi {
         summary = "Partially update menu item details by ID using query parameters",
         tags = { "menu" },
         responses = {
-            @ApiResponse(responseCode = "200", description = "Menu item partially updated successfully"),
+            @ApiResponse(responseCode = "200", description = "Menu item partially updated successfully", content = {
+                @Content(mediaType = "application/json", schema = @Schema(implementation = DrinkDTO.class))
+            }),
             @ApiResponse(responseCode = "404", description = "Menu item not found"),
             @ApiResponse(responseCode = "400", description = "Invalid request")
         }
     )
     @RequestMapping(
         method = RequestMethod.PATCH,
-        value = "/menu/drink/{drinkId}"
+        value = "/menu/drink/{drinkId}",
+        produces = { "application/json" }
     )
-    default ResponseEntity<Void> updateDrink(
-        @Parameter(name = "drinkId", description = "ID of the menu item to retrieve/update/delete", required = true, in = ParameterIn.PATH) @PathVariable("drinkId") Long drinkId,
+    default ResponseEntity<DrinkDTO> updateDrink(
+        @Parameter(name = "drinkId", description = "ID of the menu item to retrieve/update/delete", required = true, in = ParameterIn.PATH) @PathVariable("drinkId") String drinkId,
         @Parameter(name = "name", description = "New name for the menu item", in = ParameterIn.QUERY) @Valid @RequestParam(value = "name", required = false) String name,
         @Parameter(name = "price", description = "New price for the menu item", in = ParameterIn.QUERY) @Valid @RequestParam(value = "price", required = false) Integer price
     ) {
+        getRequest().ifPresent(request -> {
+            for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
+                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
+                    String exampleString = "{ \"price\" : 400, \"name\" : \"Cola\", \"id\" : \"6544cd596955fe0a1c04fba9\", \"type\" : \"Üdítő\" }";
+                    ApiUtil.setExampleResponse(request, "application/json", exampleString);
+                    break;
+                }
+            }
+        });
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 
     }
 
 
     /**
-     * PUT /menu/food/{foodId} : Update menu item details by ID
+     * PATCH /menu/food/{foodId} : Partially update menu item details by ID using query parameters
      *
      * @param foodId ID of the menu item to retrieve/update/delete (required)
-     * @param foodDTO  (required)
-     * @return Menu item updated successfully (status code 200)
+     * @param name New name for the menu item (optional)
+     * @param price New price for the menu item (optional)
+     * @return Menu item partially updated successfully (status code 200)
      *         or Menu item not found (status code 404)
      *         or Invalid request (status code 400)
      */
     @Operation(
         operationId = "updateFood",
-        summary = "Update menu item details by ID",
+        summary = "Partially update menu item details by ID using query parameters",
         tags = { "menu" },
         responses = {
-            @ApiResponse(responseCode = "200", description = "Menu item updated successfully"),
+            @ApiResponse(responseCode = "200", description = "Menu item partially updated successfully", content = {
+                @Content(mediaType = "application/json", schema = @Schema(implementation = FoodDTO.class))
+            }),
             @ApiResponse(responseCode = "404", description = "Menu item not found"),
             @ApiResponse(responseCode = "400", description = "Invalid request")
         }
     )
     @RequestMapping(
-        method = RequestMethod.PUT,
+        method = RequestMethod.PATCH,
         value = "/menu/food/{foodId}",
-        consumes = { "application/json" }
+        produces = { "application/json" }
     )
-    default ResponseEntity<Void> updateFood(
-        @Parameter(name = "foodId", description = "ID of the menu item to retrieve/update/delete", required = true, in = ParameterIn.PATH) @PathVariable("foodId") Long foodId,
-        @Parameter(name = "FoodDTO", description = "", required = true) @Valid @RequestBody FoodDTO foodDTO
+    default ResponseEntity<FoodDTO> updateFood(
+        @Parameter(name = "foodId", description = "ID of the menu item to retrieve/update/delete", required = true, in = ParameterIn.PATH) @PathVariable("foodId") String foodId,
+        @Parameter(name = "name", description = "New name for the menu item", in = ParameterIn.QUERY) @Valid @RequestParam(value = "name", required = false) String name,
+        @Parameter(name = "price", description = "New price for the menu item", in = ParameterIn.QUERY) @Valid @RequestParam(value = "price", required = false) Integer price
     ) {
+        getRequest().ifPresent(request -> {
+            for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
+                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
+                    String exampleString = "{ \"price\" : 400, \"name\" : \"Hamburger\", \"recipe\" : [ { \"unit\" : \"g\", \"quantity\" : 0, \"ingerient\" : \"ingerient\" }, { \"unit\" : \"g\", \"quantity\" : 0, \"ingerient\" : \"ingerient\" } ], \"id\" : \"6544cd596955fe0a1c04fba9\", \"type\" : \"Főétel\" }";
+                    ApiUtil.setExampleResponse(request, "application/json", exampleString);
+                    break;
+                }
+            }
+        });
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 
     }
