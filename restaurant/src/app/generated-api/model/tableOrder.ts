@@ -9,12 +9,12 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import { Order } from './order';
+import { Table } from './table';
 
 
-export interface Drink { 
-    id: string;
-    name: string;
-    type: string;
-    price: number;
+export interface TableOrder { 
+    table?: Table;
+    order?: Order;
 }
 

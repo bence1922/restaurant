@@ -6,7 +6,7 @@
     "start": "nx serve",
     "build": "nx build",
     "test": "nx test",
-    "generate:api": "npx @openapitools/openapi-generator-cli generate -i ../components/backend/src/main/resources/restaurant-api-doc.yaml -g typescript-angular -o ./src/app/generated-api --type-mappings=set=Array"
+    "generate:api": "npx @openapitools/openapi-generator-cli generate -i ../components/backend/src/main/resources/restaurant-api-doc.yaml -g typescript-angular -o ./src/app/generated-api --type-mappings=DateTime=Date,set=Array"
   },
   "private": true,
   "dependencies": {

@@ -37,10 +37,16 @@ export class OrderAdminInPlaceComponent  implements OnInit{
     ]
 
     let order: Order = {
+      id: "0",
+      status: Order.StatusEnum.Placed,
+      date: new Date(),
+      note: "Note",
       foods: [
         {
           food: {
+            id: "0",
             name: "Food",
+            type: "Food",
             price: 2000,
           },
           quantity: 1
@@ -49,7 +55,9 @@ export class OrderAdminInPlaceComponent  implements OnInit{
       drinks: [
         {
           drink: {
+            id: "0",
             name: "Drink",
+            type: "Drink",
             price: 1000,
           },
           quantity: 1
@@ -61,27 +69,37 @@ export class OrderAdminInPlaceComponent  implements OnInit{
 
     this.foodList=[
       {
-        name: "Food1",
-        price: 2000
+        id: "0",
+        name: "Food",
+        type: "Food",
+        price: 2000,
       },
       {
-        name: "Food2",
-        price: 2000
+        id: "0",
+        name: "Food",
+        type: "Food",
+        price: 2000,
       },
       {
-        name: "Food3",
-        price: 2000
+        id: "0",
+        name: "Food",
+        type: "Food",
+        price: 2000,
       }
     ]
 
     this.drinkList=[
       {
-        name: "Drink 1",
-        price: 1000
+        id: "0",
+        name: "Drink",
+        type: "Drink",
+        price: 1000,
       },
       {
-        name: "Drink 2",
-        price: 1000
+        id: "0",
+        name: "Drink",
+        type: "Drink",
+        price: 1000,
       },
     ]
   }

@@ -107,6 +107,13 @@ export class TableService {
 
         let localVarHeaders = this.defaultHeaders;
 
+        let localVarCredential: string | undefined;
+        // authentication (sessionId) required
+        localVarCredential = this.configuration.lookupCredential('sessionId');
+        if (localVarCredential) {
+            localVarHeaders = localVarHeaders.set('sessionId', localVarCredential);
+        }
+
         let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
         if (localVarHttpHeaderAcceptSelected === undefined) {
             // to determine the Accept header
@@ -165,6 +172,13 @@ export class TableService {
 
         let localVarHeaders = this.defaultHeaders;
 
+        let localVarCredential: string | undefined;
+        // authentication (sessionId) required
+        localVarCredential = this.configuration.lookupCredential('sessionId');
+        if (localVarCredential) {
+            localVarHeaders = localVarHeaders.set('sessionId', localVarCredential);
+        }
+
         let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
         if (localVarHttpHeaderAcceptSelected === undefined) {
             // to determine the Accept header
@@ -219,6 +233,13 @@ export class TableService {
     public listTables(observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
 
         let localVarHeaders = this.defaultHeaders;
+
+        let localVarCredential: string | undefined;
+        // authentication (sessionId) required
+        localVarCredential = this.configuration.lookupCredential('sessionId');
+        if (localVarCredential) {
+            localVarHeaders = localVarHeaders.set('sessionId', localVarCredential);
+        }
 
         let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
         if (localVarHttpHeaderAcceptSelected === undefined) {
@@ -280,6 +301,13 @@ export class TableService {
         let localVarHeaders = this.defaultHeaders;
         if (capacity !== undefined && capacity !== null) {
             localVarHeaders = localVarHeaders.set('capacity', String(capacity));
+        }
+
+        let localVarCredential: string | undefined;
+        // authentication (sessionId) required
+        localVarCredential = this.configuration.lookupCredential('sessionId');
+        if (localVarCredential) {
+            localVarHeaders = localVarHeaders.set('sessionId', localVarCredential);
         }
 
         let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;

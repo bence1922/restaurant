@@ -12,7 +12,7 @@
         <a *ngIf="hasOneOfTheRoles(['manager', 'admin'])" class="mx-6" href="/employees">Employees</a>
         <a *ngIf="hasOneOfTheRoles(['manager', 'admin'])" class="mx-6" href="/ingredients">Ingredients</a>
     </div>
-    <div class="text-color flex align-items-center" (click)="redirectToLogin()" [style]="{cursor: 'pointer'}">
+    <div class="text-color flex align-items-center" (click)="logInOut()" [style]="{cursor: 'pointer'}">
         {{isloggedIn ? 'Log out' : 'Log in'}}
     </div>
 </div>

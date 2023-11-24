@@ -24,7 +24,9 @@ export class MenuComponent implements OnInit {
     this.foodList= new Array<Food>
     for(let i = 0; i < 3; i++){
       this.foodList.push({
+        id: i.toString(),
         name: `Dish `+i,
+        type: this.foodLabelList[i],
         price: 3000
       })
     }

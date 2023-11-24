@@ -12,8 +12,10 @@
 
 
 export interface User { 
+    id?: string;
     name: string;
-    password: string;
-    roles: string[];
+    email: string;
+    mobil: string;
+    address: string;
 }
 

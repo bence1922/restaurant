@@ -10,11 +10,11 @@
  * Do not edit the class manually.
  */
 import { Order } from './order';
-import { Customer } from './customer';
+import { User } from './user';
 
 
 export interface CustomerOrder { 
-    customer?: Customer;
+    customer?: User;
     order?: Order;
 }
 

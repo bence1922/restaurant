@@ -22,8 +22,6 @@ import { Observable }                                        from 'rxjs';
 import { Drink } from '../model/drink';
 // @ts-ignore
 import { Food } from '../model/food';
-// @ts-ignore
-import { MenuItem } from '../model/menuItem';
 
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
@@ -235,10 +233,10 @@ export class MenuService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public deleteDrink(drinkId: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<any>;
-    public deleteDrink(drinkId: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<HttpResponse<any>>;
-    public deleteDrink(drinkId: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<HttpEvent<any>>;
-    public deleteDrink(drinkId: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<any> {
+    public deleteDrink(drinkId: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<any>;
+    public deleteDrink(drinkId: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<HttpResponse<any>>;
+    public deleteDrink(drinkId: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<HttpEvent<any>>;
+    public deleteDrink(drinkId: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<any> {
         if (drinkId === null || drinkId === undefined) {
             throw new Error('Required parameter drinkId was null or undefined when calling deleteDrink.');
         }
@@ -273,7 +271,7 @@ export class MenuService {
             }
         }
 
-        let localVarPath = `/menu/drink/${this.configuration.encodeParam({name: "drinkId", value: drinkId, in: "path", style: "simple", explode: false, dataType: "number", dataFormat: "int64"})}`;
+        let localVarPath = `/menu/drink/${this.configuration.encodeParam({name: "drinkId", value: drinkId, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
         return this.httpClient.request<any>('delete', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -292,10 +290,10 @@ export class MenuService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public deleteFood(foodId: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<any>;
-    public deleteFood(foodId: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<HttpResponse<any>>;
-    public deleteFood(foodId: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<HttpEvent<any>>;
-    public deleteFood(foodId: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<any> {
+    public deleteFood(foodId: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<any>;
+    public deleteFood(foodId: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<HttpResponse<any>>;
+    public deleteFood(foodId: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<HttpEvent<any>>;
+    public deleteFood(foodId: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<any> {
         if (foodId === null || foodId === undefined) {
             throw new Error('Required parameter foodId was null or undefined when calling deleteFood.');
         }
@@ -330,7 +328,7 @@ export class MenuService {
             }
         }
 
-        let localVarPath = `/menu/food/${this.configuration.encodeParam({name: "foodId", value: foodId, in: "path", style: "simple", explode: false, dataType: "number", dataFormat: "int64"})}`;
+        let localVarPath = `/menu/food/${this.configuration.encodeParam({name: "foodId", value: foodId, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
         return this.httpClient.request<any>('delete', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -349,10 +347,10 @@ export class MenuService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getDrink(drinkId: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<MenuItem>;
-    public getDrink(drinkId: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<MenuItem>>;
-    public getDrink(drinkId: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<MenuItem>>;
-    public getDrink(drinkId: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
+    public getDrink(drinkId: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<Drink>;
+    public getDrink(drinkId: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<Drink>>;
+    public getDrink(drinkId: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<Drink>>;
+    public getDrink(drinkId: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
         if (drinkId === null || drinkId === undefined) {
             throw new Error('Required parameter drinkId was null or undefined when calling getDrink.');
         }
@@ -388,8 +386,8 @@ export class MenuService {
             }
         }
 
-        let localVarPath = `/menu/drink/${this.configuration.encodeParam({name: "drinkId", value: drinkId, in: "path", style: "simple", explode: false, dataType: "number", dataFormat: "int64"})}`;
-        return this.httpClient.request<MenuItem>('get', `${this.configuration.basePath}${localVarPath}`,
+        let localVarPath = `/menu/drink/${this.configuration.encodeParam({name: "drinkId", value: drinkId, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
+        return this.httpClient.request<Drink>('get', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
                 responseType: <any>responseType_,
@@ -461,10 +459,10 @@ export class MenuService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getFood(foodId: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<Food>;
-    public getFood(foodId: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<Food>>;
-    public getFood(foodId: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<Food>>;
-    public getFood(foodId: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
+    public getFood(foodId: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<Food>;
+    public getFood(foodId: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<Food>>;
+    public getFood(foodId: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<Food>>;
+    public getFood(foodId: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
         if (foodId === null || foodId === undefined) {
             throw new Error('Required parameter foodId was null or undefined when calling getFood.');
         }
@@ -500,7 +498,7 @@ export class MenuService {
             }
         }
 
-        let localVarPath = `/menu/food/${this.configuration.encodeParam({name: "foodId", value: foodId, in: "path", style: "simple", explode: false, dataType: "number", dataFormat: "int64"})}`;
+        let localVarPath = `/menu/food/${this.configuration.encodeParam({name: "foodId", value: foodId, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
         return this.httpClient.request<Food>('get', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -575,10 +573,10 @@ export class MenuService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public updateDrink(drinkId: number, name?: string, price?: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<any>;
-    public updateDrink(drinkId: number, name?: string, price?: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<HttpResponse<any>>;
-    public updateDrink(drinkId: number, name?: string, price?: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<HttpEvent<any>>;
-    public updateDrink(drinkId: number, name?: string, price?: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<any> {
+    public updateDrink(drinkId: string, name?: string, price?: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<Drink>;
+    public updateDrink(drinkId: string, name?: string, price?: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<Drink>>;
+    public updateDrink(drinkId: string, name?: string, price?: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<Drink>>;
+    public updateDrink(drinkId: string, name?: string, price?: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
         if (drinkId === null || drinkId === undefined) {
             throw new Error('Required parameter drinkId was null or undefined when calling updateDrink.');
         }
@@ -599,6 +597,7 @@ export class MenuService {
         if (localVarHttpHeaderAcceptSelected === undefined) {
             // to determine the Accept header
             const httpHeaderAccepts: string[] = [
+                'application/json'
             ];
             localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         }
@@ -623,8 +622,8 @@ export class MenuService {
             }
         }
 
-        let localVarPath = `/menu/drink/${this.configuration.encodeParam({name: "drinkId", value: drinkId, in: "path", style: "simple", explode: false, dataType: "number", dataFormat: "int64"})}`;
-        return this.httpClient.request<any>('patch', `${this.configuration.basePath}${localVarPath}`,
+        let localVarPath = `/menu/drink/${this.configuration.encodeParam({name: "drinkId", value: drinkId, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
+        return this.httpClient.request<Drink>('patch', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
                 params: localVarQueryParameters,
@@ -638,21 +637,29 @@ export class MenuService {
     }
 
     /**
-     * Update menu item details by ID
+     * Partially update menu item details by ID using query parameters
      * @param foodId ID of the menu item to retrieve/update/delete
-     * @param food 
+     * @param name New name for the menu item
+     * @param price New price for the menu item
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public updateFood(foodId: number, food: Food, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<any>;
-    public updateFood(foodId: number, food: Food, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<HttpResponse<any>>;
-    public updateFood(foodId: number, food: Food, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<HttpEvent<any>>;
-    public updateFood(foodId: number, food: Food, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<any> {
+    public updateFood(foodId: string, name?: string, price?: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<Food>;
+    public updateFood(foodId: string, name?: string, price?: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<Food>>;
+    public updateFood(foodId: string, name?: string, price?: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<Food>>;
+    public updateFood(foodId: string, name?: string, price?: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
         if (foodId === null || foodId === undefined) {
             throw new Error('Required parameter foodId was null or undefined when calling updateFood.');
         }
-        if (food === null || food === undefined) {
-            throw new Error('Required parameter food was null or undefined when calling updateFood.');
+
+        let localVarQueryParameters = new HttpParams({encoder: this.encoder});
+        if (name !== undefined && name !== null) {
+          localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+            <any>name, 'name');
+        }
+        if (price !== undefined && price !== null) {
+          localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+            <any>price, 'price');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -661,6 +668,7 @@ export class MenuService {
         if (localVarHttpHeaderAcceptSelected === undefined) {
             // to determine the Accept header
             const httpHeaderAccepts: string[] = [
+                'application/json'
             ];
             localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         }
@@ -674,15 +682,6 @@ export class MenuService {
         }
 
 
-        // to determine the Content-Type header
-        const consumes: string[] = [
-            'application/json'
-        ];
-        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
-        if (httpContentTypeSelected !== undefined) {
-            localVarHeaders = localVarHeaders.set('Content-Type', httpContentTypeSelected);
-        }
-
         let responseType_: 'text' | 'json' | 'blob' = 'json';
         if (localVarHttpHeaderAcceptSelected) {
             if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
@@ -694,11 +693,11 @@ export class MenuService {
             }
         }
 
-        let localVarPath = `/menu/food/${this.configuration.encodeParam({name: "foodId", value: foodId, in: "path", style: "simple", explode: false, dataType: "number", dataFormat: "int64"})}`;
-        return this.httpClient.request<any>('put', `${this.configuration.basePath}${localVarPath}`,
+        let localVarPath = `/menu/food/${this.configuration.encodeParam({name: "foodId", value: foodId, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
+        return this.httpClient.request<Food>('patch', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
-                body: food,
+                params: localVarQueryParameters,
                 responseType: <any>responseType_,
                 withCredentials: this.configuration.withCredentials,
                 headers: localVarHeaders,

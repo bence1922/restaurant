@@ -2,6 +2,7 @@
 README.md
 api.module.ts
 api/api.ts
+api/auth.service.ts
 api/booking.service.ts
 api/customer.service.ts
 api/customerOrder.service.ts
@@ -15,13 +16,10 @@ encoder.ts
 git_push.sh
 index.ts
 model/booking.ts
-model/customer.ts
-model/customerDetails.ts
 model/customerOrder.ts
 model/drink.ts
 model/drinkOrderItem.ts
 model/drinkStockItem.ts
-model/employee.ts
 model/food.ts
 model/foodOrderItem.ts
 model/foodRecipeInner.ts
@@ -31,6 +29,10 @@ model/models.ts
 model/newBooking.ts
 model/order.ts
 model/table.ts
+model/tableOrder.ts
 model/user.ts
+model/userLogin.ts
+model/userRegister.ts
+model/userSession.ts
 param.ts
 variables.ts
