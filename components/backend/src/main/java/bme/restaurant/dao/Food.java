@@ -1,13 +1,11 @@
 package bme.restaurant.dao;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import bme.restaurant.dto.FoodDTO;
-import bme.restaurant.dto.FoodRecipeInnerDTO;
 
 @Document(collection = "foods")
 public class Food {

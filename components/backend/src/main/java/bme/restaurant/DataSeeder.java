@@ -136,8 +136,7 @@ public class DataSeeder implements CommandLineRunner {
 			"1112 Budapest Hangos utca 42", 
 			"+36421112222", 
 			"randomjoska@mail.hu",
-			"1234",
-			//BCrypt.hashpw("1234", BCrypt.gensalt()), 
+			BCrypt.hashpw("1234", BCrypt.gensalt()), 
 			"admin");
 
 		if (userRepo.count() == 0) {

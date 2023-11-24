@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 import bme.restaurant.api.MenuApi;
 import bme.restaurant.dto.DrinkDTO;
 import bme.restaurant.dto.FoodDTO;
-import bme.restaurant.dto.MenuItemDTO;
 import bme.restaurant.service.MenuServiceImpl;
 import jakarta.validation.Valid;
 
