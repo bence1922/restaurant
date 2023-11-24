@@ -1,9 +1,13 @@
 package bme.restaurant.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import bme.restaurant.dto.FoodDTO;
+import bme.restaurant.dto.FoodRecipeInnerDTO;
 
 @Document(collection = "foods")
 public class Food {
@@ -68,5 +72,22 @@ public class Food {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public FoodDTO toDTO() {
+        FoodDTO foodDTO = new FoodDTO(
+            this.id,
+            this.name,
+            this.type,
+            this.price
+        );
+        if (this.recipe != null){
+            List<FoodRecipeInnerDTO> recipeLines = new ArrayList<FoodRecipeInnerDTO>();
+            for (RecipeLine recipeLine : this.recipe){
+                recipeLines.add(recipeLine.toDTO());
+            }
+            foodDTO.setRecipe(recipeLines);
+        }
+        return foodDTO;
     }
 }

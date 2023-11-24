@@ -2,6 +2,9 @@ package bme.restaurant.dao;
 
 import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
+import bme.restaurant.dto.FoodRecipeInnerDTO;
+import bme.restaurant.dto.FoodRecipeInnerDTO.UnitEnum;
+
 public class RecipeLine {
     @DocumentReference
     private Ingredient ingredient;
@@ -29,5 +32,13 @@ public class RecipeLine {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+        public FoodRecipeInnerDTO toDTO(){
+        FoodRecipeInnerDTO foodRecipeInnerDTO = new FoodRecipeInnerDTO();
+        foodRecipeInnerDTO.setIngerient(this.ingredient.getName());
+        foodRecipeInnerDTO.setQuantity(this.quantity);
+        foodRecipeInnerDTO.setUnit(UnitEnum.fromValue(this.ingredient.getUnit()));
+        return foodRecipeInnerDTO;
     }
 }

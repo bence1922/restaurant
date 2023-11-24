@@ -216,7 +216,7 @@ paths:
       tags: 
         - customer
       summary: Customer registration
-      operationId: registerUser
+      operationId: registerCustomer
       requestBody:
         required: true
         content:
@@ -224,6 +224,12 @@ paths:
             schema:
               $ref: '#/components/schemas/UserRegister'
       responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
         '201':
           description: User successfully registered
         '400':
@@ -723,8 +729,7 @@ paths:
         description: ID of the menu item to retrieve/update/delete
         required: true
         schema:
-          type: integer
-          format: int64
+          type: string
     get:
       tags:
         - menu
@@ -736,7 +741,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/MenuItem'
+                $ref: '#/components/schemas/Drink'
         '404':
           description: Menu item not found
 
@@ -759,6 +764,10 @@ paths:
       responses:
         '200':
           description: Menu item partially updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Drink'
         '404':
           description: Menu item not found
         '400':
@@ -813,8 +822,7 @@ paths:
         description: ID of the menu item to retrieve/update/delete
         required: true
         schema:
-          type: integer
-          format: int64
+          type: string
 
     get:
       tags:
@@ -831,20 +839,29 @@ paths:
         '404':
           description: Menu item not found
 
-    put:
+    patch:
       tags:
         - menu
-      summary: Update menu item details by ID
+      summary: Partially update menu item details by ID using query parameters
       operationId: updateFood
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Food'
+      parameters:
+        - name: name
+          in: query
+          description: New name for the menu item
+          schema:
+            type: string
+        - name: price
+          in: query
+          description: New price for the menu item
+          schema:
+            type: integer
       responses:
         '200':
-          description: Menu item updated successfully
+          description: Menu item partially updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Food'
         '404':
           description: Menu item not found
         '400':
@@ -936,6 +953,8 @@ components:
       required:
         - name
         - price
+        - id
+        - type
       type: object
       properties:
         id:
@@ -944,6 +963,9 @@ components:
         name:
           type: string
           example: Hamburger
+        type:
+          type: string
+          example: Főétel
         price:
           type: integer
           example: 400
@@ -977,6 +999,8 @@ components:
       required:
         - name
         - price
+        - id
+        - type
       type: object
       properties:
         id:
@@ -985,6 +1009,9 @@ components:
         name:
           type: string
           example: Cola
+        type: 
+          type: string
+          example: Üdítő
         price:
           type: integer
           example: 400

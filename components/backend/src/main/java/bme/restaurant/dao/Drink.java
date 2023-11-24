@@ -1,5 +1,7 @@
 package bme.restaurant.dao;
 
+import bme.restaurant.dto.DrinkDTO;
+
 public class Drink {
     private String id;
 
@@ -49,5 +51,14 @@ public class Drink {
 
     public void setType(String type) {
         this.type = type;
+    }
+    
+    public DrinkDTO toDTO() {
+        return new DrinkDTO(
+            this.id,
+            this.name,
+            this.type,
+            this.price
+        );
     }
 }
