@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 
 import bme.restaurant.dao.CustomerOrder;
 import bme.restaurant.dao.Order;
@@ -83,8 +85,12 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public OrderDTO createCustomerOrder(String userId, OrderDTO orderDTO) {
-        var customer = userRepo.findById(userId).orElseThrow();
-        var customerOrder = new CustomerOrder(customer, Order.fromDTO(orderDTO));
+        var customer = userRepo.findById(userId);
+        if (customer.isEmpty()) {
+            throw new HttpClientErrorException(HttpStatus.NOT_FOUND,
+                    String.format("Customer not found with Id: %s", userId));
+        }
+        var customerOrder = new CustomerOrder(customer.get(), Order.fromDTO(orderDTO));
         customerOrder = customerOrderRepository.save(customerOrder);
         return customerOrder.getOrder().toDTO();
     }
@@ -114,6 +120,10 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public TableOrderDTO createTableOrder(Integer tableNumber, OrderDTO orderDTO) {
         var table = tableRepo.findByNumber(tableNumber);
+        if (table == null) {
+            throw new HttpClientErrorException(HttpStatus.NOT_FOUND,
+                    String.format("Table not found with Id: %s", tableNumber));
+        }
         var tableOrder = new TableOrder(table , Order.fromDTO(orderDTO));
         tableOrder = tableOrderRepo.save(tableOrder);
         return tableOrder.toDTO();

@@ -30,9 +30,17 @@ public class FoodRecipeInnerDTO {
    * Gets or Sets unit
    */
   public enum UnitEnum {
+    KG("kg"),
+    
+    LITER("liter"),
+    
     G("g"),
     
-    DKG("dkg");
+    DKG("dkg"),
+    
+    DL("dl"),
+    
+    UNIT("unit");
 
     private String value;
 

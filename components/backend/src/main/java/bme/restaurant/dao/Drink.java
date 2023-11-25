@@ -1,6 +1,7 @@
 package bme.restaurant.dao;
 
 import bme.restaurant.dto.DrinkDTO;
+import bme.restaurant.dto.DrinkDTO.TypeEnum;
 
 public class Drink {
     private String id;
@@ -58,11 +59,11 @@ public class Drink {
         dto.setId(id);
         dto.setName(name);
         dto.setPrice(price);
-        dto.setType(type); 
+        dto.setType(TypeEnum.fromValue(type)); 
         return dto;
     }
 
     public static Drink fromDTO(DrinkDTO dto) {
-        return new Drink(dto.getName(), dto.getPrice(), dto.getType());
+        return new Drink(dto.getName(), dto.getPrice(), dto.getType().getValue());
     }
 }

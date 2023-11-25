@@ -42,7 +42,9 @@ public class FoodStockItemDTO {
     
     DKG("dkg"),
     
-    DL("dl");
+    DL("dl"),
+    
+    UNIT("unit");
 
     private String value;
 

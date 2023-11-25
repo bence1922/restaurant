@@ -40,10 +40,10 @@ export class ReservationsProfileComponent implements OnInit {
         this.currentReservations.push(booking)
       }
 
-      this.previousReservations = new Array()
-      for(let i = 0; i < 3; i++){
-        this.previousReservations.push(booking)
-      }
+      // this.previousReservations = new Array()
+      // for(let i = 0; i < 3; i++){
+      //   this.previousReservations.push(booking)
+      // }
   }
 
   date(startingDate: Date){

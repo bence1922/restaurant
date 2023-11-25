@@ -5,6 +5,7 @@ import { ButtonModule } from 'primeng/button';
 import { Order } from 'src/app/generated-api/model/order';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { RatingModule } from 'primeng/rating';
+import { PdfGeneratorService } from 'src/app/services/pdfGenerator.service';
 
 
 @Component({
@@ -19,6 +20,7 @@ export class OrdersProfileComponent implements OnInit{
   current?: Order | null
   openInfo: Boolean = false;
   formGroup!: FormGroup;
+  pdfGenreator= new PdfGeneratorService()
 
   ngOnInit(): void {
     this.formGroup = new FormGroup({
@@ -50,5 +52,9 @@ export class OrdersProfileComponent implements OnInit{
     })
 
     return price
+  }
+
+  generateInvoice(order: Order){
+    this.pdfGenreator.generatePdf(order)
   }
 }

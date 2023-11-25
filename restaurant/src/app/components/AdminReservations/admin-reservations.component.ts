@@ -68,20 +68,20 @@ export class AdminReservationsComponent {
       this.incomingReservations.push(booking)
     }
 
-    this.todayReservations = new Array()
-    for(let i = 0; i < 3; i++){
-      this.todayReservations.push(booking)
-    }
+    // this.todayReservations = new Array()
+    // for(let i = 0; i < 3; i++){
+    //   this.todayReservations.push(booking)
+    // }
 
-    this.upcomingReservations = new Array()
-    for(let i = 0; i < 3; i++){
-      this.upcomingReservations.push(booking)
-    }
+    // this.upcomingReservations = new Array()
+    // for(let i = 0; i < 3; i++){
+    //   this.upcomingReservations.push(booking)
+    // }
 
-    this.oldReservations = new Array()
-    for(let i = 0; i < 3; i++){
-      this.oldReservations.push(booking)
-    }
+    // this.oldReservations = new Array()
+    // for(let i = 0; i < 3; i++){
+    //   this.oldReservations.push(booking)
+    // }
   }
 
   // stringToDate(dateString: string){

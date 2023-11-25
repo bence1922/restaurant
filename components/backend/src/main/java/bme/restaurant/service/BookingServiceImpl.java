@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 
 import bme.restaurant.dao.Booking;
 import bme.restaurant.dto.BookingDTO;
@@ -40,16 +42,17 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public BookingDTO bookTable(NewBookingDTO newBookingDTO) {
-        // TODO: check if the booking is possible, maybe with the query tables for booking
+        // TODO: check if the booking is possible, maybe with the query tables for
+        // booking
         var table = tableRepo.findByNumber(newBookingDTO.getTableNumber());
         var customer = userRepo.findById(newBookingDTO.getUserId());
         var booking = new Booking(
-            table, 
-            customer.get(), 
-            newBookingDTO.getStartingDate().toLocalDateTime(), 
-            newBookingDTO.getEndingDate().toLocalDateTime(), 
-            BookingDTO.StatusEnum.PENDING.getValue(), 
-            newBookingDTO.getPeopleCount());
+                table,
+                customer.get(),
+                newBookingDTO.getStartingDate().toLocalDateTime(),
+                newBookingDTO.getEndingDate().toLocalDateTime(),
+                BookingDTO.StatusEnum.PENDING.getValue(),
+                newBookingDTO.getPeopleCount());
 
         booking = bookingRepo.save(booking);
         return booking.toDTO();
@@ -58,6 +61,10 @@ public class BookingServiceImpl implements BookingService {
     @Override
     public BookingDTO bookingStatusUpdate(String id, String status) {
         var booking = bookingRepo.findById(id).get();
+        if (booking == null) {
+            throw new HttpClientErrorException(HttpStatus.NOT_FOUND,
+                    String.format("Booking not found with Id: %s", id));
+        }
         booking.setStatus(status);
         booking = bookingRepo.save(booking);
         return booking.toDTO();
@@ -102,6 +109,10 @@ public class BookingServiceImpl implements BookingService {
         Query query = new Query();
 
         var customer = userRepo.findById(userId);
+        if (customer == null) {
+            throw new HttpClientErrorException(HttpStatus.NOT_FOUND,
+                    String.format("Customer not found with Id: %s", userId));
+        }
         query.addCriteria(Criteria.where("customer").is(customer));
 
         if (from != null) {
