@@ -2,7 +2,10 @@ package bme.restaurant.controller;
 
 import java.time.OffsetDateTime;
 import java.util.List;
+
+import org.apache.http.protocol.HTTP;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 import bme.restaurant.api.BookingApi;
@@ -30,7 +33,7 @@ public class BookingController implements BookingApi {
     @Authorize(permission = "booking-write")
     public ResponseEntity<BookingDTO> bookTable(@Valid NewBookingDTO newBookingDTO) {
         var response = bookingService.bookTable(newBookingDTO);
-        return ResponseEntity.ok(response);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     @Override

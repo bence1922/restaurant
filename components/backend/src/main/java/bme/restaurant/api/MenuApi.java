@@ -47,7 +47,10 @@ public interface MenuApi {
      *
      * @param drinkDTO  (required)
      * @return Drink item added successfully (status code 201)
-     *         or Invalid request (status code 400)
+     *         or Bad request (status code 400)
+     *         or Unauthorized (status code 401)
+     *         or Forbidden (status code 403)
+     *         or Internal server error (status code 500)
      */
     @Operation(
         operationId = "addDrinkToMenu",
@@ -55,7 +58,10 @@ public interface MenuApi {
         tags = { "menu" },
         responses = {
             @ApiResponse(responseCode = "201", description = "Drink item added successfully"),
-            @ApiResponse(responseCode = "400", description = "Invalid request")
+            @ApiResponse(responseCode = "400", description = "Bad request"),
+            @ApiResponse(responseCode = "401", description = "Unauthorized"),
+            @ApiResponse(responseCode = "403", description = "Forbidden"),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
         }
     )
     @RequestMapping(
@@ -76,7 +82,10 @@ public interface MenuApi {
      *
      * @param foodDTO  (required)
      * @return Food item added successfully (status code 201)
-     *         or Invalid request (status code 400)
+     *         or Bad request (status code 400)
+     *         or Unauthorized (status code 401)
+     *         or Forbidden (status code 403)
+     *         or Internal server error (status code 500)
      */
     @Operation(
         operationId = "addFoodToMenu",
@@ -84,7 +93,10 @@ public interface MenuApi {
         tags = { "menu" },
         responses = {
             @ApiResponse(responseCode = "201", description = "Food item added successfully"),
-            @ApiResponse(responseCode = "400", description = "Invalid request")
+            @ApiResponse(responseCode = "400", description = "Bad request"),
+            @ApiResponse(responseCode = "401", description = "Unauthorized"),
+            @ApiResponse(responseCode = "403", description = "Forbidden"),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
         }
     )
     @RequestMapping(
@@ -104,16 +116,24 @@ public interface MenuApi {
      * DELETE /menu/drink/{drinkId} : Delete menu item by ID
      *
      * @param drinkId ID of the menu item to retrieve/update/delete (required)
-     * @return Menu item deleted successfully (status code 204)
-     *         or Menu item not found (status code 404)
+     * @return Successfully deleted (status code 204)
+     *         or Bad request (status code 400)
+     *         or Unauthorized (status code 401)
+     *         or Forbidden (status code 403)
+     *         or Not found (status code 404)
+     *         or Internal server error (status code 500)
      */
     @Operation(
         operationId = "deleteDrink",
         summary = "Delete menu item by ID",
         tags = { "menu" },
         responses = {
-            @ApiResponse(responseCode = "204", description = "Menu item deleted successfully"),
-            @ApiResponse(responseCode = "404", description = "Menu item not found")
+            @ApiResponse(responseCode = "204", description = "Successfully deleted"),
+            @ApiResponse(responseCode = "400", description = "Bad request"),
+            @ApiResponse(responseCode = "401", description = "Unauthorized"),
+            @ApiResponse(responseCode = "403", description = "Forbidden"),
+            @ApiResponse(responseCode = "404", description = "Not found"),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
         }
     )
     @RequestMapping(
@@ -132,16 +152,24 @@ public interface MenuApi {
      * DELETE /menu/food/{foodId} : Delete menu item by ID
      *
      * @param foodId ID of the menu item to retrieve/update/delete (required)
-     * @return Menu item deleted successfully (status code 204)
-     *         or Menu item not found (status code 404)
+     * @return Successfully deleted (status code 204)
+     *         or Bad request (status code 400)
+     *         or Unauthorized (status code 401)
+     *         or Forbidden (status code 403)
+     *         or Not found (status code 404)
+     *         or Internal server error (status code 500)
      */
     @Operation(
         operationId = "deleteFood",
         summary = "Delete menu item by ID",
         tags = { "menu" },
         responses = {
-            @ApiResponse(responseCode = "204", description = "Menu item deleted successfully"),
-            @ApiResponse(responseCode = "404", description = "Menu item not found")
+            @ApiResponse(responseCode = "204", description = "Successfully deleted"),
+            @ApiResponse(responseCode = "400", description = "Bad request"),
+            @ApiResponse(responseCode = "401", description = "Unauthorized"),
+            @ApiResponse(responseCode = "403", description = "Forbidden"),
+            @ApiResponse(responseCode = "404", description = "Not found"),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
         }
     )
     @RequestMapping(
@@ -161,7 +189,11 @@ public interface MenuApi {
      *
      * @param drinkId ID of the menu item to retrieve/update/delete (required)
      * @return Menu item details (status code 200)
-     *         or Menu item not found (status code 404)
+     *         or Bad request (status code 400)
+     *         or Unauthorized (status code 401)
+     *         or Forbidden (status code 403)
+     *         or Not found (status code 404)
+     *         or Internal server error (status code 500)
      */
     @Operation(
         operationId = "getDrink",
@@ -171,7 +203,11 @@ public interface MenuApi {
             @ApiResponse(responseCode = "200", description = "Menu item details", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = DrinkDTO.class))
             }),
-            @ApiResponse(responseCode = "404", description = "Menu item not found")
+            @ApiResponse(responseCode = "400", description = "Bad request"),
+            @ApiResponse(responseCode = "401", description = "Unauthorized"),
+            @ApiResponse(responseCode = "403", description = "Forbidden"),
+            @ApiResponse(responseCode = "404", description = "Not found"),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
         }
     )
     @RequestMapping(
@@ -200,6 +236,7 @@ public interface MenuApi {
      * GET /menu/drink : Get all drink items
      *
      * @return List of drink items (status code 200)
+     *         or Internal server error (status code 500)
      */
     @Operation(
         operationId = "getDrinkMenu",
@@ -208,7 +245,8 @@ public interface MenuApi {
         responses = {
             @ApiResponse(responseCode = "200", description = "List of drink items", content = {
                 @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = DrinkDTO.class)))
-            })
+            }),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
         }
     )
     @RequestMapping(
@@ -238,7 +276,11 @@ public interface MenuApi {
      *
      * @param foodId ID of the menu item to retrieve/update/delete (required)
      * @return Menu item details (status code 200)
-     *         or Menu item not found (status code 404)
+     *         or Bad request (status code 400)
+     *         or Unauthorized (status code 401)
+     *         or Forbidden (status code 403)
+     *         or Not found (status code 404)
+     *         or Internal server error (status code 500)
      */
     @Operation(
         operationId = "getFood",
@@ -248,7 +290,11 @@ public interface MenuApi {
             @ApiResponse(responseCode = "200", description = "Menu item details", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = FoodDTO.class))
             }),
-            @ApiResponse(responseCode = "404", description = "Menu item not found")
+            @ApiResponse(responseCode = "400", description = "Bad request"),
+            @ApiResponse(responseCode = "401", description = "Unauthorized"),
+            @ApiResponse(responseCode = "403", description = "Forbidden"),
+            @ApiResponse(responseCode = "404", description = "Not found"),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
         }
     )
     @RequestMapping(
@@ -277,6 +323,7 @@ public interface MenuApi {
      * GET /menu/food : Get all food items
      *
      * @return List of food items (status code 200)
+     *         or Internal server error (status code 500)
      */
     @Operation(
         operationId = "getFoodMenu",
@@ -285,7 +332,8 @@ public interface MenuApi {
         responses = {
             @ApiResponse(responseCode = "200", description = "List of food items", content = {
                 @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = FoodDTO.class)))
-            })
+            }),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
         }
     )
     @RequestMapping(
@@ -317,8 +365,11 @@ public interface MenuApi {
      * @param name New name for the menu item (optional)
      * @param price New price for the menu item (optional)
      * @return Menu item partially updated successfully (status code 200)
-     *         or Menu item not found (status code 404)
-     *         or Invalid request (status code 400)
+     *         or Bad request (status code 400)
+     *         or Unauthorized (status code 401)
+     *         or Forbidden (status code 403)
+     *         or Not found (status code 404)
+     *         or Internal server error (status code 500)
      */
     @Operation(
         operationId = "updateDrink",
@@ -328,8 +379,11 @@ public interface MenuApi {
             @ApiResponse(responseCode = "200", description = "Menu item partially updated successfully", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = DrinkDTO.class))
             }),
-            @ApiResponse(responseCode = "404", description = "Menu item not found"),
-            @ApiResponse(responseCode = "400", description = "Invalid request")
+            @ApiResponse(responseCode = "400", description = "Bad request"),
+            @ApiResponse(responseCode = "401", description = "Unauthorized"),
+            @ApiResponse(responseCode = "403", description = "Forbidden"),
+            @ApiResponse(responseCode = "404", description = "Not found"),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
         }
     )
     @RequestMapping(
@@ -363,8 +417,11 @@ public interface MenuApi {
      * @param name New name for the menu item (optional)
      * @param price New price for the menu item (optional)
      * @return Menu item partially updated successfully (status code 200)
-     *         or Menu item not found (status code 404)
-     *         or Invalid request (status code 400)
+     *         or Bad request (status code 400)
+     *         or Unauthorized (status code 401)
+     *         or Forbidden (status code 403)
+     *         or Not found (status code 404)
+     *         or Internal server error (status code 500)
      */
     @Operation(
         operationId = "updateFood",
@@ -374,8 +431,11 @@ public interface MenuApi {
             @ApiResponse(responseCode = "200", description = "Menu item partially updated successfully", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = FoodDTO.class))
             }),
-            @ApiResponse(responseCode = "404", description = "Menu item not found"),
-            @ApiResponse(responseCode = "400", description = "Invalid request")
+            @ApiResponse(responseCode = "400", description = "Bad request"),
+            @ApiResponse(responseCode = "401", description = "Unauthorized"),
+            @ApiResponse(responseCode = "403", description = "Forbidden"),
+            @ApiResponse(responseCode = "404", description = "Not found"),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
         }
     )
     @RequestMapping(

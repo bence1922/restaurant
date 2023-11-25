@@ -47,14 +47,24 @@ public interface TableApi {
      * DELETE /table/{tableNumber} : Deletes table by number
      *
      * @param tableNumber number of table to return (required)
-     * @return Invalid table id (status code 400)
+     * @return Successfully deleted (status code 204)
+     *         or Bad request (status code 400)
+     *         or Unauthorized (status code 401)
+     *         or Forbidden (status code 403)
+     *         or Not found (status code 404)
+     *         or Internal server error (status code 500)
      */
     @Operation(
         operationId = "deleteTable",
         summary = "Deletes table by number",
         tags = { "table" },
         responses = {
-            @ApiResponse(responseCode = "400", description = "Invalid table id")
+            @ApiResponse(responseCode = "204", description = "Successfully deleted"),
+            @ApiResponse(responseCode = "400", description = "Bad request"),
+            @ApiResponse(responseCode = "401", description = "Unauthorized"),
+            @ApiResponse(responseCode = "403", description = "Forbidden"),
+            @ApiResponse(responseCode = "404", description = "Not found"),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
         },
         security = {
             @SecurityRequirement(name = "sessionId")
@@ -77,9 +87,12 @@ public interface TableApi {
      * Returns a single table
      *
      * @param tableNumber number of table to return (required)
-     * @return successful operation (status code 200)
-     *         or Invalid tableNumber supplied (status code 400)
-     *         or Table not found (status code 404)
+     * @return Successful operation (status code 200)
+     *         or Bad request (status code 400)
+     *         or Unauthorized (status code 401)
+     *         or Forbidden (status code 403)
+     *         or Not found (status code 404)
+     *         or Internal server error (status code 500)
      */
     @Operation(
         operationId = "findTable",
@@ -87,11 +100,14 @@ public interface TableApi {
         description = "Returns a single table",
         tags = { "table" },
         responses = {
-            @ApiResponse(responseCode = "200", description = "successful operation", content = {
+            @ApiResponse(responseCode = "200", description = "Successful operation", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = TableDTO.class))
             }),
-            @ApiResponse(responseCode = "400", description = "Invalid tableNumber supplied"),
-            @ApiResponse(responseCode = "404", description = "Table not found")
+            @ApiResponse(responseCode = "400", description = "Bad request"),
+            @ApiResponse(responseCode = "401", description = "Unauthorized"),
+            @ApiResponse(responseCode = "403", description = "Forbidden"),
+            @ApiResponse(responseCode = "404", description = "Not found"),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
         },
         security = {
             @SecurityRequirement(name = "sessionId")
@@ -123,9 +139,11 @@ public interface TableApi {
      * GET /table : List tables
      * Returns a single table
      *
-     * @return successful operation (status code 200)
-     *         or Invalid tableNumber supplied (status code 400)
-     *         or Table not found (status code 404)
+     * @return Successful operation (status code 200)
+     *         or Bad request (status code 400)
+     *         or Unauthorized (status code 401)
+     *         or Forbidden (status code 403)
+     *         or Internal server error (status code 500)
      */
     @Operation(
         operationId = "listTables",
@@ -133,11 +151,13 @@ public interface TableApi {
         description = "Returns a single table",
         tags = { "table" },
         responses = {
-            @ApiResponse(responseCode = "200", description = "successful operation", content = {
+            @ApiResponse(responseCode = "200", description = "Successful operation", content = {
                 @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = TableDTO.class)))
             }),
-            @ApiResponse(responseCode = "400", description = "Invalid tableNumber supplied"),
-            @ApiResponse(responseCode = "404", description = "Table not found")
+            @ApiResponse(responseCode = "400", description = "Bad request"),
+            @ApiResponse(responseCode = "401", description = "Unauthorized"),
+            @ApiResponse(responseCode = "403", description = "Forbidden"),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
         },
         security = {
             @SecurityRequirement(name = "sessionId")
@@ -171,7 +191,11 @@ public interface TableApi {
      * @param tableNumber number of table to return (required)
      * @param capacity  (optional)
      * @return Successful operation (status code 200)
-     *         or Invalid input (status code 405)
+     *         or Bad request (status code 400)
+     *         or Unauthorized (status code 401)
+     *         or Forbidden (status code 403)
+     *         or Not found (status code 404)
+     *         or Internal server error (status code 500)
      */
     @Operation(
         operationId = "patchTable",
@@ -181,7 +205,11 @@ public interface TableApi {
             @ApiResponse(responseCode = "200", description = "Successful operation", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = TableDTO.class))
             }),
-            @ApiResponse(responseCode = "405", description = "Invalid input")
+            @ApiResponse(responseCode = "400", description = "Bad request"),
+            @ApiResponse(responseCode = "401", description = "Unauthorized"),
+            @ApiResponse(responseCode = "403", description = "Forbidden"),
+            @ApiResponse(responseCode = "404", description = "Not found"),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
         },
         security = {
             @SecurityRequirement(name = "sessionId")
@@ -216,8 +244,12 @@ public interface TableApi {
      *
      * @param tableNumber  (required)
      * @param orderDTO  (optional)
-     * @return successful operation (status code 200)
-     *         or Invalid input (status code 405)
+     * @return Order placed successfully (status code 201)
+     *         or Bad request (status code 400)
+     *         or Unauthorized (status code 401)
+     *         or Forbidden (status code 403)
+     *         or Not found (status code 404)
+     *         or Internal server error (status code 500)
      */
     @Operation(
         operationId = "placeTableOrder",
@@ -225,10 +257,14 @@ public interface TableApi {
         description = "Place a new order in the store",
         tags = { "table" },
         responses = {
-            @ApiResponse(responseCode = "200", description = "successful operation", content = {
+            @ApiResponse(responseCode = "201", description = "Order placed successfully", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = TableOrderDTO.class))
             }),
-            @ApiResponse(responseCode = "405", description = "Invalid input")
+            @ApiResponse(responseCode = "400", description = "Bad request"),
+            @ApiResponse(responseCode = "401", description = "Unauthorized"),
+            @ApiResponse(responseCode = "403", description = "Forbidden"),
+            @ApiResponse(responseCode = "404", description = "Not found"),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
         },
         security = {
             @SecurityRequirement(name = "sessionId")
@@ -264,8 +300,11 @@ public interface TableApi {
      *
      * @param tableNumber  (optional)
      * @param isCurrent  (optional)
-     * @return successful operation (status code 200)
-     *         or Invalid input (status code 405)
+     * @return Successful operation (status code 200)
+     *         or Bad request (status code 400)
+     *         or Unauthorized (status code 401)
+     *         or Forbidden (status code 403)
+     *         or Internal server error (status code 500)
      */
     @Operation(
         operationId = "queryTableOrders",
@@ -273,10 +312,13 @@ public interface TableApi {
         description = "Place a new order in the store",
         tags = { "table" },
         responses = {
-            @ApiResponse(responseCode = "200", description = "successful operation", content = {
+            @ApiResponse(responseCode = "200", description = "Successful operation", content = {
                 @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = TableOrderDTO.class)))
             }),
-            @ApiResponse(responseCode = "405", description = "Invalid input")
+            @ApiResponse(responseCode = "400", description = "Bad request"),
+            @ApiResponse(responseCode = "401", description = "Unauthorized"),
+            @ApiResponse(responseCode = "403", description = "Forbidden"),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
         },
         security = {
             @SecurityRequirement(name = "sessionId")

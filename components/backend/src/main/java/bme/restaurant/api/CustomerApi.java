@@ -53,7 +53,11 @@ public interface CustomerApi {
      * @param orderId ID of the order for which to generate an invoice (required)
      * @param userId The ID of the user (required)
      * @return Invoice PDF (status code 200)
-     *         or Order not found (status code 404)
+     *         or Bad request (status code 400)
+     *         or Unauthorized (status code 401)
+     *         or Forbidden (status code 403)
+     *         or Not found (status code 404)
+     *         or Internal server error (status code 500)
      */
     @Operation(
         operationId = "getInvoice",
@@ -63,7 +67,11 @@ public interface CustomerApi {
             @ApiResponse(responseCode = "200", description = "Invoice PDF", content = {
                 @Content(mediaType = "application/pdf", schema = @Schema(implementation = org.springframework.core.io.Resource.class))
             }),
-            @ApiResponse(responseCode = "404", description = "Order not found")
+            @ApiResponse(responseCode = "400", description = "Bad request"),
+            @ApiResponse(responseCode = "401", description = "Unauthorized"),
+            @ApiResponse(responseCode = "403", description = "Forbidden"),
+            @ApiResponse(responseCode = "404", description = "Not found"),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
         },
         security = {
             @SecurityRequirement(name = "sessionId")
@@ -87,6 +95,11 @@ public interface CustomerApi {
      * GET /customer : Get all customers
      *
      * @return A list of customers (status code 200)
+     *         or Bad request (status code 400)
+     *         or Unauthorized (status code 401)
+     *         or Forbidden (status code 403)
+     *         or Not found (status code 404)
+     *         or Internal server error (status code 500)
      */
     @Operation(
         operationId = "listCustomers",
@@ -95,7 +108,12 @@ public interface CustomerApi {
         responses = {
             @ApiResponse(responseCode = "200", description = "A list of customers", content = {
                 @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = UserDTO.class)))
-            })
+            }),
+            @ApiResponse(responseCode = "400", description = "Bad request"),
+            @ApiResponse(responseCode = "401", description = "Unauthorized"),
+            @ApiResponse(responseCode = "403", description = "Forbidden"),
+            @ApiResponse(responseCode = "404", description = "Not found"),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
         },
         security = {
             @SecurityRequirement(name = "sessionId")
@@ -128,18 +146,26 @@ public interface CustomerApi {
      *
      * @param userId  (required)
      * @param orderDTO  (optional)
-     * @return successful operation (status code 200)
-     *         or Invalid input (status code 405)
+     * @return Order placed successfully (status code 201)
+     *         or Bad request (status code 400)
+     *         or Unauthorized (status code 401)
+     *         or Forbidden (status code 403)
+     *         or Not found (status code 404)
+     *         or Internal server error (status code 500)
      */
     @Operation(
         operationId = "placeCustomerOrder",
         summary = "Place an order",
         tags = { "customer" },
         responses = {
-            @ApiResponse(responseCode = "200", description = "successful operation", content = {
+            @ApiResponse(responseCode = "201", description = "Order placed successfully", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = OrderDTO.class))
             }),
-            @ApiResponse(responseCode = "405", description = "Invalid input")
+            @ApiResponse(responseCode = "400", description = "Bad request"),
+            @ApiResponse(responseCode = "401", description = "Unauthorized"),
+            @ApiResponse(responseCode = "403", description = "Forbidden"),
+            @ApiResponse(responseCode = "404", description = "Not found"),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
         },
         security = {
             @SecurityRequirement(name = "sessionId")
@@ -175,18 +201,26 @@ public interface CustomerApi {
      * @param userId  (required)
      * @param from  (optional)
      * @param to  (optional)
-     * @return successful operation (status code 200)
-     *         or Invalid input (status code 405)
+     * @return Successful operation (status code 200)
+     *         or Bad request (status code 400)
+     *         or Unauthorized (status code 401)
+     *         or Forbidden (status code 403)
+     *         or Not found (status code 404)
+     *         or Internal server error (status code 500)
      */
     @Operation(
         operationId = "queryBookingsForCustomer",
         summary = "Query bookings for customer",
         tags = { "customer" },
         responses = {
-            @ApiResponse(responseCode = "200", description = "successful operation", content = {
+            @ApiResponse(responseCode = "200", description = "Successful operation", content = {
                 @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = BookingDTO.class)))
             }),
-            @ApiResponse(responseCode = "405", description = "Invalid input")
+            @ApiResponse(responseCode = "400", description = "Bad request"),
+            @ApiResponse(responseCode = "401", description = "Unauthorized"),
+            @ApiResponse(responseCode = "403", description = "Forbidden"),
+            @ApiResponse(responseCode = "404", description = "Not found"),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
         },
         security = {
             @SecurityRequirement(name = "sessionId")
@@ -221,18 +255,24 @@ public interface CustomerApi {
      *
      * @param customerName  (optional)
      * @param isCurrent  (optional)
-     * @return successful operation (status code 200)
-     *         or Invalid input (status code 405)
+     * @return Successful operation (status code 200)
+     *         or Bad request (status code 400)
+     *         or Unauthorized (status code 401)
+     *         or Forbidden (status code 403)
+     *         or Internal server error (status code 500)
      */
     @Operation(
         operationId = "queryCustomerOrders",
         summary = "Query customer orders",
         tags = { "customer" },
         responses = {
-            @ApiResponse(responseCode = "200", description = "successful operation", content = {
+            @ApiResponse(responseCode = "200", description = "Successful operation", content = {
                 @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = CustomerOrderDTO.class)))
             }),
-            @ApiResponse(responseCode = "405", description = "Invalid input")
+            @ApiResponse(responseCode = "400", description = "Bad request"),
+            @ApiResponse(responseCode = "401", description = "Unauthorized"),
+            @ApiResponse(responseCode = "403", description = "Forbidden"),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
         },
         security = {
             @SecurityRequirement(name = "sessionId")
@@ -266,18 +306,26 @@ public interface CustomerApi {
      *
      * @param userId  (required)
      * @param isCurrent  (optional)
-     * @return successful operation (status code 200)
-     *         or Invalid input (status code 405)
+     * @return Successful operation (status code 200)
+     *         or Bad request (status code 400)
+     *         or Unauthorized (status code 401)
+     *         or Forbidden (status code 403)
+     *         or Not found (status code 404)
+     *         or Internal server error (status code 500)
      */
     @Operation(
         operationId = "queryOrdersForCustomer",
         summary = "Query orders for customer",
         tags = { "customer" },
         responses = {
-            @ApiResponse(responseCode = "200", description = "successful operation", content = {
+            @ApiResponse(responseCode = "200", description = "Successful operation", content = {
                 @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = OrderDTO.class)))
             }),
-            @ApiResponse(responseCode = "405", description = "Invalid input")
+            @ApiResponse(responseCode = "400", description = "Bad request"),
+            @ApiResponse(responseCode = "401", description = "Unauthorized"),
+            @ApiResponse(responseCode = "403", description = "Forbidden"),
+            @ApiResponse(responseCode = "404", description = "Not found"),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
         },
         security = {
             @SecurityRequirement(name = "sessionId")
@@ -310,20 +358,20 @@ public interface CustomerApi {
      * POST /customer : Customer registration
      *
      * @param userRegisterDTO  (required)
-     * @return Successful operation (status code 200)
-     *         or User successfully registered (status code 201)
-     *         or Invalid request (status code 400)
+     * @return Customer succesfully registered (status code 200)
+     *         or Bad request (status code 400)
+     *         or Internal server error (status code 500)
      */
     @Operation(
         operationId = "registerCustomer",
         summary = "Customer registration",
         tags = { "customer" },
         responses = {
-            @ApiResponse(responseCode = "200", description = "Successful operation", content = {
+            @ApiResponse(responseCode = "200", description = "Customer succesfully registered", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = UserDTO.class))
             }),
-            @ApiResponse(responseCode = "201", description = "User successfully registered"),
-            @ApiResponse(responseCode = "400", description = "Invalid request")
+            @ApiResponse(responseCode = "400", description = "Bad request"),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
         }
     )
     @RequestMapping(
