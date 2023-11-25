@@ -14,9 +14,8 @@ import { FoodOrderItem } from './foodOrderItem';
 
 
 export interface Order { 
-    id?: string;
     status?: Order.StatusEnum;
-    date?: string;
+    date?: Date;
     note?: string;
     foods: Array<FoodOrderItem>;
     drinks: Array<DrinkOrderItem>;

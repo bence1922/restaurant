@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { User } from 'src/app/generated-api/model/user';
 import { LoginComponent } from '../login/login.component';
 import { Router } from '@angular/router';
-import { AuthService } from 'src/app/generated-api/api/auth.service';
+import { StoreUserService } from 'src/app/generated-api/api/store.service';
+import { AuthService } from 'src/app/generated-api';
 
 
 @Component({
@@ -19,18 +19,19 @@ export class NavbarComponent{
 
   constructor(
     private router: Router,
+    private storeUserService: StoreUserService,
     private authService: AuthService,
   ) {}
 
   ngOnInit(): void {
-    this.isloggedIn = this.authService.isLoggedIn();
+    this.isloggedIn = this.storeUserService.isLoggedIn();
     this.hasOneOfTheRoles(['admin', 'user']);
   }
 
   hasOneOfTheRoles(roles: string[]): boolean{
     if(this.isloggedIn){
       for(let role of roles){
-        if(this.authService.hasRole(role)){
+        if(this.storeUserService.hasRole(role)){
           return true;
         }
       }
@@ -38,7 +39,12 @@ export class NavbarComponent{
     return false;
   }
 
-  redirectToLogin(){
+  logInOut(){
+    if(this.isloggedIn){
+      this.authService.logout();
+      this.storeUserService.logout();
+      this.router.navigate(['/']);
+    };
     this.router.navigate(['/login']);
   }
 }

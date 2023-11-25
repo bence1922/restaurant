@@ -4,8 +4,9 @@ import { HeroComponent } from '../Hero/hero.component';
 import { Employee } from 'src/app/generated-api/model/employee';
 import { DividerModule } from 'primeng/divider';
 import { ButtonModule } from 'primeng/button';
-import { EmployeeService } from 'src/app/generated-api';
+import { EmployeeService, User } from 'src/app/generated-api';
 import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-employees',
@@ -17,25 +18,30 @@ import { Subscription } from 'rxjs';
 export class EmployeesComponent implements OnInit, OnDestroy {
   getEmployeesSubscribtion?: Subscription;
 
-  employees: Employee[] = [
-    {name: 'Kiss József', role: 'waiter'},
-    {name: 'Kiss Béla', role: 'waiter'},
-    {name: 'Nagy József', role: 'manager'},
-  ]
+  // employees: Employee[] = [
+  //   {name: 'Kiss József', role: 'waiter'},
+  //   {name: 'Kiss Béla', role: 'waiter'},
+  //   {name: 'Nagy József', role: 'manager'},
+  // ]
 
-  constructor(private employeeService: EmployeeService) { }
+  employees: User[] = [];
+
+
+  constructor(private employeeService: EmployeeService,
+              private router: Router,
+    ) { }
 
   ngOnInit(): void {
     this.getEmployeesSubscribtion?.unsubscribe();
     this.getEmployeesSubscribtion = this.employeeService.getEmployees().subscribe(employees => this.employees = employees)
   }
 
-  changeEmployee(employee: Employee){
+  changeEmployee(employee: User){
     
   }
 
   addEmployee(){
-
+    this.router.navigate(['/registration_employees']);
   }
 
   ngOnDestroy(): void {

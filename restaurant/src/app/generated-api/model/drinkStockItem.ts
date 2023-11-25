@@ -12,6 +12,7 @@
 
 
 export interface DrinkStockItem { 
+    id?: string;
     name: string;
     quantity: number;
 }

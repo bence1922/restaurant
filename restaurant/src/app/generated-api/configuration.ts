@@ -86,6 +86,17 @@ export class Configuration {
         else {
             this.credentials = {};
         }
+
+        // init default sessionId credential
+        if (!this.credentials['sessionId']) {
+            this.credentials['sessionId'] = () => {
+                if (this.apiKeys === null || this.apiKeys === undefined) {
+                    return undefined;
+                } else {
+                    return this.apiKeys['sessionId'] || this.apiKeys['sessionId'];
+                }
+            };
+        }
     }
 
     /**

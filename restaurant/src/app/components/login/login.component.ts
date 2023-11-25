@@ -3,10 +3,10 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { CardModule } from 'primeng/card';
 import { Router } from '@angular/router';
-import { UserService } from '../../generated-api/api/user.service';
-import { User } from '../../generated-api/model/user';
 import { AuthService } from 'src/app/generated-api/api/auth.service';
 import { ButtonModule } from 'primeng/button';
+import { UserLogin, UserSession } from 'src/app/generated-api';
+import { StoreUserService } from 'src/app/generated-api/api/store.service';
 
 
 @Component({
@@ -24,18 +24,18 @@ export class LoginComponent {
 
   constructor(
     private router: Router,
-    private userService: UserService,
+    private storeUserService: StoreUserService,
     private authService: AuthService,
   ) {}
 
   submitLoginForm(form: any) {
     if (form.valid) {
-      const user = {name: this.username, password: this.password} as User;
+      const userLogin = {name: this.username, password: this.password} as UserLogin;
       // Call your login API with this.username and this.password
       // Example: this.authService.login(this.username, this.password);
-      this.userService.loginUser(user).subscribe(
-        (user: User) => {
-          this.authService.storeUser(user);
+      this.authService.login(userLogin).subscribe(
+        (userSession: UserSession) => {
+          this.storeUserService.storeUser(userSession);
           this.router.navigate(['/']);
         },
         (error) => {
