@@ -22,7 +22,7 @@ import jakarta.annotation.Generated;
  */
 
 @JsonTypeName("NewBooking")
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-11-24T19:02:19.052817200+01:00[Europe/Budapest]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen")
 public class NewBookingDTO {
 
   private Integer tableNumber;
@@ -64,8 +64,8 @@ public class NewBookingDTO {
    * @return tableNumber
   */
   @NotNull 
-  @Schema(name = "table-number", example = "3", requiredMode = Schema.RequiredMode.REQUIRED)
-  @JsonProperty("table-number")
+  @Schema(name = "tableNumber", example = "3", requiredMode = Schema.RequiredMode.REQUIRED)
+  @JsonProperty("tableNumber")
   public Integer getTableNumber() {
     return tableNumber;
   }

@@ -22,12 +22,47 @@ import jakarta.annotation.Generated;
  */
 
 @JsonTypeName("CustomerOrder")
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-11-24T19:02:19.052817200+01:00[Europe/Budapest]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen")
 public class CustomerOrderDTO {
+
+  private String id;
 
   private UserDTO customer;
 
   private OrderDTO order;
+
+  public CustomerOrderDTO() {
+    super();
+  }
+
+  /**
+   * Constructor with only required parameters
+   */
+  public CustomerOrderDTO(String id, UserDTO customer, OrderDTO order) {
+    this.id = id;
+    this.customer = customer;
+    this.order = order;
+  }
+
+  public CustomerOrderDTO id(String id) {
+    this.id = id;
+    return this;
+  }
+
+  /**
+   * Get id
+   * @return id
+  */
+  @NotNull 
+  @Schema(name = "id", example = "6544cd596955fe0a1c04fba9", requiredMode = Schema.RequiredMode.REQUIRED)
+  @JsonProperty("id")
+  public String getId() {
+    return id;
+  }
+
+  public void setId(String id) {
+    this.id = id;
+  }
 
   public CustomerOrderDTO customer(UserDTO customer) {
     this.customer = customer;
@@ -38,8 +73,8 @@ public class CustomerOrderDTO {
    * Get customer
    * @return customer
   */
-  @Valid 
-  @Schema(name = "customer", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @NotNull @Valid 
+  @Schema(name = "customer", requiredMode = Schema.RequiredMode.REQUIRED)
   @JsonProperty("customer")
   public UserDTO getCustomer() {
     return customer;
@@ -58,8 +93,8 @@ public class CustomerOrderDTO {
    * Get order
    * @return order
   */
-  @Valid 
-  @Schema(name = "order", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @NotNull @Valid 
+  @Schema(name = "order", requiredMode = Schema.RequiredMode.REQUIRED)
   @JsonProperty("order")
   public OrderDTO getOrder() {
     return order;
@@ -78,19 +113,21 @@ public class CustomerOrderDTO {
       return false;
     }
     CustomerOrderDTO customerOrder = (CustomerOrderDTO) o;
-    return Objects.equals(this.customer, customerOrder.customer) &&
+    return Objects.equals(this.id, customerOrder.id) &&
+        Objects.equals(this.customer, customerOrder.customer) &&
         Objects.equals(this.order, customerOrder.order);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(customer, order);
+    return Objects.hash(id, customer, order);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class CustomerOrderDTO {\n");
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    customer: ").append(toIndentedString(customer)).append("\n");
     sb.append("    order: ").append(toIndentedString(order)).append("\n");
     sb.append("}");

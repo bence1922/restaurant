@@ -9,14 +9,14 @@ import org.springframework.web.bind.annotation.RestController;
 import bme.restaurant.api.MenuApi;
 import bme.restaurant.dto.DrinkDTO;
 import bme.restaurant.dto.FoodDTO;
-import bme.restaurant.service.MenuServiceImpl;
+import bme.restaurant.service.MenuService;
 import jakarta.validation.Valid;
 
 @RestController
 public class MenuController implements MenuApi {
     
     @Autowired
-    private MenuServiceImpl menuService;
+    private MenuService menuService;
 
     @Override
     public ResponseEntity<Void> addDrinkToMenu(@Valid DrinkDTO drinkDTO) {

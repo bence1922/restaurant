@@ -68,4 +68,13 @@ public class Order {
         dto.setDate(date.atZone(ZoneId.of("Europe/Budapest")).toOffsetDateTime());
         return dto;
     }
+
+    public static Order fromDTO(OrderDTO orderDTO) {
+        return  new Order(
+            orderDTO.getFoods().stream().map(food -> FoodOrderItem.fromDTO(food)).toList(),
+            orderDTO.getDrinks().stream().map(drink -> DrinkOrderItem.fromDTO(drink)).toList(),
+            orderDTO.getStatus().getValue(),
+            orderDTO.getDate().toLocalDateTime()
+        );
+    }
 }

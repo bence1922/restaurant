@@ -20,8 +20,10 @@ import jakarta.annotation.Generated;
  */
 
 @JsonTypeName("DrinkStockItem")
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-11-24T19:02:19.052817200+01:00[Europe/Budapest]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen")
 public class DrinkStockItemDTO {
+
+  private String id;
 
   private String name;
 
@@ -37,6 +39,26 @@ public class DrinkStockItemDTO {
   public DrinkStockItemDTO(String name, Integer quantity) {
     this.name = name;
     this.quantity = quantity;
+  }
+
+  public DrinkStockItemDTO id(String id) {
+    this.id = id;
+    return this;
+  }
+
+  /**
+   * Get id
+   * @return id
+  */
+  
+  @Schema(name = "id", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("id")
+  public String getId() {
+    return id;
+  }
+
+  public void setId(String id) {
+    this.id = id;
   }
 
   public DrinkStockItemDTO name(String name) {
@@ -88,19 +110,21 @@ public class DrinkStockItemDTO {
       return false;
     }
     DrinkStockItemDTO drinkStockItem = (DrinkStockItemDTO) o;
-    return Objects.equals(this.name, drinkStockItem.name) &&
+    return Objects.equals(this.id, drinkStockItem.id) &&
+        Objects.equals(this.name, drinkStockItem.name) &&
         Objects.equals(this.quantity, drinkStockItem.quantity);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(name, quantity);
+    return Objects.hash(id, name, quantity);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class DrinkStockItemDTO {\n");
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    quantity: ").append(toIndentedString(quantity)).append("\n");
     sb.append("}");

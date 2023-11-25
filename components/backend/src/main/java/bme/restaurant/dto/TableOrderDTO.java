@@ -22,12 +22,47 @@ import jakarta.annotation.Generated;
  */
 
 @JsonTypeName("TableOrder")
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-11-24T19:02:19.052817200+01:00[Europe/Budapest]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen")
 public class TableOrderDTO {
+
+  private String id;
 
   private TableDTO table;
 
   private OrderDTO order;
+
+  public TableOrderDTO() {
+    super();
+  }
+
+  /**
+   * Constructor with only required parameters
+   */
+  public TableOrderDTO(String id, TableDTO table, OrderDTO order) {
+    this.id = id;
+    this.table = table;
+    this.order = order;
+  }
+
+  public TableOrderDTO id(String id) {
+    this.id = id;
+    return this;
+  }
+
+  /**
+   * Get id
+   * @return id
+  */
+  @NotNull 
+  @Schema(name = "id", example = "6544cd596955fe0a1c04fba9", requiredMode = Schema.RequiredMode.REQUIRED)
+  @JsonProperty("id")
+  public String getId() {
+    return id;
+  }
+
+  public void setId(String id) {
+    this.id = id;
+  }
 
   public TableOrderDTO table(TableDTO table) {
     this.table = table;
@@ -38,8 +73,8 @@ public class TableOrderDTO {
    * Get table
    * @return table
   */
-  @Valid 
-  @Schema(name = "table", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @NotNull @Valid 
+  @Schema(name = "table", requiredMode = Schema.RequiredMode.REQUIRED)
   @JsonProperty("table")
   public TableDTO getTable() {
     return table;
@@ -58,8 +93,8 @@ public class TableOrderDTO {
    * Get order
    * @return order
   */
-  @Valid 
-  @Schema(name = "order", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @NotNull @Valid 
+  @Schema(name = "order", requiredMode = Schema.RequiredMode.REQUIRED)
   @JsonProperty("order")
   public OrderDTO getOrder() {
     return order;
@@ -78,19 +113,21 @@ public class TableOrderDTO {
       return false;
     }
     TableOrderDTO tableOrder = (TableOrderDTO) o;
-    return Objects.equals(this.table, tableOrder.table) &&
+    return Objects.equals(this.id, tableOrder.id) &&
+        Objects.equals(this.table, tableOrder.table) &&
         Objects.equals(this.order, tableOrder.order);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(table, order);
+    return Objects.hash(id, table, order);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class TableOrderDTO {\n");
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    table: ").append(toIndentedString(table)).append("\n");
     sb.append("    order: ").append(toIndentedString(order)).append("\n");
     sb.append("}");

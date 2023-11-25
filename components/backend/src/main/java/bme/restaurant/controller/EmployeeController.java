@@ -10,14 +10,14 @@ import bme.restaurant.api.EmployeeApi;
 import bme.restaurant.auth.Authorize;
 import bme.restaurant.dto.UserDTO;
 import bme.restaurant.dto.UserRegisterDTO;
-import bme.restaurant.service.UserServiceImpl;
+import bme.restaurant.service.UserService;
 import jakarta.validation.Valid;
 
 @RestController
 public class EmployeeController implements EmployeeApi {
 
     @Autowired
-    private UserServiceImpl userService;
+    private UserService userService;
     
     @Override
     @Authorize(permission = "employee-list")

@@ -41,4 +41,10 @@ public class RecipeLine {
         foodRecipeInnerDTO.setUnit(UnitEnum.fromValue(this.ingredient.getUnit()));
         return foodRecipeInnerDTO;
     }
+
+    public static RecipeLine fromDTO(FoodRecipeInnerDTO rl) {
+        return new RecipeLine(
+                Ingredient.fromDTO(rl.getIngerient(), rl.getUnit().toString()),
+                rl.getQuantity());
+    }
 }

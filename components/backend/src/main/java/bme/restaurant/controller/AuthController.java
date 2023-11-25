@@ -9,14 +9,14 @@ import bme.restaurant.api.AuthApi;
 import bme.restaurant.auth.Authorize;
 import bme.restaurant.dto.UserLoginDTO;
 import bme.restaurant.dto.UserSessionDTO;
-import bme.restaurant.service.UserServiceImpl;
+import bme.restaurant.service.UserService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 
 @RestController
 public class AuthController implements AuthApi {
     @Autowired
-    private UserServiceImpl userService;
+    private UserService userService;
 
     @Override
     public ResponseEntity<UserSessionDTO> login(@Valid UserLoginDTO userLoginDTO) {

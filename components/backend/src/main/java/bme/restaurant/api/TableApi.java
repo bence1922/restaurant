@@ -5,7 +5,9 @@
  */
 package bme.restaurant.api;
 
+import bme.restaurant.dto.OrderDTO;
 import bme.restaurant.dto.TableDTO;
+import bme.restaurant.dto.TableOrderDTO;
 import io.swagger.v3.oas.annotations.ExternalDocumentation;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -32,7 +34,7 @@ import java.util.Map;
 import java.util.Optional;
 import jakarta.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-11-24T19:02:19.052817200+01:00[Europe/Budapest]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen")
 @Validated
 @Tag(name = "table", description = "the table API")
 public interface TableApi {
@@ -42,7 +44,7 @@ public interface TableApi {
     }
 
     /**
-     * DELETE /table/{table-number} : Deletes table by number
+     * DELETE /table/{tableNumber} : Deletes table by number
      *
      * @param tableNumber number of table to return (required)
      * @return Invalid table id (status code 400)
@@ -60,10 +62,10 @@ public interface TableApi {
     )
     @RequestMapping(
         method = RequestMethod.DELETE,
-        value = "/table/{table-number}"
+        value = "/table/{tableNumber}"
     )
     default ResponseEntity<Void> deleteTable(
-        @Parameter(name = "table-number", description = "number of table to return", required = true, in = ParameterIn.PATH) @PathVariable("table-number") Integer tableNumber
+        @Parameter(name = "tableNumber", description = "number of table to return", required = true, in = ParameterIn.PATH) @PathVariable("tableNumber") Integer tableNumber
     ) {
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 
@@ -71,12 +73,12 @@ public interface TableApi {
 
 
     /**
-     * GET /table/{table-number} : Finds table by number
+     * GET /table/{tableNumber} : Finds table by number
      * Returns a single table
      *
      * @param tableNumber number of table to return (required)
      * @return successful operation (status code 200)
-     *         or Invalid table-number supplied (status code 400)
+     *         or Invalid tableNumber supplied (status code 400)
      *         or Table not found (status code 404)
      */
     @Operation(
@@ -88,7 +90,7 @@ public interface TableApi {
             @ApiResponse(responseCode = "200", description = "successful operation", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = TableDTO.class))
             }),
-            @ApiResponse(responseCode = "400", description = "Invalid table-number supplied"),
+            @ApiResponse(responseCode = "400", description = "Invalid tableNumber supplied"),
             @ApiResponse(responseCode = "404", description = "Table not found")
         },
         security = {
@@ -97,11 +99,11 @@ public interface TableApi {
     )
     @RequestMapping(
         method = RequestMethod.GET,
-        value = "/table/{table-number}",
+        value = "/table/{tableNumber}",
         produces = { "application/json" }
     )
     default ResponseEntity<TableDTO> findTable(
-        @Parameter(name = "table-number", description = "number of table to return", required = true, in = ParameterIn.PATH) @PathVariable("table-number") Integer tableNumber
+        @Parameter(name = "tableNumber", description = "number of table to return", required = true, in = ParameterIn.PATH) @PathVariable("tableNumber") Integer tableNumber
     ) {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
@@ -122,7 +124,7 @@ public interface TableApi {
      * Returns a single table
      *
      * @return successful operation (status code 200)
-     *         or Invalid table-number supplied (status code 400)
+     *         or Invalid tableNumber supplied (status code 400)
      *         or Table not found (status code 404)
      */
     @Operation(
@@ -134,7 +136,7 @@ public interface TableApi {
             @ApiResponse(responseCode = "200", description = "successful operation", content = {
                 @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = TableDTO.class)))
             }),
-            @ApiResponse(responseCode = "400", description = "Invalid table-number supplied"),
+            @ApiResponse(responseCode = "400", description = "Invalid tableNumber supplied"),
             @ApiResponse(responseCode = "404", description = "Table not found")
         },
         security = {
@@ -164,7 +166,7 @@ public interface TableApi {
 
 
     /**
-     * PATCH /table/{table-number} : Create or update table by number
+     * PATCH /table/{tableNumber} : Create or update table by number
      *
      * @param tableNumber number of table to return (required)
      * @param capacity  (optional)
@@ -187,17 +189,112 @@ public interface TableApi {
     )
     @RequestMapping(
         method = RequestMethod.PATCH,
-        value = "/table/{table-number}",
+        value = "/table/{tableNumber}",
         produces = { "application/json" }
     )
     default ResponseEntity<TableDTO> patchTable(
-        @Parameter(name = "table-number", description = "number of table to return", required = true, in = ParameterIn.PATH) @PathVariable("table-number") Integer tableNumber,
+        @Parameter(name = "tableNumber", description = "number of table to return", required = true, in = ParameterIn.PATH) @PathVariable("tableNumber") Integer tableNumber,
         @Parameter(name = "capacity", description = "", in = ParameterIn.HEADER) @RequestHeader(value = "capacity", required = false) Integer capacity
     ) {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
                     String exampleString = "{ \"number\" : 10, \"capacity\" : 10, \"status\" : \"booked\" }";
+                    ApiUtil.setExampleResponse(request, "application/json", exampleString);
+                    break;
+                }
+            }
+        });
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+
+    }
+
+
+    /**
+     * POST /table/order/{tableNumber} : Place an order
+     * Place a new order in the store
+     *
+     * @param tableNumber  (required)
+     * @param orderDTO  (optional)
+     * @return successful operation (status code 200)
+     *         or Invalid input (status code 405)
+     */
+    @Operation(
+        operationId = "placeTableOrder",
+        summary = "Place an order",
+        description = "Place a new order in the store",
+        tags = { "table" },
+        responses = {
+            @ApiResponse(responseCode = "200", description = "successful operation", content = {
+                @Content(mediaType = "application/json", schema = @Schema(implementation = TableOrderDTO.class))
+            }),
+            @ApiResponse(responseCode = "405", description = "Invalid input")
+        },
+        security = {
+            @SecurityRequirement(name = "sessionId")
+        }
+    )
+    @RequestMapping(
+        method = RequestMethod.POST,
+        value = "/table/order/{tableNumber}",
+        produces = { "application/json" },
+        consumes = { "application/json" }
+    )
+    default ResponseEntity<TableOrderDTO> placeTableOrder(
+        @Parameter(name = "tableNumber", description = "", required = true, in = ParameterIn.PATH) @PathVariable("tableNumber") Integer tableNumber,
+        @Parameter(name = "OrderDTO", description = "") @Valid @RequestBody(required = false) OrderDTO orderDTO
+    ) {
+        getRequest().ifPresent(request -> {
+            for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
+                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
+                    String exampleString = "{ \"id\" : \"6544cd596955fe0a1c04fba9\", \"table\" : { \"number\" : 10, \"capacity\" : 10, \"status\" : \"booked\" }, \"order\" : { \"date\" : \"2000-01-23T04:56:07.000+00:00\", \"note\" : \"note\", \"foods\" : [ { \"quantity\" : 1, \"food\" : { \"price\" : 400, \"name\" : \"Hamburger\", \"recipe\" : [ { \"unit\" : \"g\", \"quantity\" : 0, \"ingerient\" : \"ingerient\" }, { \"unit\" : \"g\", \"quantity\" : 0, \"ingerient\" : \"ingerient\" } ], \"id\" : \"6544cd596955fe0a1c04fba9\", \"type\" : \"Főétel\" } }, { \"quantity\" : 1, \"food\" : { \"price\" : 400, \"name\" : \"Hamburger\", \"recipe\" : [ { \"unit\" : \"g\", \"quantity\" : 0, \"ingerient\" : \"ingerient\" }, { \"unit\" : \"g\", \"quantity\" : 0, \"ingerient\" : \"ingerient\" } ], \"id\" : \"6544cd596955fe0a1c04fba9\", \"type\" : \"Főétel\" } } ], \"drinks\" : [ { \"quantity\" : 1, \"drink\" : { \"price\" : 400, \"name\" : \"Cola\", \"id\" : \"6544cd596955fe0a1c04fba9\", \"type\" : \"Üdítő\" } }, { \"quantity\" : 1, \"drink\" : { \"price\" : 400, \"name\" : \"Cola\", \"id\" : \"6544cd596955fe0a1c04fba9\", \"type\" : \"Üdítő\" } } ], \"status\" : \"placed\" } }";
+                    ApiUtil.setExampleResponse(request, "application/json", exampleString);
+                    break;
+                }
+            }
+        });
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+
+    }
+
+
+    /**
+     * GET /table/order : Query table orders
+     * Place a new order in the store
+     *
+     * @param tableNumber  (optional)
+     * @param isCurrent  (optional)
+     * @return successful operation (status code 200)
+     *         or Invalid input (status code 405)
+     */
+    @Operation(
+        operationId = "queryTableOrders",
+        summary = "Query table orders",
+        description = "Place a new order in the store",
+        tags = { "table" },
+        responses = {
+            @ApiResponse(responseCode = "200", description = "successful operation", content = {
+                @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = TableOrderDTO.class)))
+            }),
+            @ApiResponse(responseCode = "405", description = "Invalid input")
+        },
+        security = {
+            @SecurityRequirement(name = "sessionId")
+        }
+    )
+    @RequestMapping(
+        method = RequestMethod.GET,
+        value = "/table/order",
+        produces = { "application/json" }
+    )
+    default ResponseEntity<List<TableOrderDTO>> queryTableOrders(
+        @Parameter(name = "tableNumber", description = "", in = ParameterIn.HEADER) @RequestHeader(value = "tableNumber", required = false) Integer tableNumber,
+        @Parameter(name = "is-current", description = "", in = ParameterIn.HEADER) @RequestHeader(value = "is-current", required = false) Boolean isCurrent
+    ) {
+        getRequest().ifPresent(request -> {
+            for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
+                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
+                    String exampleString = "[ { \"id\" : \"6544cd596955fe0a1c04fba9\", \"table\" : { \"number\" : 10, \"capacity\" : 10, \"status\" : \"booked\" }, \"order\" : { \"date\" : \"2000-01-23T04:56:07.000+00:00\", \"note\" : \"note\", \"foods\" : [ { \"quantity\" : 1, \"food\" : { \"price\" : 400, \"name\" : \"Hamburger\", \"recipe\" : [ { \"unit\" : \"g\", \"quantity\" : 0, \"ingerient\" : \"ingerient\" }, { \"unit\" : \"g\", \"quantity\" : 0, \"ingerient\" : \"ingerient\" } ], \"id\" : \"6544cd596955fe0a1c04fba9\", \"type\" : \"Főétel\" } }, { \"quantity\" : 1, \"food\" : { \"price\" : 400, \"name\" : \"Hamburger\", \"recipe\" : [ { \"unit\" : \"g\", \"quantity\" : 0, \"ingerient\" : \"ingerient\" }, { \"unit\" : \"g\", \"quantity\" : 0, \"ingerient\" : \"ingerient\" } ], \"id\" : \"6544cd596955fe0a1c04fba9\", \"type\" : \"Főétel\" } } ], \"drinks\" : [ { \"quantity\" : 1, \"drink\" : { \"price\" : 400, \"name\" : \"Cola\", \"id\" : \"6544cd596955fe0a1c04fba9\", \"type\" : \"Üdítő\" } }, { \"quantity\" : 1, \"drink\" : { \"price\" : 400, \"name\" : \"Cola\", \"id\" : \"6544cd596955fe0a1c04fba9\", \"type\" : \"Üdítő\" } } ], \"status\" : \"placed\" } }, { \"id\" : \"6544cd596955fe0a1c04fba9\", \"table\" : { \"number\" : 10, \"capacity\" : 10, \"status\" : \"booked\" }, \"order\" : { \"date\" : \"2000-01-23T04:56:07.000+00:00\", \"note\" : \"note\", \"foods\" : [ { \"quantity\" : 1, \"food\" : { \"price\" : 400, \"name\" : \"Hamburger\", \"recipe\" : [ { \"unit\" : \"g\", \"quantity\" : 0, \"ingerient\" : \"ingerient\" }, { \"unit\" : \"g\", \"quantity\" : 0, \"ingerient\" : \"ingerient\" } ], \"id\" : \"6544cd596955fe0a1c04fba9\", \"type\" : \"Főétel\" } }, { \"quantity\" : 1, \"food\" : { \"price\" : 400, \"name\" : \"Hamburger\", \"recipe\" : [ { \"unit\" : \"g\", \"quantity\" : 0, \"ingerient\" : \"ingerient\" }, { \"unit\" : \"g\", \"quantity\" : 0, \"ingerient\" : \"ingerient\" } ], \"id\" : \"6544cd596955fe0a1c04fba9\", \"type\" : \"Főétel\" } } ], \"drinks\" : [ { \"quantity\" : 1, \"drink\" : { \"price\" : 400, \"name\" : \"Cola\", \"id\" : \"6544cd596955fe0a1c04fba9\", \"type\" : \"Üdítő\" } }, { \"quantity\" : 1, \"drink\" : { \"price\" : 400, \"name\" : \"Cola\", \"id\" : \"6544cd596955fe0a1c04fba9\", \"type\" : \"Üdítő\" } } ], \"status\" : \"placed\" } } ]";
                     ApiUtil.setExampleResponse(request, "application/json", exampleString);
                     break;
                 }
