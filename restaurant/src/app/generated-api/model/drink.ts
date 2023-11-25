@@ -14,7 +14,16 @@
 export interface Drink { 
     id: string;
     name: string;
-    type: string;
+    type: Drink.TypeEnum;
     price: number;
 }
+export namespace Drink {
+    export type TypeEnum = 'soft drink' | 'hot drink' | 'alcoholic drink';
+    export const TypeEnum = {
+        SoftDrink: 'soft drink' as TypeEnum,
+        HotDrink: 'hot drink' as TypeEnum,
+        AlcoholicDrink: 'alcoholic drink' as TypeEnum
+    };
+}
+
 

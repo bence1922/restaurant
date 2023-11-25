@@ -15,8 +15,18 @@ import { FoodRecipeInner } from './foodRecipeInner';
 export interface Food { 
     id: string;
     name: string;
-    type: string;
+    type: Food.TypeEnum;
     price: number;
     recipe?: Array<FoodRecipeInner>;
 }
+export namespace Food {
+    export type TypeEnum = 'main course' | 'dessert' | 'side dish' | 'soup';
+    export const TypeEnum = {
+        MainCourse: 'main course' as TypeEnum,
+        Dessert: 'dessert' as TypeEnum,
+        SideDish: 'side dish' as TypeEnum,
+        Soup: 'soup' as TypeEnum
+    };
+}
+
 

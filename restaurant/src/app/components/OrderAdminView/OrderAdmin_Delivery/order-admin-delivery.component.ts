@@ -27,36 +27,7 @@ export class OrderAdminDeliveryComponent implements OnInit {
       {label: Order.StatusEnum.Delivering,},
       {label: Order.StatusEnum.Delivered,},
     ]
-
-    let order: Order = {
-      status: Order.StatusEnum.Placed,
-      date: new Date(),
-      note: "Note",
-      foods: [
-        {
-          food: {
-            id: "0",
-            name: "Food",
-            type: "Food",
-            price: 2000,
-          },
-          quantity: 1
-        }
-      ],
-      drinks: [
-        {
-          drink: {
-            id: "0",
-            name: "Drink",
-            type: "Drink",
-            price: 1000,
-          },
-          quantity: 1
-        },
-      ]
-    }
     this.orders= new Array<Order>()
-    this.orders.push(order)
   }
 
   deleteOrder(order: Order){}

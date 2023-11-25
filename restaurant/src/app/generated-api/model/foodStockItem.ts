@@ -18,13 +18,14 @@ export interface FoodStockItem {
     unit: FoodStockItem.UnitEnum;
 }
 export namespace FoodStockItem {
-    export type UnitEnum = 'kg' | 'liter' | 'g' | 'dkg' | 'dl';
+    export type UnitEnum = 'kg' | 'liter' | 'g' | 'dkg' | 'dl' | 'unit';
     export const UnitEnum = {
         Kg: 'kg' as UnitEnum,
         Liter: 'liter' as UnitEnum,
         G: 'g' as UnitEnum,
         Dkg: 'dkg' as UnitEnum,
-        Dl: 'dl' as UnitEnum
+        Dl: 'dl' as UnitEnum,
+        Unit: 'unit' as UnitEnum
     };
 }
 
