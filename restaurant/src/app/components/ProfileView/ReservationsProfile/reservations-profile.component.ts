@@ -16,28 +16,6 @@ export class ReservationsProfileComponent implements OnInit {
   previousReservations?: Booking[] | null
 
   ngOnInit(): void {
-      var booking: Booking
-      booking={
-        table:{
-          number:0,
-          capacity:4
-        },
-        customer:{
-          userId: "0",
-          name: "Name name"
-        },
-        startingDate: "1234",
-        endingDate: "1234"
-      },
-      this.currentReservations = new Array()
-      for(let i = 0; i < 3; i++){
-        this.currentReservations.push(booking)
-      }
-
-      this.previousReservations = new Array()
-      for(let i = 0; i < 3; i++){
-        this.previousReservations.push(booking)
-      }
   }
 
   date(startingDate: string){

@@ -20,32 +20,6 @@ export class OrderComponent implements OnInit {
  
 
   ngOnInit(): void {
-      this.user = {
-        name:"Name name",
-        password:"Password",
-        roles:["admin"],
-      }
-
-      this.order = {
-        foods: [
-          {
-            food: {
-              name: "Food",
-              price: 2000,
-            },
-            quantity: 1
-          }
-        ],
-        drinks: [
-          {
-            drink: {
-              name: "Drink",
-              price: 1000,
-            },
-            quantity: 1
-          },
-        ]
-      }
   }
 
   placeOrder(){

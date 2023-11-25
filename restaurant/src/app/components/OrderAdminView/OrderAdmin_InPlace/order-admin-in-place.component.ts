@@ -35,55 +35,8 @@ export class OrderAdminInPlaceComponent  implements OnInit{
       {label: Order.StatusEnum.Delivering,},
       {label: Order.StatusEnum.Delivered,},
     ]
-
-    let order: Order = {
-      foods: [
-        {
-          food: {
-            name: "Food",
-            price: 2000,
-          },
-          quantity: 1
-        }
-      ],
-      drinks: [
-        {
-          drink: {
-            name: "Drink",
-            price: 1000,
-          },
-          quantity: 1
-        },
-      ]
-    }
     this.orders= new Array<Order>()
-    this.orders.push(order)
 
-    this.foodList=[
-      {
-        name: "Food1",
-        price: 2000
-      },
-      {
-        name: "Food2",
-        price: 2000
-      },
-      {
-        name: "Food3",
-        price: 2000
-      }
-    ]
-
-    this.drinkList=[
-      {
-        name: "Drink 1",
-        price: 1000
-      },
-      {
-        name: "Drink 2",
-        price: 1000
-      },
-    ]
   }
 
   calculatePrice(order: Order){
