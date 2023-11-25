@@ -21,8 +21,10 @@ import jakarta.annotation.Generated;
  */
 
 @JsonTypeName("FoodStockItem")
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-11-23T22:27:38.107543100+01:00[Europe/Budapest]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen")
 public class FoodStockItemDTO {
+
+  private String id;
 
   private String name;
 
@@ -82,6 +84,26 @@ public class FoodStockItemDTO {
     this.name = name;
     this.quantity = quantity;
     this.unit = unit;
+  }
+
+  public FoodStockItemDTO id(String id) {
+    this.id = id;
+    return this;
+  }
+
+  /**
+   * Get id
+   * @return id
+  */
+  
+  @Schema(name = "id", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("id")
+  public String getId() {
+    return id;
+  }
+
+  public void setId(String id) {
+    this.id = id;
   }
 
   public FoodStockItemDTO name(String name) {
@@ -153,20 +175,22 @@ public class FoodStockItemDTO {
       return false;
     }
     FoodStockItemDTO foodStockItem = (FoodStockItemDTO) o;
-    return Objects.equals(this.name, foodStockItem.name) &&
+    return Objects.equals(this.id, foodStockItem.id) &&
+        Objects.equals(this.name, foodStockItem.name) &&
         Objects.equals(this.quantity, foodStockItem.quantity) &&
         Objects.equals(this.unit, foodStockItem.unit);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(name, quantity, unit);
+    return Objects.hash(id, name, quantity, unit);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class FoodStockItemDTO {\n");
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    quantity: ").append(toIndentedString(quantity)).append("\n");
     sb.append("    unit: ").append(toIndentedString(unit)).append("\n");

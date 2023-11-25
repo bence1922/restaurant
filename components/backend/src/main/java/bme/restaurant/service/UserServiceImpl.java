@@ -1,5 +1,6 @@
 package bme.restaurant.service;
 
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.session.MapSession;
 import org.springframework.session.SessionRepository;
@@ -8,10 +9,12 @@ import org.springframework.stereotype.Service;
 import bme.restaurant.dao.User;
 import bme.restaurant.dto.UserDTO;
 import bme.restaurant.dto.UserLoginDTO;
+import bme.restaurant.dto.UserRegisterDTO;
 import bme.restaurant.dto.UserSessionDTO;
 import jakarta.servlet.http.HttpServletRequest;
-
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -29,7 +32,7 @@ public class UserServiceImpl implements UserService {
     public UserSessionDTO login(UserLoginDTO userLoginDTO) {
         User user = userRepo.findByName(userLoginDTO.getName());
         if (user != null) {
-            if (user.getPasswordHash().equals(userLoginDTO.getPassword())) {
+            if (BCrypt.checkpw(userLoginDTO.getPassword(), user.getPasswordHash())) {
                 UUID uuid = UUID.randomUUID();
                 String uniqueID = uuid.toString();
 
@@ -43,8 +46,9 @@ public class UserServiceImpl implements UserService {
                 UserSessionDTO userSessionDTO = new UserSessionDTO(uniqueID, user.toDTO(), user.getRole());
                 return userSessionDTO;
             }
+            throw new RuntimeException("Invalid password");
         }
-        return null;
+        throw new RuntimeException("Invalid username");
     }
 
     @Override
@@ -84,7 +88,44 @@ public class UserServiceImpl implements UserService {
     @Override
     public void passwordReset(String userId, String oldPassword, String newPassword) {
         User user = userRepo.findById(userId).get();
-        if (user.getPasswordHash().equals(oldPassword))
-            user.setPasswordHash(newPassword);
+        if (BCrypt.checkpw(oldPassword, user.getPasswordHash()))
+            user.setPasswordHash(BCrypt.hashpw(newPassword, BCrypt.gensalt()));
+        throw new RuntimeException("Invalid old password");
+    }
+    
+    @Override
+    public List<UserDTO> getEmployees() {
+        List<User> entities = userRepo.findByRole("employee");
+        List<UserDTO> employees = new ArrayList<>();
+        for (User user : entities){
+            employees.add(user.toDTO());
+        }
+        return employees;
+    }
+
+    @Override
+    public List<UserDTO> getCustomers() {
+        List<User> entities = userRepo.findByRole("customer");
+        List<UserDTO> employees = new ArrayList<>();
+        for (User user : entities){
+            employees.add(user.toDTO());
+        }
+        return employees;
+    }
+
+    @Override
+    public UserDTO registerEmployee(UserRegisterDTO userRegisterDTO) {
+        String passwordHash = BCrypt.hashpw(userRegisterDTO.getPassword(), BCrypt.gensalt());
+        User user = new User(userRegisterDTO.getName(), userRegisterDTO.getAddress(), userRegisterDTO.getMobil(), userRegisterDTO.getMobil(), passwordHash, "employee");
+        user = userRepo.save(user);
+        return user.toDTO();
+    }
+
+    @Override
+    public UserDTO registerCustomer(UserRegisterDTO userRegisterDTO) {
+        String passwordHash = BCrypt.hashpw(userRegisterDTO.getPassword(), BCrypt.gensalt());
+        User user = new User(userRegisterDTO.getName(), userRegisterDTO.getAddress(), userRegisterDTO.getMobil(), userRegisterDTO.getMobil(), passwordHash, "customer");
+        user = userRepo.save(user);
+        return user.toDTO();
     }
 }

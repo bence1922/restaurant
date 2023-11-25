@@ -2,6 +2,8 @@ package bme.restaurant.dao;
 
 import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
+import bme.restaurant.dto.DrinkOrderItemDTO;
+
 public class DrinkOrderItem {
     @DocumentReference
     private Drink drink;
@@ -29,5 +31,16 @@ public class DrinkOrderItem {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public DrinkOrderItemDTO toDTO() {
+        var dto = new DrinkOrderItemDTO();
+        dto.setDrink(drink.toDTO());
+        dto.setQuantity(quantity);
+        return dto;
+    }
+
+    public static DrinkOrderItem fromDTO(DrinkOrderItemDTO dto) {
+        return new DrinkOrderItem(Drink.fromDTO(dto.getDrink()), dto.getQuantity());
     }
 }

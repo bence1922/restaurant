@@ -4,6 +4,8 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
+import bme.restaurant.dto.TableOrderDTO;
+
 @Document(collection = "table_orders")
 public class TableOrder {
     @Id
@@ -44,5 +46,13 @@ public class TableOrder {
 
     public void setOrder(Order order) {
         this.order = order;
+    }
+
+    public TableOrderDTO toDTO(){
+       return new TableOrderDTO(
+            this.id,
+            this.table.toDTO(),
+            this.order.toDTO()
+        );
     }
 }

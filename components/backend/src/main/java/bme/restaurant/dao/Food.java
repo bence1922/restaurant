@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import bme.restaurant.dto.FoodDTO;
+
 @Document(collection = "foods")
 public class Food {
     @Id
@@ -23,7 +25,7 @@ public class Food {
             int price,
             String type,
             List<RecipeLine> recipe) {
-        super();  
+        super();
         this.name = name;
         this.price = price;
         this.type = type;
@@ -68,5 +70,23 @@ public class Food {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public FoodDTO toDTO() {
+        var foodDTO = new FoodDTO();
+        foodDTO.setId(this.id);
+        foodDTO.setName(this.name);
+        foodDTO.setPrice(this.price);
+        foodDTO.setType(this.type);
+        foodDTO.setRecipe(recipe.stream().map((rl) -> rl.toDTO()).toList());
+        return foodDTO;
+    }
+
+    public static Food fromDTO(FoodDTO food) {
+        return new Food(
+                food.getName(),
+                food.getPrice(),
+                food.getType(),
+                food.getRecipe().stream().map((rl) -> RecipeLine.fromDTO(rl)).toList());
     }
 }

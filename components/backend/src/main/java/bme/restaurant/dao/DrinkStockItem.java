@@ -4,6 +4,8 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
+import bme.restaurant.dto.DrinkStockItemDTO;
+
 @Document(collection = "drink_stock")
 public class DrinkStockItem {
     @Id
@@ -44,5 +46,11 @@ public class DrinkStockItem {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public DrinkStockItemDTO toDTO() {
+        DrinkStockItemDTO drinkStockItemDTO = new DrinkStockItemDTO(this.getDrink().getName(), this.quantity);
+        drinkStockItemDTO.setId(this.id);
+        return drinkStockItemDTO;
     }
 }

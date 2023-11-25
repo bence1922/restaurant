@@ -9,4 +9,5 @@ import bme.restaurant.dao.User;
 public interface UserRepository extends MongoRepository<User, String> {
     List<User> findByNameContaining(String name);
     User findByName(String name);
+    List<User> findByRole(String string);
 }

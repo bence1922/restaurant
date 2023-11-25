@@ -2,6 +2,8 @@ package bme.restaurant.dto;
 
 import java.net.URI;
 import java.util.Objects;
+import bme.restaurant.dto.OrderDTO;
+import bme.restaurant.dto.TableDTO;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
@@ -16,32 +18,33 @@ import java.util.*;
 import jakarta.annotation.Generated;
 
 /**
- * DrinkStockItemDTO
+ * TableOrderDTO
  */
 
-@JsonTypeName("DrinkStockItem")
+@JsonTypeName("TableOrder")
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen")
-public class DrinkStockItemDTO {
+public class TableOrderDTO {
 
   private String id;
 
-  private String name;
+  private TableDTO table;
 
-  private Integer quantity;
+  private OrderDTO order;
 
-  public DrinkStockItemDTO() {
+  public TableOrderDTO() {
     super();
   }
 
   /**
    * Constructor with only required parameters
    */
-  public DrinkStockItemDTO(String name, Integer quantity) {
-    this.name = name;
-    this.quantity = quantity;
+  public TableOrderDTO(String id, TableDTO table, OrderDTO order) {
+    this.id = id;
+    this.table = table;
+    this.order = order;
   }
 
-  public DrinkStockItemDTO id(String id) {
+  public TableOrderDTO id(String id) {
     this.id = id;
     return this;
   }
@@ -50,8 +53,8 @@ public class DrinkStockItemDTO {
    * Get id
    * @return id
   */
-  
-  @Schema(name = "id", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @NotNull 
+  @Schema(name = "id", example = "6544cd596955fe0a1c04fba9", requiredMode = Schema.RequiredMode.REQUIRED)
   @JsonProperty("id")
   public String getId() {
     return id;
@@ -61,44 +64,44 @@ public class DrinkStockItemDTO {
     this.id = id;
   }
 
-  public DrinkStockItemDTO name(String name) {
-    this.name = name;
+  public TableOrderDTO table(TableDTO table) {
+    this.table = table;
     return this;
   }
 
   /**
-   * Get name
-   * @return name
+   * Get table
+   * @return table
   */
-  @NotNull 
-  @Schema(name = "name", example = "coke", requiredMode = Schema.RequiredMode.REQUIRED)
-  @JsonProperty("name")
-  public String getName() {
-    return name;
+  @NotNull @Valid 
+  @Schema(name = "table", requiredMode = Schema.RequiredMode.REQUIRED)
+  @JsonProperty("table")
+  public TableDTO getTable() {
+    return table;
   }
 
-  public void setName(String name) {
-    this.name = name;
+  public void setTable(TableDTO table) {
+    this.table = table;
   }
 
-  public DrinkStockItemDTO quantity(Integer quantity) {
-    this.quantity = quantity;
+  public TableOrderDTO order(OrderDTO order) {
+    this.order = order;
     return this;
   }
 
   /**
-   * Get quantity
-   * @return quantity
+   * Get order
+   * @return order
   */
-  @NotNull 
-  @Schema(name = "quantity", example = "1", requiredMode = Schema.RequiredMode.REQUIRED)
-  @JsonProperty("quantity")
-  public Integer getQuantity() {
-    return quantity;
+  @NotNull @Valid 
+  @Schema(name = "order", requiredMode = Schema.RequiredMode.REQUIRED)
+  @JsonProperty("order")
+  public OrderDTO getOrder() {
+    return order;
   }
 
-  public void setQuantity(Integer quantity) {
-    this.quantity = quantity;
+  public void setOrder(OrderDTO order) {
+    this.order = order;
   }
 
   @Override
@@ -109,24 +112,24 @@ public class DrinkStockItemDTO {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    DrinkStockItemDTO drinkStockItem = (DrinkStockItemDTO) o;
-    return Objects.equals(this.id, drinkStockItem.id) &&
-        Objects.equals(this.name, drinkStockItem.name) &&
-        Objects.equals(this.quantity, drinkStockItem.quantity);
+    TableOrderDTO tableOrder = (TableOrderDTO) o;
+    return Objects.equals(this.id, tableOrder.id) &&
+        Objects.equals(this.table, tableOrder.table) &&
+        Objects.equals(this.order, tableOrder.order);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, name, quantity);
+    return Objects.hash(id, table, order);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class DrinkStockItemDTO {\n");
+    sb.append("class TableOrderDTO {\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    name: ").append(toIndentedString(name)).append("\n");
-    sb.append("    quantity: ").append(toIndentedString(quantity)).append("\n");
+    sb.append("    table: ").append(toIndentedString(table)).append("\n");
+    sb.append("    order: ").append(toIndentedString(order)).append("\n");
     sb.append("}");
     return sb.toString();
   }

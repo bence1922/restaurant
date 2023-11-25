@@ -46,4 +46,10 @@ public class Ingredient {
     public void setUnit(String unit) {
         this.unit = unit;
     }
+
+    public static Ingredient fromDTO(String ingerient, String unit) {
+        return new Ingredient(
+                ingerient,
+                unit);
+    }
 }
