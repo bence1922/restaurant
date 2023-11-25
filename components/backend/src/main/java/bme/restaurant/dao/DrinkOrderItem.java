@@ -3,6 +3,7 @@ package bme.restaurant.dao;
 import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
 import bme.restaurant.dto.DrinkOrderItemDTO;
+import jakarta.validation.Valid;
 
 public class DrinkOrderItem {
     @DocumentReference
@@ -38,5 +39,9 @@ public class DrinkOrderItem {
         dto.setDrink(drink.toDTO());
         dto.setQuantity(quantity);
         return dto;
+    }
+
+    public static DrinkOrderItem fromDTO(DrinkOrderItemDTO dto) {
+        return new DrinkOrderItem(Drink.fromDTO(dto.getDrink()), dto.getQuantity());
     }
 }

@@ -6,6 +6,8 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import bme.restaurant.dto.FoodDTO;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 
 @Document(collection = "foods")
 public class Food {
@@ -25,7 +27,7 @@ public class Food {
             int price,
             String type,
             List<RecipeLine> recipe) {
-        super();  
+        super();
         this.name = name;
         this.price = price;
         this.type = type;
@@ -80,5 +82,13 @@ public class Food {
         foodDTO.setType(this.type);
         foodDTO.setRecipe(recipe.stream().map((rl) -> rl.toDTO()).toList());
         return foodDTO;
+    }
+
+    public static Food fromDTO(FoodDTO food) {
+        return new Food(
+                food.getName(),
+                food.getPrice(),
+                food.getType(),
+                food.getRecipe().stream().map((rl) -> RecipeLine.fromDTO(rl)).toList());
     }
 }

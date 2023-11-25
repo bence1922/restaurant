@@ -40,4 +40,10 @@ public class FoodOrderItem {
         return dto;
     }
 
+    public static FoodOrderItem fromDTO(FoodOrderItemDTO dto) {
+        return new FoodOrderItem(
+                Food.fromDTO(dto.getFood()),
+                dto.getQuantity());
+    }
+
 }

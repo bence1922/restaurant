@@ -4,6 +4,8 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
+import bme.restaurant.dto.CustomerOrderDTO;
+
 @Document(collection = "customer_orders")
 public class CustomerOrder {
     @Id
@@ -15,10 +17,10 @@ public class CustomerOrder {
     private Order order;
 
     public CustomerOrder(
-            User table,
+            User customer,
             Order order) {
-        super();  
-        this.customer = table;
+        super();
+        this.customer = customer;
         this.order = order;
     }
 
@@ -34,8 +36,8 @@ public class CustomerOrder {
         return customer;
     }
 
-    public void setCustomer(User table) {
-        this.customer = table;
+    public void setCustomer(User customer) {
+        this.customer = customer;
     }
 
     public Order getOrder() {
@@ -44,5 +46,12 @@ public class CustomerOrder {
 
     public void setOrder(Order order) {
         this.order = order;
+    }
+
+    public CustomerOrderDTO toDTO() {
+        return  new CustomerOrderDTO(
+                this.id,
+                this.customer.toDTO(),
+                this.order.toDTO());
     }
 }

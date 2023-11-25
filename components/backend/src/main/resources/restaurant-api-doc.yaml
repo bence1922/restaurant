@@ -16,8 +16,6 @@ tags:
   - name: customer
   - name: table
   - name: booking
-  - name: table-order
-  - name: customer-order
   - name: menu
 
 paths:
@@ -71,7 +69,7 @@ paths:
           required: true
           schema:
             type: string
-            example: "ObjectId('6544cd596955fe0a1c04fba9')"
+            example: "6544cd596955fe0a1c04fba9"
         - name: oldPassword
           in: header
           schema: { type: string }
@@ -95,7 +93,7 @@ paths:
         required: true
         schema:
           type: string
-          example: "ObjectId('6544cd596955fe0a1c04fba9')"
+          example: "6544cd596955fe0a1c04fba9"
     get:
       tags:
         - user
@@ -196,6 +194,7 @@ paths:
           description: Employee not found
         '405':
           description: Validation exception
+
   /customer:
     get:
       tags: 
@@ -235,7 +234,118 @@ paths:
           description: User successfully registered
         '400':
           description: Invalid request
-  /customer/{userId}/booking:
+  /customer/order:
+    get:
+      tags:
+        - customer
+      summary: Query customer orders
+      operationId: queryCustomerOrders
+      security:
+      - sessionId: []
+      parameters:
+        - name: customer-name
+          in: header
+          schema: { type: string }
+          required: false
+        - name: is-current
+          in: header
+          schema: { type: boolean }
+          required: false
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CustomerOrder'
+        '405':
+          description: Invalid input
+  /customer/order/{userId}:
+    parameters:
+      - name: userId
+        in: path
+        schema: { type: string }
+        required: true
+    get:
+      tags:
+        - customer
+      summary: Query orders for customer
+      operationId: queryOrdersForCustomer
+      security:
+      - sessionId: []
+      parameters:
+        - name: is-current
+          in: header
+          schema: { type: boolean }
+          required: false
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Order'
+        '405':
+          description: Invalid input
+    post:
+      tags:
+        - customer
+      summary: Place an order
+      operationId: placeCustomerOrder
+      security:
+      - sessionId: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Order'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+        '405':
+          description: Invalid input
+  /customer/order/{userId}/{orderId}/invoice:
+    parameters:
+      - name: orderId
+        in: path
+        description: ID of the order for which to generate an invoice
+        required: true
+        schema:
+          type: string
+          example: "6544cd596955fe0a1c04fba9"
+      - name: userId
+        in: path
+        description: The ID of the user
+        required: true
+        schema:
+          type: string
+          example: "6544cd596955fe0a1c04fba9"
+    get:
+      tags:
+        - customer
+      summary: Get an invoice in PDF format by orderId
+      operationId: getInvoice
+      security:
+      - sessionId: []
+      responses:
+        '200':
+          description: Invoice PDF
+          content:
+            application/pdf:
+              schema:
+                type: string
+                format: binary
+        '404':
+          description: Order not found
+  /customer/booking/{userId}:
     parameters:
       - name: userId
         in: path
@@ -245,8 +355,7 @@ paths:
       tags:
         - customer
       summary: Query bookings for customer
-      description: 
-      operationId: queryCustomerBookings
+      operationId: queryBookingsForCustomer
       parameters:
         - name: from
           in: header
@@ -272,40 +381,7 @@ paths:
                       
         '405':
           description: Invalid input
-  /customer/{userId}/invoice/{orderId}:
-    parameters:
-      - name: orderId
-        in: path
-        description: ID of the order for which to generate an invoice
-        required: true
-        schema:
-          type: string
-          example: ObjectId('6544cd596955fe0a1c04fba9')
-      - name: userId
-        in: path
-        description: The ID of the user
-        required: true
-        schema:
-          type: string
-          example: "ObjectId('6544cd596955fe0a1c04fba9')"
-    get:
-      tags:
-        - customer
-      summary: Get an invoice in PDF format by orderId
-      operationId: getInvoice
-      security:
-      - sessionId: []
-      responses:
-        '200':
-          description: Invoice PDF
-          content:
-            application/pdf:
-              schema:
-                type: string
-                format: binary
-        '404':
-          description: Order not found
-  
+
   /table:
     get:
       tags:
@@ -325,12 +401,12 @@ paths:
                 items:
                   $ref: '#/components/schemas/Table'
         '400':
-          description: Invalid table-number supplied
+          description: Invalid tableNumber supplied
         '404':
           description: Table not found
-  /table/{table-number}:
+  /table/{tableNumber}:
     parameters:
-      - name: table-number
+      - name: tableNumber
         in: path
         description: number of table to return
         required: true
@@ -353,7 +429,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Table'
         '400':
-          description: Invalid table-number supplied
+          description: Invalid tableNumber supplied
         '404':
           description: Table not found
     patch:
@@ -387,17 +463,74 @@ paths:
       responses:
         '400':
           description: Invalid table id
+  /table/order:
+    get:
+      tags:
+        - table
+      summary: Query table orders
+      description: Place a new order in the store
+      operationId: queryTableOrders
+      security:
+      - sessionId: []
+      parameters:
+        - name: tableNumber
+          in: header
+          schema: { type: integer }
+          required: false
+        - name: is-current
+          in: header
+          schema: { type: boolean }
+          required: false
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TableOrder'
+        '405':
+          description: Invalid input
+  /table/order/{tableNumber}:
+    post:
+      tags:
+        - table
+      summary: Place an order
+      description: Place a new order in the store
+      operationId: placeTableOrder
+      security:
+      - sessionId: []
+      parameters:
+        - name: tableNumber
+          in: path
+          schema: { type: integer }
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Order'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TableOrder'
+        '405':
+          description: Invalid input
+
   /booking:
     get:
       tags:
         - booking
       summary: Query bookings
-      description: 
       operationId: queryBookings
       security:
       - sessionId: []
       parameters:
-        - name: table-number
+        - name: tableNumber
           in: header
           schema: { type: integer }
           required: false
@@ -452,9 +585,9 @@ paths:
 
         '405':
           description: Invalid input
-  /booking/{id}:
+  /booking/{bookingId}:
     parameters:
-      - name: id
+      - name: bookingId
         in: path
         schema: { type: string }
         required: true
@@ -505,7 +638,6 @@ paths:
       tags:
         - booking
       summary: Query avaible tables
-      description: 
       operationId: queryTablesForBooking
       security:
       - sessionId: []
@@ -534,171 +666,7 @@ paths:
                       
         '405':
           description: Invalid input
-
-  /table-order:
-    get:
-      tags:
-        - table-order
-      summary: Query table orders
-      description: Place a new order in the store
-      operationId: queryTableOrders
-      security:
-      - sessionId: []
-      parameters:
-        - name: table-number
-          in: header
-          schema: { type: integer }
-          required: false
-        - name: is-current
-          in: header
-          schema: { type: boolean }
-          required: false
-      responses:
-        '200':
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/TableOrder'
-        '405':
-          description: Invalid input
-  /table-order/{table-number}:
-    get:
-      tags:
-        - table-order
-      summary: Find the current order for the table
-      description: Place a new order in the store
-      operationId: findTableOrder
-      security:
-      - sessionId: []
-      parameters:
-        - name: table-number
-          in: path
-          schema: { type: integer }
-          required: true
-      responses:
-        '200':
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/TableOrder'
-        '405':
-          description: Invalid input
-
-    post:
-      tags:
-        - table-order
-      summary: Place an order
-      description: Place a new order in the store
-      operationId: placeOrder
-      security:
-      - sessionId: []
-      parameters:
-        - name: table-number
-          in: path
-          schema: { type: integer }
-          required: true
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Order'
-      responses:
-        '200':
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/TableOrder'
-        '405':
-          description: Invalid input
   
-  /customer-order:
-    get:
-      tags:
-        - customer-order
-      summary: Query customer orders
-      description: 
-      operationId: queryCustomerOrders
-      security:
-      - sessionId: []
-      parameters:
-        - name: customer-name
-          in: header
-          schema: { type: string }
-          required: false
-        - name: is-current
-          in: header
-          schema: { type: boolean }
-          required: false
-      responses:
-        '200':
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/CustomerOrder'
-        '405':
-          description: Invalid input
-  /customer-order/{userId}:
-    parameters:
-      - name: userId
-        in: path
-        schema: { type: string }
-        required: true
-    get:
-      tags:
-        - customer-order
-      summary: Query orders for customer
-      description: 
-      operationId: queryCustomerOrderForCustomer
-      security:
-      - sessionId: []
-      parameters:
-        - name: is-current
-          in: header
-          schema: { type: boolean }
-          required: false
-      responses:
-        '200':
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Order'
-        '405':
-          description: Invalid input
-
-    post:
-      tags:
-        - customer-order
-      summary: Place an order
-      description:
-      operationId: order
-      security:
-      - sessionId: []
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Order'
-      responses:
-        '200':
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Order'
-        '405':
-          description: Invalid input
-
   /menu/drink:
     get:
       tags:
@@ -885,6 +853,7 @@ paths:
           description: Menu item deleted successfully
         '404':
           description: Menu item not found
+
   /stock/food:
     get:
       summary: Get all food stock items
@@ -985,7 +954,6 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/DrinkStockItem'
-
     post:
       summary: Create a new drink stock item
       operationId: createDrinkStockItem
@@ -1004,7 +972,6 @@ paths:
                 $ref: '#/components/schemas/DrinkStockItem'
         '400':
           description: Invalid input
-
   /stock/drink/{drinkStockItemId}:
     parameters:
       - name: drinkStockItemId
@@ -1049,7 +1016,6 @@ paths:
         '404':
           description: Drink stock item not found
 
-
 components:
   schemas:
     Table:
@@ -1082,7 +1048,7 @@ components:
       properties:
         id:
           type: string
-          example: ObjectId('6544cd596955fe0a1c04fba9')
+          example: "6544cd596955fe0a1c04fba9"
         table:
           $ref: '#/components/schemas/Table'
         customer:
@@ -1103,19 +1069,19 @@ components:
           example: "az egyik fő egy kisbaba"
     NewBooking:
       required:
-        - table-number
+        - tableNumber
         - user-id
         - startingDate
         - endingDate
         - peopleCount
       type: object
       properties:
-        table-number:
+        tableNumber:
           type: integer
           example: 3
         user-id:
           type: string
-          example: 6544cd596955fe0a1c04fba9
+          example: "6544cd596955fe0a1c04fba9"
         startingDate:
           type: string
           format: date-time
@@ -1137,7 +1103,7 @@ components:
       properties:
         id:
           type: string
-          example: 6544cd596955fe0a1c04fba9
+          example: "6544cd596955fe0a1c04fba9"
         name:
           type: string
           example: Hamburger
@@ -1183,7 +1149,7 @@ components:
       properties:
         id:
           type: string
-          example: 6544cd596955fe0a1c04fba9
+          example: "6544cd596955fe0a1c04fba9"
         name:
           type: string
           example: Cola
@@ -1211,9 +1177,6 @@ components:
         - drinks
       type: object
       properties:
-        id:
-          type: string
-          example: 6544cd596955fe0a1c04fba9
         status:
           type: string
           enum: [placed, cooking, delivering, delivered]
@@ -1231,15 +1194,29 @@ components:
           items:
             $ref: '#/components/schemas/DrinkOrderItem'
     CustomerOrder:
+      required:
+        - id
+        - customer
+        - order
       type: object
       properties:
+        id:
+          type: string
+          example: "6544cd596955fe0a1c04fba9"
         customer: 
           $ref: '#/components/schemas/User'
         order: 
           $ref: '#/components/schemas/Order'
     TableOrder:
+      required:
+        - id
+        - table
+        - order
       type: object
       properties:
+        id:
+          type: string
+          example: "6544cd596955fe0a1c04fba9"
         table: 
           $ref: '#/components/schemas/Table'
         order: 
@@ -1331,7 +1308,7 @@ components:
       properties:
         id:
           type: string
-          example: ObjectId('6544cd596955fe0a1c04fba9')
+          example: "6544cd596955fe0a1c04fba9"
         name:
           type: string
           example: Gipsz Jakap
@@ -1353,7 +1330,7 @@ components:
       properties:
         id:
           type: string
-          example: "ObjectId('6544cd596955fe0a1c04fba9')"
+          example: "6544cd596955fe0a1c04fba9"
         user:
           $ref: '#/components/schemas/User'
         role:

@@ -12,6 +12,6 @@ public interface BookingService {
     BookingDTO bookTable(NewBookingDTO newBookingDTO);
     BookingDTO bookingStatusUpdate(String id, String status);
     List<BookingDTO> queryBookings(Integer tableNumber, String customerName, OffsetDateTime from, OffsetDateTime to);
-    List<BookingDTO> queryCustomerBookings(String customerId, OffsetDateTime from, OffsetDateTime to);
+    List<BookingDTO> queryCustomerBookings(String userId, OffsetDateTime from, OffsetDateTime to);
     List<TableDTO> queryTablesForBooking(OffsetDateTime from, OffsetDateTime to);
 }

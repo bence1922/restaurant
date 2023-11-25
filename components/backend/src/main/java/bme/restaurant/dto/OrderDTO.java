@@ -28,10 +28,8 @@ import jakarta.annotation.Generated;
  */
 
 @JsonTypeName("Order")
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-11-24T19:02:19.052817200+01:00[Europe/Budapest]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen")
 public class OrderDTO {
-
-  private String id;
 
   /**
    * Gets or Sets status
@@ -95,26 +93,6 @@ public class OrderDTO {
   public OrderDTO(List<@Valid FoodOrderItemDTO> foods, List<@Valid DrinkOrderItemDTO> drinks) {
     this.foods = foods;
     this.drinks = drinks;
-  }
-
-  public OrderDTO id(String id) {
-    this.id = id;
-    return this;
-  }
-
-  /**
-   * Get id
-   * @return id
-  */
-  
-  @Schema(name = "id", example = "6544cd596955fe0a1c04fba9", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
-  @JsonProperty("id")
-  public String getId() {
-    return id;
-  }
-
-  public void setId(String id) {
-    this.id = id;
   }
 
   public OrderDTO status(StatusEnum status) {
@@ -242,8 +220,7 @@ public class OrderDTO {
       return false;
     }
     OrderDTO order = (OrderDTO) o;
-    return Objects.equals(this.id, order.id) &&
-        Objects.equals(this.status, order.status) &&
+    return Objects.equals(this.status, order.status) &&
         Objects.equals(this.date, order.date) &&
         Objects.equals(this.note, order.note) &&
         Objects.equals(this.foods, order.foods) &&
@@ -252,14 +229,13 @@ public class OrderDTO {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, status, date, note, foods, drinks);
+    return Objects.hash(status, date, note, foods, drinks);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class OrderDTO {\n");
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
     sb.append("    date: ").append(toIndentedString(date)).append("\n");
     sb.append("    note: ").append(toIndentedString(note)).append("\n");
