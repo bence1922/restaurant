@@ -23,59 +23,59 @@ export class AdminReservationsComponent {
 
 
   ngOnInit(): void {
-    this.bookingService.getBookings().subscribe((bookings: Booking[]) => {
-      this.incomingReservations = bookings.filter((booking: Booking) => {
-        return booking.status === "pending";
-      });
-      this.todayReservations = bookings.filter((booking: Booking) => {
-        var today = new Date();
-        today.setHours(0,0,0,0);
-        return this.stringToDate(booking.startingDate).toDateString === today.toDateString;
-      });
-      this.upcomingReservations = bookings.filter((booking: Booking) => {
-        var today = new Date();
-        today.setHours(0,0,0,0);
-        return this.stringToDate(booking.startingDate).toDateString > today.toDateString;
-      });
-      this.oldReservations = bookings.filter((booking: Booking) => {
-        var today = new Date();
-        today.setHours(0,0,0,0);
-        return this.stringToDate(booking.startingDate).toDateString < today.toDateString;
-      });
-    });
+    // this.bookingService.getBookings().subscribe((bookings: Booking[]) => {
+    //   this.incomingReservations = bookings.filter((booking: Booking) => {
+    //     return booking.status === "pending";
+    //   });
+    //   this.todayReservations = bookings.filter((booking: Booking) => {
+    //     var today = new Date();
+    //     today.setHours(0,0,0,0);
+    //     return this.stringToDate(booking.startingDate).toDateString === today.toDateString;
+    //   });
+    //   this.upcomingReservations = bookings.filter((booking: Booking) => {
+    //     var today = new Date();
+    //     today.setHours(0,0,0,0);
+    //     return this.stringToDate(booking.startingDate).toDateString > today.toDateString;
+    //   });
+    //   this.oldReservations = bookings.filter((booking: Booking) => {
+    //     var today = new Date();
+    //     today.setHours(0,0,0,0);
+    //     return this.stringToDate(booking.startingDate).toDateString < today.toDateString;
+    //   });
+    // });
 
-    var booking: Booking
-    booking={
-      table:{
-        number:0,
-        capacity:4
-      },
-      customer:{
-        userId: "0",
-        name: "Name name"
-      },
-      startingDate: "1234",
-      endingDate: "1234"
-    },
-    this.incomingReservations = new Array()
-    for(let i = 0; i < 3; i++){
-      this.incomingReservations.push(booking)
-    }
+    // var booking: Booking
+    // booking={
+    //   table:{
+    //     number:0,
+    //     capacity:4
+    //   },
+    //   customer:{
+    //     userId: "0",
+    //     name: "Name name"
+    //   },
+    //   startingDate: "1234",
+    //   endingDate: "1234"
+    // },
+    // this.incomingReservations = new Array()
+    // for(let i = 0; i < 3; i++){
+    //   this.incomingReservations.push(booking)
+    // }
 
-    this.todayReservations = new Array()
-    for(let i = 0; i < 3; i++){
-      this.todayReservations.push(booking)
-    }
+    // this.todayReservations = new Array()
+    // for(let i = 0; i < 3; i++){
+    //   this.todayReservations.push(booking)
+    // }
 
-    this.upcomingReservations = new Array()
-    for(let i = 0; i < 3; i++){
-      this.upcomingReservations.push(booking)
-    }
+    // this.upcomingReservations = new Array()
+    // for(let i = 0; i < 3; i++){
+    //   this.upcomingReservations.push(booking)
+    // }
 
-    this.oldReservations = new Array()
-    for(let i = 0; i < 3; i++){
-      this.oldReservations.push(booking)
-    }
+    // this.oldReservations = new Array()
+    // for(let i = 0; i < 3; i++){
+    //   this.oldReservations.push(booking)
+    // }
   }
 
   stringToDate(dateString: string){
