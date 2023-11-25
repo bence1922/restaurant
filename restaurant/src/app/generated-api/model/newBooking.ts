@@ -12,10 +12,10 @@
 
 
 export interface NewBooking { 
-    tableNumber: number;
+    table_number: number;
     user_id: string;
-    startingDate: string;
-    endingDate: string;
+    startingDate: Date;
+    endingDate: Date;
     peopleCount: number;
     note?: string;
 }
