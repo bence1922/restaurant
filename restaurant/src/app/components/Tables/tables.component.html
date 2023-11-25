@@ -12,6 +12,7 @@
                     <tr>
                         <th pSortableColumn="number" pResizableColumn>Number <p-sortIcon field="number"></p-sortIcon></th>
                         <th pSortableColumn="capacity">Capacity <p-sortIcon field="capacity"></p-sortIcon></th>
+                        <th pSortableColumn="status">Status <p-sortIcon field="capacity"></p-sortIcon></th>
                         <th class="w-6rem">Action</th>
                     </tr>
                 </ng-template>
@@ -38,8 +39,18 @@
                             </p-cellEditor>
                         </td>
                         <td>
+                            <p-cellEditor>
+                                <ng-template pTemplate="input">
+                                    <p-dropdown [options]="tableStateOptions"></p-dropdown>
+                                </ng-template>
+                                <ng-template pTemplate="output">
+                                    {{item.status}}
+                                </ng-template>
+                            </p-cellEditor>
+                        </td>
+                        <td>
                             <p-button *ngIf="!editing" pInitEditableRow icon="pi pi-pencil" [rounded]="true" [text]="true" (click)="onRowEditInit(item)"></p-button>
-                            <p-button *ngIf="!editing" icon="pi pi-trash" [rounded]="true" [text]="true"></p-button>
+                            <p-button *ngIf="!editing" icon="pi pi-trash" [rounded]="true" [text]="true" (onClick)="deleteTable(item)"></p-button>
                             <p-button *ngIf="editing" pSaveEditableRow icon="pi pi-check" [rounded]="true" [text]="true" (click)="onRowEditSave(item)"></p-button>
                             <p-button *ngIf="editing" pCancelEditableRow icon="pi pi-times" [rounded]="true" [text]="true" (click)="onRowEditCancel(item, ri)"></p-button>
                         </td>
@@ -50,23 +61,24 @@
                 </ng-template>
             </p-table>
         </div>
-        <div *ngIf="newTableFormOpen" class="mt-6 ml-6">
-            <div class="text-lg text-color">New Table</div>
-            <form>
-                <div class="col-5 col-offset-1">
-                    <div class="field">
-                        <label for="number" class="">Number *</label>
-                        <input id="number" formControlName="number" type="number" autocomplete="off" class="form-control text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+        <p-dialog header="Add new table" [(visible)]="newTableFormOpen" [style]="{width: '30vw'}">
+            <div class="flex justify-content-center">
+                <form [formGroup]="newTableForm" (ngSubmit) = "onSubmit()">
+                    <div class>
+                        <div class="field">
+                            <label for="number" class="">Number *</label>
+                            <input id="number" formControlName="number" type="number" [min]="1" autocomplete="off" class="form-control text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                        </div>
+                        <div class="field">
+                            <label for="capacity" class="">Capacity *</label>
+                            <input id="capacity" formControlName="capacity" type="number" [min]="1" class="form-control text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                        </div>
+                        <div class="flex justify-content-center">
+                            <p-button severity="secondary" type="submit">Save</p-button>
+                        </div>
                     </div>
-                    <div class="field">
-                        <label for="capacity" class="">Capacity *</label>
-                        <input id="capacity" formControlName="capacity" type="number" autocomplete="off" class="form-control text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
-                    </div>
-                    <div class="flex justify-content-center">
-                        <p-button severity="secondary">Save</p-button>
-                    </div>
-                </div>
-            </form>
-        </div>
+                </form>
+            </div>
+        </p-dialog>
     </div>
 </div>
