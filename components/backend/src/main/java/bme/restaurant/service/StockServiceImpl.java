@@ -2,8 +2,6 @@ package bme.restaurant.service;
 
 import java.util.List;
 
-import javax.validation.Valid;
-
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;

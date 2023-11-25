@@ -356,6 +356,8 @@ paths:
         - customer
       summary: Query bookings for customer
       operationId: queryBookingsForCustomer
+      security:
+      - sessionId: []
       parameters:
         - name: from
           in: header

@@ -187,6 +187,9 @@ public interface CustomerApi {
                 @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = BookingDTO.class)))
             }),
             @ApiResponse(responseCode = "405", description = "Invalid input")
+        },
+        security = {
+            @SecurityRequirement(name = "sessionId")
         }
     )
     @RequestMapping(

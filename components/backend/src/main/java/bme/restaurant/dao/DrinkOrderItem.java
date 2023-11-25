@@ -3,7 +3,6 @@ package bme.restaurant.dao;
 import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
 import bme.restaurant.dto.DrinkOrderItemDTO;
-import jakarta.validation.Valid;
 
 public class DrinkOrderItem {
     @DocumentReference

@@ -6,8 +6,6 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import bme.restaurant.dto.FoodDTO;
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
 
 @Document(collection = "foods")
 public class Food {

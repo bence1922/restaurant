@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.stereotype.Service;
 
 import bme.restaurant.dao.CustomerOrder;
 import bme.restaurant.dao.Order;
@@ -19,6 +20,7 @@ import bme.restaurant.repository.TableOrderRepository;
 import bme.restaurant.repository.TableRepository;
 import bme.restaurant.repository.UserRepository;
 
+@Service
 public class OrderServiceImpl implements OrderService {
     @Autowired
     private CustomerOrderRepository customerOrderRepository;
