@@ -885,6 +885,170 @@ paths:
           description: Menu item deleted successfully
         '404':
           description: Menu item not found
+  /stock/food:
+    get:
+      summary: Get all food stock items
+      operationId: getAllFoodStockItems
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FoodStockItem'
+    
+    post:
+      summary: Create a new food stock item
+      operationId: createFoodStockItem
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FoodStockItem'
+      responses:
+        '201':
+          description: Food stock item created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FoodStockItem'
+        '400':
+          description: Invalid input
+  /stock/food/{foodStockItemId}: 
+    parameters:
+      - name:  foodStockItemId
+        in: path
+        description: ID of the foodStockItem to retrieve/update/delete
+        required: true
+        schema:
+          type: string
+    patch:
+      summary: Partially update a food stock item
+      operationId: partiallyUpdateFoodStockItem
+      parameters:
+        - in: query
+          name: name
+          schema:
+            type: string
+          description: Name of the food stock item to update
+        - in: query
+          name: quantity
+          schema:
+            type: integer
+            format: int32
+          description: New quantity of the food stock item
+        - in: query
+          name: unit
+          schema:
+            type: string
+            enum:
+              - kg
+              - liter
+              - g
+              - dkg
+              - dl
+          description: New unit of the food stock item
+      responses:
+        '200':
+          description: Food stock item partially updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FoodStockItem'
+        '400':
+          description: Invalid input
+        '404':
+          description: Food stock item not found
+    
+    delete:
+      summary: Delete a food stock item
+      operationId: deleteFoodStockItem
+      responses:
+        '204':
+          description: Food stock item deleted successfully
+        '404':
+          description: Food stock item not found
+
+  /stock/drink:
+    get:
+      summary: Get all drink stock items
+      operationId: getAllDrinkStockItems
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DrinkStockItem'
+
+    post:
+      summary: Create a new drink stock item
+      operationId: createDrinkStockItem
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DrinkStockItem'
+      responses:
+        '201':
+          description: Drink stock item created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DrinkStockItem'
+        '400':
+          description: Invalid input
+
+  /stock/drink/{drinkStockItemId}:
+    parameters:
+      - name: drinkStockItemId
+        in: path
+        description: ID of the drinkStockItem to retrieve/update/delete
+        required: true
+        schema:
+          type: string
+    patch:
+      summary: Partially update a drink stock item
+      operationId: partiallyUpdateDrinkStockItem
+      parameters:
+        - in: query
+          name: name
+          schema:
+            type: string
+          description: Name of the drink stock item to update
+        - in: query
+          name: quantity
+          schema:
+            type: integer
+            format: int32
+          description: New quantity of the drink stock item
+      responses:
+        '200':
+          description: Drink stock item partially updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DrinkStockItem'
+        '400':
+          description: Invalid input
+        '404':
+          description: Drink stock item not found
+
+    delete:
+      summary: Delete a drink stock item
+      operationId: deleteDrinkStockItem
+      responses:
+        '204':
+          description: Drink stock item deleted successfully
+        '404':
+          description: Drink stock item not found
+
 
 components:
   schemas:
@@ -1088,6 +1252,8 @@ components:
         - unit
       type: object
       properties:
+        id:
+          type: string
         name:
           type: string
           example: hús
@@ -1110,6 +1276,8 @@ components:
         - quantity
       type: object
       properties:
+        id: 
+          type: string
         name:
           type: string
           example: coke
