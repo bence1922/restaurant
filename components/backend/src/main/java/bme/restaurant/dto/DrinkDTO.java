@@ -5,6 +5,7 @@ import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
 import org.openapitools.jackson.nullable.JsonNullable;
 import java.time.OffsetDateTime;
 import jakarta.validation.Valid;
@@ -27,7 +28,44 @@ public class DrinkDTO {
 
   private String name;
 
-  private String type;
+  /**
+   * Gets or Sets type
+   */
+  public enum TypeEnum {
+    SOFT_DRINK("soft drink"),
+    
+    HOT_DRINK("hot drink"),
+    
+    ALCOHOLIC_DRINK("alcoholic drink");
+
+    private String value;
+
+    TypeEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static TypeEnum fromValue(String value) {
+      for (TypeEnum b : TypeEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
+
+  private TypeEnum type;
 
   private Integer price;
 
@@ -38,7 +76,7 @@ public class DrinkDTO {
   /**
    * Constructor with only required parameters
    */
-  public DrinkDTO(String id, String name, String type, Integer price) {
+  public DrinkDTO(String id, String name, TypeEnum type, Integer price) {
     this.id = id;
     this.name = name;
     this.type = type;
@@ -85,7 +123,7 @@ public class DrinkDTO {
     this.name = name;
   }
 
-  public DrinkDTO type(String type) {
+  public DrinkDTO type(TypeEnum type) {
     this.type = type;
     return this;
   }
@@ -95,13 +133,13 @@ public class DrinkDTO {
    * @return type
   */
   @NotNull 
-  @Schema(name = "type", example = "Üdítő", requiredMode = Schema.RequiredMode.REQUIRED)
+  @Schema(name = "type", requiredMode = Schema.RequiredMode.REQUIRED)
   @JsonProperty("type")
-  public String getType() {
+  public TypeEnum getType() {
     return type;
   }
 
-  public void setType(String type) {
+  public void setType(TypeEnum type) {
     this.type = type;
   }
 

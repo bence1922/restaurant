@@ -9,6 +9,7 @@ import bme.restaurant.dao.RecipeLine;
 import bme.restaurant.dto.DrinkDTO;
 import bme.restaurant.dto.FoodDTO;
 import bme.restaurant.dto.FoodRecipeInnerDTO;
+import bme.restaurant.dto.DrinkDTO.TypeEnum;
 import bme.restaurant.repository.DrinkRepository;
 import bme.restaurant.repository.FoodRepository;
 import bme.restaurant.repository.IngredientRepository;
@@ -29,7 +30,7 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     public DrinkDTO addDrink(DrinkDTO drinkDTO) {
-        var drink = new Drink(drinkDTO.getName(), drinkDTO.getPrice(), drinkDTO.getType());
+        var drink = new Drink(drinkDTO.getName(), drinkDTO.getPrice(), drinkDTO.getType().getValue());
         drink = drinkRepo.save(drink);
         return drink.toDTO();
     }
@@ -42,7 +43,7 @@ public class MenuServiceImpl implements MenuService {
             RecipeLine recipeLine = new RecipeLine(ingredient, recipeLineInnerDTO.getQuantity());
             recipe.add(recipeLine);
         }
-        var food = new Food(foodDTO.getName(), foodDTO.getPrice(), foodDTO.getType(), recipe);
+        var food = new Food(foodDTO.getName(), foodDTO.getPrice(), foodDTO.getType().getValue(), recipe);
         food = foodRepo.save(food);
         return food.toDTO();
     }

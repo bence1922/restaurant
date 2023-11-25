@@ -1111,7 +1111,11 @@ components:
           example: Hamburger
         type:
           type: string
-          example: Főétel
+          enum:
+            - main course
+            - dessert
+            - side dish
+            - soup
         price:
           type: integer
           example: 400
@@ -1125,8 +1129,12 @@ components:
               unit:
                 type: string
                 enum:
+                  - kg
+                  - liter
                   - g
                   - dkg
+                  - dl
+                  - unit
               quantity:
                 type: integer
     FoodOrderItem:
@@ -1157,7 +1165,10 @@ components:
           example: Cola
         type: 
           type: string
-          example: Üdítő
+          enum:
+            - soft drink
+            - hot drink
+            - alcoholic drink
         price:
           type: integer
           example: 400
@@ -1249,6 +1260,7 @@ components:
             - g
             - dkg
             - dl
+            - unit
     DrinkStockItem:
       required:
         - name

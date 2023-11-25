@@ -50,7 +50,7 @@ public class DrinkStockItem {
 
     public DrinkStockItemDTO toDTO() {
         DrinkStockItemDTO drinkStockItemDTO = new DrinkStockItemDTO(this.getDrink().getName(), this.quantity);
-        drinkStockItemDTO.setId(this.id);
+        drinkStockItemDTO.setId(id);
         return drinkStockItemDTO;
     }
 }
