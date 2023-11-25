@@ -49,18 +49,24 @@ public interface BookingApi {
      * POST /booking : Book table
      *
      * @param newBookingDTO  (required)
-     * @return successful operation (status code 200)
-     *         or Invalid input (status code 405)
+     * @return Booking created successfully (status code 201)
+     *         or Bad request (status code 400)
+     *         or Unauthorized (status code 401)
+     *         or Forbidden (status code 403)
+     *         or Internal server error (status code 500)
      */
     @Operation(
         operationId = "bookTable",
         summary = "Book table",
         tags = { "booking" },
         responses = {
-            @ApiResponse(responseCode = "200", description = "successful operation", content = {
+            @ApiResponse(responseCode = "201", description = "Booking created successfully", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = BookingDTO.class))
             }),
-            @ApiResponse(responseCode = "405", description = "Invalid input")
+            @ApiResponse(responseCode = "400", description = "Bad request"),
+            @ApiResponse(responseCode = "401", description = "Unauthorized"),
+            @ApiResponse(responseCode = "403", description = "Forbidden"),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
         },
         security = {
             @SecurityRequirement(name = "sessionId")
@@ -94,18 +100,26 @@ public interface BookingApi {
      *
      * @param bookingId  (required)
      * @param status  (required)
-     * @return successful operation (status code 200)
-     *         or Invalid input (status code 405)
+     * @return Successful operation (status code 200)
+     *         or Bad request (status code 400)
+     *         or Unauthorized (status code 401)
+     *         or Forbidden (status code 403)
+     *         or Not found (status code 404)
+     *         or Internal server error (status code 500)
      */
     @Operation(
         operationId = "bookingStatusUpdate",
         summary = "Update booking status",
         tags = { "booking" },
         responses = {
-            @ApiResponse(responseCode = "200", description = "successful operation", content = {
+            @ApiResponse(responseCode = "200", description = "Successful operation", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = BookingDTO.class))
             }),
-            @ApiResponse(responseCode = "405", description = "Invalid input")
+            @ApiResponse(responseCode = "400", description = "Bad request"),
+            @ApiResponse(responseCode = "401", description = "Unauthorized"),
+            @ApiResponse(responseCode = "403", description = "Forbidden"),
+            @ApiResponse(responseCode = "404", description = "Not found"),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
         },
         security = {
             @SecurityRequirement(name = "sessionId")
@@ -138,7 +152,7 @@ public interface BookingApi {
      * GET /booking/{bookingId} : Get booking
      *
      * @param bookingId  (required)
-     * @return successful operation (status code 200)
+     * @return Successful operation (status code 200)
      *         or Invalid input (status code 405)
      */
     @Operation(
@@ -146,7 +160,7 @@ public interface BookingApi {
         summary = "Get booking",
         tags = { "booking" },
         responses = {
-            @ApiResponse(responseCode = "200", description = "successful operation", content = {
+            @ApiResponse(responseCode = "200", description = "Successful operation", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = BookingDTO.class))
             }),
             @ApiResponse(responseCode = "405", description = "Invalid input")
@@ -184,18 +198,24 @@ public interface BookingApi {
      * @param customerName  (optional)
      * @param from  (optional)
      * @param to  (optional)
-     * @return successful operation (status code 200)
-     *         or Invalid input (status code 405)
+     * @return Successful operation (status code 200)
+     *         or Bad request (status code 400)
+     *         or Unauthorized (status code 401)
+     *         or Forbidden (status code 403)
+     *         or Internal server error (status code 500)
      */
     @Operation(
         operationId = "queryBookings",
         summary = "Query bookings",
         tags = { "booking" },
         responses = {
-            @ApiResponse(responseCode = "200", description = "successful operation", content = {
+            @ApiResponse(responseCode = "200", description = "Successful operation", content = {
                 @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = BookingDTO.class)))
             }),
-            @ApiResponse(responseCode = "405", description = "Invalid input")
+            @ApiResponse(responseCode = "400", description = "Bad request"),
+            @ApiResponse(responseCode = "401", description = "Unauthorized"),
+            @ApiResponse(responseCode = "403", description = "Forbidden"),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
         },
         security = {
             @SecurityRequirement(name = "sessionId")
@@ -231,18 +251,24 @@ public interface BookingApi {
      *
      * @param from  (required)
      * @param to  (required)
-     * @return successful operation (status code 200)
-     *         or Invalid input (status code 405)
+     * @return Successful operation (status code 200)
+     *         or Bad request (status code 400)
+     *         or Unauthorized (status code 401)
+     *         or Forbidden (status code 403)
+     *         or Internal server error (status code 500)
      */
     @Operation(
         operationId = "queryTablesForBooking",
         summary = "Query avaible tables",
         tags = { "booking" },
         responses = {
-            @ApiResponse(responseCode = "200", description = "successful operation", content = {
+            @ApiResponse(responseCode = "200", description = "Successful operation", content = {
                 @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = TableDTO.class)))
             }),
-            @ApiResponse(responseCode = "405", description = "Invalid input")
+            @ApiResponse(responseCode = "400", description = "Bad request"),
+            @ApiResponse(responseCode = "401", description = "Unauthorized"),
+            @ApiResponse(responseCode = "403", description = "Forbidden"),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
         },
         security = {
             @SecurityRequirement(name = "sessionId")

@@ -2,9 +2,11 @@ package bme.restaurant.service;
 
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.session.MapSession;
 import org.springframework.session.SessionRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 
 import bme.restaurant.dao.User;
 import bme.restaurant.dto.UserDTO;
@@ -23,7 +25,7 @@ public class UserServiceImpl implements UserService {
     private bme.restaurant.repository.UserRepository userRepo;
 
     @Autowired
-    private SessionRepository<MapSession>  sessionRepository;
+    private SessionRepository<MapSession> sessionRepository;
 
     @Autowired
     private HttpServletRequest request;
@@ -64,18 +66,24 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO getUserById(String userId) {
-        var user = userRepo.findById(userId);
-        if (user.isPresent()) {
-            User userValid = user.get();
-            return new UserDTO(userValid.getName(), userValid.getEmail(), userValid.getMobilNumber(),
-                    userValid.getAddress());
+        var response = userRepo.findById(userId);
+        if (response.isEmpty()) {
+            throw new HttpClientErrorException(HttpStatus.NOT_FOUND,
+                    String.format("User not found with Id: %s", userId));
         }
-        return null;
+        var user = response.get();
+        return new UserDTO(user.getName(), user.getEmail(), user.getMobilNumber(),
+                user.getAddress());
     }
 
     @Override
     public UserDTO updateUserById(String userId, UserDTO userDTO) {
-        User user = userRepo.findById(userId).get();
+        var response = userRepo.findById(userId);
+        if (response.isEmpty()) {
+            throw new HttpClientErrorException(HttpStatus.NOT_FOUND,
+                    String.format("User not found with Id: %s", userId));
+        }
+        var user = response.get();
         user.setAddress(userDTO.getAddress());
         user.setEmail(userDTO.getEmail());
         user.setMobilNumber(userDTO.getMobil());
@@ -87,17 +95,22 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void passwordReset(String userId, String oldPassword, String newPassword) {
-        User user = userRepo.findById(userId).get();
+        var response = userRepo.findById(userId);
+        if (response.isEmpty()) {
+            throw new HttpClientErrorException(HttpStatus.NOT_FOUND,
+                    String.format("User not found with Id: %s", userId));
+        }
+        var user = response.get();
         if (BCrypt.checkpw(oldPassword, user.getPasswordHash()))
             user.setPasswordHash(BCrypt.hashpw(newPassword, BCrypt.gensalt()));
         throw new RuntimeException("Invalid old password");
     }
-    
+
     @Override
     public List<UserDTO> getEmployees() {
         List<User> entities = userRepo.findByRole("employee");
         List<UserDTO> employees = new ArrayList<>();
-        for (User user : entities){
+        for (User user : entities) {
             employees.add(user.toDTO());
         }
         return employees;
@@ -107,7 +120,7 @@ public class UserServiceImpl implements UserService {
     public List<UserDTO> getCustomers() {
         List<User> entities = userRepo.findByRole("customer");
         List<UserDTO> employees = new ArrayList<>();
-        for (User user : entities){
+        for (User user : entities) {
             employees.add(user.toDTO());
         }
         return employees;
@@ -116,7 +129,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDTO registerEmployee(UserRegisterDTO userRegisterDTO) {
         String passwordHash = BCrypt.hashpw(userRegisterDTO.getPassword(), BCrypt.gensalt());
-        User user = new User(userRegisterDTO.getName(), userRegisterDTO.getAddress(), userRegisterDTO.getMobil(), userRegisterDTO.getMobil(), passwordHash, "employee");
+        User user = new User(userRegisterDTO.getName(), userRegisterDTO.getAddress(), userRegisterDTO.getMobil(),
+                userRegisterDTO.getMobil(), passwordHash, "employee");
         user = userRepo.save(user);
         return user.toDTO();
     }
@@ -124,7 +138,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDTO registerCustomer(UserRegisterDTO userRegisterDTO) {
         String passwordHash = BCrypt.hashpw(userRegisterDTO.getPassword(), BCrypt.gensalt());
-        User user = new User(userRegisterDTO.getName(), userRegisterDTO.getAddress(), userRegisterDTO.getMobil(), userRegisterDTO.getMobil(), passwordHash, "customer");
+        User user = new User(userRegisterDTO.getName(), userRegisterDTO.getAddress(), userRegisterDTO.getMobil(),
+                userRegisterDTO.getMobil(), passwordHash, "customer");
         user = userRepo.save(user);
         return user.toDTO();
     }

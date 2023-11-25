@@ -1,6 +1,8 @@
 package bme.restaurant.service;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 
 import bme.restaurant.dao.Drink;
 import bme.restaurant.dao.Food;
@@ -61,6 +63,10 @@ public class MenuServiceImpl implements MenuService {
     @Override
     public DrinkDTO getDrink(String drinkId) {
         Drink drink = drinkRepo.findById(drinkId).get();
+        if (drink == null) {
+            throw new HttpClientErrorException(HttpStatus.NOT_FOUND,
+                    String.format("Drink not found with Id: %s", drinkId));
+        }
         return drink.toDTO();
     }
 
@@ -76,6 +82,10 @@ public class MenuServiceImpl implements MenuService {
     @Override
     public FoodDTO getFood(String foodId) {
         Food food = foodRepo.findById(foodId).get();
+        if (food == null) {
+            throw new HttpClientErrorException(HttpStatus.NOT_FOUND,
+                    String.format("Food not found with Id: %s", foodId));
+        }
         return food.toDTO();
     }
 
@@ -91,6 +101,10 @@ public class MenuServiceImpl implements MenuService {
     @Override
     public DrinkDTO updateDrink(String drinkId, String name, Integer price) {
         Drink drink = drinkRepo.findById(drinkId).get();
+        if (drink == null) {
+            throw new HttpClientErrorException(HttpStatus.NOT_FOUND,
+                    String.format("Drink not found with Id: %s", drinkId));
+        }
         if (name != null) 
             drink.setName(name);            
         if(price != null)
@@ -102,6 +116,10 @@ public class MenuServiceImpl implements MenuService {
     @Override
     public FoodDTO updateFood(String foodId, String name, Integer price) {
         Food food = foodRepo.findById(foodId).get();
+        if (food == null) {
+            throw new HttpClientErrorException(HttpStatus.NOT_FOUND,
+                    String.format("Food not found with Id: %s", foodId));
+        }
         if (name != null) 
             food.setName(name);            
         if(price != null)

@@ -20,20 +20,20 @@ public class UserController implements UserApi {
     @Authorize(permission = "default", selfAccess = true, roles = {"admin"})
     public ResponseEntity<Void> deleteUserById(String userId) {
         userService.deleteUser(userId);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 
     @Override
     @Authorize(permission = "default", selfAccess = true, roles = {"admin"})
     public ResponseEntity<UserDTO> getUserById(String userId) {
-        UserDTO response = userService.getUserById(userId);
+        var response = userService.getUserById(userId);
         return ResponseEntity.ok(response);
     }
 
     @Override
     @Authorize(permission = "default", selfAccess = true, roles = {"admin"})
     public ResponseEntity<UserDTO> updateUserById(String userId, @Valid UserDTO userDTO) {
-        UserDTO response = userService.updateUserById(userId, userDTO);
+        var response = userService.updateUserById(userId, userDTO);
         return ResponseEntity.ok(response);
     }
 }

@@ -22,25 +22,25 @@ public class StockController implements StockApi {
     @Override
     public ResponseEntity<DrinkStockItemDTO> createDrinkStockItem(@Valid DrinkStockItemDTO drinkStockItemDTO) {
         DrinkStockItemDTO response = stockService.createDrink(drinkStockItemDTO);
-        return ResponseEntity.ok(response);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     @Override
     public ResponseEntity<FoodStockItemDTO> createFoodStockItem(@Valid FoodStockItemDTO foodStockItemDTO) {
         FoodStockItemDTO response = stockService.createFood(foodStockItemDTO);
-        return ResponseEntity.ok(response);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     @Override
     public ResponseEntity<Void> deleteDrinkStockItem(String drinkStockItemId) {
         stockService.deleteDrink(drinkStockItemId);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 
     @Override
     public ResponseEntity<Void> deleteFoodStockItem(String foodStockItemId) {
         stockService.deleteFood(foodStockItemId);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 
     @Override
