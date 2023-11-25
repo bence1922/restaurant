@@ -6,6 +6,7 @@ import { ButtonModule } from 'primeng/button';
 import { MenuItem } from 'primeng/api';
 import { RatingModule } from 'primeng/rating';
 import { DropdownModule } from 'primeng/dropdown';
+import { PdfGeneratorService } from 'src/app/services/pdfGenerator.service';
 
 @Component({
   selector: 'app-order-admin-delivery',
@@ -17,6 +18,7 @@ import { DropdownModule } from 'primeng/dropdown';
 export class OrderAdminDeliveryComponent implements OnInit {
   orders!: Order[] 
   statusData!: MenuItem[]
+  pdfGenerator= new PdfGeneratorService()
 
   ngOnInit(): void {
     this.statusData=[
@@ -30,9 +32,11 @@ export class OrderAdminDeliveryComponent implements OnInit {
 
   deleteOrder(order: Order){}
 
-  export(order: Order){}
-
   calculatePrice(order: Order){
 
+  }
+
+  generateInvoice(order: Order){
+    this.pdfGenerator.generatePdf(order)
   }
 }

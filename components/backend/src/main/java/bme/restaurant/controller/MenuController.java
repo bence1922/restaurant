@@ -3,6 +3,7 @@ package bme.restaurant.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,25 +22,25 @@ public class MenuController implements MenuApi {
     @Override
     public ResponseEntity<Void> addDrinkToMenu(@Valid DrinkDTO drinkDTO) {
         menuService.addDrink(drinkDTO);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @Override
     public ResponseEntity<Void> addFoodToMenu(@Valid FoodDTO foodDTO) {
         menuService.addFood(foodDTO);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @Override
     public ResponseEntity<Void> deleteDrink(String drinkId) {
         menuService.deleteDrink(drinkId);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 
     @Override
     public ResponseEntity<Void> deleteFood(String foodId) {
         menuService.deleteFood(foodId);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 
     @Override

@@ -4,6 +4,7 @@ import java.time.OffsetDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -32,15 +33,15 @@ public class CustomerController implements CustomerApi {
 
     @Override
     public ResponseEntity<UserDTO> registerCustomer(@Valid UserRegisterDTO userRegisterDTO) {
-        UserDTO user = userService.registerCustomer(userRegisterDTO);
-        return ResponseEntity.ok(user);
+        var response = userService.registerCustomer(userRegisterDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     @Override
     @Authorize(permission = "customer-read")
     public ResponseEntity<List<UserDTO>> listCustomers() {
-        List<UserDTO> customers = userService.getCustomers();
-        return ResponseEntity.ok(customers);
+        var response = userService.getCustomers();
+        return ResponseEntity.ok(response);
     }
 
     @Override

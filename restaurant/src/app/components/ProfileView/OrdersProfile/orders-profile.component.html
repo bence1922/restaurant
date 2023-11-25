@@ -48,7 +48,7 @@
             <div>
                 <div class="flex">
                     <p-rating  [readonly]="true" [cancel]="false"></p-rating>
-                    <p-button icon="pi pi-file-export" [rounded]="true" [text]="true" class="ml-8"></p-button>
+                    <p-button icon="pi pi-file-export" [rounded]="true" [text]="true" class="ml-8" (onClick)="generateInvoice(order)"></p-button>
                 </div>
             </div>
         </div>

@@ -1,6 +1,8 @@
 package bme.restaurant.service;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 
 import bme.restaurant.dao.Drink;
 import bme.restaurant.dao.Food;
@@ -9,6 +11,7 @@ import bme.restaurant.dao.RecipeLine;
 import bme.restaurant.dto.DrinkDTO;
 import bme.restaurant.dto.FoodDTO;
 import bme.restaurant.dto.FoodRecipeInnerDTO;
+import bme.restaurant.dto.DrinkDTO.TypeEnum;
 import bme.restaurant.repository.DrinkRepository;
 import bme.restaurant.repository.FoodRepository;
 import bme.restaurant.repository.IngredientRepository;
@@ -29,7 +32,7 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     public DrinkDTO addDrink(DrinkDTO drinkDTO) {
-        var drink = new Drink(drinkDTO.getName(), drinkDTO.getPrice(), drinkDTO.getType());
+        var drink = new Drink(drinkDTO.getName(), drinkDTO.getPrice(), drinkDTO.getType().getValue());
         drink = drinkRepo.save(drink);
         return drink.toDTO();
     }
@@ -42,7 +45,7 @@ public class MenuServiceImpl implements MenuService {
             RecipeLine recipeLine = new RecipeLine(ingredient, recipeLineInnerDTO.getQuantity());
             recipe.add(recipeLine);
         }
-        var food = new Food(foodDTO.getName(), foodDTO.getPrice(), foodDTO.getType(), recipe);
+        var food = new Food(foodDTO.getName(), foodDTO.getPrice(), foodDTO.getType().getValue(), recipe);
         food = foodRepo.save(food);
         return food.toDTO();
     }
@@ -60,6 +63,10 @@ public class MenuServiceImpl implements MenuService {
     @Override
     public DrinkDTO getDrink(String drinkId) {
         Drink drink = drinkRepo.findById(drinkId).get();
+        if (drink == null) {
+            throw new HttpClientErrorException(HttpStatus.NOT_FOUND,
+                    String.format("Drink not found with Id: %s", drinkId));
+        }
         return drink.toDTO();
     }
 
@@ -75,6 +82,10 @@ public class MenuServiceImpl implements MenuService {
     @Override
     public FoodDTO getFood(String foodId) {
         Food food = foodRepo.findById(foodId).get();
+        if (food == null) {
+            throw new HttpClientErrorException(HttpStatus.NOT_FOUND,
+                    String.format("Food not found with Id: %s", foodId));
+        }
         return food.toDTO();
     }
 
@@ -90,6 +101,10 @@ public class MenuServiceImpl implements MenuService {
     @Override
     public DrinkDTO updateDrink(String drinkId, String name, Integer price) {
         Drink drink = drinkRepo.findById(drinkId).get();
+        if (drink == null) {
+            throw new HttpClientErrorException(HttpStatus.NOT_FOUND,
+                    String.format("Drink not found with Id: %s", drinkId));
+        }
         if (name != null) 
             drink.setName(name);            
         if(price != null)
@@ -101,6 +116,10 @@ public class MenuServiceImpl implements MenuService {
     @Override
     public FoodDTO updateFood(String foodId, String name, Integer price) {
         Food food = foodRepo.findById(foodId).get();
+        if (food == null) {
+            throw new HttpClientErrorException(HttpStatus.NOT_FOUND,
+                    String.format("Food not found with Id: %s", foodId));
+        }
         if (name != null) 
             food.setName(name);            
         if(price != null)
