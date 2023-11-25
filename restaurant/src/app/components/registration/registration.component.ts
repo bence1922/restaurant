@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/generated-api/api/auth.service';
-import { CustomerService, UserRegister, User } from 'src/app/generated-api';
+import { CustomerService, UserRegister, User, EmployeeService } from 'src/app/generated-api';
 import { StoreUserService } from 'src/app/generated-api/api/store.service';
 
 @Component({
@@ -27,7 +27,8 @@ export class RegistrationComponent {
     private storeUserService: StoreUserService,
     private authService: AuthService,
 
-  ) {}
+  ) {
+  }
 
   submitLoginForm(form: any) {
     if (form.valid) {
@@ -40,16 +41,15 @@ export class RegistrationComponent {
           mobil: this.mobile,
           email: this.email,
           address: this.address,
-          password: this.password} as UserRegister
-        this.customerService.registerCustomer(user).subscribe((user: User) => {
-          this.authService.login({name: user.name, password: this.password} as UserRegister).subscribe((userSession) => {
-          this.storeUserService.storeUser(userSession);
-          this.router.navigate(['/']);
-          });
+          password: this.password} as UserRegister;          
+          this.customerService.registerCustomer(user).subscribe((user: User) => {
+            this.authService.login({name: user.name, password: this.password} as UserRegister).subscribe((userSession) => {
+            this.storeUserService.storeUser(userSession);
+            this.router.navigate(['/']);
+            });
         });
       }
-      console.log('Registration API call');
-    }
+   }
   }
 
   goToLogin() {

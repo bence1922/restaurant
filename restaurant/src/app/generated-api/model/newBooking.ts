@@ -12,7 +12,7 @@
 
 
 export interface NewBooking { 
-    table_number: number;
+    tableNumber: number;
     user_id: string;
     startingDate: Date;
     endingDate: Date;

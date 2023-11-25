@@ -5,11 +5,10 @@ api/api.ts
 api/auth.service.ts
 api/booking.service.ts
 api/customer.service.ts
-api/customerOrder.service.ts
+api/default.service.ts
 api/employee.service.ts
 api/menu.service.ts
 api/table.service.ts
-api/tableOrder.service.ts
 api/user.service.ts
 configuration.ts
 encoder.ts

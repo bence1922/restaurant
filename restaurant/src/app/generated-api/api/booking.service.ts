@@ -172,17 +172,17 @@ export class BookingService {
 
     /**
      * Update booking status
-     * @param id 
+     * @param bookingId 
      * @param status 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public bookingStatusUpdate(id: string, status: 'pending' | 'accepted', observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<Booking>;
-    public bookingStatusUpdate(id: string, status: 'pending' | 'accepted', observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<Booking>>;
-    public bookingStatusUpdate(id: string, status: 'pending' | 'accepted', observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<Booking>>;
-    public bookingStatusUpdate(id: string, status: 'pending' | 'accepted', observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
-        if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling bookingStatusUpdate.');
+    public bookingStatusUpdate(bookingId: string, status: 'pending' | 'accepted', observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<Booking>;
+    public bookingStatusUpdate(bookingId: string, status: 'pending' | 'accepted', observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<Booking>>;
+    public bookingStatusUpdate(bookingId: string, status: 'pending' | 'accepted', observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<Booking>>;
+    public bookingStatusUpdate(bookingId: string, status: 'pending' | 'accepted', observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
+        if (bookingId === null || bookingId === undefined) {
+            throw new Error('Required parameter bookingId was null or undefined when calling bookingStatusUpdate.');
         }
         if (status === null || status === undefined) {
             throw new Error('Required parameter status was null or undefined when calling bookingStatusUpdate.');
@@ -229,7 +229,7 @@ export class BookingService {
             }
         }
 
-        let localVarPath = `/booking/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
+        let localVarPath = `/booking/${this.configuration.encodeParam({name: "bookingId", value: bookingId, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
         return this.httpClient.request<Booking>('patch', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -244,16 +244,16 @@ export class BookingService {
 
     /**
      * Get booking
-     * @param id 
+     * @param bookingId 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getBooking(id: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<Booking>;
-    public getBooking(id: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<Booking>>;
-    public getBooking(id: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<Booking>>;
-    public getBooking(id: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
-        if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling getBooking.');
+    public getBooking(bookingId: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<Booking>;
+    public getBooking(bookingId: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<Booking>>;
+    public getBooking(bookingId: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<Booking>>;
+    public getBooking(bookingId: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
+        if (bookingId === null || bookingId === undefined) {
+            throw new Error('Required parameter bookingId was null or undefined when calling getBooking.');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -294,7 +294,7 @@ export class BookingService {
             }
         }
 
-        let localVarPath = `/booking/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
+        let localVarPath = `/booking/${this.configuration.encodeParam({name: "bookingId", value: bookingId, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
         return this.httpClient.request<Booking>('get', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -323,7 +323,7 @@ export class BookingService {
 
         let localVarHeaders = this.defaultHeaders;
         if (tableNumber !== undefined && tableNumber !== null) {
-            localVarHeaders = localVarHeaders.set('table-number', String(tableNumber));
+            localVarHeaders = localVarHeaders.set('tableNumber', String(tableNumber));
         }
         if (customerName !== undefined && customerName !== null) {
             localVarHeaders = localVarHeaders.set('customer-name', String(customerName));

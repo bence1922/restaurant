@@ -27,7 +27,6 @@ export class OrderAdminDeliveryComponent implements OnInit {
     ]
 
     let order: Order = {
-      id: "0",
       status: Order.StatusEnum.Placed,
       date: new Date(),
       note: "Note",

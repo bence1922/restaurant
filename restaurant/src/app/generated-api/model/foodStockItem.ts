@@ -12,6 +12,7 @@
 
 
 export interface FoodStockItem { 
+    id?: string;
     name: string;
     quantity: number;
     unit: FoodStockItem.UnitEnum;
