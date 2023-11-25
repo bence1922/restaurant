@@ -5,7 +5,7 @@
             <p-button  severity="secondary" (onClick)="addNewMenuItem()">Add new menu item</p-button>
         </div>
         <div *ngFor="let type of foodTypeList; index as idx">
-            <div class="text-color imperial text-6xl">{{foodTypeEnumString(type)}}</div>
+            <div class="text-color imperial text-6xl">{{typeEnumString(type)}}</div>
             <div *ngFor="let food of foodList; index as i" >
                 <div *ngIf="food.type === type" class="flex inika col-10 col-offset-1 mb-3 justify-content-between">
                     <div class="mr-3 flex-grow-1" >
@@ -19,13 +19,15 @@
                         <div class="text-color text-sm mx-4">{{foodRecipeToDescription(food.recipe)}}</div>
                     </div>
                     <p-button *ngIf="hasOneOfTheRoles(['customer'])" icon="pi pi-cart-plus" [rounded]="true" [text]="true" (onClick)="addCart(true, i)"></p-button>
+                    <p-button *ngIf="hasOneOfTheRoles(['admin', 'manager'])" icon="pi pi-trash" [rounded]="true" [text]="true" (onClick)="deleteMenuItem_Food(food)"></p-button>
                 </div>
             </div>
             <p-divider class="text-color-secondary mb-8"></p-divider>
         </div>
-            <div class="text-color imperial text-6xl">Drink</div>
+        <div *ngFor="let type of drinkTypeList">
+            <div class="text-color imperial text-6xl">{{typeEnumString(type)}}</div>
             <div *ngFor="let drink of drinkList; index as i">
-                <div class="flex inika col-10 col-offset-1 mb-3 justify-content-between">
+                <div class="flex inika col-10 col-offset-1 mb-3 justify-content-between" *ngIf="drink.type === type">
                     <div class="mr-3 flex-grow-1" >
                         <div class="flex align-items-center">
                             <div class="text-color uppercase text-lg">{{drink.name}}</div>
@@ -36,37 +38,43 @@
                         </div>
                     </div>
                     <p-button *ngIf="hasOneOfTheRoles(['customer'])" icon="pi pi-cart-plus" [rounded]="true" [text]="true" (onClick)="addCart(false, i)"></p-button>
+                    <p-button *ngIf="hasOneOfTheRoles(['admin', 'manager'])" icon="pi pi-trash" [rounded]="true" [text]="true" (onClick)="deleteMenuItem_Drink(drink)"></p-button>
                 </div>
             </div>
+        </div>
     </div>
     <p-dialog header="Add new menu item" [(visible)]="dialogVisible" [style]="{width: '40vw'}">
+        <div class="flex ml-5 my-4">
+            <div class="flex align-items-center mr-3">
+                <input type="radio" name="foodRBtn" [value]="true" [(ngModel)]="food" inputId="food"/>
+                <label for="food" class="ml-2">Food</label>
+            </div>
+            <div class="flex align-items-center">
+                <input type="radio" name="foodRBtn" [value]="false" [(ngModel)]="food" inputId="drink"/>
+                <label for="drink" class="ml-2">Drink</label>
+            </div>
+        </div>
         <div class="flex justify-content-center">
-            <form class="w-auto" >
-                <div class="flex ml-5 my-4">
-                    <div class="flex align-items-center mr-3">
-                        <input type="radio" name="foodRBtn" [value]="true" [(ngModel)]="food" inputId="food"/>
-                        <label for="food" class="ml-2">Food</label>
-                    </div>
-                    <div class="flex align-items-center">
-                        <input type="radio" name="foodRBtn" [value]="false" [(ngModel)]="food" inputId="drink"/>
-                        <label for="drink" class="ml-2">Drink</label>
-                    </div>
-                </div>
+            <form class="w-auto" [formGroup]="newMenuItem" (submit)="onSubmit()">
                 <div class="my-4">
                     <label for="name">Name</label>
-                    <input id="name" type="text" class="form-control  text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                    <input id="name" formControlName="name" type="text" class="form-control  text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
                 </div>
                 <div class="my-4">
                     <label for="price">Price</label>
-                    <input id="price" type="price" [min]="0" class="form-control  text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                    <input id="price" formControlName="price" [min]="0" type="number" class="form-control  text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
                 </div>
                 <div *ngIf="food" class="my-4">
                     <label for="ingredients" class="mr-2">Ingredients</label>
-                    <p-multiSelect id="ingredients" [showHeader]="true" [options]="ingredientList" optionLabel="name" appendTo="body" [showClear]="true" class=""></p-multiSelect>
+                    <p-multiSelect formControlName="ingredients" [showHeader]="true" [options]="ingredientList" optionLabel="name" appendTo="body" [showClear]="true" class=""></p-multiSelect>
                 </div>
                 <div *ngIf="food" class="my-4">
-                    <label for="type" class="mr-2">Type</label>
-                    <p-dropdown id="type" [options]="foodTypeList" appendTo="body"></p-dropdown>
+                    <label for="typeFood" class="mr-2">Type</label>
+                    <p-dropdown formControlName="typeFood" id="typeFood" [options]="foodTypeList" appendTo="body"></p-dropdown>
+                </div>
+                <div *ngIf="!food" class="my-4">
+                    <label for="typeDrink" class="mr-2">Type</label>
+                    <p-dropdown formControlName="typeDrink" id="typeDrink" [options]="drinkTypeList" appendTo="body"></p-dropdown>
                 </div>
                 <div class="flex justify-content-center">
                     <p-button severity="secondary" type="submit">Save</p-button>

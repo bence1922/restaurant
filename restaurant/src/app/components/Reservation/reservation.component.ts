@@ -37,8 +37,8 @@ export class ReservationComponent implements OnInit {
     var data: NewBooking={
       tableNumber: 1, //TODO
       user_id: customerId,
-      startingDate: new Date(this.newReservationForm.value.date!).toString(),
-      endingDate: "",
+      startingDate: new Date(this.newReservationForm.value.date!),
+      endingDate: new Date(),
       peopleCount: this.newReservationForm.value.guests!
     }
 

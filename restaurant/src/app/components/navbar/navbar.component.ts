@@ -25,7 +25,6 @@ export class NavbarComponent{
 
   ngOnInit(): void {
     this.isloggedIn = this.storeUserService.isLoggedIn();
-    this.hasOneOfTheRoles(['admin', 'user']);
   }
 
   hasOneOfTheRoles(roles: string[]): boolean{

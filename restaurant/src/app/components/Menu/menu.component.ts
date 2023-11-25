@@ -12,6 +12,8 @@ import { DialogModule } from 'primeng/dialog';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { Dropdown, DropdownModule } from 'primeng/dropdown';
+import { StoreUserService } from 'src/app/generated-api/api/store.service';
+import { ResizableColumn } from 'primeng/table';
 
 
 @Component({
@@ -29,18 +31,24 @@ export class MenuComponent implements OnInit {
     Food.TypeEnum.MainCourse,
     Food.TypeEnum.Dessert
   ]
+  drinkTypeList=[
+    Drink.TypeEnum.AlcoholicDrink,
+    Drink.TypeEnum.SoftDrink,
+    Drink.TypeEnum.HotDrink
+  ]
   drinkList: Drink[] | undefined
-  dialogVisible: boolean=true
-  food!: boolean
+  dialogVisible: boolean=false
+  food: boolean = true
   ingredientList!: FoodStockItem[]
   newMenuItem = new FormGroup({
     name: new FormControl('', [Validators.required]),
     price: new FormControl(0, [Validators.required]),
-    ingredients: new FormControl([]),
-    type: new FormControl(Food.TypeEnum.Soup, [Validators.required]),
+    ingredients: new FormControl(),
+    typeFood: new FormControl(Food.TypeEnum.Soup),
+    typeDrink: new FormControl(Drink.TypeEnum.SoftDrink),
   })
 
-  constructor(private authService: AuthService,private menuService: MenuService){}
+  constructor(private authService: AuthService,private menuService: MenuService,private storeUserService: StoreUserService){}
 
   ngOnInit(): void{
     this.foodList= new Array<Food>
@@ -70,8 +78,14 @@ export class MenuComponent implements OnInit {
     }
 
     hasOneOfTheRoles(roles: string[]): boolean{
-        //TODO
-      return true;
+      if(this.storeUserService.isLoggedIn()){
+        for(let role of roles){
+          if(this.storeUserService.hasRole(role)){
+            return true;
+          }
+        }
+      }
+      return false;
     }
 
     addCart(food: boolean, index: number){
@@ -82,8 +96,59 @@ export class MenuComponent implements OnInit {
       this.dialogVisible=true
     }
 
-    foodTypeEnumString(type: String){
+    onSubmit(){
+      if(this.food){
+        let food: Food={
+          id: "0",
+          name: this.newMenuItem.value.name!,
+          type: this.newMenuItem.value.typeFood!,
+          price: this.newMenuItem.value.price!,
+          recipe: this.newMenuItem.value.ingredients
+        }
+
+        this.menuService.addFoodToMenu(food).subscribe(
+          (result)=>{
+              this.dialogVisible=false;
+          }
+        )
+      }
+      else{
+        let drink: Drink ={
+          id:"0",
+          name: this.newMenuItem.value.name!,
+          type: this.newMenuItem.value.typeDrink!,
+          price: this.newMenuItem.value.price!,
+        }
+
+
+        this.menuService.addDrinkToMenu(drink).subscribe(
+          (result)=>{
+              this.dialogVisible=false
+          }
+        )
+      }
+    }
+
+    typeEnumString(type: String){
       return type.charAt(0).toUpperCase()+type.slice(1)
+    }
+
+    deleteMenuItem_Food(food: Food){
+      this.menuService.deleteFood(food.id).subscribe(
+        (result)=>{
+          alert("Seccessfully deleted food!")
+          this.ngOnInit()
+        }
+      )
+    }
+
+    deleteMenuItem_Drink(drink: Drink){
+      this.menuService.deleteDrink(drink.id).subscribe(
+        (result)=>{
+          alert("Seccessfully deleted drink!")
+          this.ngOnInit()
+        }
+      )
     }
   }
 
