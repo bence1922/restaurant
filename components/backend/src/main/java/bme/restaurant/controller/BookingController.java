@@ -10,14 +10,14 @@ import bme.restaurant.auth.Authorize;
 import bme.restaurant.dto.BookingDTO;
 import bme.restaurant.dto.NewBookingDTO;
 import bme.restaurant.dto.TableDTO;
-import bme.restaurant.service.BookingServiceImpl;
+import bme.restaurant.service.BookingService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 
 @RestController
 public class BookingController implements BookingApi {
     @Autowired
-    private BookingServiceImpl bookingService;
+    private BookingService bookingService;
 
     @Override
     @Authorize(permission = "booking-read")
@@ -41,7 +41,7 @@ public class BookingController implements BookingApi {
     }
     
     @Override
-    @Authorize(permission = "booking-read")
+    @Authorize(permission = "booking-read-all")
     public ResponseEntity<List<BookingDTO>> queryBookings(
         Integer tableNumber, 
         String customerName, 

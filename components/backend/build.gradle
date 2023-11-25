@@ -60,7 +60,8 @@ openApiGenerate {
   configOptions = [
       dateLibrary: "java8",
 	  interfaceOnly: "true",
-	  useSpringBoot3: "true"
+	  useSpringBoot3: "true",
+	  hideGenerationTimestamp: "true"
   ]
 }
 

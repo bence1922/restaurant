@@ -49,9 +49,10 @@ public class TableOrder {
     }
 
     public TableOrderDTO toDTO(){
-        var dto = new TableOrderDTO();
-        dto.setTable(table.toDTO());
-        dto.setOrder(order.toDTO());
-        return dto;
+       return new TableOrderDTO(
+            this.id,
+            this.table.toDTO(),
+            this.order.toDTO()
+        );
     }
 }

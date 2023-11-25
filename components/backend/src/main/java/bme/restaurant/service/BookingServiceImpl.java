@@ -98,10 +98,10 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public List<BookingDTO> queryCustomerBookings(String customerId, OffsetDateTime from, OffsetDateTime to) {
+    public List<BookingDTO> queryCustomerBookings(String userId, OffsetDateTime from, OffsetDateTime to) {
         Query query = new Query();
 
-        var customer = userRepo.findById(customerId);
+        var customer = userRepo.findById(userId);
         query.addCriteria(Criteria.where("customer").is(customer));
 
         if (from != null) {

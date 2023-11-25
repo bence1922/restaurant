@@ -61,4 +61,8 @@ public class Drink {
         dto.setType(type); 
         return dto;
     }
+
+    public static Drink fromDTO(DrinkDTO dto) {
+        return new Drink(dto.getName(), dto.getPrice(), dto.getType());
+    }
 }

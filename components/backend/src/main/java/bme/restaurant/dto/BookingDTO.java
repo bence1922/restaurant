@@ -25,7 +25,7 @@ import jakarta.annotation.Generated;
  */
 
 @JsonTypeName("Booking")
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-11-24T19:02:19.052817200+01:00[Europe/Budapest]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen")
 public class BookingDTO {
 
   private String id;
@@ -108,7 +108,7 @@ public class BookingDTO {
    * @return id
   */
   @NotNull 
-  @Schema(name = "id", example = "ObjectId('6544cd596955fe0a1c04fba9')", requiredMode = Schema.RequiredMode.REQUIRED)
+  @Schema(name = "id", example = "6544cd596955fe0a1c04fba9", requiredMode = Schema.RequiredMode.REQUIRED)
   @JsonProperty("id")
   public String getId() {
     return id;
