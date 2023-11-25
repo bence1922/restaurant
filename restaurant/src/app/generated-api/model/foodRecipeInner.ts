@@ -17,10 +17,14 @@ export interface FoodRecipeInner {
     quantity?: number;
 }
 export namespace FoodRecipeInner {
-    export type UnitEnum = 'g' | 'dkg';
+    export type UnitEnum = 'kg' | 'liter' | 'g' | 'dkg' | 'dl' | 'unit';
     export const UnitEnum = {
+        Kg: 'kg' as UnitEnum,
+        Liter: 'liter' as UnitEnum,
         G: 'g' as UnitEnum,
-        Dkg: 'dkg' as UnitEnum
+        Dkg: 'dkg' as UnitEnum,
+        Dl: 'dl' as UnitEnum,
+        Unit: 'unit' as UnitEnum
     };
 }
 

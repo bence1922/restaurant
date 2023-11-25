@@ -21,6 +21,10 @@ import { Observable }                                        from 'rxjs';
 // @ts-ignore
 import { Booking } from '../model/booking';
 // @ts-ignore
+import { CustomerOrder } from '../model/customerOrder';
+// @ts-ignore
+import { Order } from '../model/order';
+// @ts-ignore
 import { User } from '../model/user';
 // @ts-ignore
 import { UserRegister } from '../model/userRegister';
@@ -36,7 +40,7 @@ import { Configuration }                                     from '../configurat
 })
 export class CustomerService {
 
-    protected basePath = 'http://localhost:8084';
+    protected basePath = 'http://localhost:8080/api';
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
     public encoder: HttpParameterCodec;
@@ -140,7 +144,7 @@ export class CustomerService {
         }
 
 
-        let localVarPath = `/customer/${this.configuration.encodeParam({name: "userId", value: userId, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}/invoice/${this.configuration.encodeParam({name: "orderId", value: orderId, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
+        let localVarPath = `/customer/order/${this.configuration.encodeParam({name: "userId", value: userId, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}/${this.configuration.encodeParam({name: "orderId", value: orderId, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}/invoice`;
         return this.httpClient.request('get', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -215,6 +219,82 @@ export class CustomerService {
     }
 
     /**
+     * Place an order
+     * @param userId 
+     * @param order 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public placeCustomerOrder(userId: string, order?: Order, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<Order>;
+    public placeCustomerOrder(userId: string, order?: Order, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<Order>>;
+    public placeCustomerOrder(userId: string, order?: Order, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<Order>>;
+    public placeCustomerOrder(userId: string, order?: Order, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
+        if (userId === null || userId === undefined) {
+            throw new Error('Required parameter userId was null or undefined when calling placeCustomerOrder.');
+        }
+
+        let localVarHeaders = this.defaultHeaders;
+
+        let localVarCredential: string | undefined;
+        // authentication (sessionId) required
+        localVarCredential = this.configuration.lookupCredential('sessionId');
+        if (localVarCredential) {
+            localVarHeaders = localVarHeaders.set('sessionId', localVarCredential);
+        }
+
+        let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (localVarHttpHeaderAcceptSelected === undefined) {
+            // to determine the Accept header
+            const httpHeaderAccepts: string[] = [
+                'application/json'
+            ];
+            localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        }
+        if (localVarHttpHeaderAcceptSelected !== undefined) {
+            localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
+        }
+
+        let localVarHttpContext: HttpContext | undefined = options && options.context;
+        if (localVarHttpContext === undefined) {
+            localVarHttpContext = new HttpContext();
+        }
+
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected !== undefined) {
+            localVarHeaders = localVarHeaders.set('Content-Type', httpContentTypeSelected);
+        }
+
+        let responseType_: 'text' | 'json' | 'blob' = 'json';
+        if (localVarHttpHeaderAcceptSelected) {
+            if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+                responseType_ = 'text';
+            } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
+                responseType_ = 'json';
+            } else {
+                responseType_ = 'blob';
+            }
+        }
+
+        let localVarPath = `/customer/order/${this.configuration.encodeParam({name: "userId", value: userId, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
+        return this.httpClient.request<Order>('post', `${this.configuration.basePath}${localVarPath}`,
+            {
+                context: localVarHttpContext,
+                body: order,
+                responseType: <any>responseType_,
+                withCredentials: this.configuration.withCredentials,
+                headers: localVarHeaders,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
      * Query bookings for customer
      * @param userId 
      * @param from 
@@ -222,12 +302,12 @@ export class CustomerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public queryCustomerBookings(userId: string, from?: Date, to?: Date, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<Array<Booking>>;
-    public queryCustomerBookings(userId: string, from?: Date, to?: Date, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<Array<Booking>>>;
-    public queryCustomerBookings(userId: string, from?: Date, to?: Date, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<Array<Booking>>>;
-    public queryCustomerBookings(userId: string, from?: Date, to?: Date, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
+    public queryBookingsForCustomer(userId: string, from?: Date, to?: Date, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<Array<Booking>>;
+    public queryBookingsForCustomer(userId: string, from?: Date, to?: Date, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<Array<Booking>>>;
+    public queryBookingsForCustomer(userId: string, from?: Date, to?: Date, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<Array<Booking>>>;
+    public queryBookingsForCustomer(userId: string, from?: Date, to?: Date, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
         if (userId === null || userId === undefined) {
-            throw new Error('Required parameter userId was null or undefined when calling queryCustomerBookings.');
+            throw new Error('Required parameter userId was null or undefined when calling queryBookingsForCustomer.');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -236,6 +316,13 @@ export class CustomerService {
         }
         if (to !== undefined && to !== null) {
             localVarHeaders = localVarHeaders.set('to', String(to));
+        }
+
+        let localVarCredential: string | undefined;
+        // authentication (sessionId) required
+        localVarCredential = this.configuration.lookupCredential('sessionId');
+        if (localVarCredential) {
+            localVarHeaders = localVarHeaders.set('sessionId', localVarCredential);
         }
 
         let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
@@ -267,8 +354,146 @@ export class CustomerService {
             }
         }
 
-        let localVarPath = `/customer/${this.configuration.encodeParam({name: "userId", value: userId, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}/booking`;
+        let localVarPath = `/customer/booking/${this.configuration.encodeParam({name: "userId", value: userId, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
         return this.httpClient.request<Array<Booking>>('get', `${this.configuration.basePath}${localVarPath}`,
+            {
+                context: localVarHttpContext,
+                responseType: <any>responseType_,
+                withCredentials: this.configuration.withCredentials,
+                headers: localVarHeaders,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * Query customer orders
+     * @param customerName 
+     * @param isCurrent 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public queryCustomerOrders(customerName?: string, isCurrent?: boolean, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<Array<CustomerOrder>>;
+    public queryCustomerOrders(customerName?: string, isCurrent?: boolean, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<Array<CustomerOrder>>>;
+    public queryCustomerOrders(customerName?: string, isCurrent?: boolean, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<Array<CustomerOrder>>>;
+    public queryCustomerOrders(customerName?: string, isCurrent?: boolean, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
+
+        let localVarHeaders = this.defaultHeaders;
+        if (customerName !== undefined && customerName !== null) {
+            localVarHeaders = localVarHeaders.set('customer-name', String(customerName));
+        }
+        if (isCurrent !== undefined && isCurrent !== null) {
+            localVarHeaders = localVarHeaders.set('is-current', String(isCurrent));
+        }
+
+        let localVarCredential: string | undefined;
+        // authentication (sessionId) required
+        localVarCredential = this.configuration.lookupCredential('sessionId');
+        if (localVarCredential) {
+            localVarHeaders = localVarHeaders.set('sessionId', localVarCredential);
+        }
+
+        let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (localVarHttpHeaderAcceptSelected === undefined) {
+            // to determine the Accept header
+            const httpHeaderAccepts: string[] = [
+                'application/json'
+            ];
+            localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        }
+        if (localVarHttpHeaderAcceptSelected !== undefined) {
+            localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
+        }
+
+        let localVarHttpContext: HttpContext | undefined = options && options.context;
+        if (localVarHttpContext === undefined) {
+            localVarHttpContext = new HttpContext();
+        }
+
+
+        let responseType_: 'text' | 'json' | 'blob' = 'json';
+        if (localVarHttpHeaderAcceptSelected) {
+            if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+                responseType_ = 'text';
+            } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
+                responseType_ = 'json';
+            } else {
+                responseType_ = 'blob';
+            }
+        }
+
+        let localVarPath = `/customer/order`;
+        return this.httpClient.request<Array<CustomerOrder>>('get', `${this.configuration.basePath}${localVarPath}`,
+            {
+                context: localVarHttpContext,
+                responseType: <any>responseType_,
+                withCredentials: this.configuration.withCredentials,
+                headers: localVarHeaders,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * Query orders for customer
+     * @param userId 
+     * @param isCurrent 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public queryOrdersForCustomer(userId: string, isCurrent?: boolean, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<Array<Order>>;
+    public queryOrdersForCustomer(userId: string, isCurrent?: boolean, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<Array<Order>>>;
+    public queryOrdersForCustomer(userId: string, isCurrent?: boolean, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<Array<Order>>>;
+    public queryOrdersForCustomer(userId: string, isCurrent?: boolean, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
+        if (userId === null || userId === undefined) {
+            throw new Error('Required parameter userId was null or undefined when calling queryOrdersForCustomer.');
+        }
+
+        let localVarHeaders = this.defaultHeaders;
+        if (isCurrent !== undefined && isCurrent !== null) {
+            localVarHeaders = localVarHeaders.set('is-current', String(isCurrent));
+        }
+
+        let localVarCredential: string | undefined;
+        // authentication (sessionId) required
+        localVarCredential = this.configuration.lookupCredential('sessionId');
+        if (localVarCredential) {
+            localVarHeaders = localVarHeaders.set('sessionId', localVarCredential);
+        }
+
+        let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (localVarHttpHeaderAcceptSelected === undefined) {
+            // to determine the Accept header
+            const httpHeaderAccepts: string[] = [
+                'application/json'
+            ];
+            localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        }
+        if (localVarHttpHeaderAcceptSelected !== undefined) {
+            localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
+        }
+
+        let localVarHttpContext: HttpContext | undefined = options && options.context;
+        if (localVarHttpContext === undefined) {
+            localVarHttpContext = new HttpContext();
+        }
+
+
+        let responseType_: 'text' | 'json' | 'blob' = 'json';
+        if (localVarHttpHeaderAcceptSelected) {
+            if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+                responseType_ = 'text';
+            } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
+                responseType_ = 'json';
+            } else {
+                responseType_ = 'blob';
+            }
+        }
+
+        let localVarPath = `/customer/order/${this.configuration.encodeParam({name: "userId", value: userId, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
+        return this.httpClient.request<Array<Order>>('get', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
                 responseType: <any>responseType_,

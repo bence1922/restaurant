@@ -14,7 +14,8 @@ import { User } from './user';
 
 
 export interface CustomerOrder { 
-    customer?: User;
-    order?: Order;
+    id: string;
+    customer: User;
+    order: Order;
 }
 

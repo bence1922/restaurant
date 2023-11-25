@@ -4,9 +4,10 @@
         <div *ngIf="hasOneOfTheRoles(['manager', 'admin'])" class="flex justify-content-center mb-3">
             <p-button  severity="secondary" (onClick)="addNewMenuItem()">Add new menu item</p-button>
         </div>
-            <div class="text-color imperial text-6xl">Food</div>
-            <div *ngFor="let food of foodList; index as i">
-                <div class="flex inika col-10 col-offset-1 mb-3 justify-content-between">
+        <div *ngFor="let type of foodTypeList; index as idx">
+            <div class="text-color imperial text-6xl">{{foodTypeEnumString(type)}}</div>
+            <div *ngFor="let food of foodList; index as i" >
+                <div *ngIf="food.type === type" class="flex inika col-10 col-offset-1 mb-3 justify-content-between">
                     <div class="mr-3 flex-grow-1" >
                         <div class="flex align-items-center">
                             <div class="text-color uppercase text-lg">{{food.name}}</div>
@@ -21,6 +22,7 @@
                 </div>
             </div>
             <p-divider class="text-color-secondary mb-8"></p-divider>
+        </div>
             <div class="text-color imperial text-6xl">Drink</div>
             <div *ngFor="let drink of drinkList; index as i">
                 <div class="flex inika col-10 col-offset-1 mb-3 justify-content-between">
@@ -60,7 +62,11 @@
                 </div>
                 <div *ngIf="food" class="my-4">
                     <label for="ingredients" class="mr-2">Ingredients</label>
-                    <p-multiSelect id="price" [showHeader]="true" [options]="ingredientList" optionLabel="name" appendTo="body" [showClear]="true" class=""></p-multiSelect>
+                    <p-multiSelect id="ingredients" [showHeader]="true" [options]="ingredientList" optionLabel="name" appendTo="body" [showClear]="true" class=""></p-multiSelect>
+                </div>
+                <div *ngIf="food" class="my-4">
+                    <label for="type" class="mr-2">Type</label>
+                    <p-dropdown id="type" [options]="foodTypeList" appendTo="body"></p-dropdown>
                 </div>
                 <div class="flex justify-content-center">
                     <p-button severity="secondary" type="submit">Save</p-button>

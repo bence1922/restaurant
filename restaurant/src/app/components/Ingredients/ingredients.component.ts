@@ -28,13 +28,6 @@ export class IngredientsComponent implements OnInit {
 
   ngOnInit(): void {
       this.ingredients = new Array()
-      for(let i = 0; i < 3; i++){
-        this.ingredients.push({
-          name: "Ingredient "+i,
-          quantity: 100,
-          unit: FoodStockItem.UnitEnum.Kg     
-        })
-      }
 
       this.units=[
         FoodStockItem.UnitEnum.Kg,

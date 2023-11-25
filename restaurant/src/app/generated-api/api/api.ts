@@ -14,4 +14,4 @@ export * from './table.service';
 import { TableService } from './table.service';
 export * from './user.service';
 import { UserService } from './user.service';
-export const APIS = [AuthService, BookingService, CustomerService, CustomerOrderService, EmployeeService, MenuService, TableService, TableOrderService, UserService];
+export const APIS = [AuthService, BookingService, CustomerService, DefaultService, EmployeeService, MenuService, TableService, UserService];

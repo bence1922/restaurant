@@ -14,7 +14,8 @@ import { Table } from './table';
 
 
 export interface TableOrder { 
-    table?: Table;
-    order?: Order;
+    id: string;
+    table: Table;
+    order: Order;
 }
 

@@ -10,7 +10,7 @@ export class PdfGeneratorService{
     generatePdf(order: Order){
         let docDefinition = {
             content: [{text: "Order for delivery", fontSize: 15},
-                        "Date: "+this.dateString(order.date),
+                        "Date: "+this.dateString(order.date!),
                         "\n",
                         this.listStringFood(order.foods),
                         this.listStringDrink(order.drinks),
@@ -49,8 +49,8 @@ export class PdfGeneratorService{
         return "Sum: "+sum
     }
 
-    dateString(date: string | undefined){ // TODO
+    dateString(date: Date){ // TODO
         let pipe= new DatePipe('en-US')
-        return pipe.transform(new Date(), 'yyyy-MM-dd');
+        return pipe.transform(date, 'yyyy-MM-dd');
     }
 }
