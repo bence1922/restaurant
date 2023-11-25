@@ -45,16 +45,24 @@ public interface UserApi {
      * DELETE /user/{userId} : Delete user by ID
      *
      * @param userId The ID of the user (required)
-     * @return Invalid ID supplied (status code 400)
-     *         or User not found (status code 404)
+     * @return Successfully deleted (status code 204)
+     *         or Bad request (status code 400)
+     *         or Unauthorized (status code 401)
+     *         or Forbidden (status code 403)
+     *         or Not found (status code 404)
+     *         or Internal server error (status code 500)
      */
     @Operation(
         operationId = "deleteUserById",
         summary = "Delete user by ID",
         tags = { "user" },
         responses = {
-            @ApiResponse(responseCode = "400", description = "Invalid ID supplied"),
-            @ApiResponse(responseCode = "404", description = "User not found")
+            @ApiResponse(responseCode = "204", description = "Successfully deleted"),
+            @ApiResponse(responseCode = "400", description = "Bad request"),
+            @ApiResponse(responseCode = "401", description = "Unauthorized"),
+            @ApiResponse(responseCode = "403", description = "Forbidden"),
+            @ApiResponse(responseCode = "404", description = "Not found"),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
         },
         security = {
             @SecurityRequirement(name = "sessionId")
@@ -77,7 +85,11 @@ public interface UserApi {
      *
      * @param userId The ID of the user (required)
      * @return Successful operation (status code 200)
-     *         or User not found (status code 404)
+     *         or Bad request (status code 400)
+     *         or Unauthorized (status code 401)
+     *         or Forbidden (status code 403)
+     *         or Not found (status code 404)
+     *         or Internal server error (status code 500)
      */
     @Operation(
         operationId = "getUserById",
@@ -87,7 +99,11 @@ public interface UserApi {
             @ApiResponse(responseCode = "200", description = "Successful operation", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = UserDTO.class))
             }),
-            @ApiResponse(responseCode = "404", description = "User not found")
+            @ApiResponse(responseCode = "400", description = "Bad request"),
+            @ApiResponse(responseCode = "401", description = "Unauthorized"),
+            @ApiResponse(responseCode = "403", description = "Forbidden"),
+            @ApiResponse(responseCode = "404", description = "Not found"),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
         },
         security = {
             @SecurityRequirement(name = "sessionId")
@@ -121,9 +137,11 @@ public interface UserApi {
      * @param userId The ID of the user (required)
      * @param userDTO  (required)
      * @return Successful operation (status code 200)
-     *         or Invalid ID supplied (status code 400)
-     *         or User not found (status code 404)
-     *         or Validation exception (status code 405)
+     *         or Bad request (status code 400)
+     *         or Unauthorized (status code 401)
+     *         or Forbidden (status code 403)
+     *         or Not found (status code 404)
+     *         or Internal server error (status code 500)
      */
     @Operation(
         operationId = "updateUserById",
@@ -133,9 +151,11 @@ public interface UserApi {
             @ApiResponse(responseCode = "200", description = "Successful operation", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = UserDTO.class))
             }),
-            @ApiResponse(responseCode = "400", description = "Invalid ID supplied"),
-            @ApiResponse(responseCode = "404", description = "User not found"),
-            @ApiResponse(responseCode = "405", description = "Validation exception")
+            @ApiResponse(responseCode = "400", description = "Bad request"),
+            @ApiResponse(responseCode = "401", description = "Unauthorized"),
+            @ApiResponse(responseCode = "403", description = "Forbidden"),
+            @ApiResponse(responseCode = "404", description = "Not found"),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
         },
         security = {
             @SecurityRequirement(name = "sessionId")

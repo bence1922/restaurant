@@ -33,11 +33,7 @@ public class TableController implements TableApi {
     @Authorize(permission = "table-read")
     public ResponseEntity<TableDTO> findTable(Integer tableNumber) {
         var response = tableService.findTable(tableNumber);
-        if (response != null) {
-            return ResponseEntity.ok(response);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        return ResponseEntity.ok(response);
     }
 
     @Override
@@ -51,20 +47,20 @@ public class TableController implements TableApi {
     @Authorize(permission = "table-delete")
     public ResponseEntity<Void> deleteTable(Integer tableNumber) {
         tableService.deleteTable(tableNumber);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 
     @Override
     @Authorize(permission = "table-order-read")
     public ResponseEntity<List<TableOrderDTO>> queryTableOrders(Integer tableNumber, Boolean isCurrent) {
         var response = orderService.queryTableOrders(tableNumber, isCurrent);
-        return ResponseEntity.status(HttpStatus.OK).body(response);
+        return ResponseEntity.ok(response);
     }
 
     @Override
     @Authorize(permission = "table-order-write")
     public ResponseEntity<TableOrderDTO> placeTableOrder(Integer tableNumber, @Valid OrderDTO orderDTO) {
         var response = orderService.createTableOrder(tableNumber, orderDTO);
-        return ResponseEntity.status(HttpStatus.OK).body(response);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 }

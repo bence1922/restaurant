@@ -1,0 +1,1 @@
+docker build . -t restaurant-backend:0.1

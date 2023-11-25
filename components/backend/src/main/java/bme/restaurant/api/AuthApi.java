@@ -46,20 +46,20 @@ public interface AuthApi {
      * POST /auth/login : User login
      *
      * @param userLoginDTO  (required)
-     * @return User successfully logged in (status code 200)
-     *         or Unauthorized (status code 401)
-     *         or Invalid request (status code 400)
+     * @return User session succesfully created (status code 201)
+     *         or Bad request (status code 400)
+     *         or Internal server error (status code 500)
      */
     @Operation(
         operationId = "login",
         summary = "User login",
         tags = { "auth" },
         responses = {
-            @ApiResponse(responseCode = "200", description = "User successfully logged in", content = {
+            @ApiResponse(responseCode = "201", description = "User session succesfully created", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = UserSessionDTO.class))
             }),
-            @ApiResponse(responseCode = "401", description = "Unauthorized"),
-            @ApiResponse(responseCode = "400", description = "Invalid request")
+            @ApiResponse(responseCode = "400", description = "Bad request"),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
         }
     )
     @RequestMapping(
@@ -89,7 +89,11 @@ public interface AuthApi {
      * GET /auth/logout : Logs out current logged in user
      * 
      *
-     * @return successful operation (status code 200)
+     * @return Successful operation (status code 204)
+     *         or Bad request (status code 400)
+     *         or Unauthorized (status code 401)
+     *         or Forbidden (status code 403)
+     *         or Internal server error (status code 500)
      */
     @Operation(
         operationId = "logout",
@@ -97,7 +101,11 @@ public interface AuthApi {
         description = "",
         tags = { "auth" },
         responses = {
-            @ApiResponse(responseCode = "default", description = "successful operation")
+            @ApiResponse(responseCode = "204", description = "Successful operation"),
+            @ApiResponse(responseCode = "400", description = "Bad request"),
+            @ApiResponse(responseCode = "401", description = "Unauthorized"),
+            @ApiResponse(responseCode = "403", description = "Forbidden"),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
         },
         security = {
             @SecurityRequirement(name = "sessionId")
@@ -121,18 +129,22 @@ public interface AuthApi {
      * @param userId The ID of the user (required)
      * @param oldPassword  (required)
      * @param newPassword  (required)
-     * @return successfully updated (status code 200)
+     * @return Successful operation (status code 204)
+     *         or Bad request (status code 400)
      *         or Unauthorized (status code 401)
-     *         or Invalid request (status code 400)
+     *         or Forbidden (status code 403)
+     *         or Internal server error (status code 500)
      */
     @Operation(
         operationId = "passwordReset",
         summary = "Password reset",
         tags = { "auth" },
         responses = {
-            @ApiResponse(responseCode = "200", description = "successfully updated"),
+            @ApiResponse(responseCode = "204", description = "Successful operation"),
+            @ApiResponse(responseCode = "400", description = "Bad request"),
             @ApiResponse(responseCode = "401", description = "Unauthorized"),
-            @ApiResponse(responseCode = "400", description = "Invalid request")
+            @ApiResponse(responseCode = "403", description = "Forbidden"),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
         },
         security = {
             @SecurityRequirement(name = "sessionId")

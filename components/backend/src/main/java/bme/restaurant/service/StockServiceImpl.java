@@ -5,7 +5,9 @@ import java.util.List;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 
 import bme.restaurant.dao.Drink;
 import bme.restaurant.dao.DrinkStockItem;
@@ -33,7 +35,6 @@ public class StockServiceImpl implements StockService {
     @Autowired
     private IngredientRepository ingredientRepo;
 
-
     @Override
     public DrinkStockItemDTO createDrink(DrinkStockItemDTO drinkStockItemDTO) {
         Drink drink = drinkRepo.findByName(drinkStockItemDTO.getName());
@@ -49,7 +50,7 @@ public class StockServiceImpl implements StockService {
 
     @Override
     public List<DrinkStockItemDTO> getAllDrinks() {
-        List<DrinkStockItem> drinkStockItems =  drinkStockRepo.findAll();
+        List<DrinkStockItem> drinkStockItems = drinkStockRepo.findAll();
         List<DrinkStockItemDTO> drinkStockItemDTOs = new ArrayList<DrinkStockItemDTO>();
         for (DrinkStockItem drinkStockItem : drinkStockItems) {
             drinkStockItemDTOs.add(drinkStockItem.toDTO());
@@ -58,12 +59,17 @@ public class StockServiceImpl implements StockService {
     }
 
     @Override
-    public DrinkStockItemDTO updateDrink(String drinkStockItemId, String name, Integer quantity) { 
-        DrinkStockItem drinkStockItem = drinkStockRepo.findById(drinkStockItemId).get();
+    public DrinkStockItemDTO updateDrink(String drinkStockItemId, String name, Integer quantity) {
+        var response = drinkStockRepo.findById(drinkStockItemId);
+        if (response.isEmpty()) {
+            throw new HttpClientErrorException(HttpStatus.NOT_FOUND,
+                    String.format("Drink stock item not found with Id: %s", drinkStockItemId));
+        }
+        var drinkStockItem = response.get();
         if (quantity != null) {
             drinkStockItem.setQuantity(quantity);
         }
-        if (name != null){
+        if (name != null) {
             Drink drink = drinkStockItem.getDrink();
             drink.setName(name);
             drink = drinkRepo.save(drink);
@@ -99,27 +105,30 @@ public class StockServiceImpl implements StockService {
 
     @Override
     public FoodStockItemDTO updateFood(String foodStockItemId, String name, Integer quantity, String unit) {
-        FoodStockItem foodStockItem = foodStockRepo.findById(foodStockItemId).orElse(null);
-        if (foodStockItem != null) {
-            if (quantity != null) {
-                foodStockItem.setQuantity(quantity);
-            }
-            if (name != null) {
-                Ingredient ingredient = foodStockItem.getIngredient();
-                ingredient.setName(name);
-                ingredient = ingredientRepo.save(ingredient);
-                foodStockItem.setIngredient(ingredient);
-            }
-            if (unit != null) {
-                Ingredient ingredient = foodStockItem.getIngredient();
-                ingredient.setUnit(unit);
-                ingredient = ingredientRepo.save(ingredient);
-                foodStockItem.setIngredient(ingredient);
-            }
-            foodStockItem = foodStockRepo.save(foodStockItem);
-            return foodStockItem.toDTO();
+        var response = foodStockRepo.findById(foodStockItemId);
+        if (response.isEmpty()) {
+            throw new HttpClientErrorException(HttpStatus.NOT_FOUND,
+                    String.format("Food stock item not found with Id: %s", foodStockItemId));
         }
-        return null;
+        var foodStockItem = response.get();
+
+        if (quantity != null) {
+            foodStockItem.setQuantity(quantity);
+        }
+        if (name != null) {
+            Ingredient ingredient = foodStockItem.getIngredient();
+            ingredient.setName(name);
+            ingredient = ingredientRepo.save(ingredient);
+            foodStockItem.setIngredient(ingredient);
+        }
+        if (unit != null) {
+            Ingredient ingredient = foodStockItem.getIngredient();
+            ingredient.setUnit(unit);
+            ingredient = ingredientRepo.save(ingredient);
+            foodStockItem.setIngredient(ingredient);
+        }
+        foodStockItem = foodStockRepo.save(foodStockItem);
+        return foodStockItem.toDTO();
     }
 
 }

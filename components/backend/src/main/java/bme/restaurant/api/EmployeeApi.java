@@ -45,18 +45,24 @@ public interface EmployeeApi {
     /**
      * GET /employee : Get all employees
      *
-     * @return successful operation (status code 200)
-     *         or Invalid status value (status code 400)
+     * @return Successful operation (status code 200)
+     *         or Bad request (status code 400)
+     *         or Unauthorized (status code 401)
+     *         or Forbidden (status code 403)
+     *         or Internal server error (status code 500)
      */
     @Operation(
         operationId = "getEmployees",
         summary = "Get all employees",
         tags = { "employee" },
         responses = {
-            @ApiResponse(responseCode = "200", description = "successful operation", content = {
+            @ApiResponse(responseCode = "200", description = "Successful operation", content = {
                 @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = UserDTO.class)))
             }),
-            @ApiResponse(responseCode = "400", description = "Invalid status value")
+            @ApiResponse(responseCode = "400", description = "Bad request"),
+            @ApiResponse(responseCode = "401", description = "Unauthorized"),
+            @ApiResponse(responseCode = "403", description = "Forbidden"),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
         },
         security = {
             @SecurityRequirement(name = "sessionId")
@@ -88,22 +94,24 @@ public interface EmployeeApi {
      * POST /employee : Register an employee
      *
      * @param userRegisterDTO  (required)
-     * @return Successful operation (status code 200)
-     *         or Invalid ID supplied (status code 400)
-     *         or Employee not found (status code 404)
-     *         or Validation exception (status code 405)
+     * @return Employee succesfully registered (status code 201)
+     *         or Bad request (status code 400)
+     *         or Unauthorized (status code 401)
+     *         or Forbidden (status code 403)
+     *         or Internal server error (status code 500)
      */
     @Operation(
         operationId = "registerEmployee",
         summary = "Register an employee",
         tags = { "employee" },
         responses = {
-            @ApiResponse(responseCode = "200", description = "Successful operation", content = {
+            @ApiResponse(responseCode = "201", description = "Employee succesfully registered", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = UserDTO.class))
             }),
-            @ApiResponse(responseCode = "400", description = "Invalid ID supplied"),
-            @ApiResponse(responseCode = "404", description = "Employee not found"),
-            @ApiResponse(responseCode = "405", description = "Validation exception")
+            @ApiResponse(responseCode = "400", description = "Bad request"),
+            @ApiResponse(responseCode = "401", description = "Unauthorized"),
+            @ApiResponse(responseCode = "403", description = "Forbidden"),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
         },
         security = {
             @SecurityRequirement(name = "sessionId")

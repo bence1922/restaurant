@@ -1,7 +1,6 @@
 package bme.restaurant.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -28,13 +27,13 @@ public class AuthController implements AuthApi {
     @Authorize(permission = "default")
     public ResponseEntity<Void> logout() {
         userService.logout();
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 
     @Override
     public ResponseEntity<Void> passwordReset(@NotNull String userId, @NotNull String oldPassword,
             @NotNull String newPassword) {
         userService.passwordReset(userId, oldPassword, newPassword);
-        return ResponseEntity.status(HttpStatus.OK).build();
+        return ResponseEntity.noContent().build();
     }
 }

@@ -4,7 +4,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 
 import bme.restaurant.dao.Table;
 import bme.restaurant.dto.TableDTO;
@@ -26,10 +28,11 @@ public class TableServiceImpl implements TableService {
     @Override
     public TableDTO findTable(int number) {
         var entity = tableRepo.findByNumber(number);
-        if (entity != null) {
-            return entity.toDTO();
+        if (entity == null) {
+            throw new HttpClientErrorException(HttpStatus.NOT_FOUND,
+                    String.format("Table not found with number: %s", number)); 
         }
-        return null;
+        return entity.toDTO();
     }
 
     @Override

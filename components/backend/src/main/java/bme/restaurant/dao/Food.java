@@ -6,6 +6,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import bme.restaurant.dto.FoodDTO;
+import bme.restaurant.dto.FoodDTO.TypeEnum;
 
 @Document(collection = "foods")
 public class Food {
@@ -77,7 +78,7 @@ public class Food {
         foodDTO.setId(this.id);
         foodDTO.setName(this.name);
         foodDTO.setPrice(this.price);
-        foodDTO.setType(this.type);
+        foodDTO.setType(TypeEnum.fromValue(this.type));
         foodDTO.setRecipe(recipe.stream().map((rl) -> rl.toDTO()).toList());
         return foodDTO;
     }
@@ -86,7 +87,7 @@ public class Food {
         return new Food(
                 food.getName(),
                 food.getPrice(),
-                food.getType(),
+                food.getType().getValue(),
                 food.getRecipe().stream().map((rl) -> RecipeLine.fromDTO(rl)).toList());
     }
 }

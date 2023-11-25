@@ -87,7 +87,11 @@ public interface StockApi {
      *
      * @param foodStockItemDTO  (required)
      * @return Food stock item created successfully (status code 201)
-     *         or Invalid input (status code 400)
+     *         or Bad request (status code 400)
+     *         or Unauthorized (status code 401)
+     *         or Forbidden (status code 403)
+     *         or Not found (status code 404)
+     *         or Internal server error (status code 500)
      */
     @Operation(
         operationId = "createFoodStockItem",
@@ -96,7 +100,11 @@ public interface StockApi {
             @ApiResponse(responseCode = "201", description = "Food stock item created successfully", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = FoodStockItemDTO.class))
             }),
-            @ApiResponse(responseCode = "400", description = "Invalid input")
+            @ApiResponse(responseCode = "400", description = "Bad request"),
+            @ApiResponse(responseCode = "401", description = "Unauthorized"),
+            @ApiResponse(responseCode = "403", description = "Forbidden"),
+            @ApiResponse(responseCode = "404", description = "Not found"),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
         }
     )
     @RequestMapping(
@@ -126,15 +134,23 @@ public interface StockApi {
      * DELETE /stock/drink/{drinkStockItemId} : Delete a drink stock item
      *
      * @param drinkStockItemId ID of the drinkStockItem to retrieve/update/delete (required)
-     * @return Drink stock item deleted successfully (status code 204)
-     *         or Drink stock item not found (status code 404)
+     * @return Successfully deleted (status code 204)
+     *         or Bad request (status code 400)
+     *         or Unauthorized (status code 401)
+     *         or Forbidden (status code 403)
+     *         or Not found (status code 404)
+     *         or Internal server error (status code 500)
      */
     @Operation(
         operationId = "deleteDrinkStockItem",
         summary = "Delete a drink stock item",
         responses = {
-            @ApiResponse(responseCode = "204", description = "Drink stock item deleted successfully"),
-            @ApiResponse(responseCode = "404", description = "Drink stock item not found")
+            @ApiResponse(responseCode = "204", description = "Successfully deleted"),
+            @ApiResponse(responseCode = "400", description = "Bad request"),
+            @ApiResponse(responseCode = "401", description = "Unauthorized"),
+            @ApiResponse(responseCode = "403", description = "Forbidden"),
+            @ApiResponse(responseCode = "404", description = "Not found"),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
         }
     )
     @RequestMapping(
@@ -153,15 +169,23 @@ public interface StockApi {
      * DELETE /stock/food/{foodStockItemId} : Delete a food stock item
      *
      * @param foodStockItemId ID of the foodStockItem to retrieve/update/delete (required)
-     * @return Food stock item deleted successfully (status code 204)
-     *         or Food stock item not found (status code 404)
+     * @return Successfully deleted (status code 204)
+     *         or Bad request (status code 400)
+     *         or Unauthorized (status code 401)
+     *         or Forbidden (status code 403)
+     *         or Not found (status code 404)
+     *         or Internal server error (status code 500)
      */
     @Operation(
         operationId = "deleteFoodStockItem",
         summary = "Delete a food stock item",
         responses = {
-            @ApiResponse(responseCode = "204", description = "Food stock item deleted successfully"),
-            @ApiResponse(responseCode = "404", description = "Food stock item not found")
+            @ApiResponse(responseCode = "204", description = "Successfully deleted"),
+            @ApiResponse(responseCode = "400", description = "Bad request"),
+            @ApiResponse(responseCode = "401", description = "Unauthorized"),
+            @ApiResponse(responseCode = "403", description = "Forbidden"),
+            @ApiResponse(responseCode = "404", description = "Not found"),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
         }
     )
     @RequestMapping(
@@ -180,6 +204,9 @@ public interface StockApi {
      * GET /stock/drink : Get all drink stock items
      *
      * @return Successful operation (status code 200)
+     *         or Unauthorized (status code 401)
+     *         or Forbidden (status code 403)
+     *         or Internal server error (status code 500)
      */
     @Operation(
         operationId = "getAllDrinkStockItems",
@@ -187,7 +214,10 @@ public interface StockApi {
         responses = {
             @ApiResponse(responseCode = "200", description = "Successful operation", content = {
                 @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = DrinkStockItemDTO.class)))
-            })
+            }),
+            @ApiResponse(responseCode = "401", description = "Unauthorized"),
+            @ApiResponse(responseCode = "403", description = "Forbidden"),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
         }
     )
     @RequestMapping(
@@ -216,6 +246,9 @@ public interface StockApi {
      * GET /stock/food : Get all food stock items
      *
      * @return Successful operation (status code 200)
+     *         or Unauthorized (status code 401)
+     *         or Forbidden (status code 403)
+     *         or Internal server error (status code 500)
      */
     @Operation(
         operationId = "getAllFoodStockItems",
@@ -223,7 +256,10 @@ public interface StockApi {
         responses = {
             @ApiResponse(responseCode = "200", description = "Successful operation", content = {
                 @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = FoodStockItemDTO.class)))
-            })
+            }),
+            @ApiResponse(responseCode = "401", description = "Unauthorized"),
+            @ApiResponse(responseCode = "403", description = "Forbidden"),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
         }
     )
     @RequestMapping(
@@ -255,8 +291,11 @@ public interface StockApi {
      * @param name Name of the drink stock item to update (optional)
      * @param quantity New quantity of the drink stock item (optional)
      * @return Drink stock item partially updated successfully (status code 200)
-     *         or Invalid input (status code 400)
-     *         or Drink stock item not found (status code 404)
+     *         or Bad request (status code 400)
+     *         or Unauthorized (status code 401)
+     *         or Forbidden (status code 403)
+     *         or Not found (status code 404)
+     *         or Internal server error (status code 500)
      */
     @Operation(
         operationId = "partiallyUpdateDrinkStockItem",
@@ -265,8 +304,11 @@ public interface StockApi {
             @ApiResponse(responseCode = "200", description = "Drink stock item partially updated successfully", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = DrinkStockItemDTO.class))
             }),
-            @ApiResponse(responseCode = "400", description = "Invalid input"),
-            @ApiResponse(responseCode = "404", description = "Drink stock item not found")
+            @ApiResponse(responseCode = "400", description = "Bad request"),
+            @ApiResponse(responseCode = "401", description = "Unauthorized"),
+            @ApiResponse(responseCode = "403", description = "Forbidden"),
+            @ApiResponse(responseCode = "404", description = "Not found"),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
         }
     )
     @RequestMapping(
@@ -301,8 +343,11 @@ public interface StockApi {
      * @param quantity New quantity of the food stock item (optional)
      * @param unit New unit of the food stock item (optional)
      * @return Food stock item partially updated successfully (status code 200)
-     *         or Invalid input (status code 400)
-     *         or Food stock item not found (status code 404)
+     *         or Bad request (status code 400)
+     *         or Unauthorized (status code 401)
+     *         or Forbidden (status code 403)
+     *         or Not found (status code 404)
+     *         or Internal server error (status code 500)
      */
     @Operation(
         operationId = "partiallyUpdateFoodStockItem",
@@ -311,8 +356,11 @@ public interface StockApi {
             @ApiResponse(responseCode = "200", description = "Food stock item partially updated successfully", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = FoodStockItemDTO.class))
             }),
-            @ApiResponse(responseCode = "400", description = "Invalid input"),
-            @ApiResponse(responseCode = "404", description = "Food stock item not found")
+            @ApiResponse(responseCode = "400", description = "Bad request"),
+            @ApiResponse(responseCode = "401", description = "Unauthorized"),
+            @ApiResponse(responseCode = "403", description = "Forbidden"),
+            @ApiResponse(responseCode = "404", description = "Not found"),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
         }
     )
     @RequestMapping(
