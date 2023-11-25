@@ -10,17 +10,18 @@
  * Do not edit the class manually.
  */
 import { Table } from './table';
-import { Customer } from './customer';
+import { User } from './user';
 
 
 export interface Booking { 
     id: string;
     table: Table;
-    customer: Customer;
+    customer: User;
     startingDate: string;
     endingDate: string;
     status: Booking.StatusEnum;
     peopleCount: number;
+    note?: string;
 }
 export namespace Booking {
     export type StatusEnum = 'pending' | 'accepted';

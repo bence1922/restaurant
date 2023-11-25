@@ -13,8 +13,9 @@ import { FoodRecipeInner } from './foodRecipeInner';
 
 
 export interface Food { 
-    id?: string;
+    id: string;
     name: string;
+    type: string;
     price: number;
     recipe?: Array<FoodRecipeInner>;
 }

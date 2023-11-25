@@ -9,12 +9,12 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import { User } from './user';
 
 
-export interface Drink { 
+export interface UserSession { 
     id: string;
-    name: string;
-    type: string;
-    price: number;
+    user: User;
+    role: string;
 }
 

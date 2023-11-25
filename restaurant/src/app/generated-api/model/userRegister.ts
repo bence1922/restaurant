@@ -11,10 +11,11 @@
  */
 
 
-export interface Drink { 
-    id: string;
+export interface UserRegister { 
     name: string;
-    type: string;
-    price: number;
+    email: string;
+    mobil: string;
+    address: string;
+    password: string;
 }
 

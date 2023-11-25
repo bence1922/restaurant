@@ -51,14 +51,8 @@ export class MenuComponent implements OnInit {
     }
 
     hasOneOfTheRoles(roles: string[]): boolean{
-      //if(this.isloggedIn){
-        for(let role of roles){
-          if(this.authService.hasRole(role)){
-            return true;
-          }
-        }
-      //}
-      return false;
+        //TODO
+      return true;
     }
 
     addCart(food: boolean, index: number){

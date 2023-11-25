@@ -11,10 +11,8 @@
  */
 
 
-export interface Drink { 
-    id: string;
+export interface UserLogin { 
     name: string;
-    type: string;
-    price: number;
+    password: string;
 }
 
