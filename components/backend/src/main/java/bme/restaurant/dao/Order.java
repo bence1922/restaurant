@@ -16,6 +16,8 @@ public class Order {
 
     private LocalDateTime date;
 
+    private int rating;
+
     public Order(
             List<FoodOrderItem> foods,
             List<DrinkOrderItem> drinks,
@@ -59,6 +61,15 @@ public class Order {
         this.date = date;
     }
 
+    
+    public int getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
+
     public OrderDTO toDTO(){
         var dto = new OrderDTO(
             this.foods.stream().map(food -> food.toDTO()).toList(),
@@ -66,15 +77,18 @@ public class Order {
         );
         dto.setStatus(OrderDTO.StatusEnum.fromValue(this.status));
         dto.setDate(date.atZone(ZoneId.of("Europe/Budapest")).toOffsetDateTime());
+        dto.setRating(this.rating);
         return dto;
     }
 
     public static Order fromDTO(OrderDTO orderDTO) {
-        return  new Order(
+        var dao = new Order(
             orderDTO.getFoods().stream().map(food -> FoodOrderItem.fromDTO(food)).toList(),
             orderDTO.getDrinks().stream().map(drink -> DrinkOrderItem.fromDTO(drink)).toList(),
             orderDTO.getStatus().getValue(),
             orderDTO.getDate().toLocalDateTime()
         );
+        dao.setRating(orderDTO.getRating());
+        return dao;
     }
 }

@@ -63,4 +63,11 @@ public class TableController implements TableApi {
         var response = orderService.createTableOrder(tableNumber, orderDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
+
+    @Override
+    @Authorize(permission = "table-order-write")
+    public ResponseEntity<OrderDTO> updateTableOrder(String tableOrderId, Integer rating, String status) {
+        var response = orderService.updateTableOrder(tableOrderId, rating, status);
+        return ResponseEntity.ok(response);
+    }
 }
