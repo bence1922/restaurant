@@ -27,7 +27,7 @@
                     </div>
                 </div>
             </div>
-            <div *ngIf="errorMsg!=undefined">{{errorMsg}}</div>
+            <div *ngIf="errorMsg!=undefined" class="flex justify-content-center my-3 text-color">{{errorMsg}}</div>
             <div class=" flex justify-content-center">
                 <p-button severity="secondary" [disabled]="!(errorMsg== undefined && newReservationForm.valid)"  type="submit">Reserve a table</p-button>
             </div>

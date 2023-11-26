@@ -4,7 +4,7 @@ import { HeroComponent } from '../Hero/hero.component';
 import { DividerModule } from 'primeng/divider';
 import { CalendarModule } from 'primeng/calendar';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { BookingService, NewBooking, Table } from 'src/app/generated-api';
+import { Booking, BookingService, NewBooking, Table } from 'src/app/generated-api';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { StoreUserService } from 'src/app/generated-api/api/store.service';
@@ -34,25 +34,25 @@ export class ReservationComponent implements OnInit {
     private storeUserService: StoreUserService
   ) {}
 
-  book(){
-    // var data: NewBooking={
-    //   tableNumber: 1, //TODO
-    //   user_id: localStorage.getItem('userId')! ,
-    //   startingDate: this.createStartingDate(new Date(this.newReservationForm.value.date!), new Date(this.newReservationForm.value.time!)),
-    //   endingDate: this.createEndDate(new Date(this.newReservationForm.value.date!), new Date(this.newReservationForm.value.time!)),
-    //   peopleCount: this.newReservationForm.value.guests!
-    // }
+  book(start: Date, end: Date){
+    var data: NewBooking={
+      tableNumber: this.tableNum,
+      user_id: localStorage.getItem('userId')! ,
+      startingDate: start,
+      endingDate: end,
+      peopleCount: this.newReservationForm.value.guests!
+    }
 
 
-    // this.bookingService.bookTable(data).subscribe(
-    //   (result) => {
-    //     alert("Success!")
-    //     this.router.navigate(['/profile/reservations'])
-    //   },
-    //   (error : HttpErrorResponse) =>{
-    //     alert(error.error)
-    //   }
-    // )
+    this.bookingService.bookTable(data).subscribe(
+      (result) => {
+        alert("Success!")
+        this.router.navigate(['/profile/reservations'])
+      },
+      (error : HttpErrorResponse) =>{
+        alert(error.error)
+      }
+    )
   }
 
   onSubmit(){
@@ -69,7 +69,7 @@ export class ReservationComponent implements OnInit {
       this.errorMsg="Nincs szabad asztal"
     }else if(this.tableAvailable(tables)){
       this.errorMsg=undefined
-        //API hívás
+      this.book(startingDate, endDate)
     }
     else{
       this.errorMsg = "Nincs ennyi főre szabad asztal"
