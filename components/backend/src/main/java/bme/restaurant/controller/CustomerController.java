@@ -59,6 +59,14 @@ public class CustomerController implements CustomerApi {
     }
 
     @Override
+    @Authorize(permission = "customer-order-write", selfAccess = true, roles = {"admin", "employee"})
+    public ResponseEntity<OrderDTO> updateCustomerOrder(String customerOrderId, String userId, Integer rating,
+            String status) {
+        var response = orderService.updateCustomerOrder(customerOrderId, rating, status);
+        return ResponseEntity.ok(response);
+    }
+
+    @Override
     @Authorize(permission = "customer-read-self", selfAccess = true)
     public ResponseEntity<List<OrderDTO>> queryOrdersForCustomer(String userId, Boolean isCurrent) {
         var response = orderService.queryOrdersForCustomer(userId, isCurrent);

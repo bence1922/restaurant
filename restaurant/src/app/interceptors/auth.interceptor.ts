@@ -16,7 +16,7 @@ function addAuthHeader(request: any) {
     if (token) {
         request = request.clone({
             setHeaders: {
-                SessionId: `${token}`,
+                SessionId: token,
             },
         });
     }

@@ -96,6 +96,24 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public OrderDTO updateCustomerOrder(String customerOrderId, Integer rating, String status) {
+        var response = customerOrderRepository.findById(customerOrderId);
+        if (response.isEmpty()) {
+            throw new HttpClientErrorException(HttpStatus.NOT_FOUND,
+                    String.format("Customer order not found with Id: %s", customerOrderId));
+        }
+        var customerOrder = response.get();
+        if (rating != null) {
+            customerOrder.getOrder().setRating(rating);
+        }
+        if (status != null) {
+            customerOrder.getOrder().setStatus(status);
+        }
+        customerOrder = customerOrderRepository.save(customerOrder);
+        return customerOrder.getOrder().toDTO();
+    }
+
+    @Override
     public List<TableOrderDTO> queryTableOrders(Integer tableNumber, Boolean isCurrent) {
         Query query = new Query();
 
@@ -127,5 +145,23 @@ public class OrderServiceImpl implements OrderService {
         var tableOrder = new TableOrder(table , Order.fromDTO(orderDTO));
         tableOrder = tableOrderRepo.save(tableOrder);
         return tableOrder.toDTO();
+    }
+
+    @Override
+    public OrderDTO updateTableOrder(String tableOrderId, Integer rating, String status) {
+        var response = tableOrderRepo.findById(tableOrderId);
+        if (response.isEmpty()) {
+            throw new HttpClientErrorException(HttpStatus.NOT_FOUND,
+                    String.format("Table order not found with Id: %s", tableOrderId));
+        }
+        var tableOrder = response.get();
+        if (rating != null) {
+            tableOrder.getOrder().setRating(rating);
+        }
+        if (status != null) {
+            tableOrder.getOrder().setStatus(status);
+        }
+        tableOrder = tableOrderRepo.save(tableOrder);
+        return tableOrder.getOrder().toDTO();
     }
 }

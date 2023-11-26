@@ -8,7 +8,7 @@ externalDocs:
   description: Find out more about this program on github.
   url: https://github.com/bence1922/restaurant
 servers:
-  - url: http://localhost:8084
+  - url: http://localhost:8080
 tags:
   - name: auth
   - name: user
@@ -385,9 +385,66 @@ paths:
           description: Not found
         '500':
           description: Internal server error
-  /customer/order/{userId}/{orderId}/invoice:
+  /customer/order/{userId}/{customerOrderId}:
     parameters:
-      - name: orderId
+      - name: customerOrderId
+        in: path
+        description: ID of the order to update
+        required: true
+        schema:
+          type: string
+          example: "6544cd596955fe0a1c04fba9"
+      - name: userId
+        in: path
+        description: The ID of the user
+        required: true
+        schema:
+          type: string
+          example: "6544cd596955fe0a1c04fba9"
+    patch:
+      tags:
+        - customer
+      summary: Update an order status or rating
+      operationId: updateCustomerOrder
+      security:
+      - sessionId: []
+      parameters:
+        - name: rating
+          in: header
+          schema:
+            type: integer
+            format: int32
+          required: false
+        - name: status
+          in: header
+          schema:
+            type: string
+            enum:
+              - placed
+              - cooking
+              - delivering
+              - delivered
+          required: false
+      responses:
+        '200':
+          description: Order rated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+  /customer/order/{userId}/{customerOrderId}/invoice:
+    parameters:
+      - name: customerOrderId
         in: path
         description: ID of the order for which to generate an invoice
         required: true
@@ -617,6 +674,11 @@ paths:
         '500':
           description: Internal server error
   /table/order/{tableNumber}:
+    parameters:
+      - name: tableNumber
+        in: path
+        schema: { type: integer }
+        required: true
     post:
       tags:
         - table
@@ -625,11 +687,6 @@ paths:
       operationId: placeTableOrder
       security:
       - sessionId: []
-      parameters:
-        - name: tableNumber
-          in: path
-          schema: { type: integer }
-          required: true
       requestBody:
         content:
           application/json:
@@ -642,6 +699,56 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TableOrder'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+  /table/order/{tableOrderId}:
+    parameters:
+      - name: tableOrderId
+        in: path
+        description: ID of the order to update
+        required: true
+        schema:
+          type: string
+          example: "6544cd596955fe0a1c04fba9"
+    patch:
+      tags:
+        - table
+      summary: Update an order status or rating
+      operationId: updateTableOrder
+      security:
+      - sessionId: []
+      parameters:
+        - name: rating
+          in: header
+          schema:
+            type: integer
+            format: int32
+          required: false
+        - name: status
+          in: header
+          schema:
+            type: string
+            enum:
+              - placed
+              - cooking
+              - delivering
+              - delivered
+          required: false
+      responses:
+        '200':
+          description: Order rated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
         '400':
           description: Bad request
         '401':
@@ -1451,6 +1558,10 @@ components:
           format: date-time
         note:
           type: string
+        rating:
+          type: integer
+          format: int32
+          example: 5
         foods:
           type: array
           items:

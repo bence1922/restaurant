@@ -77,6 +77,8 @@ public class OrderDTO {
 
   private String note;
 
+  private Integer rating;
+
   @Valid
   private List<@Valid FoodOrderItemDTO> foods = new ArrayList<>();
 
@@ -155,6 +157,26 @@ public class OrderDTO {
     this.note = note;
   }
 
+  public OrderDTO rating(Integer rating) {
+    this.rating = rating;
+    return this;
+  }
+
+  /**
+   * Get rating
+   * @return rating
+  */
+  
+  @Schema(name = "rating", example = "5", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("rating")
+  public Integer getRating() {
+    return rating;
+  }
+
+  public void setRating(Integer rating) {
+    this.rating = rating;
+  }
+
   public OrderDTO foods(List<@Valid FoodOrderItemDTO> foods) {
     this.foods = foods;
     return this;
@@ -223,13 +245,14 @@ public class OrderDTO {
     return Objects.equals(this.status, order.status) &&
         Objects.equals(this.date, order.date) &&
         Objects.equals(this.note, order.note) &&
+        Objects.equals(this.rating, order.rating) &&
         Objects.equals(this.foods, order.foods) &&
         Objects.equals(this.drinks, order.drinks);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(status, date, note, foods, drinks);
+    return Objects.hash(status, date, note, rating, foods, drinks);
   }
 
   @Override
@@ -239,6 +262,7 @@ public class OrderDTO {
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
     sb.append("    date: ").append(toIndentedString(date)).append("\n");
     sb.append("    note: ").append(toIndentedString(note)).append("\n");
+    sb.append("    rating: ").append(toIndentedString(rating)).append("\n");
     sb.append("    foods: ").append(toIndentedString(foods)).append("\n");
     sb.append("    drinks: ").append(toIndentedString(drinks)).append("\n");
     sb.append("}");
