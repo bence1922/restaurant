@@ -31,7 +31,7 @@ public class UserController implements UserApi {
     }
 
     @Override
-    @Authorize(permission = "default", selfAccess = true, roles = {"admin"})
+    @Authorize(permission = "customer-read-self", selfAccess = true)
     public ResponseEntity<UserDTO> updateUserById(String userId, @Valid UserDTO userDTO) {
         var response = userService.updateUserById(userId, userDTO);
         return ResponseEntity.ok(response);
