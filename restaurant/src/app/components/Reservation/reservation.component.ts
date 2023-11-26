@@ -4,9 +4,10 @@ import { HeroComponent } from '../Hero/hero.component';
 import { DividerModule } from 'primeng/divider';
 import { CalendarModule } from 'primeng/calendar';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { BookingService, NewBooking } from 'src/app/generated-api';
+import { Booking, BookingService, NewBooking, Table } from 'src/app/generated-api';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { StoreUserService } from 'src/app/generated-api/api/store.service';
 
 @Component({
   selector: 'app-reservation',
@@ -17,42 +18,78 @@ import { Router } from '@angular/router';
 })
 export class ReservationComponent implements OnInit {
   date: Date | undefined
+  today = new Date().getTime()
   newReservationForm = new FormGroup({
-    name: new FormControl('', [Validators.required]),
-    date: new FormControl('', [Validators.required]),
-    time: new FormControl('', [Validators.required]),
+    date: new FormControl("", [Validators.required]),
+    time: new FormControl("10:00", [Validators.required, Validators.min(10), Validators.max(20)]),
     guests: new FormControl(0, [Validators.required]),
-    email: new FormControl('', [Validators.required]),
-    phone: new FormControl('', [Validators.required]),
     note: new FormControl(''),
   })
+  tableNum=-1
+  errorMsg: String | undefined
   
   constructor(
     private bookingService: BookingService,
-    private router: Router
+    private router: Router,
+    private storeUserService: StoreUserService
   ) {}
 
-  onSubmit(){
-    var customerId = '1'  
+  book(start: Date, end: Date){
     var data: NewBooking={
-      tableNumber: 1, //TODO
-      user_id: customerId,
-      startingDate: new Date(this.newReservationForm.value.date!),
-      endingDate: new Date(),
+      tableNumber: this.tableNum,
+      user_id: localStorage.getItem('userId')! ,
+      startingDate: start,
+      endingDate: end,
       peopleCount: this.newReservationForm.value.guests!
     }
 
-    // this.bookingService.bookTable(data).subscribe(
-    //   (result) => {
-    //     alert("Success!")
-    //     this.router.navigate(['/profile/reservations'])
-    //   },
-    //   (error : HttpErrorResponse) =>{
-    //     console.log(error)
-    //     alert(error.statusText)
-    //   }
-    // )
 
+    this.bookingService.bookTable(data).subscribe(
+      (result) => {
+        alert("Success!")
+        this.router.navigate(['/profile/reservations'])
+      },
+      (error : HttpErrorResponse) =>{
+        alert(error.error)
+      }
+    )
+  }
+
+  onSubmit(){
+    var tables= new Array<Table>
+
+    var startingDate= this.createStartingDate(new Date(this.newReservationForm.value.date!), this.newReservationForm.value.time!)
+    var endDate = this.createEndDate(new Date(this.newReservationForm.value.date!), this.newReservationForm.value.time!)
+    
+    this.bookingService.queryTablesForBooking(startingDate, endDate).subscribe(
+      (result)=> tables=result
+    )
+
+    if(tables == null){
+      this.errorMsg="Nincs szabad asztal"
+    }else if(this.tableAvailable(tables)){
+      this.errorMsg=undefined
+      this.book(startingDate, endDate)
+    }
+    else{
+      this.errorMsg = "Nincs ennyi főre szabad asztal"
+    }
+  }
+  createStartingDate(date: Date, timeStr: String){
+    let startingDate = new Date(date)
+    var timeStringArray = timeStr.split(':')
+    var time= new Date();
+    time.setHours(+timeStringArray[0]);
+    time.setMinutes(+timeStringArray[1]);
+    startingDate.setHours(time.getHours())
+    startingDate.setMinutes(time.getMinutes())
+    return startingDate;
+  }
+
+  createEndDate(date: Date, time: String){
+    var endDate = this.createStartingDate(date, time);
+    endDate.setHours(endDate.getHours()+2)
+    return endDate
   }
 
   createStartDateStr(){
@@ -64,7 +101,7 @@ export class ReservationComponent implements OnInit {
   }
   createStartMinuteStringArray(){
     var timeStringArray = this.newReservationForm.value.time!.split(':')
-    var time= new Date();
+    var time=new Date();
     time.setHours(+timeStringArray[0]);
     time.setMinutes(+timeStringArray[1]);
     return time.getHours+":"+time.getMinutes
@@ -76,6 +113,14 @@ export class ReservationComponent implements OnInit {
     return endDate.getHours+":"+endDate.getMinutes()
   }
 
+  tableAvailable(table: Array<Table>){
+    table.forEach(item=>{
+      if(item.capacity>=this.newReservationForm.value.guests!)
+      this.tableNum=item.number
+      return true
+    })
+    return false
+  }
   ngOnInit(){
   }
 }

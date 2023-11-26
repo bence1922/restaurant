@@ -6,11 +6,14 @@
         <a *ngIf="hasOneOfTheRoles(['waiter','manager','admin'])" class="mx-6" href="/tables">Tables</a>
          <a class="mx-6" href="/menu">Menu</a>
         <a *ngIf="!isloggedIn || hasOneOfTheRoles(['customer'])" class="mx-6" href="/reservation">Reservation</a>
-        <a *ngIf="hasOneOfTheRoles(['waiter', 'manager', 'admin'])" class="mx-6" href="/reservations">Reservations</a>
+        <a *ngIf="hasOneOfTheRoles(['waiter', 'manager', 'admin'])" class="mx-6" href="/reservations_admin">Reservations</a>
         <a *ngIf="!isloggedIn || hasOneOfTheRoles(['customer'])" class="mx-6" href="/order">Order</a>
-        <a *ngIf="hasOneOfTheRoles(['waiter','manager','admin'])" class="mx-6" href="/orders">Orders</a>
+        <a *ngIf="hasOneOfTheRoles(['waiter','manager','admin'])" class="mx-6" href="/orders_admin/inplace">Orders</a>
         <a *ngIf="hasOneOfTheRoles(['manager', 'admin'])" class="mx-6" href="/employees">Employees</a>
         <a *ngIf="hasOneOfTheRoles(['manager', 'admin'])" class="mx-6" href="/ingredients">Ingredients</a>
+    </div>
+    <div *ngIf="hasOneOfTheRoles(['customer'])"  class="text-color flex align-items-center">
+        <a href="profile/datas"><i class="pi pi-user" style="font-size: 1.5rem"></i></a>
     </div>
     <div class="text-color flex align-items-center" (click)="logInOut()" [style]="{cursor: 'pointer'}">
         {{isloggedIn ? 'Log out' : 'Log in'}}

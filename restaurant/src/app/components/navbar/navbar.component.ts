@@ -4,12 +4,13 @@ import { LoginComponent } from '../login/login.component';
 import { Router } from '@angular/router';
 import { StoreUserService } from 'src/app/generated-api/api/store.service';
 import { AuthService } from 'src/app/generated-api';
+import { ButtonModule } from 'primeng/button';
 
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [CommonModule, LoginComponent],
+  imports: [CommonModule, LoginComponent, ButtonModule],
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss'],
 })

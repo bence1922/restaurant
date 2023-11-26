@@ -36,7 +36,7 @@ export const appRoutes: Route[] = [
                             {path: 'orders', component: OrdersProfileComponent},
                             {path: 'reservations', component: ReservationsProfileComponent}]},
             {path: 'tables', title:"Asztalok", component: TablesComponent, canActivate: [RoleGuard], data: {roles: ['admin', 'waiter', 'manager']}},
-            {path: 'orderadmin', title: "Rednelések", component: OrderAdminComponent, canActivate: [RoleGuard], data: {roles: ['admin', 'waiter', 'manager']},
+            {path: 'orders_admin', title: "Rendelések", component: OrderAdminComponent, canActivate: [RoleGuard], data: {roles: ['admin', 'waiter', 'manager']},
                     children:[
                         {path: 'inplace', component: OrderAdminInPlaceComponent },
                         {path: 'delivery', component: OrderAdminDeliveryComponent }
