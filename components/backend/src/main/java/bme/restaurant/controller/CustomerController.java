@@ -68,7 +68,7 @@ public class CustomerController implements CustomerApi {
 
     @Override
     @Authorize(permission = "customer-read-self", selfAccess = true)
-    public ResponseEntity<List<OrderDTO>> queryOrdersForCustomer(String userId, Boolean isCurrent) {
+    public ResponseEntity<List<CustomerOrderDTO>> queryOrdersForCustomer(String userId, Boolean isCurrent) {
         var response = orderService.queryOrdersForCustomer(userId, isCurrent);
         return ResponseEntity.ok(response);
     }
@@ -81,6 +81,13 @@ public class CustomerController implements CustomerApi {
             OffsetDateTime from,
             OffsetDateTime to) {
         var response = bookingService.queryCustomerBookings(userId, from, to);
+        return ResponseEntity.ok(response);
+    }
+
+    @Override
+    @Authorize(permission = "customer-read-self", selfAccess = true)
+    public ResponseEntity<Integer> queryPointsForCustomer(String userId){
+        var response = userService.getPoints(userId);
         return ResponseEntity.ok(response);
     }
 }

@@ -62,7 +62,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<OrderDTO> queryOrdersForCustomer(String userId, Boolean isCurrent) {
+    public List<CustomerOrderDTO> queryOrdersForCustomer(String userId, Boolean isCurrent) {
         Query query = new Query();
 
         if (userId != null) {
@@ -80,7 +80,7 @@ public class OrderServiceImpl implements OrderService {
 
         var response = mongoTemplate.find(query, CustomerOrder.class);
 
-        return response.stream().map((co) -> co.getOrder().toDTO()).collect(Collectors.toList());
+        return response.stream().map(CustomerOrder::toDTO).collect(Collectors.toList());
     }
 
     @Override
