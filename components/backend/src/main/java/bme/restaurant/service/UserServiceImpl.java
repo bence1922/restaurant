@@ -72,8 +72,7 @@ public class UserServiceImpl implements UserService {
                     String.format("User not found with Id: %s", userId));
         }
         var user = response.get();
-        return new UserDTO(user.getName(), user.getEmail(), user.getMobilNumber(),
-                user.getAddress());
+        return user.toDTO();
     }
 
     @Override
