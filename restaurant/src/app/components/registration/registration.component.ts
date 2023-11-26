@@ -5,11 +5,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/generated-api/api/auth.service';
 import { CustomerService, UserRegister, User, EmployeeService } from 'src/app/generated-api';
 import { StoreUserService } from 'src/app/generated-api/api/store.service';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-registration',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, ButtonModule],
   templateUrl: './registration.component.html',
   styleUrls: ['./registration.component.scss'],
 })
