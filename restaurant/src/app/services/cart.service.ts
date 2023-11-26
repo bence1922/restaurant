@@ -50,17 +50,15 @@ export class CartService {
 
   increase(food: boolean, index: number){
     if(food){
-      if(index!=-1){
+      if(index==-1){
         this.foods[index].quantity++
         this.saveToCookies()
         return true
       }
     }else{
-      if(index!=-1){
       this.drinks[index].quantity++
       this.saveToCookies()
       return true
-      }
     }
 
     return false

@@ -93,11 +93,12 @@ export class MenuComponent implements OnInit {
 
     addCart(food: boolean, index: number){
       if(food){
-        this.cartService.addFood(this.foodList![index], -1)
+        this.cartService.addFood(this.foodList![index], index)
+        console.log(this.cartService.getFoods())
         window.alert("The item has been added to the cart!")
       }
       else{
-        this.cartService.addDrink(this.drinkList![index], -1)
+        this.cartService.addDrink(this.drinkList![index], index)
         window.alert("The item has been added to the cart!")
       }
     }
