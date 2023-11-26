@@ -38,6 +38,10 @@ public class StockServiceImpl implements StockService {
     @Override
     public DrinkStockItemDTO createDrink(DrinkStockItemDTO drinkStockItemDTO) {
         Drink drink = drinkRepo.findByName(drinkStockItemDTO.getName());
+        if (drink == null) {
+            throw new HttpClientErrorException(HttpStatus.NOT_FOUND,
+                    String.format("Drink not found with Id: %s", drinkStockItemDTO.getId()));
+        }
         DrinkStockItem entity = new DrinkStockItem(drink, drinkStockItemDTO.getQuantity());
         entity = drinkStockRepo.save(entity);
         return entity.toDTO();

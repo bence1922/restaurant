@@ -11,7 +11,6 @@ import bme.restaurant.dao.RecipeLine;
 import bme.restaurant.dto.DrinkDTO;
 import bme.restaurant.dto.FoodDTO;
 import bme.restaurant.dto.FoodRecipeInnerDTO;
-import bme.restaurant.dto.DrinkDTO.TypeEnum;
 import bme.restaurant.repository.DrinkRepository;
 import bme.restaurant.repository.FoodRepository;
 import bme.restaurant.repository.IngredientRepository;
@@ -42,6 +41,10 @@ public class MenuServiceImpl implements MenuService {
         List<RecipeLine> recipe = new ArrayList<RecipeLine>();
         for(FoodRecipeInnerDTO recipeLineInnerDTO : foodDTO.getRecipe()){
             Ingredient ingredient = ingredientRepository.findByName(recipeLineInnerDTO.getIngerient());
+            if (ingredient == null) {
+                throw new HttpClientErrorException(HttpStatus.NOT_FOUND,
+                        String.format("Ingredient not found with name: %s", recipeLineInnerDTO.getIngerient())); 
+            }
             RecipeLine recipeLine = new RecipeLine(ingredient, recipeLineInnerDTO.getQuantity());
             recipe.add(recipeLine);
         }

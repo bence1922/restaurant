@@ -12,16 +12,24 @@ services:
       - backend-network  
 
   # Spring Boot application
-  buiness-app:
+  spring-backend:
     image: restaurant-backend:latest
-    container_name: spring-boot-app
+    container_name: spring-backend
     ports:
       - "8080:8080"
     depends_on:
       - mongodb
     networks:
-      - backend-network  # Create a custom network for backend communicationb
-
+      - backend-network 
+  angular-frontend:
+    image: restaurant-frontend:latest
+    container_name: spring-frontend
+    ports:
+      - "4200:4200"
+    depends_on:
+      - spring-backend
+    networks:
+      - backend-network 
 networks:
   backend-network:
    driver: bridge

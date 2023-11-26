@@ -70,8 +70,29 @@ public class DataSeeder implements CommandLineRunner {
 
 		// drinks
 		Drink iceTeaGreen = new Drink("Green Ice Tea", 400, "hot drink");
+		// Hot Drinks
+		Drink coffee = new Drink("Coffee", 350, "hot drink");
+		Drink tea = new Drink("Tea", 300, "hot drink");
+		Drink hotChocolate = new Drink("Hot Chocolate", 400, "hot drink");
+		Drink latte = new Drink("Latte", 450, "hot drink");
+		Drink cappuccino = new Drink("Cappuccino", 400, "hot drink");
 
-		var drinks = List.of(iceTeaGreen);
+		// Soft Drinks
+		Drink cola = new Drink("Cola", 500, "soft drink");
+		Drink lemonade = new Drink("Lemonade", 450, "soft drink");
+		Drink orangeJuice = new Drink("Orange Juice", 350, "soft drink");
+		Drink rootBeer = new Drink("Root Beer", 400, "soft drink");
+		Drink gingerAle = new Drink("Ginger Ale", 300, "soft drink");
+
+		// Alcoholic Drinks
+		Drink mojito = new Drink("Mojito", 350, "alcoholic drink");
+		Drink margarita = new Drink("Margarita", 400, "alcoholic drink");
+		Drink martini = new Drink("Martini", 450, "alcoholic drink");
+		Drink whiskeySour = new Drink("Whiskey Sour", 380, "alcoholic drink");
+		Drink daiquiri = new Drink("Daiquiri", 420, "alcoholic drink");
+
+		var drinks = List.of(coffee, tea, hotChocolate, latte, cappuccino, cola, lemonade, orangeJuice, rootBeer, gingerAle,
+        mojito, margarita, martini, whiskeySour, daiquiri, iceTeaGreen);
 		
 		saveEntitiesIfRepoIsEmpty(drinkRepo, drinks);
 
