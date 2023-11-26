@@ -17,8 +17,8 @@ export interface Booking {
     id: string;
     table: Table;
     customer: User;
-    startingDate: Date;
-    endingDate: Date;
+    startingDate: string;
+    endingDate: string;
     status: Booking.StatusEnum;
     peopleCount: number;
     note?: string;

@@ -10,7 +10,7 @@ export class PdfGeneratorService{
     generatePdf(order: Order){
         let docDefinition = {
             content: [{text: "Order for delivery", fontSize: 15},
-                        "Date: "+this.dateString(order.date!),
+                        "Date: "+ order.date!,
                         "\n",
                         this.listStringFood(order.foods),
                         this.listStringDrink(order.drinks),

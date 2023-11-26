@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, Time } from '@angular/common';
 import { HeroComponent } from '../Hero/hero.component';
 import { DividerModule } from 'primeng/divider';
 import { CalendarModule } from 'primeng/calendar';
@@ -18,7 +18,7 @@ import { StoreUserService } from 'src/app/generated-api/api/store.service';
 })
 export class ReservationComponent implements OnInit {
   date: Date | undefined
-  today = new Date().getTime()
+  now = new Date();
   newReservationForm = new FormGroup({
     date: new FormControl("", [Validators.required]),
     time: new FormControl("10:00", [Validators.required, Validators.min(10), Validators.max(20)]),
@@ -27,6 +27,11 @@ export class ReservationComponent implements OnInit {
   })
   tableNum=-1
   errorMsg: String | undefined
+
+  public startDate: Date = new Date();
+  public hours: number = 1;
+  public selectedTable: Table | undefined;
+  public avaibleTables: Array<Table> = new Array<Table>();
   
   constructor(
     private bookingService: BookingService,
@@ -34,58 +39,62 @@ export class ReservationComponent implements OnInit {
     private storeUserService: StoreUserService
   ) {}
 
-  book(start: Date, end: Date){
-    var data: NewBooking={
-      tableNumber: this.tableNum,
-      user_id: localStorage.getItem('userId')! ,
-      startingDate: start,
-      endingDate: end,
-      peopleCount: this.newReservationForm.value.guests!
-    }
+  // book(start: Date, end: Date){
+  //   var data: NewBooking={
+  //     tableNumber: this.tableNum,
+  //     user_id: localStorage.getItem('userId')! ,
+  //     startingDate: start,
+  //     endingDate: end,
+  //     peopleCount: this.newReservationForm.value.guests!
+  //   }
 
-    this.bookingService.bookTable(data).subscribe(
+  //   this.bookingService.bookTable(data).subscribe(
+  //     (result) => {
+  //       alert("Success!")
+  //       this.router.navigate(['/profile/reservations'])
+  //     },
+  //     (error : HttpErrorResponse) =>{
+  //       alert(error.error)
+  //     }
+  //   )
+  // }
+
+  public findAvaibleTables() {
+    const from = new Date(this.startDate);
+    const to = new Date(from);
+    to.setHours(from.getHours()+this.hours);
+    console.log(this.selectedTable);
+    this.bookingService.queryTablesForBooking(from.toISOString(), to.toISOString()).subscribe(
       (result) => {
-        alert("Success!")
-        this.router.navigate(['/profile/reservations'])
+        console.log(result);
+        this.avaibleTables = result;
       },
-      (error : HttpErrorResponse) =>{
-        console.log(error)
-        alert(error.statusText)
+      (error) => {
+        console.error(error);
       }
-    )
-
-
-    this.bookingService.bookTable(data).subscribe(
-      (result) => {
-        alert("Success!")
-        this.router.navigate(['/profile/reservations'])
-      },
-      (error : HttpErrorResponse) =>{
-        alert(error.error)
-      }
-    )
+    );
   }
 
-  onSubmit(){
-    var tables= new Array<Table>
+  // onSubmit(){
+  //   var tables= new Array<Table>
 
-    var startingDate= this.createStartingDate(new Date(this.newReservationForm.value.date!), this.newReservationForm.value.time!)
-    var endDate = this.createEndDate(new Date(this.newReservationForm.value.date!), this.newReservationForm.value.time!)
+  //   var startingDate= this.createStartingDate(new Date(this.newReservationForm.value.date!), this.newReservationForm.value.time!)
+  //   var endDate = this.createEndDate(new Date(this.newReservationForm.value.date!), this.newReservationForm.value.time!)
     
-    this.bookingService.queryTablesForBooking(startingDate, endDate).subscribe(
-      (result)=> tables=result
-    )
+  //   this.bookingService.queryTablesForBooking(startingDate, endDate).subscribe(
+  //     (result)=> tables=result
+  //   )
 
-    if(tables == null){
-      this.errorMsg="Nincs szabad asztal"
-    }else if(this.tableAvailable(tables)){
-      this.errorMsg=undefined
-      this.book(startingDate, endDate)
-    }
-    else{
-      this.errorMsg = "Nincs ennyi főre szabad asztal"
-    }
-  }
+  //   if(tables == null){
+  //     this.errorMsg="Nincs szabad asztal"
+  //   }else if(this.tableAvailable(tables)){
+  //     this.errorMsg=undefined
+  //     this.book(startingDate, endDate)
+  //   }
+  //   else{
+  //     this.errorMsg = "Nincs ennyi főre szabad asztal"
+  //   }
+  // }
   createStartingDate(date: Date, timeStr: String){
     let startingDate = new Date(date)
     var timeStringArray = timeStr.split(':')
@@ -133,5 +142,13 @@ export class ReservationComponent implements OnInit {
     return false
   }
   ngOnInit(){
+  }
+
+  getNextHour(): string {
+    const now = new Date();
+    now.setHours(now.getHours() + 1);
+    now.setMinutes(0);
+    now.setSeconds(0);
+    return now.toISOString().slice(0, 16);
   }
 }
