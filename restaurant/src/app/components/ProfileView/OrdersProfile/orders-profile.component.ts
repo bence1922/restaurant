@@ -6,6 +6,7 @@ import { Order } from 'src/app/generated-api/model/order';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { RatingModule } from 'primeng/rating';
 import { PdfGeneratorService } from 'src/app/services/pdfGenerator.service';
+import { CartService } from 'src/app/services/cart.service';
 
 
 @Component({
@@ -21,6 +22,8 @@ export class OrdersProfileComponent implements OnInit{
   openInfo: Boolean = false;
   formGroup!: FormGroup;
   pdfGenreator= new PdfGeneratorService()
+
+
 
   ngOnInit(): void {
     this.formGroup = new FormGroup({

@@ -14,6 +14,7 @@ import { MultiSelectModule } from 'primeng/multiselect';
 import { Dropdown, DropdownModule } from 'primeng/dropdown';
 import { StoreUserService } from 'src/app/generated-api/api/store.service';
 import { ResizableColumn } from 'primeng/table';
+import { CartService } from 'src/app/services/cart.service';
 
 
 @Component({
@@ -48,7 +49,9 @@ export class MenuComponent implements OnInit {
     typeDrink: new FormControl(Drink.TypeEnum.SoftDrink),
   })
 
-  constructor(private authService: AuthService,private menuService: MenuService,private storeUserService: StoreUserService){}
+  constructor(private menuService: MenuService,
+              private storeUserService: StoreUserService,
+              private cartService: CartService){}
 
   ngOnInit(): void{
     this.foodList= new Array<Food>
@@ -89,7 +92,15 @@ export class MenuComponent implements OnInit {
     }
 
     addCart(food: boolean, index: number){
-
+      if(food){
+        this.cartService.addFood(this.foodList![index], index)
+        console.log(this.cartService.getFoods())
+        window.alert("The item has been added to the cart!")
+      }
+      else{
+        this.cartService.addDrink(this.drinkList![index], index)
+        window.alert("The item has been added to the cart!")
+      }
     }
 
     addNewMenuItem(){

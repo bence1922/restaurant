@@ -1,7 +1,7 @@
 import { Component,OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HeroComponent } from '../Hero/hero.component';
-import { DefaultService, DrinkStockItem, FoodStockItem } from 'src/app/generated-api';
+import { DrinkStockItem, FoodStockItem } from 'src/app/generated-api';
 import {  TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
@@ -9,6 +9,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { DropdownModule } from 'primeng/dropdown';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { DialogModule } from 'primeng/dialog';
+import { DefaultService } from 'src/app/generated-api/api/default.service';
 
 @Component({
   selector: 'app-ingredients',

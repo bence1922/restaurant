@@ -5,6 +5,7 @@ import { DividerModule } from 'primeng/divider';
 import { ButtonModule } from 'primeng/button';
 import { Order, User } from 'src/app/generated-api';
 import { RatingModule } from 'primeng/rating';
+import { CartService } from 'src/app/services/cart.service';
 
 @Component({
   selector: 'app-order',
@@ -17,9 +18,17 @@ export class OrderComponent implements OnInit {
   user!: User; 
   order!: Order; 
   orderplaced: boolean=false
+
  
+  constructor(private cartService: CartService){}
 
   ngOnInit(): void {
+    console.log(this.cartService.getFoods())
+
+    this.order={
+      foods: this.cartService.getFoods(),
+      drinks: this.cartService.getDrinks(),
+    }
   }
 
   placeOrder(){
@@ -41,20 +50,10 @@ export class OrderComponent implements OnInit {
   }
 
   increase(food: boolean, index: number){
-    if(food){
-      this.order.foods[index].quantity++
-    }else{
-      this.order.drinks[index].quantity++
-    }
+    this.cartService.increase(food, index)
   }
 
   decrease(food: boolean, index: number){
-    if(food){
-      this.order.foods[index].quantity--
-      if(this.order.foods[index].quantity==0) this.order.foods.splice(index, 1)
-    }else{
-      this.order.drinks[index].quantity--
-      if(this.order.drinks[index].quantity==0) this.order.drinks.splice(index, 1)
-    }
+    this.cartService.decrease(food, index)
   }
 }

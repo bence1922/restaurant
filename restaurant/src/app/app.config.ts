@@ -8,10 +8,12 @@ import { appRoutes } from './app.routes';
 import { authInterceptor } from './interceptors/auth.interceptor';
 import {provideAnimations} from '@angular/platform-browser/animations'
 import { errorInterceptor } from './interceptors/error-handler.interceptor';
+import { CookieService } from 'ngx-cookie-service';
 
 export const appConfig: ApplicationConfig = {
   providers: [provideRouter(appRoutes),
     provideHttpClient(withInterceptors([authInterceptor, errorInterceptor])),
     provideAnimations(),
+    CookieService
   ],
 };
