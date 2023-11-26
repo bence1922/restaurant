@@ -17,6 +17,7 @@ export interface Order {
     status?: Order.StatusEnum;
     date?: Date;
     note?: string;
+    rating?: number;
     foods: Array<FoodOrderItem>;
     drinks: Array<DrinkOrderItem>;
 }
