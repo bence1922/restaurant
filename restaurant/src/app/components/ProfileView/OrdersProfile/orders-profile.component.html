@@ -19,7 +19,7 @@
                     <div class="my-3 text-color">Status - {{current.status}}</div>
                     <div *ngIf="current.status?.match('delivered')">
                         <form [formGroup]="formGroup" class="ml-6" >
-                            <p-rating formControlName="rating"></p-rating>
+                            <p-rating formControlName="rating" (click)="addRating()"></p-rating>
                         </form>
                     </div>
                 </div>

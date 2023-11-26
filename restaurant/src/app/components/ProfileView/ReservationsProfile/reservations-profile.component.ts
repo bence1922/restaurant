@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DividerModule } from 'primeng/divider';
 import { Booking } from 'src/app/generated-api/model/booking';
+import { StoreUserService } from 'src/app/generated-api/api/store.service';
+import { BookingService, UserService } from 'src/app/generated-api';
 
 
 @Component({
@@ -15,7 +17,16 @@ export class ReservationsProfileComponent implements OnInit {
   currentReservations?: Booking[] | null
   previousReservations?: Booking[] | null
 
+  constructor(
+    private storeUsderService: StoreUserService,
+    private userService: UserService,
+    private bookingService: BookingService,
+  ) { }
+
   ngOnInit(): void {
+    this.bookingService.queryBookings(undefined, this.storeUsderService.getUser().name!).subscribe((bookings) => {
+
+    })
   }
 
   date(startingDate: Date){
