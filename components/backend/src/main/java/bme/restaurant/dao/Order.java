@@ -16,6 +16,8 @@ public class Order {
 
     private LocalDateTime date;
 
+    private int rating;
+
     public Order(
             List<FoodOrderItem> foods,
             List<DrinkOrderItem> drinks,
@@ -57,6 +59,15 @@ public class Order {
 
     public void setDate(LocalDateTime date) {
         this.date = date;
+    }
+
+    
+    public int getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
     }
 
     public OrderDTO toDTO(){
