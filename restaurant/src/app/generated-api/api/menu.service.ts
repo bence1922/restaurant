@@ -109,6 +109,13 @@ export class MenuService {
 
         let localVarHeaders = this.defaultHeaders;
 
+        let localVarCredential: string | undefined;
+        // authentication (sessionId) required
+        localVarCredential = this.configuration.lookupCredential('sessionId');
+        if (localVarCredential) {
+            localVarHeaders = localVarHeaders.set('sessionId', localVarCredential);
+        }
+
         let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
         if (localVarHttpHeaderAcceptSelected === undefined) {
             // to determine the Accept header
@@ -175,6 +182,13 @@ export class MenuService {
         }
 
         let localVarHeaders = this.defaultHeaders;
+
+        let localVarCredential: string | undefined;
+        // authentication (sessionId) required
+        localVarCredential = this.configuration.lookupCredential('sessionId');
+        if (localVarCredential) {
+            localVarHeaders = localVarHeaders.set('sessionId', localVarCredential);
+        }
 
         let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
         if (localVarHttpHeaderAcceptSelected === undefined) {
@@ -243,6 +257,13 @@ export class MenuService {
 
         let localVarHeaders = this.defaultHeaders;
 
+        let localVarCredential: string | undefined;
+        // authentication (sessionId) required
+        localVarCredential = this.configuration.lookupCredential('sessionId');
+        if (localVarCredential) {
+            localVarHeaders = localVarHeaders.set('sessionId', localVarCredential);
+        }
+
         let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
         if (localVarHttpHeaderAcceptSelected === undefined) {
             // to determine the Accept header
@@ -299,6 +320,13 @@ export class MenuService {
         }
 
         let localVarHeaders = this.defaultHeaders;
+
+        let localVarCredential: string | undefined;
+        // authentication (sessionId) required
+        localVarCredential = this.configuration.lookupCredential('sessionId');
+        if (localVarCredential) {
+            localVarHeaders = localVarHeaders.set('sessionId', localVarCredential);
+        }
 
         let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
         if (localVarHttpHeaderAcceptSelected === undefined) {
@@ -593,6 +621,13 @@ export class MenuService {
 
         let localVarHeaders = this.defaultHeaders;
 
+        let localVarCredential: string | undefined;
+        // authentication (sessionId) required
+        localVarCredential = this.configuration.lookupCredential('sessionId');
+        if (localVarCredential) {
+            localVarHeaders = localVarHeaders.set('sessionId', localVarCredential);
+        }
+
         let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
         if (localVarHttpHeaderAcceptSelected === undefined) {
             // to determine the Accept header
@@ -663,6 +698,13 @@ export class MenuService {
         }
 
         let localVarHeaders = this.defaultHeaders;
+
+        let localVarCredential: string | undefined;
+        // authentication (sessionId) required
+        localVarCredential = this.configuration.lookupCredential('sessionId');
+        if (localVarCredential) {
+            localVarHeaders = localVarHeaders.set('sessionId', localVarCredential);
+        }
 
         let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
         if (localVarHttpHeaderAcceptSelected === undefined) {
