@@ -12,6 +12,7 @@ export class StoreUserService {
         localStorage.setItem('id', user.id);
         localStorage.setItem('role', user.role);
         localStorage.setItem('name', user.user.name);
+        localStorage.setItem('userId', user.user.id? user.user.id : "");
     }
 
     public isLoggedIn(): boolean {
@@ -23,7 +24,7 @@ export class StoreUserService {
     }
 
     public getUserId(): string {
-        const id = localStorage.getItem('id');
+        const id = localStorage.getItem('userId');
         if (id === null) {
             return '';
         }
@@ -70,5 +71,6 @@ export class StoreUserService {
         localStorage.removeItem('id');
         localStorage.removeItem('role');
         localStorage.removeItem('name');
+        localStorage.removeItem('userId')
     }
 }

@@ -12,11 +12,11 @@ export const authInterceptor: HttpInterceptorFn = (request, next) => {
 };
 
 function addAuthHeader(request: any) {
-    const token = localStorage.getItem('SessionId');
+    const token = localStorage.getItem('id');
     if (token) {
         request = request.clone({
             setHeaders: {
-                Authorization: `SessionId ${token}`,
+                SessionId: token,
             },
         });
     }
