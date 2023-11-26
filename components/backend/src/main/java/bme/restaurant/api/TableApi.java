@@ -351,7 +351,6 @@ public interface TableApi {
      * PATCH /table/order/{tableOrderId} : Update an order status or rating
      *
      * @param tableOrderId ID of the order to update (required)
-     * @param tableNumber number of the table to update (required)
      * @param rating  (optional)
      * @param status  (optional)
      * @return Order rated successfully (status code 200)
@@ -386,7 +385,6 @@ public interface TableApi {
     )
     default ResponseEntity<OrderDTO> updateTableOrder(
         @Parameter(name = "tableOrderId", description = "ID of the order to update", required = true, in = ParameterIn.PATH) @PathVariable("tableOrderId") String tableOrderId,
-        @Parameter(name = "tableNumber", description = "number of the table to update", required = true, in = ParameterIn.PATH) @PathVariable("tableNumber") Integer tableNumber,
         @Parameter(name = "rating", description = "", in = ParameterIn.HEADER) @RequestHeader(value = "rating", required = false) Integer rating,
         @Parameter(name = "status", description = "", in = ParameterIn.HEADER) @RequestHeader(value = "status", required = false) String status
     ) {

@@ -718,13 +718,6 @@ paths:
         schema:
           type: string
           example: "6544cd596955fe0a1c04fba9"
-      - name: tableNumber
-        in: path
-        description: number of the table to update
-        required: true
-        schema:
-          type: integer
-          example: 10
     patch:
       tags:
         - table

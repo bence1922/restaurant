@@ -66,8 +66,7 @@ public class TableController implements TableApi {
 
     @Override
     @Authorize(permission = "table-order-write")
-    public ResponseEntity<OrderDTO> updateTableOrder(String tableOrderId, Integer tableNumber, Integer rating,
-            String status) {
+    public ResponseEntity<OrderDTO> updateTableOrder(String tableOrderId, Integer rating, String status) {
         var response = orderService.updateTableOrder(tableOrderId, rating, status);
         return ResponseEntity.ok(response);
     }
