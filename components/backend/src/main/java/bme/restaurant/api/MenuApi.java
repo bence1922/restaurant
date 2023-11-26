@@ -62,6 +62,9 @@ public interface MenuApi {
             @ApiResponse(responseCode = "401", description = "Unauthorized"),
             @ApiResponse(responseCode = "403", description = "Forbidden"),
             @ApiResponse(responseCode = "500", description = "Internal server error")
+        },
+        security = {
+            @SecurityRequirement(name = "sessionId")
         }
     )
     @RequestMapping(
@@ -97,6 +100,9 @@ public interface MenuApi {
             @ApiResponse(responseCode = "401", description = "Unauthorized"),
             @ApiResponse(responseCode = "403", description = "Forbidden"),
             @ApiResponse(responseCode = "500", description = "Internal server error")
+        },
+        security = {
+            @SecurityRequirement(name = "sessionId")
         }
     )
     @RequestMapping(
@@ -134,6 +140,9 @@ public interface MenuApi {
             @ApiResponse(responseCode = "403", description = "Forbidden"),
             @ApiResponse(responseCode = "404", description = "Not found"),
             @ApiResponse(responseCode = "500", description = "Internal server error")
+        },
+        security = {
+            @SecurityRequirement(name = "sessionId")
         }
     )
     @RequestMapping(
@@ -170,6 +179,9 @@ public interface MenuApi {
             @ApiResponse(responseCode = "403", description = "Forbidden"),
             @ApiResponse(responseCode = "404", description = "Not found"),
             @ApiResponse(responseCode = "500", description = "Internal server error")
+        },
+        security = {
+            @SecurityRequirement(name = "sessionId")
         }
     )
     @RequestMapping(
@@ -384,6 +396,9 @@ public interface MenuApi {
             @ApiResponse(responseCode = "403", description = "Forbidden"),
             @ApiResponse(responseCode = "404", description = "Not found"),
             @ApiResponse(responseCode = "500", description = "Internal server error")
+        },
+        security = {
+            @SecurityRequirement(name = "sessionId")
         }
     )
     @RequestMapping(
@@ -436,6 +451,9 @@ public interface MenuApi {
             @ApiResponse(responseCode = "403", description = "Forbidden"),
             @ApiResponse(responseCode = "404", description = "Not found"),
             @ApiResponse(responseCode = "500", description = "Internal server error")
+        },
+        security = {
+            @SecurityRequirement(name = "sessionId")
         }
     )
     @RequestMapping(

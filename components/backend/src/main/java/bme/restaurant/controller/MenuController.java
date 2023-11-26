@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
 import bme.restaurant.api.MenuApi;
+import bme.restaurant.auth.Authorize;
 import bme.restaurant.dto.DrinkDTO;
 import bme.restaurant.dto.FoodDTO;
 import bme.restaurant.service.MenuService;
@@ -20,24 +21,28 @@ public class MenuController implements MenuApi {
     private MenuService menuService;
 
     @Override
+    @Authorize(permission = "menu-editor")
     public ResponseEntity<Void> addDrinkToMenu(@Valid DrinkDTO drinkDTO) {
         menuService.addDrink(drinkDTO);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @Override
+    @Authorize(permission = "menu-editor")
     public ResponseEntity<Void> addFoodToMenu(@Valid FoodDTO foodDTO) {
         menuService.addFood(foodDTO);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @Override
+    @Authorize(permission = "menu-editor")
     public ResponseEntity<Void> deleteDrink(String drinkId) {
         menuService.deleteDrink(drinkId);
         return ResponseEntity.noContent().build();
     }
 
     @Override
+    @Authorize(permission = "menu-editor")
     public ResponseEntity<Void> deleteFood(String foodId) {
         menuService.deleteFood(foodId);
         return ResponseEntity.noContent().build();
@@ -68,12 +73,14 @@ public class MenuController implements MenuApi {
     }
 
     @Override
+    @Authorize(permission = "menu-editor")
     public ResponseEntity<DrinkDTO> updateDrink(String drinkId, String name, Integer price) {
         DrinkDTO drink = menuService.updateDrink(drinkId, name, price);
         return ResponseEntity.ok(drink);
     }
 
     @Override
+    @Authorize(permission = "menu-editor")
     public ResponseEntity<FoodDTO> updateFood(String foodId, String name, Integer price) {
         FoodDTO food = menuService.updateFood(foodId, name, price);
         return ResponseEntity.ok(food);

@@ -52,11 +52,15 @@ public interface StockApi {
     @Operation(
         operationId = "createDrinkStockItem",
         summary = "Create a new drink stock item",
+        tags = { "stock" },
         responses = {
             @ApiResponse(responseCode = "201", description = "Drink stock item created successfully", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = DrinkStockItemDTO.class))
             }),
             @ApiResponse(responseCode = "400", description = "Invalid input")
+        },
+        security = {
+            @SecurityRequirement(name = "sessionId")
         }
     )
     @RequestMapping(
@@ -96,6 +100,7 @@ public interface StockApi {
     @Operation(
         operationId = "createFoodStockItem",
         summary = "Create a new food stock item",
+        tags = { "stock" },
         responses = {
             @ApiResponse(responseCode = "201", description = "Food stock item created successfully", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = FoodStockItemDTO.class))
@@ -105,6 +110,9 @@ public interface StockApi {
             @ApiResponse(responseCode = "403", description = "Forbidden"),
             @ApiResponse(responseCode = "404", description = "Not found"),
             @ApiResponse(responseCode = "500", description = "Internal server error")
+        },
+        security = {
+            @SecurityRequirement(name = "sessionId")
         }
     )
     @RequestMapping(
@@ -144,6 +152,7 @@ public interface StockApi {
     @Operation(
         operationId = "deleteDrinkStockItem",
         summary = "Delete a drink stock item",
+        tags = { "stock" },
         responses = {
             @ApiResponse(responseCode = "204", description = "Successfully deleted"),
             @ApiResponse(responseCode = "400", description = "Bad request"),
@@ -151,6 +160,9 @@ public interface StockApi {
             @ApiResponse(responseCode = "403", description = "Forbidden"),
             @ApiResponse(responseCode = "404", description = "Not found"),
             @ApiResponse(responseCode = "500", description = "Internal server error")
+        },
+        security = {
+            @SecurityRequirement(name = "sessionId")
         }
     )
     @RequestMapping(
@@ -179,6 +191,7 @@ public interface StockApi {
     @Operation(
         operationId = "deleteFoodStockItem",
         summary = "Delete a food stock item",
+        tags = { "stock" },
         responses = {
             @ApiResponse(responseCode = "204", description = "Successfully deleted"),
             @ApiResponse(responseCode = "400", description = "Bad request"),
@@ -186,6 +199,9 @@ public interface StockApi {
             @ApiResponse(responseCode = "403", description = "Forbidden"),
             @ApiResponse(responseCode = "404", description = "Not found"),
             @ApiResponse(responseCode = "500", description = "Internal server error")
+        },
+        security = {
+            @SecurityRequirement(name = "sessionId")
         }
     )
     @RequestMapping(
@@ -211,6 +227,7 @@ public interface StockApi {
     @Operation(
         operationId = "getAllDrinkStockItems",
         summary = "Get all drink stock items",
+        tags = { "stock" },
         responses = {
             @ApiResponse(responseCode = "200", description = "Successful operation", content = {
                 @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = DrinkStockItemDTO.class)))
@@ -218,6 +235,9 @@ public interface StockApi {
             @ApiResponse(responseCode = "401", description = "Unauthorized"),
             @ApiResponse(responseCode = "403", description = "Forbidden"),
             @ApiResponse(responseCode = "500", description = "Internal server error")
+        },
+        security = {
+            @SecurityRequirement(name = "sessionId")
         }
     )
     @RequestMapping(
@@ -253,6 +273,7 @@ public interface StockApi {
     @Operation(
         operationId = "getAllFoodStockItems",
         summary = "Get all food stock items",
+        tags = { "stock" },
         responses = {
             @ApiResponse(responseCode = "200", description = "Successful operation", content = {
                 @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = FoodStockItemDTO.class)))
@@ -260,6 +281,9 @@ public interface StockApi {
             @ApiResponse(responseCode = "401", description = "Unauthorized"),
             @ApiResponse(responseCode = "403", description = "Forbidden"),
             @ApiResponse(responseCode = "500", description = "Internal server error")
+        },
+        security = {
+            @SecurityRequirement(name = "sessionId")
         }
     )
     @RequestMapping(
@@ -300,6 +324,7 @@ public interface StockApi {
     @Operation(
         operationId = "partiallyUpdateDrinkStockItem",
         summary = "Partially update a drink stock item",
+        tags = { "stock" },
         responses = {
             @ApiResponse(responseCode = "200", description = "Drink stock item partially updated successfully", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = DrinkStockItemDTO.class))
@@ -309,6 +334,9 @@ public interface StockApi {
             @ApiResponse(responseCode = "403", description = "Forbidden"),
             @ApiResponse(responseCode = "404", description = "Not found"),
             @ApiResponse(responseCode = "500", description = "Internal server error")
+        },
+        security = {
+            @SecurityRequirement(name = "sessionId")
         }
     )
     @RequestMapping(
@@ -352,6 +380,7 @@ public interface StockApi {
     @Operation(
         operationId = "partiallyUpdateFoodStockItem",
         summary = "Partially update a food stock item",
+        tags = { "stock" },
         responses = {
             @ApiResponse(responseCode = "200", description = "Food stock item partially updated successfully", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = FoodStockItemDTO.class))
@@ -361,6 +390,9 @@ public interface StockApi {
             @ApiResponse(responseCode = "403", description = "Forbidden"),
             @ApiResponse(responseCode = "404", description = "Not found"),
             @ApiResponse(responseCode = "500", description = "Internal server error")
+        },
+        security = {
+            @SecurityRequirement(name = "sessionId")
         }
     )
     @RequestMapping(
