@@ -9,6 +9,8 @@ public enum Role {
             "default",
             "employee-read",
             "employee-write",
+            "employee-list",
+            "emloyee-register",
             "table-read",
             "table-write",
             "table-delete",
