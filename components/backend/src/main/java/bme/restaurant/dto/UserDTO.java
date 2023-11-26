@@ -33,8 +33,6 @@ public class UserDTO {
 
   private String address;
 
-  private Integer points;
-
   public UserDTO() {
     super();
   }
@@ -149,26 +147,6 @@ public class UserDTO {
     this.address = address;
   }
 
-  public UserDTO points(Integer points) {
-    this.points = points;
-    return this;
-  }
-
-  /**
-   * Get points
-   * @return points
-  */
-  
-  @Schema(name = "points", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
-  @JsonProperty("points")
-  public Integer getPoints() {
-    return points;
-  }
-
-  public void setPoints(Integer points) {
-    this.points = points;
-  }
-
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -182,13 +160,12 @@ public class UserDTO {
         Objects.equals(this.name, user.name) &&
         Objects.equals(this.email, user.email) &&
         Objects.equals(this.mobil, user.mobil) &&
-        Objects.equals(this.address, user.address) &&
-        Objects.equals(this.points, user.points);
+        Objects.equals(this.address, user.address);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, name, email, mobil, address, points);
+    return Objects.hash(id, name, email, mobil, address);
   }
 
   @Override
@@ -200,7 +177,6 @@ public class UserDTO {
     sb.append("    email: ").append(toIndentedString(email)).append("\n");
     sb.append("    mobil: ").append(toIndentedString(mobil)).append("\n");
     sb.append("    address: ").append(toIndentedString(address)).append("\n");
-    sb.append("    points: ").append(toIndentedString(points)).append("\n");
     sb.append("}");
     return sb.toString();
   }

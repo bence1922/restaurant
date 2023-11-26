@@ -4,20 +4,20 @@
         </div>
             <div class="formgrid">
                 <form #loginForm="ngForm" (ngSubmit)="submitLoginForm(loginForm)">
-                    <div class="field ">
-                        <label for="username">Username:</label>
-                        <input type="text" id="username" name="username" [(ngModel)]="username" required class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
-                    </div>
-                    <div class="field">
-                        <label for="password">Password:</label>
-                        <input type="password" id="password" name="password" [(ngModel)]="password" required class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
-                    </div>
-                    <div class="field col m-4 justify-content-evenly flex">
-                        <p-button type="submit" [rounded]="true" [text]="true">Bejelentkezés</p-button>
-                        <p-button class="mr-2" type="button" (click)="goToRegistration()" [rounded]="true" [text]="true">Registration</p-button>
-                        <!--<button type="submit">Bejelentkezés</button>
-                        <button type="button" (click)="goToRegistration()">Registration</button>-->
-                    </div>
+                <div class="field ">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" [(ngModel)]="username" required class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                </div>
+                <div class="field">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" [(ngModel)]="password" required class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                </div>
+                <div class="field col m-4 justify-content-evenly flex">
+                    <!--<p-button icon="pi pi-cart-plus" type="submit" [rounded]="true" [text]="true">Bejelentkezés</p-button>
+                    <p-button icon="pi pi-cart-plus" type="button" (click)="goToRegistration()" [rounded]="true" [text]="true">Registration</p-button>-->
+                    <button type="submit">Bejelentkezés</button>
+                    <button type="button" (click)="goToRegistration()">Registration</button>
+                </div>
                 </form>
             </div>
 </div>

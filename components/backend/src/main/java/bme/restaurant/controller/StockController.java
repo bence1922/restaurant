@@ -6,7 +6,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import bme.restaurant.api.StockApi;
-import bme.restaurant.auth.Authorize;
 import bme.restaurant.dto.DrinkStockItemDTO;
 import bme.restaurant.dto.FoodStockItemDTO;
 import bme.restaurant.service.StockServiceImpl;
@@ -21,49 +20,42 @@ public class StockController implements StockApi {
     private StockServiceImpl stockService;
 
     @Override
-    @Authorize(permission = "stock-editor")
     public ResponseEntity<DrinkStockItemDTO> createDrinkStockItem(@Valid DrinkStockItemDTO drinkStockItemDTO) {
         DrinkStockItemDTO response = stockService.createDrink(drinkStockItemDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     @Override
-    @Authorize(permission = "stock-editor")
     public ResponseEntity<FoodStockItemDTO> createFoodStockItem(@Valid FoodStockItemDTO foodStockItemDTO) {
         FoodStockItemDTO response = stockService.createFood(foodStockItemDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     @Override
-    @Authorize(permission = "stock-editor")
     public ResponseEntity<Void> deleteDrinkStockItem(String drinkStockItemId) {
         stockService.deleteDrink(drinkStockItemId);
         return ResponseEntity.noContent().build();
     }
 
     @Override
-    @Authorize(permission = "stock-editor")
     public ResponseEntity<Void> deleteFoodStockItem(String foodStockItemId) {
         stockService.deleteFood(foodStockItemId);
         return ResponseEntity.noContent().build();
     }
 
     @Override
-    @Authorize(permission = "stock-reader")
     public ResponseEntity<List<DrinkStockItemDTO>> getAllDrinkStockItems() {
         List<DrinkStockItemDTO> drinks = stockService.getAllDrinks();
         return ResponseEntity.ok(drinks);
     }
 
     @Override
-    @Authorize(permission = "stock-reader")
     public ResponseEntity<List<FoodStockItemDTO>> getAllFoodStockItems() {
         List<FoodStockItemDTO> foods = stockService.getAllFoods();
         return ResponseEntity.ok(foods);
     }
 
     @Override
-    @Authorize(permission = "stock-editor")
     public ResponseEntity<DrinkStockItemDTO> partiallyUpdateDrinkStockItem(
             String drinkStockItemId,
             @Valid String name,
@@ -73,7 +65,6 @@ public class StockController implements StockApi {
     }
 
     @Override
-    @Authorize(permission = "stock-editor")
     public ResponseEntity<FoodStockItemDTO> partiallyUpdateFoodStockItem(
             String foodStockItemId,
             @Valid String name,

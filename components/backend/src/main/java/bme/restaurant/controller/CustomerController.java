@@ -18,7 +18,6 @@ import bme.restaurant.dto.UserRegisterDTO;
 import bme.restaurant.service.BookingService;
 import bme.restaurant.service.OrderService;
 import bme.restaurant.service.UserService;
-import jakarta.validation.OverridesAttribute;
 import jakarta.validation.Valid;
 
 @RestController
@@ -82,13 +81,6 @@ public class CustomerController implements CustomerApi {
             OffsetDateTime from,
             OffsetDateTime to) {
         var response = bookingService.queryCustomerBookings(userId, from, to);
-        return ResponseEntity.ok(response);
-    }
-
-    @Override
-    @Authorize(permission = "customer-read-self")
-    public ResponseEntity<Integer> queryPointsForCustomer(String userId){
-        var response = userService.getPoints(userId);
         return ResponseEntity.ok(response);
     }
 }

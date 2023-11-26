@@ -143,10 +143,4 @@ public class UserServiceImpl implements UserService {
         user = userRepo.save(user);
         return user.toDTO();
     }
-
-    @Override
-    public int getPoints(String userId) {
-        User user = userRepo.findById(userId).get();
-        return user.getPoints();
-    }
 }

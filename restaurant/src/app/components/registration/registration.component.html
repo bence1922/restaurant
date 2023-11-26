@@ -14,7 +14,7 @@
                 </div>
                 <div class="field">
                     <label for="email">E-mail:</label>
-                    <input type="email" id="email" name="email" [(ngModel)]="email" required email class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                    <input type="email" id="email" name="email" [(ngModel)]="email" required class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
                 </div>
                 <div class="field">
                     <label for="address">Address:</label>
@@ -29,8 +29,8 @@
                     <input type="password" id="password_again" name="password_again" [(ngModel)]="password_again" required class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
                 </div>
                 <div class="field col m-4 justify-content-evenly flex">
-                    <p-button type="submit" [rounded]="true" [text]="true">Registration</p-button>
-                    <p-button class="mr-2" type="button" (click)="goToLogin()" [rounded]="true" [text]="true">Already have an account</p-button>
+                    <button type="submit">Registration</button>
+                    <button type="button" (click)="goToLogin()">Already have an account</button>
                 </div>
                 </form>
             </div>

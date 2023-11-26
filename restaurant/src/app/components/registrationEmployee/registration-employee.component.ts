@@ -3,12 +3,11 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { UserRegister, User, EmployeeService } from 'src/app/generated-api';
-import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-registration-employee',
   standalone: true,
-  imports: [CommonModule, FormsModule, ButtonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './registration-employee.component.html',
   styleUrls: ['./registration-employee.component.scss'],
 })

@@ -6,7 +6,6 @@ import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
 import { SplitterModule } from 'primeng/splitter';
 import { GalleriaModule } from 'primeng/galleria';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -20,9 +19,6 @@ export class HomeComponent {
 
   images: any[] | undefined;
   responsiveOptions: any[] | undefined;
-  constructor(
-    private router: Router,
-  ) {}
 
   ngOnInit(){
     this.responsiveOptions = [
@@ -41,8 +37,5 @@ export class HomeComponent {
   ];
   }
 
-  goToMenu() {
-    this.router.navigate(['/menu']);
-  }
 
 }

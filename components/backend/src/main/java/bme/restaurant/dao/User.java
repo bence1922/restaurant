@@ -22,8 +22,6 @@ public class User {
 
     private String role;
 
-    private int points;
-
     public User(
             String name,
             String address,
@@ -38,7 +36,6 @@ public class User {
         this.email = email;
         this.passwordHash = passwordHash;
         this.role = role;
-        this.points = 0;
     }
 
     public String getId() {
@@ -95,14 +92,6 @@ public class User {
 
     public void setRole(String role) {
         this.role = role;
-    }
-
-    public int getPoints() {
-        return this.points;
-    }
-    
-    public void setPoints(int points) {
-        this.points = points;
     }
 
     public UserDTO toDTO() {

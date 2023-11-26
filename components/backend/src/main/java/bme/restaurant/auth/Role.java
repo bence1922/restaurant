@@ -24,9 +24,6 @@ public enum Role {
             "table-order-read",
             "table-order-write",
             "customer-order-read",
-            "stock-editor",
-            "stock-reader",
-            "menu-editor",
             "customer-order-write"))),
     employee(new HashSet<>(Arrays.asList(
             "default",
@@ -42,9 +39,6 @@ public enum Role {
             "customer-read",
             "table-order-read",
             "table-order-write",
-            "stock-reader",
-            "menu-editor",
-            "stock-reader",
             "customer-order-read",
             "customer-order-write"))),
     customer(new HashSet<>(Arrays.asList(

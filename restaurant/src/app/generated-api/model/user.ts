@@ -17,6 +17,5 @@ export interface User {
     email: string;
     mobil: string;
     address: string;
-    points?: number;
 }
 
