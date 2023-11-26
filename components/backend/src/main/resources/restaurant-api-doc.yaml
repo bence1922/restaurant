@@ -319,6 +319,38 @@ paths:
           description: Forbidden
         '500':
           description: Internal server error
+  /customer/points/{userId}:
+    parameters:
+      - name: userId
+        in: path
+        schema: { type: string }
+        required: true
+    get:
+      tags:
+        - customer
+      summary: Query point for customer
+      operationId: queryPointsForCustomer
+      security:
+      - sessionId: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: integer
+                example: 1342
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+
   /customer/order/{userId}:
     parameters:
       - name: userId
@@ -951,6 +983,8 @@ paths:
         - menu
       summary: Add a new drink item
       operationId: addDrinkToMenu
+      security:
+      - sessionId: []
       requestBody:
         required: true
         content:
@@ -1003,6 +1037,8 @@ paths:
         - menu
       summary: Partially update menu item details by ID using query parameters
       operationId: updateDrink
+      security:
+      - sessionId: []
       parameters:
         - name: name
           in: query
@@ -1036,6 +1072,8 @@ paths:
         - menu
       summary: Delete menu item by ID
       operationId: deleteDrink
+      security:
+      - sessionId: []
       responses:
         '204':
           description: Successfully deleted
@@ -1072,6 +1110,8 @@ paths:
         - menu
       summary: Add a new food item
       operationId: addFoodToMenu
+      security:
+      - sessionId: []
       requestBody:
         required: true
         content:
@@ -1124,6 +1164,8 @@ paths:
         - menu
       summary: Partially update menu item details by ID using query parameters
       operationId: updateFood
+      security:
+      - sessionId: []
       parameters:
         - name: name
           in: query
@@ -1157,6 +1199,8 @@ paths:
         - menu
       summary: Delete menu item by ID
       operationId: deleteFood
+      security:
+      - sessionId: []
       responses:
         '204':
           description: Successfully deleted
@@ -1173,8 +1217,12 @@ paths:
 
   /stock/food:
     get:
+      tags:
+        - stock
       summary: Get all food stock items
       operationId: getAllFoodStockItems
+      security:
+      - sessionId: []
       responses:
         '200':
           description: Successful operation
@@ -1191,8 +1239,12 @@ paths:
         '500':
           description: Internal server error
     post:
+      tags:
+        - stock
       summary: Create a new food stock item
       operationId: createFoodStockItem
+      security:
+      - sessionId: []
       requestBody:
         required: true
         content:
@@ -1225,8 +1277,12 @@ paths:
         schema:
           type: string
     patch:
+      tags:
+        - stock
       summary: Partially update a food stock item
       operationId: partiallyUpdateFoodStockItem
+      security:
+      - sessionId: []
       parameters:
         - in: query
           name: name
@@ -1268,8 +1324,12 @@ paths:
         '500':
           description: Internal server error    
     delete:
+      tags:
+        - stock
       summary: Delete a food stock item
       operationId: deleteFoodStockItem
+      security:
+      - sessionId: []
       responses:
         '204':
           description: Successfully deleted
@@ -1286,7 +1346,11 @@ paths:
 
   /stock/drink:
     get:
+      tags:
+        - stock
       summary: Get all drink stock items
+      security:
+      - sessionId: []
       operationId: getAllDrinkStockItems
       responses:
         '200':
@@ -1304,8 +1368,12 @@ paths:
         '500':
           description: Internal server error
     post:
+      tags:
+        - stock
       summary: Create a new drink stock item
       operationId: createDrinkStockItem
+      security:
+      - sessionId: []
       requestBody:
         required: true
         content:
@@ -1330,8 +1398,12 @@ paths:
         schema:
           type: string
     patch:
+      tags:
+        - stock
       summary: Partially update a drink stock item
       operationId: partiallyUpdateDrinkStockItem
+      security:
+      - sessionId: []
       parameters:
         - in: query
           name: name
@@ -1362,8 +1434,12 @@ paths:
         '500':
           description: Internal server error
     delete:
+      tags:
+        - stock
       summary: Delete a drink stock item
       operationId: deleteDrinkStockItem
+      security:
+      - sessionId: []
       responses:
         '204':
           description: Successfully deleted
@@ -1698,6 +1774,8 @@ components:
         address:
           type: string
           example: Budapest Lakatos utca 6.
+        points:
+          type: integer
     UserSession:
       required:
         - id

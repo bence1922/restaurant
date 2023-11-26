@@ -21,4 +21,5 @@ public interface UserService {
     public List<UserDTO> getCustomers();
     public UserDTO registerEmployee(UserRegisterDTO userRegisterDTO);
     public UserDTO registerCustomer(UserRegisterDTO userRegisterDTO);
+    public int getPoints(String userId);
 }
