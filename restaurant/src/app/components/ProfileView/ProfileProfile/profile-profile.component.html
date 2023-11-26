@@ -3,7 +3,7 @@
         <div class="col-5">
             <div class="field">
                 <label for="name" class="">Name</label>
-                <input id="name" formControlName="name" type="text" autocomplete="off" class="form-control text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                <input id="name"  formControlName="name" type="text" autocomplete="off" class="form-control text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
             </div>
             <div class="field">
                 <label for="email" class="">Email</label>
@@ -11,7 +11,7 @@
             </div>
             <div class="field">
                 <label for="phone" class="">Phone</label>
-                <input id="phone" formControlName="phone" type="text" autocomplete="off" class="form-control text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                    <input id="phone" formControlName="phone" type="text" autocomplete="off" class="form-control text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
             </div>
             <div class="field">
                 <label for="address" class="">Address</label>
@@ -27,7 +27,7 @@
                     Coupon: 20%
                 </div>
             </div>
-            <div>
+            <!--<div>
                 <div class="field">
                     <label for="company" class="">Company</label>
                     <input id="company" formControlName="company" type="text" autocomplete="off" class="form-control text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
@@ -36,10 +36,10 @@
                     <label for="tax" class="">Tax number</label>
                     <input id="tax" formControlName="tax" type="text" autocomplete="off" class="form-control text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
                 </div>
-            </div>
+            </div>-->
         </div>
     </div>
     <div class=" flex justify-content-center">
-        <p-button severity="secondary"  type="submit" >Save changes</p-button>
+        <p-button severity="secondary"  type="submit" (click)="changeUserData()">Save changes</p-button>
     </div>
 </form>

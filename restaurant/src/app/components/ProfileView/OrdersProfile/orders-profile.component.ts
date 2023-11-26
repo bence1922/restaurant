@@ -6,6 +6,9 @@ import { Order } from 'src/app/generated-api/model/order';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { RatingModule } from 'primeng/rating';
 import { PdfGeneratorService } from 'src/app/services/pdfGenerator.service';
+import { CustomerOrderService } from 'src/app/generated-api/api/customerOrder.service';
+import { StoreUserService } from 'src/app/generated-api/api/store.service';
+import { CustomerService } from 'src/app/generated-api';
 
 
 @Component({
@@ -22,23 +25,24 @@ export class OrdersProfileComponent implements OnInit{
   formGroup!: FormGroup;
   pdfGenreator= new PdfGeneratorService()
 
+  constructor(
+    private customerOrderService: CustomerOrderService,
+    private storeUsderService: StoreUserService,
+    private customerService: CustomerService
+  ) {}
+
   ngOnInit(): void {
     this.formGroup = new FormGroup({
         rating: new FormControl(5)
     });
 
-    var item : Order
-    item = {
-      status: Order.StatusEnum.Delivered,
-      foods: [],
-      drinks: []
-    }
-    this.current=item
-
-    this.orderList = new Array<Order>
-    for(let i = 0; i < 3; i++){
-      this.orderList.push(item)
-    }
+    this.current
+    this.customerOrderService.queryCustomerOrderForCustomer(this.storeUsderService.getUser().id!, true).subscribe((orders) => {
+      this.current = orders[0]
+    })
+    this.customerOrderService.queryCustomerOrderForCustomer(this.storeUsderService.getUser().id!, false).subscribe((orders) => {
+      this.orderList = orders
+    })
   }
 
   price(order: Order){
@@ -52,6 +56,13 @@ export class OrdersProfileComponent implements OnInit{
     })
 
     return price
+  }
+
+  addRating(){
+    if(this.current){
+      this.formGroup.value.rating
+      //this.customerService.updateCustomerOrder(this.current.id!, this.storeUsderService.getUserId(), this.formGroup.value.rating).subscribe((order) => {})
+    }
   }
 
   generateInvoice(order: Order){
