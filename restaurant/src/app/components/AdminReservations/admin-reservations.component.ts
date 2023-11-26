@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { DividerModule } from 'primeng/divider';
 import { Booking, BookingService } from 'src/app/generated-api';
 import { ButtonModule } from 'primeng/button';
+import { start } from 'repl';
 
 @Component({
   selector: 'app-admin-reservations',
@@ -23,24 +24,26 @@ export class AdminReservationsComponent {
 
 
   ngOnInit(): void {
+    var today = new Date();
+    today.setHours(0,0,0,0);
     this.bookingService.queryBookings().subscribe((bookings: Booking[]) => {
       this.incomingReservations = bookings.filter((booking: Booking) => {
         return booking.status === "pending";
       });
       this.todayReservations = bookings.filter((booking: Booking) => {
-        var today = new Date();
-        today.setHours(0,0,0,0);
-        return booking.startingDate.toDateString === today.toDateString;
+        const startDate = new Date(booking.startingDate);
+        startDate.setHours(0,0,0,0);
+        return startDate === today;
       });
       this.upcomingReservations = bookings.filter((booking: Booking) => {
-        var today = new Date();
-        today.setHours(0,0,0,0);
-        return booking.startingDate.toDateString > today.toDateString;
+        const startDate = new Date(booking.startingDate);
+        startDate.setHours(0,0,0,0);
+        return startDate > today;
       });
       this.oldReservations = bookings.filter((booking: Booking) => {
-        var today = new Date();
-        today.setHours(0,0,0,0);
-        return booking.startingDate.toDateString < today.toDateString;
+        const startDate = new Date(booking.startingDate);
+        startDate.setHours(0,0,0,0);
+        return startDate < today;
       });
     });
 
@@ -58,8 +61,8 @@ export class AdminReservationsComponent {
         address: "Address address",
         name: "Name name"
       },
-      startingDate: new Date(),
-      endingDate: new Date(),
+      startingDate: new Date().toISOString(),
+      endingDate: new Date().toISOString(),
       status: Booking.StatusEnum.Accepted,
       peopleCount: 4,
     },

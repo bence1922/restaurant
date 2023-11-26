@@ -8,7 +8,7 @@ externalDocs:
   description: Find out more about this program on github.
   url: https://github.com/bence1922/restaurant
 servers:
-  - url: http://localhost:8080
+  - url: http://localhost:8080/api
 tags:
   - name: auth
   - name: user
