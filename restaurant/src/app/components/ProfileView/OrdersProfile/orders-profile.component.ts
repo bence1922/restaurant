@@ -8,7 +8,7 @@ import { RatingModule } from 'primeng/rating';
 import { PdfGeneratorService } from 'src/app/services/pdfGenerator.service';
 import { CustomerOrderService } from 'src/app/generated-api/api/customerOrder.service';
 import { StoreUserService } from 'src/app/generated-api/api/store.service';
-import { CustomerService } from 'src/app/generated-api';
+import { CustomerOrder, CustomerService } from 'src/app/generated-api';
 
 
 @Component({
@@ -61,7 +61,12 @@ export class OrdersProfileComponent implements OnInit{
   addRating(){
     if(this.current){
       this.formGroup.value.rating
-      //this.customerService.updateCustomerOrder(this.current.id!, this.storeUsderService.getUserId(), this.formGroup.value.rating).subscribe((order) => {})
+      this.customerService.queryCustomerOrders(this.storeUsderService.getUserName(), true).subscribe((customerOrder: CustomerOrder[]) => {
+        const currentOrder = customerOrder[0]
+        this.customerService.updateCustomerOrder(currentOrder.id, this.storeUsderService.getUserId(), this.formGroup.value.rating).subscribe((order) => {
+          this.current = order
+        })
+      })
     }
   }
 
