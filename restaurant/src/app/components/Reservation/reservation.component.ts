@@ -42,16 +42,16 @@ export class ReservationComponent implements OnInit {
       peopleCount: this.newReservationForm.value.guests!
     }
 
-    // this.bookingService.bookTable(data).subscribe(
-    //   (result) => {
-    //     alert("Success!")
-    //     this.router.navigate(['/profile/reservations'])
-    //   },
-    //   (error : HttpErrorResponse) =>{
-    //     console.log(error)
-    //     alert(error.statusText)
-    //   }
-    // )
+    this.bookingService.bookTable(data).subscribe(
+      (result) => {
+        alert("Success!")
+        this.router.navigate(['/profile/reservations'])
+      },
+      (error : HttpErrorResponse) =>{
+        console.log(error)
+        alert(error.statusText)
+      }
+    )
 
   }
 
