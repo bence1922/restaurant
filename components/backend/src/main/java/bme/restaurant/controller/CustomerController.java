@@ -52,7 +52,7 @@ public class CustomerController implements CustomerApi {
     }
 
     @Override
-    @Authorize(permission = "customer-order-write", selfAccess = true, roles = {"admin", "employee"})
+    @Authorize(permission = "customer-order-write", selfAccess = true)
     public ResponseEntity<OrderDTO> placeCustomerOrder(String userId, @Valid OrderDTO orderDTO) {
         var response = orderService.createCustomerOrder(userId, orderDTO);
         return ResponseEntity.ok(response);
