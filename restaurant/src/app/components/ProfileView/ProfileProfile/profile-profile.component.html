@@ -1,9 +1,9 @@
-<form class="inika">
+<form class="inika" [formGroup]="userForm" (submit)="onSubmit()">
     <div class="grid flex justify-content-between my-4 mx-2">
         <div class="col-5">
             <div class="field">
                 <label for="name" class="">Name</label>
-                <input id="name" formControlName="name" type="text" autocomplete="off" class="form-control text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                <input id="name" [(ngModel)]="user!.name" formControlName="name" type="text" autocomplete="off" class="form-control text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
             </div>
             <div class="field">
                 <label for="email" class="">Email</label>
@@ -27,19 +27,9 @@
                     Coupon: 20%
                 </div>
             </div>
-            <div>
-                <div class="field">
-                    <label for="company" class="">Company</label>
-                    <input id="company" formControlName="company" type="text" autocomplete="off" class="form-control text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
-                </div>
-                <div class="field">
-                    <label for="tax" class="">Tax number</label>
-                    <input id="tax" formControlName="tax" type="text" autocomplete="off" class="form-control text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
-                </div>
-            </div>
         </div>
     </div>
     <div class=" flex justify-content-center">
-        <p-button severity="secondary"  type="submit" >Save changes</p-button>
+        <p-button severity="secondary" [disabled]="!userForm.valid" type="submit" >Save changes</p-button>
     </div>
 </form>
