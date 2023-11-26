@@ -19,19 +19,14 @@
                 <ng-template pTemplate="body" let-item let-editing="editing" let-ri="rowIndex">
                     <tr [pEditableRow]="item">
                         <td>
-                            <p-cellEditor>
-                                <ng-template pTemplate="input">
-                                    <input pInputText type="number">
-                                </ng-template>
-                                <ng-template pTemplate="output">
+                            <div>
                                     {{item.number}}
-                                </ng-template>
-                            </p-cellEditor>
+                            </div>
                         </td>
                         <td>
                             <p-cellEditor>
                                 <ng-template pTemplate="input">
-                                    <input pInputText type="number">
+                                    <input pInputText type="number" [(ngModel)]="item.capacity">
                                 </ng-template>
                                 <ng-template pTemplate="output">
                                     {{item.capacity}}
@@ -66,15 +61,16 @@
                 <form [formGroup]="newTableForm" (ngSubmit) = "onSubmit()">
                     <div class>
                         <div class="field">
-                            <label for="number" class="">Number *</label>
-                            <input id="number" formControlName="number" type="number" [min]="1" autocomplete="off" class="form-control text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                            <label for="number" class="">Number *:</label>
+                            <div>{{calculateTableNumber()}}</div>
+                            <!-- <input id="number" formControlName="number" type="number" [disabled]="true" [value]="this.calculateTableNumber()" class="form-control text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"> -->
                         </div>
                         <div class="field">
                             <label for="capacity" class="">Capacity *</label>
                             <input id="capacity" formControlName="capacity" type="number" [min]="1" class="form-control text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
                         </div>
                         <div class="flex justify-content-center">
-                            <p-button severity="secondary" type="submit">Save</p-button>
+                            <p-button [disabled]="!newTableForm.valid" severity="secondary" type="submit">Save</p-button>
                         </div>
                     </div>
                 </form>
