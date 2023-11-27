@@ -23,8 +23,8 @@
                 <div class="text-color text-5xl mb-2">
                     {{user!.points? user!.points : 0}} point
                 </div>
-                <div class="text-color text-xl">
-                    Coupon: 20%
+                <div class="text-color text-xl" *ngIf="coupon()">
+                    Coupon: -10%
                 </div>
             </div>
         </div>

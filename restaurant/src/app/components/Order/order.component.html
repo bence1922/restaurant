@@ -68,7 +68,8 @@
             </div>
             <p-divider class="text-color mb-8"></p-divider>
             <div class="flex justify-content-end mr-5 mt-3 text-lg">Total: {{total()}} Ft</div>
-            <div>You get {{calculatePoints()}} points for this order</div>
+            <div class="flex justify-content-end mr-5 mt-3" *ngIf="coupon()">You have coupon: -10% </div>
+            <div *ngIf="!coupon()">You get {{calculatePoints()}} points for this order</div>
             <div class=" flex justify-content-center">
                 <p-button severity="secondary" [disabled]="(order.drinks.length==0 && order.foods.length==0)" (onClick)="placeOrder()">Order</p-button>
             </div>

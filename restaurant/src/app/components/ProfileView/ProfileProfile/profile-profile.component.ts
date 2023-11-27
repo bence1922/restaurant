@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
-import {  User, UserService } from 'src/app/generated-api';
+import {  User, UserService,  } from 'src/app/generated-api';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 
 
@@ -37,6 +37,11 @@ export class ProfileProfileComponent implements OnInit {
         this.user = result;
       }
     )
+  }
+
+  coupon(){
+    if(this.user.points!>=2000) return true
+    else return false
   }
 
   onSubmit(){
