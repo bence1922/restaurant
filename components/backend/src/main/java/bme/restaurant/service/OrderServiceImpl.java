@@ -68,10 +68,13 @@ public class OrderServiceImpl implements OrderService {
     public List<CustomerOrderDTO> queryOrdersForCustomer(String userId, Boolean isCurrent) {
         Query query = new Query();
 
-        if (userId != null) {
-            var customer = userRepo.findById(userId);
-            query.addCriteria(Criteria.where("customer").is(customer));
+        var response = userRepo.findById(userId);
+        if (response.isEmpty()) {
+            throw new HttpClientErrorException(HttpStatus.NOT_FOUND,
+                    String.format("Customer not found with Id: %s", userId));
         }
+        User customer = response.get();
+        query.addCriteria(Criteria.where("customer").is(customer));
         
         if (isCurrent != null) {
             if (isCurrent) {
@@ -81,9 +84,9 @@ public class OrderServiceImpl implements OrderService {
             }
         }
 
-        var response = mongoTemplate.find(query, CustomerOrder.class);
+        var result = mongoTemplate.find(query, CustomerOrder.class);
 
-        return response.stream().map(CustomerOrder::toDTO).collect(Collectors.toList());
+        return result.stream().map(CustomerOrder::toDTO).collect(Collectors.toList());
     }
 
     @Override
@@ -137,6 +140,10 @@ public class OrderServiceImpl implements OrderService {
 
         if (tableNumber != null) {
             var table = tableRepo.findByNumber(tableNumber);
+            if (table == null) {
+                throw new HttpClientErrorException(HttpStatus.NOT_FOUND,
+                        String.format("Table not found with Id: %s", tableNumber));
+            }
             query.addCriteria(Criteria.where("table").is(table));
         }
 

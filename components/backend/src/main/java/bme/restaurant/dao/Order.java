@@ -2,6 +2,8 @@ package bme.restaurant.dao;
 
 import java.util.List;
 
+import bme.restaurant.dto.DrinkOrderItemDTO;
+import bme.restaurant.dto.FoodOrderItemDTO;
 import bme.restaurant.dto.OrderDTO;
 
 import java.time.LocalDateTime;
@@ -71,9 +73,18 @@ public class Order {
     }
 
     public OrderDTO toDTO(){
+        List<FoodOrderItemDTO> foodsList = null;
+        List<DrinkOrderItemDTO> drinksList = null;
+
+        if (this.foods != null){
+            foodsList = this.foods.stream().map(food -> food.toDTO()).toList();
+        }
+        if (this.foods != null){
+            drinksList = this.drinks.stream().map(drink -> drink.toDTO()).toList();
+        }
         var dto = new OrderDTO(
-            this.foods.stream().map(food -> food.toDTO()).toList(),
-            this.drinks.stream().map(drink -> drink.toDTO()).toList()
+            foodsList,
+            drinksList
         );
         dto.setStatus(OrderDTO.StatusEnum.fromValue(this.status));
         dto.setDate(date.atZone(ZoneId.of("Europe/Budapest")).toOffsetDateTime());
