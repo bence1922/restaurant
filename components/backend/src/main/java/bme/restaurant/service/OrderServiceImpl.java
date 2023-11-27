@@ -14,7 +14,10 @@ import org.springframework.web.client.HttpClientErrorException;
 import bme.restaurant.dao.CustomerOrder;
 import bme.restaurant.dao.Order;
 import bme.restaurant.dao.TableOrder;
+import bme.restaurant.dao.User;
 import bme.restaurant.dto.CustomerOrderDTO;
+import bme.restaurant.dto.DrinkOrderItemDTO;
+import bme.restaurant.dto.FoodOrderItemDTO;
 import bme.restaurant.dto.OrderDTO;
 import bme.restaurant.dto.TableOrderDTO;
 import bme.restaurant.repository.CustomerOrderRepository;
@@ -85,13 +88,28 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public OrderDTO createCustomerOrder(String userId, OrderDTO orderDTO) {
-        var customer = userRepo.findById(userId);
-        if (customer.isEmpty()) {
+        var response = userRepo.findById(userId);
+        if (response.isEmpty()) {
             throw new HttpClientErrorException(HttpStatus.NOT_FOUND,
                     String.format("Customer not found with Id: %s", userId));
         }
-        var customerOrder = new CustomerOrder(customer.get(), Order.fromDTO(orderDTO));
+        User customer = response.get();
+        var customerOrder = new CustomerOrder(customer, Order.fromDTO(orderDTO));
         customerOrder = customerOrderRepository.save(customerOrder);
+        int points = customer.getPoints();
+        if (points >= 2000) {
+            points -= 2000;
+        }
+        else {
+            for (DrinkOrderItemDTO drinkOrderItemDTO : orderDTO.getDrinks()) {
+            points += (int) drinkOrderItemDTO.getDrink().getPrice() * 0.1;
+            }
+            for (FoodOrderItemDTO foodOrderItemDTO : orderDTO.getFoods()) {
+                points += (int) foodOrderItemDTO.getFood().getPrice() * 0.1;
+            }
+            customer.setPoints(points);
+        }
+        userRepo.save(customer);
         return customerOrder.getOrder().toDTO();
     }
 
