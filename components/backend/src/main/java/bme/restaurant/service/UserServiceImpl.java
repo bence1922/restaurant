@@ -1,6 +1,11 @@
 package bme.restaurant.service;
 
-import org.checkerframework.checker.units.qual.t;
+import bme.restaurant.dao.User;
+import bme.restaurant.dto.UserDTO;
+import bme.restaurant.dto.UserLoginDTO;
+import bme.restaurant.dto.UserRegisterDTO;
+import bme.restaurant.dto.UserSessionDTO;
+import jakarta.servlet.http.HttpServletRequest;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -9,12 +14,6 @@ import org.springframework.session.SessionRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 
-import bme.restaurant.dao.User;
-import bme.restaurant.dto.UserDTO;
-import bme.restaurant.dto.UserLoginDTO;
-import bme.restaurant.dto.UserRegisterDTO;
-import bme.restaurant.dto.UserSessionDTO;
-import jakarta.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;

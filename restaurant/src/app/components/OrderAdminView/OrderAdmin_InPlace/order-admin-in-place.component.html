@@ -77,21 +77,21 @@
     <p-dialog header="Add new Order" [(visible)]="dialogVisible" [style]="{width: '50vw'}">
         <div class="flex my-4">
             <div class="text-color-secondary text-lg mr-3">Table: </div>
-            <p-dropdown appendTo="body" [options]="freeTables" [(ngModel)]="selectedTable"></p-dropdown>
+            <p-dropdown appendTo="body" [options]="freeTables" optionLabel="number" [(ngModel)]="selectedTable"></p-dropdown>
             <!--<div class="ml-6">You can get {{calculatePoints(closingOrder!)}} points</div>-->
         </div>
         <div class="my-4">
             <div class="text-color-secondary text-lg mr-3 mb-3">Add foods</div>
             <div>
                 <p-dropdown [options]="foodList" optionLabel="name" [(ngModel)]="selectFood" placeholder="Select a food" appendTo="body" class="mx-3"></p-dropdown>
-                <p-dropdown [options]="quantity" optionLabel="quantity" [(ngModel)]="selectFoodQuantity" placeholder="Select food quantity" appendTo="body" class="mx-3"></p-dropdown>
+                <p-dropdown [options]="quantity"  [(ngModel)]="selectFoodQuantity" placeholder="Select food quantity" appendTo="body" class="mx-3"></p-dropdown>
             </div>        
         </div>
         <div class="my-4">
             <div class="text-color-secondary text-lg mr-3 mb-3">Add drinks</div>
             <div>
                 <p-dropdown [options]="drinkList" optionLabel="name" [(ngModel)]="selectDrink" placeholder="Select a drink" appendTo="body" class="mx-3"></p-dropdown>
-                <p-dropdown [options]="quantity" optionLabel="quantity" [(ngModel)]="selectDrinkQuantity" placeholder="Select drink quantity" appendTo="body" class="mx-3"></p-dropdown>
+                <p-dropdown [options]="quantity" [(ngModel)]="selectDrinkQuantity" placeholder="Select drink quantity" appendTo="body" class="mx-3"></p-dropdown>
             </div> 
         </div>
         <div>

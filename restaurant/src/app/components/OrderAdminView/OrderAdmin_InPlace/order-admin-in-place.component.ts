@@ -5,7 +5,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { RatingModule } from 'primeng/rating';
 import { TableModule } from 'primeng/table';
 import { MenuItem } from 'primeng/api';
-import { Drink, DrinkOrderItem, Food, FoodOrderItem, Order, Table, TableOrder, TableService } from 'src/app/generated-api';
+import { Drink, DrinkOrderItem, Food, FoodOrderItem, MenuService, Order, Table, TableOrder, TableService } from 'src/app/generated-api';
 import { FormsModule } from '@angular/forms';
 import { DialogModule } from 'primeng/dialog';
 import { SplitButtonModule } from 'primeng/splitbutton';
@@ -42,6 +42,7 @@ export class OrderAdminInPlaceComponent  implements OnInit{
   constructor(
     private tableOrderService: TableOrderService,
     private tableService: TableService,
+    private menuService: MenuService
   ){}
 
   ngOnInit(): void {
@@ -55,17 +56,36 @@ export class OrderAdminInPlaceComponent  implements OnInit{
     const currentTables = new Array<Table>()
     const allTables = new Array<Table>()
     this.tableService.queryTableOrders(undefined, true).subscribe((tables) => {
+      this.orders = tables
       tables.forEach(table => {
         currentTables.push(table.table)
       })
     })
-    this.tableService.queryTableOrders().subscribe((tables) => {
-      this.orders = tables
+    this.tableService.listTables().subscribe((tables) => {
       tables.forEach(table => {
-        allTables.push(table.table)
+        allTables.push(table)
+        if(table.status=="free"){
+          this.freeTables.push(table)
+        }
       })
     })
-    this.freeTables = allTables.filter(table => !currentTables.includes(table))
+    
+
+
+    console.log(allTables)
+    console.log(currentTables)
+    console.log(this.freeTables)
+
+
+    this.menuService.getFoodMenu().subscribe(
+      (result)=> this.foodList=result
+    )
+
+    this.menuService.getDrinkMenu().subscribe(
+      (result)=>{
+        this.drinkList=result
+      }
+    )
   }
 
   calculatePrice(order: Order){
