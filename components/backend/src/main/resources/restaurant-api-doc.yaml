@@ -1512,7 +1512,7 @@ components:
     NewBooking:
       required:
         - tableNumber
-        - user-id
+        - userId
         - startingDate
         - endingDate
         - peopleCount
@@ -1521,7 +1521,7 @@ components:
         tableNumber:
           type: integer
           example: 3
-        user-id:
+        userId:
           type: string
           example: "6544cd596955fe0a1c04fba9"
         startingDate:
