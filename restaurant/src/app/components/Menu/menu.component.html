@@ -79,7 +79,7 @@
                     <p-dropdown formControlName="typeDrink" id="typeDrink" [options]="drinkTypeList" appendTo="body"></p-dropdown>
                 </div>
                 <div class="flex justify-content-center">
-                    <p-button severity="secondary" type="submit">Save</p-button>
+                    <p-button severity="secondary" [disabled]="!newMenuItem.valid" type="submit">Save</p-button>
                 </div>
             </form>
         </div>
@@ -96,7 +96,7 @@
                         <input id="price" formControlName="price" [min]="0" type="number" class="form-control  text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
                     </div>
                     <div class="flex justify-content-center">
-                        <p-button severity="secondary" type="submit">Save</p-button>
+                        <p-button severity="secondary" [disabled]="!updateMenuItem.valid" type="submit">Save</p-button>
                     </div>
                 </form>
             </div>
