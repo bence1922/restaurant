@@ -13,8 +13,10 @@ import bme.restaurant.dao.Booking;
 import bme.restaurant.dao.CustomerOrder;
 import bme.restaurant.dao.Drink;
 import bme.restaurant.dao.DrinkOrderItem;
+import bme.restaurant.dao.DrinkStockItem;
 import bme.restaurant.dao.Food;
 import bme.restaurant.dao.FoodOrderItem;
+import bme.restaurant.dao.FoodStockItem;
 import bme.restaurant.dao.Ingredient;
 import bme.restaurant.dao.Order;
 import bme.restaurant.dao.RecipeLine;
@@ -24,7 +26,9 @@ import bme.restaurant.dao.User;
 import bme.restaurant.repository.BookingRepository;
 import bme.restaurant.repository.CustomerOrderRepository;
 import bme.restaurant.repository.DrinkRepository;
+import bme.restaurant.repository.DrinkStockRepository;
 import bme.restaurant.repository.FoodRepository;
+import bme.restaurant.repository.FoodStockRepository;
 import bme.restaurant.repository.IngredientRepository;
 import bme.restaurant.repository.TableOrderRepository;
 import bme.restaurant.repository.TableRepository;
@@ -56,6 +60,12 @@ public class DataSeeder implements CommandLineRunner {
 
 	@Autowired
 	private CustomerOrderRepository customerOrderRepo;
+
+	@Autowired
+	private DrinkStockRepository drinkStockRepo;
+
+	@Autowired
+	private FoodStockRepository foodStockRepo;
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -97,7 +107,13 @@ public class DataSeeder implements CommandLineRunner {
 		saveEntitiesIfRepoIsEmpty(drinkRepo, drinks);
 
 		// drink stock
-
+		DrinkStockItem drinkStockItem1 = new DrinkStockItem(daiquiri, 20);
+		DrinkStockItem drinkStockItem2 = new DrinkStockItem(tea, 40);
+		DrinkStockItem drinkStockItem3 = new DrinkStockItem(whiskeySour, 10);
+		DrinkStockItem drinkStockItem4 = new DrinkStockItem(latte, 100);
+		DrinkStockItem drinkStockItem5 = new DrinkStockItem(orangeJuice, 120);
+		var drinksStock = List.of(drinkStockItem1,drinkStockItem2,drinkStockItem3,drinkStockItem4,drinkStockItem5);
+		saveEntitiesIfRepoIsEmpty(drinkStockRepo, drinksStock);
 		// tables
 		var tables = List.of(
 				new Table(1, 4, "free"),
@@ -306,6 +322,38 @@ public class DataSeeder implements CommandLineRunner {
 		);
 
 		saveEntitiesIfRepoIsEmpty(ingredientRepo, ingredients);
+
+		FoodStockItem fsiMeat = new FoodStockItem(meat, 100);
+		FoodStockItem fsiPotato = new FoodStockItem(potato, 100);
+		FoodStockItem fsiSalt = new FoodStockItem(salt, 100);
+		FoodStockItem fsiOnion = new FoodStockItem(onion, 100);
+		FoodStockItem fsiSugar = new FoodStockItem(sugar, 45);
+		FoodStockItem fsiFlour = new FoodStockItem(flour, 321);
+		FoodStockItem fsiRice = new FoodStockItem(rice, 432);
+		FoodStockItem fsiOil = new FoodStockItem(oil, 100);
+		FoodStockItem fsiTomato = new FoodStockItem(tomato, 32);
+		FoodStockItem fsiChicken = new FoodStockItem(chicken, 14);
+		FoodStockItem fsiGarlic = new FoodStockItem(garlic, 23);
+		FoodStockItem fsiPepper = new FoodStockItem(pepper, 658);
+		FoodStockItem fsiCheese = new FoodStockItem(cheese, 54);
+		FoodStockItem fsiButter = new FoodStockItem(butter, 34);
+		FoodStockItem fsiEgg = new FoodStockItem(egg, 435);
+		FoodStockItem fsiMilk = new FoodStockItem(milk, 100);
+		FoodStockItem fsiVinegar = new FoodStockItem(vinegar, 896);
+		FoodStockItem fsiLemon = new FoodStockItem(lemon, 100);
+		FoodStockItem fsiPasta = new FoodStockItem(pasta, 23);
+		FoodStockItem fsiBread = new FoodStockItem(bread, 1100);
+		FoodStockItem fsiCinnamon = new FoodStockItem(cinnamon, 34);
+		FoodStockItem fsiNutmeg = new FoodStockItem(nutmeg, 10);
+
+		// Add the new FoodStockItem instances to the existing list
+		List<FoodStockItem> foodStockItems = List.of(
+			fsiMeat, fsiPotato, fsiSalt, fsiOnion, fsiSugar, fsiFlour, fsiRice, fsiOil, fsiTomato,
+			fsiChicken, fsiGarlic, fsiPepper, fsiCheese, fsiButter, fsiEgg, fsiMilk, fsiVinegar,
+			fsiLemon, fsiPasta, fsiBread, fsiCinnamon, fsiNutmeg
+		);
+		saveEntitiesIfRepoIsEmpty(foodStockRepo, foodStockItems);
+
 		// Recipe Lines for the existing ingredients
 		RecipeLine chickenLine = new RecipeLine(chicken, 300);
 		RecipeLine garlicLine = new RecipeLine(garlic, 10);
@@ -338,6 +386,8 @@ public class DataSeeder implements CommandLineRunner {
 		RecipeLine carrotLine = new RecipeLine(carrot, 80);
 		RecipeLine cauliflowerLine = new RecipeLine(cauliflower, 100);
 		RecipeLine broccoliLine = new RecipeLine(broccoli, 120);
+
+
 
 		// Basic foods using the existing ingredients
 		Food food1 = new Food("Grilled Chicken", 800, "main course", List.of(chickenLine, garlicLine, pepperLine, saltLine));
