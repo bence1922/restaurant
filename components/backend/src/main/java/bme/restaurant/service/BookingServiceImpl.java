@@ -108,11 +108,12 @@ public class BookingServiceImpl implements BookingService {
     public List<BookingDTO> queryCustomerBookings(String userId, OffsetDateTime from, OffsetDateTime to) {
         Query query = new Query();
 
-        var customer = userRepo.findById(userId);
-        if (customer == null) {
+        var response = userRepo.findById(userId);
+        if (response.isEmpty()) {
             throw new HttpClientErrorException(HttpStatus.NOT_FOUND,
                     String.format("Customer not found with Id: %s", userId));
         }
+        var customer = response.get();
         query.addCriteria(Criteria.where("customer").is(customer));
 
         if (from != null) {

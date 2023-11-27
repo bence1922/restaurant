@@ -65,8 +65,6 @@ public class AuthorizeAspect {
                     }
                 }
                 var userId_Session = session.getAttribute("userId").toString();
-                System.out.println("id1:"+userId_Path+".");
-                System.out.println("id2:"+userId_Session+".");
                 if (!userId_Path.equals(userId_Session) && !Arrays.asList(roles).contains(role)) {
                     throw new HttpClientErrorException(HttpStatus.FORBIDDEN, "Can only access own data");
                 }
