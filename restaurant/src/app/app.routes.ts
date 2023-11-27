@@ -35,8 +35,8 @@ export const appRoutes: Route[] = [
                 children:[{path: 'datas', component: ProfileProfileComponent},
                             {path: 'orders', component: OrdersProfileComponent},
                             {path: 'reservations', component: ReservationsProfileComponent}]},
-            {path: 'tables', title:"Asztalok", component: TablesComponent, canActivate: [RoleGuard], data: {roles: ['admin', 'waiter', 'manager']}},
-            {path: 'orders_admin', title: "Rendelések", component: OrderAdminComponent, canActivate: [RoleGuard], data: {roles: ['admin', 'waiter', 'manager']},
+            {path: 'tables', title:"Asztalok", component: TablesComponent, canActivate: [RoleGuard], data: {roles: ['admin', 'employee']}},
+            {path: 'orders_admin', title: "Rendelések", component: OrderAdminComponent, canActivate: [RoleGuard], data: {roles: ['admin', 'employee']},
                     children:[
                         {path: 'inplace', component: OrderAdminInPlaceComponent },
                         {path: 'delivery', component: OrderAdminDeliveryComponent }
@@ -45,12 +45,12 @@ export const appRoutes: Route[] = [
             {path:'about-us',  title:'Rólunk', component: AboutUsComponent, canActivate: [RoleGuard], data: {roles: ['everyone']}},
             {path: 'order', title:'Rendelés', component: OrderComponent, canActivate: [RoleGuard], data: {roles: ['customer']}},
             {path:'employees', title:'Dolgozók', component: EmployeesComponent, canActivate: [RoleGuard], data: {roles: ['admin']}},
-            {path: 'ingredients', title:'Alapanyagok', component: IngredientsComponent, canActivate: [RoleGuard], data: {roles: ['admin', 'manager']}},
+            {path: 'ingredients', title:'Alapanyagok', component: IngredientsComponent, canActivate: [RoleGuard], data: {roles: ['admin', 'employee']}},
             {path: 'login', title:'Log In', component: LoginComponent, canActivate: [RoleGuard], data: {roles: ['everyone']}},
             {path: 'registration', title:'Registration', component: RegistrationComponent, canActivate: [RoleGuard], data: {roles: ['everyone']}},
             {path: 'registration_employees', title:'Registration of Employees', component: RegistrationEmployeeComponent, canActivate: [RoleGuard], data: {roles: ['admin']}},
-            {path: 'tables', title:"Asztalok", component: TablesComponent, canActivate: [RoleGuard], data: {roles: ['admin', 'waiter', 'manager']}},
-            {path: 'reservations_admin', title:"Foglalások", component: AdminReservationsComponent, canActivate: [RoleGuard], data: {roles: ['admin','everyone']}},
+            {path: 'tables', title:"Asztalok", component: TablesComponent, canActivate: [RoleGuard], data: {roles: ['admin']}},
+            {path: 'reservations_admin', title:"Foglalások", component: AdminReservationsComponent, canActivate: [RoleGuard], data: {roles: ['admin','employee']}},
 ]}]
 //     {path: 'admin', loadChildren: () => import('./admin/routes')},
 //     // ...

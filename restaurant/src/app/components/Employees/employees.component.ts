@@ -18,12 +18,6 @@ import { Router } from '@angular/router';
 export class EmployeesComponent implements OnInit, OnDestroy {
   getEmployeesSubscribtion?: Subscription;
 
-  // employees: Employee[] = [
-  //   {name: 'Kiss József', role: 'waiter'},
-  //   {name: 'Kiss Béla', role: 'waiter'},
-  //   {name: 'Nagy József', role: 'manager'},
-  // ]
-
   employees: User[] = [];
 
 

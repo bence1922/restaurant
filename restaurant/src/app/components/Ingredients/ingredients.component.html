@@ -13,7 +13,7 @@
                         <th pSortableColumn="name" pResizableColumn>Name <p-sortIcon field="name"></p-sortIcon></th>
                         <th pSortableColumn="quantity">Quantity <p-sortIcon field="quantity"></p-sortIcon></th>
                         <th>Unit</th>
-                        <th class="w-6rem">Action</th>
+                        <th class="w-6rem" *ngIf="canAccess()">Action</th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-item let-editing="editing" let-ri="rowIndex">
@@ -47,7 +47,7 @@
                                 </ng-template>
                             </p-cellEditor>
                         </td>
-                        <td>
+                        <td *ngIf="canAccess()">
                             <p-button *ngIf="!editing" pInitEditableRow icon="pi pi-pencil" [rounded]="true" [text]="true" (click)="onRowEditInit(item)"></p-button>
                             <p-button *ngIf="!editing" icon="pi pi-trash" [rounded]="true" [text]="true" (onClick)="deleteIngredientFood(item)"></p-button>
                             <p-button *ngIf="editing" pSaveEditableRow icon="pi pi-check" [rounded]="true" [text]="true" (click)="onRowEditSave(item)"></p-button>
@@ -55,7 +55,7 @@
                         </td>
                     </tr>
                 </ng-template>
-                <ng-template pTemplate="caption">
+                <ng-template pTemplate="caption" *ngIf="canAccess()">
                     <p-button type="button" icon="pi pi-plus" styleClass="p-button-text" (onClick)="newIngredientFormOpenBtnClick()"></p-button>
                 </ng-template>
             </p-table>
@@ -71,7 +71,7 @@
                     <tr>
                         <th pSortableColumn="name" pResizableColumn>Name <p-sortIcon field="name"></p-sortIcon></th>
                         <th pSortableColumn="quantity">Quantity <p-sortIcon field="quantity"></p-sortIcon></th>
-                        <th class="w-6rem">Action</th>
+                        <th class="w-6rem" *ngIf="canAccess()">Action</th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-item let-editing="editing" let-ri="rowIndex">
@@ -95,16 +95,13 @@
                                     {{item.quantity}}
                                 </ng-template>
                             </p-cellEditor></td>
-                        <td>
+                        <td *ngIf="canAccess()">
                             <p-button *ngIf="!editing" pInitEditableRow icon="pi pi-pencil" [rounded]="true" [text]="true" (click)="onRowEditInit(item)"></p-button>
                             <p-button *ngIf="!editing" icon="pi pi-trash" [rounded]="true" [text]="true" (onClick)="deleteIngredientFood(item)"></p-button>
                             <p-button *ngIf="editing" pSaveEditableRow icon="pi pi-check" [rounded]="true" [text]="true" (click)="onRowEditSave(item)"></p-button>
                             <p-button *ngIf="editing" pCancelEditableRow icon="pi pi-times" [rounded]="true" [text]="true" (click)="onRowEditCancel(item, ri)"></p-button>
                         </td>
                     </tr>
-                </ng-template>
-                <ng-template pTemplate="caption">
-                    <p-button type="button" icon="pi pi-plus" styleClass="p-button-text" (onClick)="newIngredientFormOpenBtnClick()"></p-button>
                 </ng-template>
             </p-table>
         </div>

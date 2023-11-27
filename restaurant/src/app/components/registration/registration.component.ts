@@ -34,7 +34,7 @@ export class RegistrationComponent {
   submitLoginForm(form: any) {
     if (form.valid) {
       if(this.password != this.password_again){
-        console.log("Passwords don't match");
+        alert("Passwords don't match");
         return;
       }else{
         const user = {

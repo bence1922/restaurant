@@ -10,6 +10,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { DialogModule } from 'primeng/dialog';
 import { DefaultService } from 'src/app/generated-api/api/default.service';
+import { StoreUserService } from 'src/app/generated-api/api/store.service';
 
 @Component({
   selector: 'app-ingredients',
@@ -41,7 +42,7 @@ export class IngredientsComponent implements OnInit {
     unit: new FormControl(FoodStockItem.UnitEnum.Kg),
   })
 
-  constructor(private ingredientService: DefaultService){}
+  constructor(private ingredientService: DefaultService, private storeUserService: StoreUserService){}
 
   ngOnInit(): void {
       this.ingredients = new Array()
@@ -52,6 +53,10 @@ export class IngredientsComponent implements OnInit {
       this.ingredientService.getAllDrinkStockItems().subscribe(
         (result)=> this.ingredientsDrink=result
       )
+  }
+
+  canAccess(){
+    return this.storeUserService.hasRole('admin') 
   }
 
   onRowEditInit(item: FoodStockItem) {
