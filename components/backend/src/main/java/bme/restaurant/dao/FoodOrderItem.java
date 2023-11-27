@@ -39,11 +39,4 @@ public class FoodOrderItem {
         dto.setQuantity(quantity);
         return dto;
     }
-
-    public static FoodOrderItem fromDTO(FoodOrderItemDTO dto) {
-        return new FoodOrderItem(
-                Food.fromDTO(dto.getFood()),
-                dto.getQuantity());
-    }
-
 }
