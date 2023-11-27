@@ -37,10 +37,10 @@ export class OrdersProfileComponent implements OnInit{
     });
 
     this.current
-    this.customerOrderService.queryCustomerOrderForCustomer(this.storeUsderService.getUser().id!, true).subscribe((orders) => {
+    this.customerOrderService.queryCustomerOrderForCustomer(this.storeUsderService.getUserId(), true).subscribe((orders) => {
       this.current = orders[0]
     })
-    this.customerOrderService.queryCustomerOrderForCustomer(this.storeUsderService.getUser().id!, false).subscribe((orders) => {
+    this.customerOrderService.queryCustomerOrderForCustomer(this.storeUsderService.getUserId(), false).subscribe((orders) => {
       this.orderList = orders
     })
   }

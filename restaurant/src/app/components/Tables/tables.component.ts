@@ -8,8 +8,8 @@ import {  InputTextModule } from 'primeng/inputtext';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { DialogModule } from 'primeng/dialog';
 import { DropdownModule } from 'primeng/dropdown';
-import { TableService } from 'src/app/generated-api';
 import { HttpErrorResponse } from '@angular/common/http';
+import { TableService } from 'src/app/generated-api';
 
 @Component({
   selector: 'app-tables',
@@ -22,28 +22,30 @@ export class TablesComponent implements OnInit{
   newTableFormOpen: boolean = false
   tables!: Table[]
   newTableForm = new FormGroup({
-    number: new FormControl(0, [Validators.required]),
-    capacity: new FormControl(1, [Validators.required]),
+        capacity: new FormControl(1, [Validators.required]),
   })
   tableStateOptions=[
     Table.StatusEnum.Booked,
     Table.StatusEnum.Free
   ]
+  clonedTables: { [s: number]: Table } = {};
+
 
   constructor(private tableService: TableService){}
 
   onSubmit(){
     var newTable: Table={
-      number:this.newTableForm.value.number!,
+      number:this.calculateTableNumber(),
       capacity: this.newTableForm.value.capacity!,
     }
 
     this.tableService.patchTable(newTable.number, newTable.capacity).subscribe(
       (result)=>{
-        alert("Seccess!");
+        alert("Success!");
         this.newTableFormOpen=false
+        this.ngOnInit()
       }, (error: HttpErrorResponse)=>{
-        alert(error.statusText)
+        alert(error.error)
       }
     )
 
@@ -61,14 +63,15 @@ export class TablesComponent implements OnInit{
   }
 
   onRowEditInit(table: Table){
-
+    this.clonedTables[table.number as number] = { ...table };
   }
 
   onRowEditSave(table: Table){
     this.tableService.patchTable(table.number, table.capacity).subscribe(
       (result)=>{
-        alert("Seccess!");
+        alert("Success!");
         this.newTableFormOpen=false
+        this.ngOnInit()
       }, (error: HttpErrorResponse)=>{
         alert(error.error)
       }
@@ -76,7 +79,8 @@ export class TablesComponent implements OnInit{
   }
 
   onRowEditCancel(table: Table, index: number){
-
+    this.tables![index] = this.clonedTables[table.number as number];
+    delete this.clonedTables[table.number as number];
   }
 
   newTableFormOpenBtnClick(){
@@ -85,10 +89,22 @@ export class TablesComponent implements OnInit{
 
   deleteTable(table: Table){
     this.tableService.deleteTable(table.number).subscribe(
-      (result)=>{}
+      (result)=>{
+        this.ngOnInit()
+      }
       ,(error:HttpErrorResponse)=>{
 
       }
     )
+  }
+
+  calculateTableNumber(){
+    let max=-1
+    this.tables.forEach(table=>{
+      if(table.number>=max){
+        max=table.number+1
+      }
+    })
+    return max
   }
 }

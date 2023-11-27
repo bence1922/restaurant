@@ -15,6 +15,7 @@ import { Dropdown, DropdownModule } from 'primeng/dropdown';
 import { StoreUserService } from 'src/app/generated-api/api/store.service';
 import { ResizableColumn } from 'primeng/table';
 import { CartService } from 'src/app/services/cart.service';
+import { DefaultService } from 'src/app/generated-api/api/default.service';
 
 
 @Component({
@@ -51,7 +52,8 @@ export class MenuComponent implements OnInit {
 
   constructor(private menuService: MenuService,
               private storeUserService: StoreUserService,
-              private cartService: CartService){}
+              private cartService: CartService,
+              private ingredientService: DefaultService){}
 
   ngOnInit(): void{
     this.foodList= new Array<Food>
@@ -66,6 +68,12 @@ export class MenuComponent implements OnInit {
     this.menuService.getDrinkMenu().subscribe(
       (result)=>{
         this.drinkList=result;
+      }
+    )
+
+    this.ingredientService.getAllFoodStockItems().subscribe(
+      (result)=>{
+        this.ingredientList=result
       }
     )
   }
@@ -113,12 +121,13 @@ export class MenuComponent implements OnInit {
           name: this.newMenuItem.value.name!,
           type: this.newMenuItem.value.typeFood!,
           price: this.newMenuItem.value.price!,
-          recipe: this.newMenuItem.value.ingredients
+          recipe: this.createRecipe(this.newMenuItem.value.ingredients)
         }
 
         this.menuService.addFoodToMenu(food).subscribe(
           (result)=>{
               this.dialogVisible=false;
+              this.ngOnInit()
           }
         )
       }
@@ -137,6 +146,18 @@ export class MenuComponent implements OnInit {
           }
         )
       }
+    }
+
+    createRecipe(ingredients:  FoodStockItem[]){
+      var recipe = new Array<FoodRecipeInner>
+      ingredients.forEach(i =>{
+        recipe.push({
+          ingerient: i.name,
+          unit: i.unit,
+          quantity: 1
+        })
+      })
+      return recipe
     }
 
     typeEnumString(type: String){
