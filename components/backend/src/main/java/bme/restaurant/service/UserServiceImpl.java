@@ -1,6 +1,5 @@
 package bme.restaurant.service;
 
-import org.checkerframework.checker.units.qual.t;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
