@@ -84,8 +84,8 @@ public class NewBookingDTO {
    * @return userId
   */
   @NotNull 
-  @Schema(name = "user-id", example = "6544cd596955fe0a1c04fba9", requiredMode = Schema.RequiredMode.REQUIRED)
-  @JsonProperty("user-id")
+  @Schema(name = "userId", example = "6544cd596955fe0a1c04fba9", requiredMode = Schema.RequiredMode.REQUIRED)
+  @JsonProperty("userId")
   public String getUserId() {
     return userId;
   }
