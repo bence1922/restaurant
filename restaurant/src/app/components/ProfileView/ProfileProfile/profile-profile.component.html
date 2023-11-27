@@ -7,21 +7,21 @@
             </div>
             <div class="field">
                 <label for="email" class="">Email</label>
-                <input id="email" formControlName="email" type="text" autocomplete="off" class="form-control text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                <input id="email" [(ngModel)]="user!.email" formControlName="email" type="text" autocomplete="off" class="form-control text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
             </div>
             <div class="field">
                 <label for="phone" class="">Phone</label>
-                <input id="phone" formControlName="phone" type="text" autocomplete="off" class="form-control text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                <input id="phone" [(ngModel)]="user!.mobil" formControlName="phone" type="text" autocomplete="off" class="form-control text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
             </div>
             <div class="field">
                 <label for="address" class="">Address</label>
-                <input id="address" formControlName="address" type="text" autocomplete="off" class="form-control text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                <input id="address" [(ngModel)]="user!.address" formControlName="address" type="text" autocomplete="off" class="form-control text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
             </div>
         </div>
         <div class="col-5 flex flex-column justify-content-between">
             <div class="flex flex-column align-items-end">
                 <div class="text-color text-5xl mb-2">
-                    200 point
+                    {{user!.points? user!.points : 0}} point
                 </div>
                 <div class="text-color text-xl">
                     Coupon: 20%

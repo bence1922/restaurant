@@ -19,8 +19,9 @@ import { DefaultService } from 'src/app/generated-api/api/default.service';
   styleUrls: ['./ingredients.component.scss'],
 })
 export class IngredientsComponent implements OnInit {
-  ingredients: FoodStockItem[] | undefined 
+  ingredients: FoodStockItem[] =[]
   editedItem!: FoodStockItem 
+  ingredientsDrink: DrinkStockItem[] | undefined
   units=[
     FoodStockItem.UnitEnum.Kg,
     FoodStockItem.UnitEnum.Liter,
@@ -48,9 +49,9 @@ export class IngredientsComponent implements OnInit {
         (result)=> this.ingredients=result
       )
 
-      // this.ingredientService.getAllDrinkStockItems().subscribe(
-      //   (result)=> this.ingredients?.concat(result)
-      // )
+      this.ingredientService.getAllDrinkStockItems().subscribe(
+        (result)=> this.ingredientsDrink=result
+      )
   }
 
   onRowEditInit(item: FoodStockItem) {

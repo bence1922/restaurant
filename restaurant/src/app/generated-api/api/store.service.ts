@@ -12,6 +12,9 @@ export class StoreUserService {
         localStorage.setItem('id', user.id);
         localStorage.setItem('role', user.role);
         localStorage.setItem('name', user.user.name);
+        localStorage.setItem('email', user.user.email);
+        localStorage.setItem('mobil', user.user.mobil);
+        localStorage.setItem('address', user.user.address);
         localStorage.setItem('userId', user.user.id? user.user.id : "");
     }
 
@@ -21,6 +24,17 @@ export class StoreUserService {
             return false;
         }
         return true;
+    }
+
+    public getUser(): User {
+        const user = {
+            id: localStorage.getItem('id'),
+            name: localStorage.getItem('name'),
+            email: localStorage.getItem('email'),
+            mobil: localStorage.getItem('mobil'),
+            address: localStorage.getItem('address'),
+        } as User;
+        return user;
     }
 
     public getUserId(): string {
@@ -71,6 +85,9 @@ export class StoreUserService {
         localStorage.removeItem('id');
         localStorage.removeItem('role');
         localStorage.removeItem('name');
+        localStorage.removeItem('email');
+        localStorage.removeItem('mobil');
+        localStorage.removeItem('address');
         localStorage.removeItem('userId')
     }
 }

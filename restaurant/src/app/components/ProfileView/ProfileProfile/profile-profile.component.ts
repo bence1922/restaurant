@@ -17,13 +17,14 @@ export class ProfileProfileComponent implements OnInit {
     name:"",
     email:"",
     mobil: "",
-    address: ""
+    address: "",
+    points: 0,
   }
   userForm = new FormGroup({
-    name: new FormControl(this.user.name, [Validators.required]),
-    phone: new FormControl(this.user.mobil, [Validators.required]),
-    email: new FormControl(this.user.email, [Validators.required]),
-    address: new FormControl(this.user.address, [Validators.required]),
+    name: new FormControl(this.user!.name, [Validators.required]),
+    phone: new FormControl(this.user!.mobil, [Validators.required]),
+    email: new FormControl(this.user!.email, [Validators.required]),
+    address: new FormControl(this.user!.address, [Validators.required]),
   })
 
   constructor(private userService: UserService){
@@ -34,7 +35,6 @@ export class ProfileProfileComponent implements OnInit {
     this.userService.getUserById(localStorage.getItem('userId')!).subscribe(
       (result) => {
         this.user = result;
-        console.log(result);
       }
     )
   }
