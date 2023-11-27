@@ -411,6 +411,7 @@ public interface CustomerApi {
      * @param userRegisterDTO  (required)
      * @return Customer succesfully registered (status code 200)
      *         or Bad request (status code 400)
+     *         or User with this name already exists (status code 409)
      *         or Internal server error (status code 500)
      */
     @Operation(
@@ -422,6 +423,7 @@ public interface CustomerApi {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = UserDTO.class))
             }),
             @ApiResponse(responseCode = "400", description = "Bad request"),
+            @ApiResponse(responseCode = "409", description = "User with this name already exists"),
             @ApiResponse(responseCode = "500", description = "Internal server error")
         }
     )

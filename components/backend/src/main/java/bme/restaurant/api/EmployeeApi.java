@@ -98,6 +98,7 @@ public interface EmployeeApi {
      *         or Bad request (status code 400)
      *         or Unauthorized (status code 401)
      *         or Forbidden (status code 403)
+     *         or User with this name already exists (status code 409)
      *         or Internal server error (status code 500)
      */
     @Operation(
@@ -111,6 +112,7 @@ public interface EmployeeApi {
             @ApiResponse(responseCode = "400", description = "Bad request"),
             @ApiResponse(responseCode = "401", description = "Unauthorized"),
             @ApiResponse(responseCode = "403", description = "Forbidden"),
+            @ApiResponse(responseCode = "409", description = "User with this name already exists"),
             @ApiResponse(responseCode = "500", description = "Internal server error")
         },
         security = {
