@@ -153,10 +153,16 @@ export class OrderAdminInPlaceComponent  implements OnInit{
     this.selectDrink=undefined
     this.selectFoodQuantity=0
     this.selectDrinkQuantity=0
+    console.log(this.newOrder)
   }
 
 
   closeOrder(){
+    this.newOrder.status= Order.StatusEnum.Placed
+    this.newOrder.date=new Date().toISOString()
+    this.newOrder.rating=0
+    this.newOrder.note=""
+    console.log(this.newOrder)
     this.tableOrderService.placeOrder(this.selectedTable.number!, this.newOrder).subscribe()
     this.newOrder=undefined!
     this.dialogVisible=false

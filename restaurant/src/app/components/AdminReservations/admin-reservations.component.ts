@@ -122,14 +122,17 @@ export class AdminReservationsComponent {
   onDeclineClick(booking: Booking){}
 
 
-  date(startingDate: Date){
+  date(sD: string){
+    var startingDate= new Date(sD)
     const year: number = startingDate.getFullYear(); // Get the year (e.g., 2023)
     const month: number = startingDate.getMonth() + 1; // Get the month (January is 0, so adding 1)
     const day: number = startingDate.getDate(); // Get the day of the month
     return `${year}.${month.toString().padStart(2, '0')}.${day.toString().padStart(2, '0')}`
   }
 
-  time(startingDate: Date, endingDate: Date){
+  time(sD: string, eD: string){
+    var startingDate= new Date(sD)
+    var endingDate = new Date(eD)
     const startHours: number = startingDate.getHours(); // Get the hours
     const startMinutes: number = startingDate.getMinutes(); // Get the minutes
 

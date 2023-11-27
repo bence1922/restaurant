@@ -146,7 +146,7 @@ export class TableOrderService {
             }
         }
 
-        let localVarPath = `/table-order/${this.configuration.encodeParam({name: "tableNumber", value: tableNumber, in: "path", style: "simple", explode: false, dataType: "number", dataFormat: undefined})}`;
+        let localVarPath = `/table/order/${this.configuration.encodeParam({name: "tableNumber", value: tableNumber, in: "path", style: "simple", explode: false, dataType: "number", dataFormat: undefined})}`;
         return this.httpClient.request<TableOrder>('get', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -222,7 +222,7 @@ export class TableOrderService {
             }
         }
 
-        let localVarPath = `/table-order/${this.configuration.encodeParam({name: "tableNumber", value: tableNumber, in: "path", style: "simple", explode: false, dataType: "number", dataFormat: undefined})}`;
+        let localVarPath = `/table/order/${this.configuration.encodeParam({name: "tableNumber", value: tableNumber, in: "path", style: "simple", explode: false, dataType: "number", dataFormat: undefined})}`;
         return this.httpClient.request<TableOrder>('post', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -293,7 +293,7 @@ export class TableOrderService {
             }
         }
 
-        let localVarPath = `/table-order`;
+        let localVarPath = `/table/order`;
         return this.httpClient.request<Array<TableOrder>>('get', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,

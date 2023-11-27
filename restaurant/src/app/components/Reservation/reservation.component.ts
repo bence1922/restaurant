@@ -90,6 +90,7 @@ export class ReservationComponent implements OnInit {
     time.setMinutes(+timeStringArray[1]);
     startingDate.setHours(time.getHours())
     startingDate.setMinutes(time.getMinutes())
+    
     return startingDate;
   }
 
