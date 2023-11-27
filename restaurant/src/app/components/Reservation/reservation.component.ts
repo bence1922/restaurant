@@ -20,8 +20,8 @@ export class ReservationComponent implements OnInit {
   date: Date | undefined
   now = new Date();
   newReservationForm = new FormGroup({
-    date: new FormControl("", [Validators.required]),
-    time: new FormControl("10:00", [Validators.required, Validators.min(10), Validators.max(20)]),
+    date: new FormControl(""),
+    time: new FormControl("10:00",),
     guests: new FormControl(0, [Validators.required]),
     note: new FormControl(''),
   })
