@@ -1,5 +1,6 @@
 package bme.restaurant.service;
 
+import org.checkerframework.checker.units.qual.t;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -72,8 +73,7 @@ public class UserServiceImpl implements UserService {
                     String.format("User not found with Id: %s", userId));
         }
         var user = response.get();
-        return new UserDTO(user.getName(), user.getEmail(), user.getMobilNumber(),
-                user.getAddress());
+        return user.toDTO();
     }
 
     @Override
@@ -101,9 +101,9 @@ public class UserServiceImpl implements UserService {
                     String.format("User not found with Id: %s", userId));
         }
         var user = response.get();
-        if (BCrypt.checkpw(oldPassword, user.getPasswordHash()))
-            user.setPasswordHash(BCrypt.hashpw(newPassword, BCrypt.gensalt()));
-        throw new RuntimeException("Invalid old password");
+        if (!BCrypt.checkpw(oldPassword, user.getPasswordHash()))
+            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Invalid old password");
+        user.setPasswordHash(BCrypt.hashpw(newPassword, BCrypt.gensalt()));
     }
 
     @Override
@@ -128,18 +128,23 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO registerEmployee(UserRegisterDTO userRegisterDTO) {
-        String passwordHash = BCrypt.hashpw(userRegisterDTO.getPassword(), BCrypt.gensalt());
-        User user = new User(userRegisterDTO.getName(), userRegisterDTO.getAddress(), userRegisterDTO.getMobil(),
-                userRegisterDTO.getMobil(), passwordHash, "employee");
-        user = userRepo.save(user);
-        return user.toDTO();
+        return registerUser(userRegisterDTO, "employee");
     }
 
     @Override
     public UserDTO registerCustomer(UserRegisterDTO userRegisterDTO) {
+        return registerUser(userRegisterDTO, "customer");
+    }
+
+    private UserDTO registerUser(UserRegisterDTO userRegisterDTO, String role) {
+        var response = userRepo.findByName(userRegisterDTO.getName());
+        if (response != null) {
+            throw new HttpClientErrorException(HttpStatus.CONFLICT,
+                    String.format("User already exists with name: %s", userRegisterDTO.getName()));
+        }
         String passwordHash = BCrypt.hashpw(userRegisterDTO.getPassword(), BCrypt.gensalt());
         User user = new User(userRegisterDTO.getName(), userRegisterDTO.getAddress(), userRegisterDTO.getMobil(),
-                userRegisterDTO.getMobil(), passwordHash, "customer");
+                userRegisterDTO.getMobil(), passwordHash, role);
         user = userRepo.save(user);
         return user.toDTO();
     }

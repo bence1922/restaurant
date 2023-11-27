@@ -14,6 +14,8 @@ import { MultiSelectModule } from 'primeng/multiselect';
 import { Dropdown, DropdownModule } from 'primeng/dropdown';
 import { StoreUserService } from 'src/app/generated-api/api/store.service';
 import { ResizableColumn } from 'primeng/table';
+import { CartService } from 'src/app/services/cart.service';
+import { DefaultService } from 'src/app/generated-api/api/default.service';
 
 
 @Component({
@@ -38,8 +40,13 @@ export class MenuComponent implements OnInit {
   ]
   drinkList: Drink[] | undefined
   dialogVisible: boolean=false
+  updateDialogVisible: boolean=false
   food: boolean = true
   ingredientList!: FoodStockItem[]
+  updateMenuItem = new FormGroup({
+    name: new FormControl('', [Validators.required]),
+    price: new FormControl(0, [Validators.required]),
+  })
   newMenuItem = new FormGroup({
     name: new FormControl('', [Validators.required]),
     price: new FormControl(0, [Validators.required]),
@@ -48,7 +55,12 @@ export class MenuComponent implements OnInit {
     typeDrink: new FormControl(Drink.TypeEnum.SoftDrink),
   })
 
-  constructor(private authService: AuthService,private menuService: MenuService,private storeUserService: StoreUserService){}
+  updateingId: string | undefined
+
+  constructor(private menuService: MenuService,
+              private storeUserService: StoreUserService,
+              private cartService: CartService,
+              private ingredientService: DefaultService){}
 
   ngOnInit(): void{
     this.foodList= new Array<Food>
@@ -63,6 +75,12 @@ export class MenuComponent implements OnInit {
     this.menuService.getDrinkMenu().subscribe(
       (result)=>{
         this.drinkList=result;
+      }
+    )
+
+    this.ingredientService.getAllFoodStockItems().subscribe(
+      (result)=>{
+        this.ingredientList=result
       }
     )
   }
@@ -89,7 +107,14 @@ export class MenuComponent implements OnInit {
     }
 
     addCart(food: boolean, index: number){
-
+      if(food){
+        this.cartService.addFood(this.foodList![index], -1)
+        window.alert("The item has been added to the cart!")
+      }
+      else{
+        this.cartService.addDrink(this.drinkList![index], -1)
+        window.alert("The item has been added to the cart!")
+      }
     }
 
     addNewMenuItem(){
@@ -103,12 +128,13 @@ export class MenuComponent implements OnInit {
           name: this.newMenuItem.value.name!,
           type: this.newMenuItem.value.typeFood!,
           price: this.newMenuItem.value.price!,
-          recipe: this.newMenuItem.value.ingredients
+          recipe: this.createRecipe(this.newMenuItem.value.ingredients)
         }
 
         this.menuService.addFoodToMenu(food).subscribe(
           (result)=>{
               this.dialogVisible=false;
+              this.ngOnInit()
           }
         )
       }
@@ -129,6 +155,18 @@ export class MenuComponent implements OnInit {
       }
     }
 
+    createRecipe(ingredients:  FoodStockItem[]){
+      var recipe = new Array<FoodRecipeInner>
+      ingredients.forEach(i =>{
+        recipe.push({
+          ingerient: i.name,
+          unit: i.unit,
+          quantity: 1
+        })
+      })
+      return recipe
+    }
+
     typeEnumString(type: String){
       return type.charAt(0).toUpperCase()+type.slice(1)
     }
@@ -136,7 +174,7 @@ export class MenuComponent implements OnInit {
     deleteMenuItem_Food(food: Food){
       this.menuService.deleteFood(food.id).subscribe(
         (result)=>{
-          alert("Seccessfully deleted food!")
+          alert("Successfully deleted food!")
           this.ngOnInit()
         }
       )
@@ -145,11 +183,57 @@ export class MenuComponent implements OnInit {
     deleteMenuItem_Drink(drink: Drink){
       this.menuService.deleteDrink(drink.id).subscribe(
         (result)=>{
-          alert("Seccessfully deleted drink!")
+          alert("Successfully deleted drink!")
           this.ngOnInit()
         }
       )
     }
+
+    updateMenuItem_Drink(drink: Drink){
+      this.updateingId=drink.id
+      this.updateDialogVisible=true
+      this.food=false
+      this.updateMenuItem.setValue({
+        name: drink.name,
+        price:drink.price,
+      })
+    }
+
+    updateMenuItem_Food(food: Food){
+      this.updateingId=food.id
+      this.updateDialogVisible=true
+      this.food=true
+      this.updateMenuItem.setValue({
+        name: food.name,
+        price: food.price,
+      })
+    }
+
+    onSubmitUpdate(){
+      if(this.food)
+{      var food={
+        name:this.updateMenuItem.value.name!,
+        price: this.updateMenuItem.value.price!
+      }
+      console.log(food)
+      this.menuService.updateFood(this.updateingId!, food.name, food.price).subscribe(
+        (result)=>
+      {  this.updateDialogVisible=false
+        this.updateingId=undefined
+        this.ngOnInit()}
+      )
+    }
+    else{
+      var drink={
+        name:this.updateMenuItem.value.name!,
+        price: this.updateMenuItem.value.price!
+      }
+      this.menuService.updateDrink(this.updateingId!, drink.name, drink.price).subscribe(
+        (result)=>
+      {  this.updateDialogVisible=false
+        this.updateingId=undefined
+      this.ngOnInit()}
+      )
+    }
   }
-
-
+  }

@@ -55,9 +55,18 @@ public class AuthorizeAspect {
             }
 
             if (selfAccess) {
-                String userId = request.getParameter("userId");
-                if (!session.getAttribute("userId").equals(userId) && !Arrays.asList(roles).contains(role)) {
-                    throw new HttpClientErrorException(HttpStatus.FORBIDDEN, "Access Denied");
+                String[] parameterNames = signature.getParameterNames();
+                Object[] parameterValues = joinPoint.getArgs();
+                String userId_Path = "";
+                for (int i = 0; i < parameterNames.length; i++) {
+                    if ("userId".equals(parameterNames[i])) {
+                        userId_Path = (String) parameterValues[i];
+                        break;
+                    }
+                }
+                var userId_Session = session.getAttribute("userId").toString();
+                if (!userId_Path.equals(userId_Session) && !Arrays.asList(roles).contains(role)) {
+                    throw new HttpClientErrorException(HttpStatus.FORBIDDEN, "Can only access own data");
                 }
             }
         }

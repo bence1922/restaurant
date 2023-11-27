@@ -108,9 +108,9 @@ public class User {
     public UserDTO toDTO() {
         var dto = new UserDTO(
             name,
-            address,
+            email,
             mobilNumber,
-            email
+            address
         );
         dto.setId(id);
         return dto;

@@ -3,13 +3,15 @@ import { CommonModule } from '@angular/common';
 import { HeroComponent } from '../Hero/hero.component';
 import { DividerModule } from 'primeng/divider';
 import { ButtonModule } from 'primeng/button';
-import { Order, User } from 'src/app/generated-api';
+import { CustomerService, Order, User, UserService } from 'src/app/generated-api';
 import { RatingModule } from 'primeng/rating';
+import { CartService } from 'src/app/services/cart.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-order',
   standalone: true,
-  imports: [CommonModule, HeroComponent, DividerModule, ButtonModule, RatingModule],
+  imports: [CommonModule, HeroComponent, DividerModule, ButtonModule, RatingModule, FormsModule],
   templateUrl: './order.component.html',
   styleUrls: ['./order.component.scss'],
 })
@@ -17,20 +19,42 @@ export class OrderComponent implements OnInit {
   user!: User; 
   order!: Order; 
   orderplaced: boolean=false
+  id = localStorage.getItem('userId')!
+
  
+  constructor(private cartService: CartService, private userService: UserService, private customerService: CustomerService){}
 
   ngOnInit(): void {
+    this.userService.getUserById(this.id).subscribe(
+      (result)=>{
+        this.user=result
+      }
+    )
+
+    this.order={
+      foods: this.cartService.getFoods(),
+      drinks: this.cartService.getDrinks(),
+    }
   }
 
   placeOrder(){
-    //TODO
-    this.orderplaced=true
+    this.order.date=new Date().toISOString()
+    this.order.status=Order.StatusEnum.Placed
+    this.order.rating=0
+    
+    this.customerService.placeCustomerOrder(this. id, this.order).subscribe(
+      (result)=>{
+        this.orderplaced=true
+        this.cartService.clearCart()
+        this.ngOnInit()
+      }
+    )
   }
 
   total(){
     var price = 0
     this.order?.foods.forEach(item => {
-      price+= item.food.price*item.quantity
+      price+= item.food.price*item.quantity   
     });
 
     this.order?.drinks.forEach(item => {
@@ -41,20 +65,16 @@ export class OrderComponent implements OnInit {
   }
 
   increase(food: boolean, index: number){
-    if(food){
-      this.order.foods[index].quantity++
-    }else{
-      this.order.drinks[index].quantity++
-    }
+    this.cartService.increase(food, index)
+    this.order.foods=this.cartService.getFoods()
   }
 
   decrease(food: boolean, index: number){
-    if(food){
-      this.order.foods[index].quantity--
-      if(this.order.foods[index].quantity==0) this.order.foods.splice(index, 1)
-    }else{
-      this.order.drinks[index].quantity--
-      if(this.order.drinks[index].quantity==0) this.order.drinks.splice(index, 1)
-    }
+    this.cartService.decrease(food, index)
+    this.order.drinks=this.cartService.getDrinks()
+  }
+
+  calculatePoints(){
+    return this.total()/100
   }
 }
