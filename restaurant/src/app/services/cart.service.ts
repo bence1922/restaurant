@@ -32,7 +32,13 @@ export class CartService {
         food: food,
         quantity: 1
       }
-      this.foods.push(item)
+      let existFood = this.foods.filter(food=> food.food.id == item.food.id )
+      if(existFood.length==0){
+        this.foods.push(item)
+      }
+      else{
+        existFood[0].quantity++
+      }
       this.saveToCookies()
     }
   }
@@ -43,22 +49,30 @@ export class CartService {
         drink: drink,
         quantity: 1
       }
-      this.drinks.push(item)
+      let existDrink = this.drinks.filter(drink=> drink.drink.id == item.drink.id )
+      if(existDrink.length==0){
+        this.drinks.push(item)
+      }
+      else{
+        existDrink[0].quantity++
+      }
       this.saveToCookies()
     }
   }
 
   increase(food: boolean, index: number){
     if(food){
-      if(index==-1){
+      if(index!=-1){
         this.foods[index].quantity++
         this.saveToCookies()
         return true
       }
     }else{
+      if(index!=-1){
       this.drinks[index].quantity++
       this.saveToCookies()
       return true
+      }
     }
 
     return false
