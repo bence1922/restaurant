@@ -37,7 +37,7 @@
                     <div class="text-color text-lg mb-2">Items</div>
                     <div *ngFor="let item of order.order.foods index as i" class="ml-3">
                         <div class="grid flex align-items-center">
-                            <div class="col-2">{{item.food.name}}</div>
+                            <div class="col-4">{{item.food.name}}</div>
                             <div class="col-4 flex align-items-center">{{item.food.price}} x 
                                 <p-button icon="pi pi-minus-circle" [rounded]="true" [text]="true" (onClick)="decrease(true, order.order, i)"></p-button>
                                 <div>{{item.quantity}}</div>
@@ -47,7 +47,7 @@
                     </div>
                     <div *ngFor="let item of order.order.drinks index as i" class="ml-3">
                         <div class="grid">
-                            <div class="col-2">{{item.drink.name}}</div>
+                            <div class="col-4">{{item.drink.name}}</div>
                             <div class="col-4 flex align-items-center">{{item.drink.price}} x 
                                 <p-button icon="pi pi-minus-circle" [rounded]="true" [text]="true" (onClick)="decrease(false, order.order, i)"></p-button>
                                 <div>{{item.quantity}}</div>
