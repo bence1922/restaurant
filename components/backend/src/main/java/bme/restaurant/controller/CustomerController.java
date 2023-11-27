@@ -18,7 +18,6 @@ import bme.restaurant.dto.UserRegisterDTO;
 import bme.restaurant.service.BookingService;
 import bme.restaurant.service.OrderService;
 import bme.restaurant.service.UserService;
-import jakarta.validation.OverridesAttribute;
 import jakarta.validation.Valid;
 
 @RestController
