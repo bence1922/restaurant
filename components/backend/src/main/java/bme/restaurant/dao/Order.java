@@ -91,15 +91,4 @@ public class Order {
         dto.setRating(this.rating);
         return dto;
     }
-
-    public static Order fromDTO(OrderDTO orderDTO) {
-        var dao = new Order(
-            orderDTO.getFoods().stream().map(food -> FoodOrderItem.fromDTO(food)).toList(),
-            orderDTO.getDrinks().stream().map(drink -> DrinkOrderItem.fromDTO(drink)).toList(),
-            orderDTO.getStatus().getValue(),
-            orderDTO.getDate().toLocalDateTime()
-        );
-        dao.setRating(orderDTO.getRating());
-        return dao;
-    }
 }

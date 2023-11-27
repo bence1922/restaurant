@@ -12,6 +12,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 
 import bme.restaurant.dao.CustomerOrder;
+import bme.restaurant.dao.DrinkOrderItem;
+import bme.restaurant.dao.Food;
+import bme.restaurant.dao.FoodOrderItem;
 import bme.restaurant.dao.Order;
 import bme.restaurant.dao.TableOrder;
 import bme.restaurant.dao.User;
@@ -21,6 +24,8 @@ import bme.restaurant.dto.FoodOrderItemDTO;
 import bme.restaurant.dto.OrderDTO;
 import bme.restaurant.dto.TableOrderDTO;
 import bme.restaurant.repository.CustomerOrderRepository;
+import bme.restaurant.repository.DrinkRepository;
+import bme.restaurant.repository.FoodRepository;
 import bme.restaurant.repository.TableOrderRepository;
 import bme.restaurant.repository.TableRepository;
 import bme.restaurant.repository.UserRepository;
@@ -41,6 +46,12 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     private UserRepository userRepo;
+
+    @Autowired
+    private FoodRepository foodRepo;
+
+    @Autowired
+    private DrinkRepository drinkRepo;
 
     @Override
     public List<CustomerOrderDTO> queryCustomerOrders(String customerName, Boolean isCurrent) {
@@ -97,7 +108,7 @@ public class OrderServiceImpl implements OrderService {
                     String.format("Customer not found with Id: %s", userId));
         }
         User customer = response.get();
-        var customerOrder = new CustomerOrder(customer, Order.fromDTO(orderDTO));
+        var customerOrder = new CustomerOrder(customer, createOrderFromDTO(orderDTO));
         customerOrder = customerOrderRepository.save(customerOrder);
         int points = customer.getPoints();
         if (points >= 2000) {
@@ -167,7 +178,7 @@ public class OrderServiceImpl implements OrderService {
             throw new HttpClientErrorException(HttpStatus.NOT_FOUND,
                     String.format("Table not found with Id: %s", tableNumber));
         }
-        var tableOrder = new TableOrder(table , Order.fromDTO(orderDTO));
+        var tableOrder = new TableOrder(table , createOrderFromDTO(orderDTO));
         tableOrder = tableOrderRepo.save(tableOrder);
         return tableOrder.toDTO();
     }
@@ -188,5 +199,46 @@ public class OrderServiceImpl implements OrderService {
         }
         tableOrder = tableOrderRepo.save(tableOrder);
         return tableOrder.getOrder().toDTO();
+    }
+
+    private Order createOrderFromDTO(OrderDTO orderDTO) {
+        var dao = new Order(
+            orderDTO.getFoods().stream().map(food -> createFoodOrderItemfromDTO(food)).toList(),
+            orderDTO.getDrinks().stream().map(drink -> createDrinkOrderItemFromDTO(drink)).toList(),
+            orderDTO.getStatus().getValue(),
+            orderDTO.getDate().toLocalDateTime()
+        );
+        dao.setRating(orderDTO.getRating());
+        return dao;
+    }
+
+    private FoodOrderItem createFoodOrderItemfromDTO(FoodOrderItemDTO dto) {
+        var foodId = dto.getFood().getId();
+        if (foodId == null) {
+            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Food id is required");
+        }
+        var response = foodRepo.findById(foodId);
+        if (response.isEmpty()) {
+            throw new HttpClientErrorException(HttpStatus.NOT_FOUND,
+                    String.format("Food not found with Id: %s", foodId));
+        }
+        return new FoodOrderItem(
+                response.get(),
+                dto.getQuantity());
+    }
+
+    private DrinkOrderItem createDrinkOrderItemFromDTO(DrinkOrderItemDTO dto) {
+        var drinkId = dto.getDrink().getId();
+        if (drinkId == null) {
+            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Drink id is required");
+        }
+        var response = drinkRepo.findById(drinkId);
+        if (response.isEmpty()) {
+            throw new HttpClientErrorException(HttpStatus.NOT_FOUND,
+                    String.format("Drink not found with Id: %s", drinkId));
+        }
+        return new DrinkOrderItem(
+                response.get(),
+                dto.getQuantity());
     }
 }

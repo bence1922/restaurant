@@ -39,8 +39,4 @@ public class DrinkOrderItem {
         dto.setQuantity(quantity);
         return dto;
     }
-
-    public static DrinkOrderItem fromDTO(DrinkOrderItemDTO dto) {
-        return new DrinkOrderItem(Drink.fromDTO(dto.getDrink()), dto.getQuantity());
-    }
 }
