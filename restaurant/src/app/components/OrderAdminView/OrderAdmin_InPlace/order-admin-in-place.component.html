@@ -25,7 +25,7 @@
                 <p-dropdown [options]="statusData" [(ngModel)]="order.order.status" appendTo="body" :ngModel="order.order.status"></p-dropdown>
             </td>
             <td>
-                <p-button icon="pi pi-credit-card" (onClick)="paid(order.order)" [text]="true"></p-button>
+                <p-button icon="pi pi-credit-card" (onClick)="paid(order)" [text]="true"></p-button>
             </td>
         </tr>
     </ng-template>

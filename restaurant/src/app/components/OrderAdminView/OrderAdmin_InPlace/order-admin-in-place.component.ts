@@ -5,7 +5,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { RatingModule } from 'primeng/rating';
 import { TableModule } from 'primeng/table';
 import { MenuItem } from 'primeng/api';
-import { Drink, DrinkOrderItem, Food, FoodOrderItem, MenuService, Order, Table, TableOrder, TableService } from 'src/app/generated-api';
+import { Drink, DrinkOrderItem, Food, FoodOrderItem, MenuService, Order, Table, TableOrder, TableService, } from 'src/app/generated-api';
 import { FormsModule } from '@angular/forms';
 import { DialogModule } from 'primeng/dialog';
 import { SplitButtonModule } from 'primeng/splitbutton';
@@ -57,6 +57,7 @@ export class OrderAdminInPlaceComponent  implements OnInit{
     const allTables = new Array<Table>()
     this.tableService.queryTableOrders(undefined, true).subscribe((tables) => {
       this.orders = tables
+      console.log(this.orders)
       tables.forEach(table => {
         currentTables.push(table.table)
       })
@@ -79,6 +80,8 @@ export class OrderAdminInPlaceComponent  implements OnInit{
         this.drinkList=result
       }
     )
+
+    
   }
 
   calculatePrice(order: Order){
@@ -98,7 +101,13 @@ export class OrderAdminInPlaceComponent  implements OnInit{
   }
 
   paid(order: TableOrder){
-    this.tableService.updateTableOrder(order.id, undefined, "delivered").subscribe()
+    this.tableService.updateTableOrder(order.id, 5, "delivered").subscribe(
+      (result)=>{
+        console.log(result)
+        alert("Success")
+        this.ngOnInit()
+      }
+    )
   }
 
   increase(food: boolean, order: Order, index: number){
@@ -153,7 +162,6 @@ export class OrderAdminInPlaceComponent  implements OnInit{
     this.selectDrink=undefined
     this.selectFoodQuantity=0
     this.selectDrinkQuantity=0
-    console.log(this.newOrder)
   }
 
 
@@ -162,10 +170,14 @@ export class OrderAdminInPlaceComponent  implements OnInit{
     this.newOrder.date=new Date().toISOString()
     this.newOrder.rating=0
     this.newOrder.note=""
-    console.log(this.newOrder)
-    this.tableOrderService.placeOrder(this.selectedTable.number!, this.newOrder).subscribe()
-    this.newOrder=undefined!
-    this.dialogVisible=false
+    this.tableOrderService.placeOrder(this.selectedTable.number!, this.newOrder).subscribe(
+      (result)=>{
+        this.newOrder=undefined!
+        this.dialogVisible=false
+        this.ngOnInit()
+      }
+    )
+
   }
 
   newOrderFunc(){

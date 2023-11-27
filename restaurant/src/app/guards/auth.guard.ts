@@ -22,7 +22,7 @@ export class RoleGuard implements CanActivate {
     if (this.storeUserService.hasAnyRole(allowedRoles)) {
       return true;
     } else {
-      this.router.navigate(['/login']);
+      this.router.navigate(['/home']);
       return false;
     }
   }

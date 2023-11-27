@@ -8,7 +8,9 @@ import { RatingModule } from 'primeng/rating';
 import { PdfGeneratorService } from 'src/app/services/pdfGenerator.service';
 import { CustomerOrderService } from 'src/app/generated-api/api/customerOrder.service';
 import { StoreUserService } from 'src/app/generated-api/api/store.service';
-import { CustomerOrder, CustomerService } from 'src/app/generated-api';
+import { CustomerOrder, } from 'src/app/generated-api';
+import { Customer } from 'src/app/generated-api/model/customer';
+import { CustomerService } from 'src/app/generated-api/api/api';
 
 
 @Component({
@@ -19,11 +21,11 @@ import { CustomerOrder, CustomerService } from 'src/app/generated-api';
   styleUrls: ['./orders-profile.component.scss'],
 })
 export class OrdersProfileComponent implements OnInit{
-  orderList?: Order[] | null
-  current?: Order | null
-  openInfo: Boolean = false;
+  orderList?: CustomerOrder[] | null
   formGroup!: FormGroup;
   pdfGenreator= new PdfGeneratorService()
+  openInfoMap= new Map<string, boolean>()
+
 
   constructor(
     private customerOrderService: CustomerOrderService,
@@ -36,41 +38,70 @@ export class OrdersProfileComponent implements OnInit{
         rating: new FormControl(5)
     });
 
-    this.current
-    this.customerOrderService.queryCustomerOrderForCustomer(this.storeUsderService.getUserId(), true).subscribe((orders) => {
-      this.current = orders[0]
-    })
-    this.customerOrderService.queryCustomerOrderForCustomer(this.storeUsderService.getUserId(), false).subscribe((orders) => {
-      this.orderList = orders
+    this.customerService.queryOrdersForCustomer(this.storeUsderService.getUserId(), true).subscribe((orders) => {
+      this.orderList=orders
     })
   }
 
   price(order: Order){
     var price=0
-    order.drinks.forEach(item => {
-      price += item.drink.price*item.quantity
-    });
+    if(order.drinks!==undefined){
+      order.drinks.forEach(item => {
+        price += item.drink.price*item.quantity
+      });
+    }
 
-    order.foods.forEach(item =>{
-      price += item.food.price*item.quantity
-    })
-
+    if(order.foods!==undefined){
+      order.foods.forEach(item =>{
+        price += item.food.price*item.quantity
+      })
+    }
     return price
   }
 
-  addRating(){
-    if(this.current){
-      this.formGroup.value.rating
-      this.customerService.queryCustomerOrders(this.storeUsderService.getUserName(), true).subscribe((customerOrder: CustomerOrder[]) => {
-        const currentOrder = customerOrder[0]
-        this.customerService.updateCustomerOrder(currentOrder.id, this.storeUsderService.getUserId(), this.formGroup.value.rating).subscribe((order) => {
-          this.current = order
-        })
-      })
+  addRating(order: CustomerOrder){
+      console.log(this.formGroup.value.rating)
+      this.customerService.updateCustomerOrder(order.id, this.storeUsderService.getUserId(), this.formGroup.value.rating).subscribe()
+  }
+
+  openInfo(order: CustomerOrder){
+    if(this.openInfoMap.get(order.id)!=null){
+      return true
+    }
+    else return false
+  }
+
+  openInfoBtnClicked(order: CustomerOrder){
+    if(this.openInfoMap.get(order.id)!=null){
+      this.openInfoMap.delete(order.id)
+    }
+    else{
+      this.openInfoMap.set(order.id, true)
     }
   }
 
   generateInvoice(order: Order){
     this.pdfGenreator.generatePdf(order)
+  }
+
+  date(sD: string){
+    var startingDate = new Date(sD)
+    const year: number = startingDate.getFullYear(); // Get the year (e.g., 2023)
+    const month: number = startingDate.getMonth() + 1; // Get the month (January is 0, so adding 1)
+    const day: number = startingDate.getDate(); // Get the day of the month
+    return `${year}.${month.toString().padStart(2, '0')}.${day.toString().padStart(2, '0')}`
+  }
+
+  time(sD: string){
+    var startingDate= new Date(sD)
+
+    const startHours: number = startingDate.getHours(); // Get the hours
+    const startMinutes: number = startingDate.getMinutes(); // Get the minutes
+
+    return `${startHours.toString().padStart(2, '0')}:${startMinutes.toString().padStart(2, '0')}`
+  }
+
+  fullDate(date: string){
+    return this.date(date)+" - "+this.time(date)
   }
 }
