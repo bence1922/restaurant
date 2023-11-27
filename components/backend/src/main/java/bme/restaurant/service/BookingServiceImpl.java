@@ -44,11 +44,24 @@ public class BookingServiceImpl implements BookingService {
     public BookingDTO bookTable(NewBookingDTO newBookingDTO) {
         // TODO: check if the booking is possible, maybe with the query tables for
         // booking
+
         var table = tableRepo.findByNumber(newBookingDTO.getTableNumber());
-        var customer = userRepo.findById(newBookingDTO.getUserId());
+        if (table == null) {
+            throw new HttpClientErrorException(HttpStatus.NOT_FOUND,
+                    String.format("Table not found with number: %s", newBookingDTO.getTableNumber()));
+            
+        }
+
+        var response = userRepo.findById(newBookingDTO.getUserId());
+        if (response.isEmpty()) {
+            throw new HttpClientErrorException(HttpStatus.NOT_FOUND,
+                    String.format("Customer not found with Id: %s", newBookingDTO.getUserId()));
+        }
+        var customer = response.get();
+        
         var booking = new Booking(
                 table,
-                customer.get(),
+                customer,
                 newBookingDTO.getStartingDate().toLocalDateTime(),
                 newBookingDTO.getEndingDate().toLocalDateTime(),
                 BookingDTO.StatusEnum.PENDING.getValue(),

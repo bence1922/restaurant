@@ -3,10 +3,10 @@ import { CommonModule } from '@angular/common';
 import { HeroComponent } from '../Hero/hero.component';
 import { DividerModule } from 'primeng/divider';
 import { ButtonModule } from 'primeng/button';
-import { CustomerService, Order, User, UserService } from 'src/app/generated-api';
 import { RatingModule } from 'primeng/rating';
 import { CartService } from 'src/app/services/cart.service';
 import { FormsModule } from '@angular/forms';
+import { CustomerService, Order, User, UserService } from 'src/app/generated-api';
 
 @Component({
   selector: 'app-order',
@@ -60,6 +60,7 @@ export class OrderComponent implements OnInit {
     this.order?.drinks.forEach(item => {
       price+= item.drink.price*item.quantity
     });
+    if(this.coupon()) return price*0.9
 
     return price
   }
@@ -76,5 +77,10 @@ export class OrderComponent implements OnInit {
 
   calculatePoints(){
     return this.total()/100
+  }
+
+  coupon(){
+    if(this.user.points!>=2000) return true
+    else return false
   }
 }

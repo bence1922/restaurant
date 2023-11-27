@@ -25,7 +25,7 @@ public class AuthorizeAspect {
     private SessionRepository<MapSession> sessionRepository;
 
     @Before("@annotation(Authorize)")
-    public void checkRole(JoinPoint joinPoint) throws Throwable {
+    public void authorize(JoinPoint joinPoint) throws Throwable {
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
         Method method = signature.getMethod();
 

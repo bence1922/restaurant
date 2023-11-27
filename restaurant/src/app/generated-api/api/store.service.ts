@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { User, UserSession } from "../model/models";
 import { UserService } from "./user.service";
+import { Console } from "console";
 
 
 @Injectable({
@@ -72,6 +73,8 @@ export class StoreUserService {
 
 
     public hasAnyRole(roles: Array<string>): boolean {
+        console.log(roles)
+        console.log(roles.includes(this.getRole()))
         if(roles.includes('everyone')){
             return true;
         }

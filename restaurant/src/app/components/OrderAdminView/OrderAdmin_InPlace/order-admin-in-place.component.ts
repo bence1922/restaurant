@@ -69,13 +69,6 @@ export class OrderAdminInPlaceComponent  implements OnInit{
         }
       })
     })
-    
-
-
-    console.log(allTables)
-    console.log(currentTables)
-    console.log(this.freeTables)
-
 
     this.menuService.getFoodMenu().subscribe(
       (result)=> this.foodList=result
