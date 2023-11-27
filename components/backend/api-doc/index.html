@@ -1,0 +1,4156 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Swagger Restaurant</title>
+    <style type="text/css">
+      body {
+	font-family: Trebuchet MS, sans-serif;
+	font-size: 15px;
+	color: #444;
+	margin-right: 24px;
+}
+
+h1	{
+	font-size: 25px;
+}
+h2	{
+	font-size: 20px;
+}
+h3	{
+	font-size: 16px;
+	font-weight: bold;
+}
+hr	{
+	height: 1px;
+	border: 0;
+	color: #ddd;
+	background-color: #ddd;
+}
+
+.app-desc {
+  clear: both;
+  margin-left: 20px;
+}
+.param-name {
+  width: 100%;
+}
+.license-info {
+  margin-left: 20px;
+}
+
+.license-url {
+  margin-left: 20px;
+}
+
+.model {
+  margin: 0 0 0px 20px;
+}
+
+.method {
+  margin-left: 20px;
+}
+
+.method-notes	{
+	margin: 10px 0 20px 0;
+	font-size: 90%;
+	color: #555;
+}
+
+pre {
+  padding: 10px;
+  margin-bottom: 2px;
+}
+
+.http-method {
+ text-transform: uppercase;
+}
+
+pre.get {
+  background-color: #0f6ab4;
+}
+
+pre.post {
+  background-color: #10a54a;
+}
+
+pre.put {
+  background-color: #c5862b;
+}
+
+pre.delete {
+  background-color: #a41e22;
+}
+
+.huge	{
+	color: #fff;
+}
+
+pre.example {
+  background-color: #f3f3f3;
+  padding: 10px;
+  border: 1px solid #ddd;
+}
+
+code {
+  white-space: pre;
+}
+
+.nickname {
+  font-weight: bold;
+}
+
+.method-path {
+  font-size: 1.5em;
+  background-color: #0f6ab4;
+}
+
+.up {
+  float:right;
+}
+
+.parameter {
+  width: 500px;
+}
+
+.param {
+  width: 500px;
+  padding: 10px 0 0 20px;
+  font-weight: bold;
+}
+
+.param-desc {
+  width: 700px;
+  padding: 0 0 0 20px;
+  color: #777;
+}
+
+.param-type {
+  font-style: italic;
+}
+
+.param-enum-header {
+width: 700px;
+padding: 0 0 0 60px;
+color: #777;
+font-weight: bold;
+}
+
+.param-enum {
+width: 700px;
+padding: 0 0 0 80px;
+color: #777;
+font-style: italic;
+}
+
+.field-label {
+  padding: 0;
+  margin: 0;
+  clear: both;
+}
+
+.field-items	{
+	padding: 0 0 15px 0;
+	margin-bottom: 15px;
+}
+
+.return-type {
+  clear: both;
+  padding-bottom: 10px;
+}
+
+.param-header {
+  font-weight: bold;
+}
+
+.method-tags {
+  text-align: right;
+}
+
+.method-tag {
+  background: none repeat scroll 0% 0% #24A600;
+  border-radius: 3px;
+  padding: 2px 10px;
+  margin: 2px;
+  color: #FFF;
+  display: inline-block;
+  text-decoration: none;
+}
+
+    </style>
+  </head>
+  <body>
+  <h1>Swagger Restaurant</h1>
+    <div class="app-desc">This is a sample Restaruant</div>
+    <div class="app-desc">More information: <a href="https://openapi-generator.tech">https://openapi-generator.tech</a></div>
+    <div class="app-desc">Contact Info: <a href="team@openapitools.org">team@openapitools.org</a></div>
+    <div class="app-desc">Version: 1.0.1</div>
+    <div class="app-desc">BasePath:/api</div>
+    <div class="license-info">All rights reserved</div>
+    <div class="license-url">http://apache.org/licenses/LICENSE-2.0.html</div>
+  <h2>Access</h2>
+    <ol>
+      <li>APIKey KeyParamName:sessionId KeyInQuery:false KeyInHeader:true</li>
+    </ol>
+
+  <h2><a name="__Methods">Methods</a></h2>
+  [ Jump to <a href="#__Models">Models</a> ]
+
+  <h3>Table of Contents </h3>
+  <div class="method-summary"></div>
+  <h4><a href="#Auth">Auth</a></h4>
+  <ul>
+  <li><a href="#login"><code><span class="http-method">post</span> /auth/login</code></a></li>
+  <li><a href="#logout"><code><span class="http-method">get</span> /auth/logout</code></a></li>
+  <li><a href="#passwordReset"><code><span class="http-method">patch</span> /auth/password-reset</code></a></li>
+  </ul>
+  <h4><a href="#Booking">Booking</a></h4>
+  <ul>
+  <li><a href="#bookTable"><code><span class="http-method">post</span> /booking</code></a></li>
+  <li><a href="#bookingStatusUpdate"><code><span class="http-method">patch</span> /booking/{bookingId}</code></a></li>
+  <li><a href="#getBooking"><code><span class="http-method">get</span> /booking/{bookingId}</code></a></li>
+  <li><a href="#queryBookings"><code><span class="http-method">get</span> /booking</code></a></li>
+  <li><a href="#queryTablesForBooking"><code><span class="http-method">get</span> /booking/table/avaible</code></a></li>
+  </ul>
+  <h4><a href="#Customer">Customer</a></h4>
+  <ul>
+  <li><a href="#getInvoice"><code><span class="http-method">get</span> /customer/order/{userId}/{customerOrderId}/invoice</code></a></li>
+  <li><a href="#listCustomers"><code><span class="http-method">get</span> /customer</code></a></li>
+  <li><a href="#placeCustomerOrder"><code><span class="http-method">post</span> /customer/order/{userId}</code></a></li>
+  <li><a href="#queryBookingsForCustomer"><code><span class="http-method">get</span> /customer/booking/{userId}</code></a></li>
+  <li><a href="#queryCustomerOrders"><code><span class="http-method">get</span> /customer/order</code></a></li>
+  <li><a href="#queryOrdersForCustomer"><code><span class="http-method">get</span> /customer/order/{userId}</code></a></li>
+  <li><a href="#queryPointsForCustomer"><code><span class="http-method">get</span> /customer/points/{userId}</code></a></li>
+  <li><a href="#registerCustomer"><code><span class="http-method">post</span> /customer</code></a></li>
+  <li><a href="#updateCustomerOrder"><code><span class="http-method">patch</span> /customer/order/{userId}/{customerOrderId}</code></a></li>
+  </ul>
+  <h4><a href="#Employee">Employee</a></h4>
+  <ul>
+  <li><a href="#getEmployees"><code><span class="http-method">get</span> /employee</code></a></li>
+  <li><a href="#registerEmployee"><code><span class="http-method">post</span> /employee</code></a></li>
+  </ul>
+  <h4><a href="#Menu">Menu</a></h4>
+  <ul>
+  <li><a href="#addDrinkToMenu"><code><span class="http-method">post</span> /menu/drink</code></a></li>
+  <li><a href="#addFoodToMenu"><code><span class="http-method">post</span> /menu/food</code></a></li>
+  <li><a href="#deleteDrink"><code><span class="http-method">delete</span> /menu/drink/{drinkId}</code></a></li>
+  <li><a href="#deleteFood"><code><span class="http-method">delete</span> /menu/food/{foodId}</code></a></li>
+  <li><a href="#getDrink"><code><span class="http-method">get</span> /menu/drink/{drinkId}</code></a></li>
+  <li><a href="#getDrinkMenu"><code><span class="http-method">get</span> /menu/drink</code></a></li>
+  <li><a href="#getFood"><code><span class="http-method">get</span> /menu/food/{foodId}</code></a></li>
+  <li><a href="#getFoodMenu"><code><span class="http-method">get</span> /menu/food</code></a></li>
+  <li><a href="#updateDrink"><code><span class="http-method">patch</span> /menu/drink/{drinkId}</code></a></li>
+  <li><a href="#updateFood"><code><span class="http-method">patch</span> /menu/food/{foodId}</code></a></li>
+  </ul>
+  <h4><a href="#Stock">Stock</a></h4>
+  <ul>
+  <li><a href="#createDrinkStockItem"><code><span class="http-method">post</span> /stock/drink</code></a></li>
+  <li><a href="#createFoodStockItem"><code><span class="http-method">post</span> /stock/food</code></a></li>
+  <li><a href="#deleteDrinkStockItem"><code><span class="http-method">delete</span> /stock/drink/{drinkStockItemId}</code></a></li>
+  <li><a href="#deleteFoodStockItem"><code><span class="http-method">delete</span> /stock/food/{foodStockItemId}</code></a></li>
+  <li><a href="#getAllDrinkStockItems"><code><span class="http-method">get</span> /stock/drink</code></a></li>
+  <li><a href="#getAllFoodStockItems"><code><span class="http-method">get</span> /stock/food</code></a></li>
+  <li><a href="#partiallyUpdateDrinkStockItem"><code><span class="http-method">patch</span> /stock/drink/{drinkStockItemId}</code></a></li>
+  <li><a href="#partiallyUpdateFoodStockItem"><code><span class="http-method">patch</span> /stock/food/{foodStockItemId}</code></a></li>
+  </ul>
+  <h4><a href="#Table">Table</a></h4>
+  <ul>
+  <li><a href="#deleteTable"><code><span class="http-method">delete</span> /table/{tableNumber}</code></a></li>
+  <li><a href="#findTable"><code><span class="http-method">get</span> /table/{tableNumber}</code></a></li>
+  <li><a href="#listTables"><code><span class="http-method">get</span> /table</code></a></li>
+  <li><a href="#patchTable"><code><span class="http-method">patch</span> /table/{tableNumber}</code></a></li>
+  <li><a href="#placeTableOrder"><code><span class="http-method">post</span> /table/order/{tableNumber}</code></a></li>
+  <li><a href="#queryTableOrders"><code><span class="http-method">get</span> /table/order</code></a></li>
+  <li><a href="#updateTableOrder"><code><span class="http-method">patch</span> /table/order/{tableOrderId}</code></a></li>
+  </ul>
+  <h4><a href="#User">User</a></h4>
+  <ul>
+  <li><a href="#deleteUserById"><code><span class="http-method">delete</span> /user/{userId}</code></a></li>
+  <li><a href="#getUserById"><code><span class="http-method">get</span> /user/{userId}</code></a></li>
+  <li><a href="#updateUserById"><code><span class="http-method">put</span> /user/{userId}</code></a></li>
+  </ul>
+
+  <h1><a name="Auth">Auth</a></h1>
+  <div class="method"><a name="login"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /auth/login</code></pre></div>
+    <div class="method-summary">User login (<span class="nickname">login</span>)</div>
+    <div class="method-notes"></div>
+
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">UserLogin <a href="#UserLogin">UserLogin</a> (required)</div>
+
+      <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash;  </div>
+
+    </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#UserSession">UserSession</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "role" : "admin",
+  "id" : "6544cd596955fe0a1c04fba9",
+  "user" : {
+    "mobil" : "36709834234",
+    "address" : "Budapest Lakatos utca 6.",
+    "name" : "Gipsz Jakap",
+    "id" : "6544cd596955fe0a1c04fba9",
+    "email" : "gipsz@jakab.com",
+    "points" : 0
+  }
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">201</h4>
+    User session succesfully created
+        <a href="#UserSession">UserSession</a>
+    <h4 class="field-label">400</h4>
+    Bad request
+        <a href="#"></a>
+    <h4 class="field-label">500</h4>
+    Internal server error
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="logout"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /auth/logout</code></pre></div>
+    <div class="method-summary">Logs out current logged in user (<span class="nickname">logout</span>)</div>
+    <div class="method-notes"></div>
+
+
+
+
+
+
+
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">204</h4>
+    Successful operation
+        <a href="#"></a>
+    <h4 class="field-label">400</h4>
+    Bad request
+        <a href="#"></a>
+    <h4 class="field-label">401</h4>
+    Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    Forbidden
+        <a href="#"></a>
+    <h4 class="field-label">500</h4>
+    Internal server error
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="passwordReset"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="patch"><code class="huge"><span class="http-method">patch</span> /auth/password-reset</code></pre></div>
+    <div class="method-summary">Password reset (<span class="nickname">passwordReset</span>)</div>
+    <div class="method-notes"></div>
+
+
+
+
+    <h3 class="field-label">Request headers</h3>
+    <div class="field-items">
+      <div class="param">userId (required)</div>
+
+      <div class="param-desc"><span class="param-type">Header Parameter</span> &mdash; The ID of the user default: null </div>
+<div class="param">oldPassword (required)</div>
+
+      <div class="param-desc"><span class="param-type">Header Parameter</span> &mdash;  default: null </div>
+<div class="param">newPassword (required)</div>
+
+      <div class="param-desc"><span class="param-type">Header Parameter</span> &mdash;  default: null </div>
+
+    </div>  <!-- field-items -->
+
+
+
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">204</h4>
+    Successful operation
+        <a href="#"></a>
+    <h4 class="field-label">400</h4>
+    Bad request
+        <a href="#"></a>
+    <h4 class="field-label">401</h4>
+    Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    Forbidden
+        <a href="#"></a>
+    <h4 class="field-label">500</h4>
+    Internal server error
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <h1><a name="Booking">Booking</a></h1>
+  <div class="method"><a name="bookTable"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /booking</code></pre></div>
+    <div class="method-summary">Book table (<span class="nickname">bookTable</span>)</div>
+    <div class="method-notes"></div>
+
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">NewBooking <a href="#NewBooking">NewBooking</a> (required)</div>
+
+      <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash;  </div>
+
+    </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#Booking">Booking</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "note" : "az egyik fő egy kisbaba",
+  "endingDate" : "2000-01-23T04:56:07.000+00:00",
+  "peopleCount" : 0,
+  "id" : "6544cd596955fe0a1c04fba9",
+  "startingDate" : "2000-01-23T04:56:07.000+00:00",
+  "table" : {
+    "number" : 10,
+    "capacity" : 10,
+    "status" : "booked"
+  },
+  "customer" : {
+    "mobil" : "36709834234",
+    "address" : "Budapest Lakatos utca 6.",
+    "name" : "Gipsz Jakap",
+    "id" : "6544cd596955fe0a1c04fba9",
+    "email" : "gipsz@jakab.com",
+    "points" : 0
+  },
+  "status" : "pending"
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">201</h4>
+    Booking created successfully
+        <a href="#Booking">Booking</a>
+    <h4 class="field-label">400</h4>
+    Bad request
+        <a href="#"></a>
+    <h4 class="field-label">401</h4>
+    Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    Forbidden
+        <a href="#"></a>
+    <h4 class="field-label">500</h4>
+    Internal server error
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="bookingStatusUpdate"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="patch"><code class="huge"><span class="http-method">patch</span> /booking/{bookingId}</code></pre></div>
+    <div class="method-summary">Update booking status (<span class="nickname">bookingStatusUpdate</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">bookingId (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash;  default: null </div>
+    </div>  <!-- field-items -->
+
+
+
+    <h3 class="field-label">Request headers</h3>
+    <div class="field-items">
+      <div class="param">status (required)</div>
+
+      <div class="param-desc"><span class="param-type">Header Parameter</span> &mdash;  default: null </div>
+
+    </div>  <!-- field-items -->
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#Booking">Booking</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "note" : "az egyik fő egy kisbaba",
+  "endingDate" : "2000-01-23T04:56:07.000+00:00",
+  "peopleCount" : 0,
+  "id" : "6544cd596955fe0a1c04fba9",
+  "startingDate" : "2000-01-23T04:56:07.000+00:00",
+  "table" : {
+    "number" : 10,
+    "capacity" : 10,
+    "status" : "booked"
+  },
+  "customer" : {
+    "mobil" : "36709834234",
+    "address" : "Budapest Lakatos utca 6.",
+    "name" : "Gipsz Jakap",
+    "id" : "6544cd596955fe0a1c04fba9",
+    "email" : "gipsz@jakab.com",
+    "points" : 0
+  },
+  "status" : "pending"
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Successful operation
+        <a href="#Booking">Booking</a>
+    <h4 class="field-label">400</h4>
+    Bad request
+        <a href="#"></a>
+    <h4 class="field-label">401</h4>
+    Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    Forbidden
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    Not found
+        <a href="#"></a>
+    <h4 class="field-label">500</h4>
+    Internal server error
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="getBooking"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /booking/{bookingId}</code></pre></div>
+    <div class="method-summary">Get booking (<span class="nickname">getBooking</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">bookingId (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash;  default: null </div>
+    </div>  <!-- field-items -->
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#Booking">Booking</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "note" : "az egyik fő egy kisbaba",
+  "endingDate" : "2000-01-23T04:56:07.000+00:00",
+  "peopleCount" : 0,
+  "id" : "6544cd596955fe0a1c04fba9",
+  "startingDate" : "2000-01-23T04:56:07.000+00:00",
+  "table" : {
+    "number" : 10,
+    "capacity" : 10,
+    "status" : "booked"
+  },
+  "customer" : {
+    "mobil" : "36709834234",
+    "address" : "Budapest Lakatos utca 6.",
+    "name" : "Gipsz Jakap",
+    "id" : "6544cd596955fe0a1c04fba9",
+    "email" : "gipsz@jakab.com",
+    "points" : 0
+  },
+  "status" : "pending"
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Successful operation
+        <a href="#Booking">Booking</a>
+    <h4 class="field-label">405</h4>
+    Invalid input
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="queryBookings"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /booking</code></pre></div>
+    <div class="method-summary">Query bookings (<span class="nickname">queryBookings</span>)</div>
+    <div class="method-notes"></div>
+
+
+
+
+    <h3 class="field-label">Request headers</h3>
+    <div class="field-items">
+      <div class="param">tableNumber (optional)</div>
+
+      <div class="param-desc"><span class="param-type">Header Parameter</span> &mdash;  default: null </div>
+<div class="param">customer-name (optional)</div>
+
+      <div class="param-desc"><span class="param-type">Header Parameter</span> &mdash;  default: null </div>
+<div class="param">from (optional)</div>
+
+      <div class="param-desc"><span class="param-type">Header Parameter</span> &mdash;  default: null format: date-time</div>
+<div class="param">to (optional)</div>
+
+      <div class="param-desc"><span class="param-type">Header Parameter</span> &mdash;  default: null format: date-time</div>
+
+    </div>  <!-- field-items -->
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      array[<a href="#Booking">Booking</a>]
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>[ {
+  "note" : "az egyik fő egy kisbaba",
+  "endingDate" : "2000-01-23T04:56:07.000+00:00",
+  "peopleCount" : 0,
+  "id" : "6544cd596955fe0a1c04fba9",
+  "startingDate" : "2000-01-23T04:56:07.000+00:00",
+  "table" : {
+    "number" : 10,
+    "capacity" : 10,
+    "status" : "booked"
+  },
+  "customer" : {
+    "mobil" : "36709834234",
+    "address" : "Budapest Lakatos utca 6.",
+    "name" : "Gipsz Jakap",
+    "id" : "6544cd596955fe0a1c04fba9",
+    "email" : "gipsz@jakab.com",
+    "points" : 0
+  },
+  "status" : "pending"
+}, {
+  "note" : "az egyik fő egy kisbaba",
+  "endingDate" : "2000-01-23T04:56:07.000+00:00",
+  "peopleCount" : 0,
+  "id" : "6544cd596955fe0a1c04fba9",
+  "startingDate" : "2000-01-23T04:56:07.000+00:00",
+  "table" : {
+    "number" : 10,
+    "capacity" : 10,
+    "status" : "booked"
+  },
+  "customer" : {
+    "mobil" : "36709834234",
+    "address" : "Budapest Lakatos utca 6.",
+    "name" : "Gipsz Jakap",
+    "id" : "6544cd596955fe0a1c04fba9",
+    "email" : "gipsz@jakab.com",
+    "points" : 0
+  },
+  "status" : "pending"
+} ]</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Successful operation
+        
+    <h4 class="field-label">400</h4>
+    Bad request
+        <a href="#"></a>
+    <h4 class="field-label">401</h4>
+    Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    Forbidden
+        <a href="#"></a>
+    <h4 class="field-label">500</h4>
+    Internal server error
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="queryTablesForBooking"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /booking/table/avaible</code></pre></div>
+    <div class="method-summary">Query avaible tables (<span class="nickname">queryTablesForBooking</span>)</div>
+    <div class="method-notes"></div>
+
+
+
+
+    <h3 class="field-label">Request headers</h3>
+    <div class="field-items">
+      <div class="param">from (required)</div>
+
+      <div class="param-desc"><span class="param-type">Header Parameter</span> &mdash;  default: null format: date-time</div>
+<div class="param">to (required)</div>
+
+      <div class="param-desc"><span class="param-type">Header Parameter</span> &mdash;  default: null format: date-time</div>
+
+    </div>  <!-- field-items -->
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      array[<a href="#Table">Table</a>]
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>[ {
+  "number" : 10,
+  "capacity" : 10,
+  "status" : "booked"
+}, {
+  "number" : 10,
+  "capacity" : 10,
+  "status" : "booked"
+} ]</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Successful operation
+        
+    <h4 class="field-label">400</h4>
+    Bad request
+        <a href="#"></a>
+    <h4 class="field-label">401</h4>
+    Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    Forbidden
+        <a href="#"></a>
+    <h4 class="field-label">500</h4>
+    Internal server error
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <h1><a name="Customer">Customer</a></h1>
+  <div class="method"><a name="getInvoice"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /customer/order/{userId}/{customerOrderId}/invoice</code></pre></div>
+    <div class="method-summary">Get an invoice in PDF format by orderId (<span class="nickname">getInvoice</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">customerOrderId (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; ID of the order for which to generate an invoice default: null </div><div class="param">userId (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; The ID of the user default: null </div>
+    </div>  <!-- field-items -->
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      
+      File
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/pdf</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Invoice PDF
+        <a href="#File">File</a>
+    <h4 class="field-label">400</h4>
+    Bad request
+        <a href="#"></a>
+    <h4 class="field-label">401</h4>
+    Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    Forbidden
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    Not found
+        <a href="#"></a>
+    <h4 class="field-label">500</h4>
+    Internal server error
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="listCustomers"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /customer</code></pre></div>
+    <div class="method-summary">Get all customers (<span class="nickname">listCustomers</span>)</div>
+    <div class="method-notes"></div>
+
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      array[<a href="#User">User</a>]
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>[ {
+  "mobil" : "36709834234",
+  "address" : "Budapest Lakatos utca 6.",
+  "name" : "Gipsz Jakap",
+  "id" : "6544cd596955fe0a1c04fba9",
+  "email" : "gipsz@jakab.com",
+  "points" : 0
+}, {
+  "mobil" : "36709834234",
+  "address" : "Budapest Lakatos utca 6.",
+  "name" : "Gipsz Jakap",
+  "id" : "6544cd596955fe0a1c04fba9",
+  "email" : "gipsz@jakab.com",
+  "points" : 0
+} ]</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    A list of customers
+        
+    <h4 class="field-label">400</h4>
+    Bad request
+        <a href="#"></a>
+    <h4 class="field-label">401</h4>
+    Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    Forbidden
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    Not found
+        <a href="#"></a>
+    <h4 class="field-label">500</h4>
+    Internal server error
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="placeCustomerOrder"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /customer/order/{userId}</code></pre></div>
+    <div class="method-summary">Place an order (<span class="nickname">placeCustomerOrder</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">userId (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash;  default: null </div>
+    </div>  <!-- field-items -->
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">Order <a href="#Order">Order</a> (optional)</div>
+
+      <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash;  </div>
+
+    </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#Order">Order</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "date" : "2000-01-23T04:56:07.000+00:00",
+  "note" : "note",
+  "foods" : [ {
+    "quantity" : 1,
+    "food" : {
+      "price" : 400,
+      "name" : "Hamburger",
+      "recipe" : [ {
+        "unit" : "kg",
+        "quantity" : 0,
+        "ingerient" : "ingerient"
+      }, {
+        "unit" : "kg",
+        "quantity" : 0,
+        "ingerient" : "ingerient"
+      } ],
+      "id" : "6544cd596955fe0a1c04fba9",
+      "type" : "main course"
+    }
+  }, {
+    "quantity" : 1,
+    "food" : {
+      "price" : 400,
+      "name" : "Hamburger",
+      "recipe" : [ {
+        "unit" : "kg",
+        "quantity" : 0,
+        "ingerient" : "ingerient"
+      }, {
+        "unit" : "kg",
+        "quantity" : 0,
+        "ingerient" : "ingerient"
+      } ],
+      "id" : "6544cd596955fe0a1c04fba9",
+      "type" : "main course"
+    }
+  } ],
+  "drinks" : [ {
+    "quantity" : 1,
+    "drink" : {
+      "price" : 400,
+      "name" : "Cola",
+      "id" : "6544cd596955fe0a1c04fba9",
+      "type" : "soft drink"
+    }
+  }, {
+    "quantity" : 1,
+    "drink" : {
+      "price" : 400,
+      "name" : "Cola",
+      "id" : "6544cd596955fe0a1c04fba9",
+      "type" : "soft drink"
+    }
+  } ],
+  "rating" : 5,
+  "status" : "placed"
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">201</h4>
+    Order placed successfully
+        <a href="#Order">Order</a>
+    <h4 class="field-label">400</h4>
+    Bad request
+        <a href="#"></a>
+    <h4 class="field-label">401</h4>
+    Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    Forbidden
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    Not found
+        <a href="#"></a>
+    <h4 class="field-label">500</h4>
+    Internal server error
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="queryBookingsForCustomer"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /customer/booking/{userId}</code></pre></div>
+    <div class="method-summary">Query bookings for customer (<span class="nickname">queryBookingsForCustomer</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">userId (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash;  default: null </div>
+    </div>  <!-- field-items -->
+
+
+
+    <h3 class="field-label">Request headers</h3>
+    <div class="field-items">
+      <div class="param">from (optional)</div>
+
+      <div class="param-desc"><span class="param-type">Header Parameter</span> &mdash;  default: null format: date-time</div>
+<div class="param">to (optional)</div>
+
+      <div class="param-desc"><span class="param-type">Header Parameter</span> &mdash;  default: null format: date-time</div>
+
+    </div>  <!-- field-items -->
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      array[<a href="#Booking">Booking</a>]
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>[ {
+  "note" : "az egyik fő egy kisbaba",
+  "endingDate" : "2000-01-23T04:56:07.000+00:00",
+  "peopleCount" : 0,
+  "id" : "6544cd596955fe0a1c04fba9",
+  "startingDate" : "2000-01-23T04:56:07.000+00:00",
+  "table" : {
+    "number" : 10,
+    "capacity" : 10,
+    "status" : "booked"
+  },
+  "customer" : {
+    "mobil" : "36709834234",
+    "address" : "Budapest Lakatos utca 6.",
+    "name" : "Gipsz Jakap",
+    "id" : "6544cd596955fe0a1c04fba9",
+    "email" : "gipsz@jakab.com",
+    "points" : 0
+  },
+  "status" : "pending"
+}, {
+  "note" : "az egyik fő egy kisbaba",
+  "endingDate" : "2000-01-23T04:56:07.000+00:00",
+  "peopleCount" : 0,
+  "id" : "6544cd596955fe0a1c04fba9",
+  "startingDate" : "2000-01-23T04:56:07.000+00:00",
+  "table" : {
+    "number" : 10,
+    "capacity" : 10,
+    "status" : "booked"
+  },
+  "customer" : {
+    "mobil" : "36709834234",
+    "address" : "Budapest Lakatos utca 6.",
+    "name" : "Gipsz Jakap",
+    "id" : "6544cd596955fe0a1c04fba9",
+    "email" : "gipsz@jakab.com",
+    "points" : 0
+  },
+  "status" : "pending"
+} ]</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Successful operation
+        
+    <h4 class="field-label">400</h4>
+    Bad request
+        <a href="#"></a>
+    <h4 class="field-label">401</h4>
+    Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    Forbidden
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    Not found
+        <a href="#"></a>
+    <h4 class="field-label">500</h4>
+    Internal server error
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="queryCustomerOrders"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /customer/order</code></pre></div>
+    <div class="method-summary">Query customer orders (<span class="nickname">queryCustomerOrders</span>)</div>
+    <div class="method-notes"></div>
+
+
+
+
+    <h3 class="field-label">Request headers</h3>
+    <div class="field-items">
+      <div class="param">customer-name (optional)</div>
+
+      <div class="param-desc"><span class="param-type">Header Parameter</span> &mdash;  default: null </div>
+<div class="param">is-current (optional)</div>
+
+      <div class="param-desc"><span class="param-type">Header Parameter</span> &mdash;  default: null </div>
+
+    </div>  <!-- field-items -->
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      array[<a href="#CustomerOrder">CustomerOrder</a>]
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>[ {
+  "id" : "6544cd596955fe0a1c04fba9",
+  "customer" : {
+    "mobil" : "36709834234",
+    "address" : "Budapest Lakatos utca 6.",
+    "name" : "Gipsz Jakap",
+    "id" : "6544cd596955fe0a1c04fba9",
+    "email" : "gipsz@jakab.com",
+    "points" : 0
+  },
+  "order" : {
+    "date" : "2000-01-23T04:56:07.000+00:00",
+    "note" : "note",
+    "foods" : [ {
+      "quantity" : 1,
+      "food" : {
+        "price" : 400,
+        "name" : "Hamburger",
+        "recipe" : [ {
+          "unit" : "kg",
+          "quantity" : 0,
+          "ingerient" : "ingerient"
+        }, {
+          "unit" : "kg",
+          "quantity" : 0,
+          "ingerient" : "ingerient"
+        } ],
+        "id" : "6544cd596955fe0a1c04fba9",
+        "type" : "main course"
+      }
+    }, {
+      "quantity" : 1,
+      "food" : {
+        "price" : 400,
+        "name" : "Hamburger",
+        "recipe" : [ {
+          "unit" : "kg",
+          "quantity" : 0,
+          "ingerient" : "ingerient"
+        }, {
+          "unit" : "kg",
+          "quantity" : 0,
+          "ingerient" : "ingerient"
+        } ],
+        "id" : "6544cd596955fe0a1c04fba9",
+        "type" : "main course"
+      }
+    } ],
+    "drinks" : [ {
+      "quantity" : 1,
+      "drink" : {
+        "price" : 400,
+        "name" : "Cola",
+        "id" : "6544cd596955fe0a1c04fba9",
+        "type" : "soft drink"
+      }
+    }, {
+      "quantity" : 1,
+      "drink" : {
+        "price" : 400,
+        "name" : "Cola",
+        "id" : "6544cd596955fe0a1c04fba9",
+        "type" : "soft drink"
+      }
+    } ],
+    "rating" : 5,
+    "status" : "placed"
+  }
+}, {
+  "id" : "6544cd596955fe0a1c04fba9",
+  "customer" : {
+    "mobil" : "36709834234",
+    "address" : "Budapest Lakatos utca 6.",
+    "name" : "Gipsz Jakap",
+    "id" : "6544cd596955fe0a1c04fba9",
+    "email" : "gipsz@jakab.com",
+    "points" : 0
+  },
+  "order" : {
+    "date" : "2000-01-23T04:56:07.000+00:00",
+    "note" : "note",
+    "foods" : [ {
+      "quantity" : 1,
+      "food" : {
+        "price" : 400,
+        "name" : "Hamburger",
+        "recipe" : [ {
+          "unit" : "kg",
+          "quantity" : 0,
+          "ingerient" : "ingerient"
+        }, {
+          "unit" : "kg",
+          "quantity" : 0,
+          "ingerient" : "ingerient"
+        } ],
+        "id" : "6544cd596955fe0a1c04fba9",
+        "type" : "main course"
+      }
+    }, {
+      "quantity" : 1,
+      "food" : {
+        "price" : 400,
+        "name" : "Hamburger",
+        "recipe" : [ {
+          "unit" : "kg",
+          "quantity" : 0,
+          "ingerient" : "ingerient"
+        }, {
+          "unit" : "kg",
+          "quantity" : 0,
+          "ingerient" : "ingerient"
+        } ],
+        "id" : "6544cd596955fe0a1c04fba9",
+        "type" : "main course"
+      }
+    } ],
+    "drinks" : [ {
+      "quantity" : 1,
+      "drink" : {
+        "price" : 400,
+        "name" : "Cola",
+        "id" : "6544cd596955fe0a1c04fba9",
+        "type" : "soft drink"
+      }
+    }, {
+      "quantity" : 1,
+      "drink" : {
+        "price" : 400,
+        "name" : "Cola",
+        "id" : "6544cd596955fe0a1c04fba9",
+        "type" : "soft drink"
+      }
+    } ],
+    "rating" : 5,
+    "status" : "placed"
+  }
+} ]</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Successful operation
+        
+    <h4 class="field-label">400</h4>
+    Bad request
+        <a href="#"></a>
+    <h4 class="field-label">401</h4>
+    Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    Forbidden
+        <a href="#"></a>
+    <h4 class="field-label">500</h4>
+    Internal server error
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="queryOrdersForCustomer"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /customer/order/{userId}</code></pre></div>
+    <div class="method-summary">Query orders for customer (<span class="nickname">queryOrdersForCustomer</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">userId (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash;  default: null </div>
+    </div>  <!-- field-items -->
+
+
+
+    <h3 class="field-label">Request headers</h3>
+    <div class="field-items">
+      <div class="param">is-current (optional)</div>
+
+      <div class="param-desc"><span class="param-type">Header Parameter</span> &mdash;  default: null </div>
+
+    </div>  <!-- field-items -->
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      array[<a href="#CustomerOrder">CustomerOrder</a>]
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>[ {
+  "id" : "6544cd596955fe0a1c04fba9",
+  "customer" : {
+    "mobil" : "36709834234",
+    "address" : "Budapest Lakatos utca 6.",
+    "name" : "Gipsz Jakap",
+    "id" : "6544cd596955fe0a1c04fba9",
+    "email" : "gipsz@jakab.com",
+    "points" : 0
+  },
+  "order" : {
+    "date" : "2000-01-23T04:56:07.000+00:00",
+    "note" : "note",
+    "foods" : [ {
+      "quantity" : 1,
+      "food" : {
+        "price" : 400,
+        "name" : "Hamburger",
+        "recipe" : [ {
+          "unit" : "kg",
+          "quantity" : 0,
+          "ingerient" : "ingerient"
+        }, {
+          "unit" : "kg",
+          "quantity" : 0,
+          "ingerient" : "ingerient"
+        } ],
+        "id" : "6544cd596955fe0a1c04fba9",
+        "type" : "main course"
+      }
+    }, {
+      "quantity" : 1,
+      "food" : {
+        "price" : 400,
+        "name" : "Hamburger",
+        "recipe" : [ {
+          "unit" : "kg",
+          "quantity" : 0,
+          "ingerient" : "ingerient"
+        }, {
+          "unit" : "kg",
+          "quantity" : 0,
+          "ingerient" : "ingerient"
+        } ],
+        "id" : "6544cd596955fe0a1c04fba9",
+        "type" : "main course"
+      }
+    } ],
+    "drinks" : [ {
+      "quantity" : 1,
+      "drink" : {
+        "price" : 400,
+        "name" : "Cola",
+        "id" : "6544cd596955fe0a1c04fba9",
+        "type" : "soft drink"
+      }
+    }, {
+      "quantity" : 1,
+      "drink" : {
+        "price" : 400,
+        "name" : "Cola",
+        "id" : "6544cd596955fe0a1c04fba9",
+        "type" : "soft drink"
+      }
+    } ],
+    "rating" : 5,
+    "status" : "placed"
+  }
+}, {
+  "id" : "6544cd596955fe0a1c04fba9",
+  "customer" : {
+    "mobil" : "36709834234",
+    "address" : "Budapest Lakatos utca 6.",
+    "name" : "Gipsz Jakap",
+    "id" : "6544cd596955fe0a1c04fba9",
+    "email" : "gipsz@jakab.com",
+    "points" : 0
+  },
+  "order" : {
+    "date" : "2000-01-23T04:56:07.000+00:00",
+    "note" : "note",
+    "foods" : [ {
+      "quantity" : 1,
+      "food" : {
+        "price" : 400,
+        "name" : "Hamburger",
+        "recipe" : [ {
+          "unit" : "kg",
+          "quantity" : 0,
+          "ingerient" : "ingerient"
+        }, {
+          "unit" : "kg",
+          "quantity" : 0,
+          "ingerient" : "ingerient"
+        } ],
+        "id" : "6544cd596955fe0a1c04fba9",
+        "type" : "main course"
+      }
+    }, {
+      "quantity" : 1,
+      "food" : {
+        "price" : 400,
+        "name" : "Hamburger",
+        "recipe" : [ {
+          "unit" : "kg",
+          "quantity" : 0,
+          "ingerient" : "ingerient"
+        }, {
+          "unit" : "kg",
+          "quantity" : 0,
+          "ingerient" : "ingerient"
+        } ],
+        "id" : "6544cd596955fe0a1c04fba9",
+        "type" : "main course"
+      }
+    } ],
+    "drinks" : [ {
+      "quantity" : 1,
+      "drink" : {
+        "price" : 400,
+        "name" : "Cola",
+        "id" : "6544cd596955fe0a1c04fba9",
+        "type" : "soft drink"
+      }
+    }, {
+      "quantity" : 1,
+      "drink" : {
+        "price" : 400,
+        "name" : "Cola",
+        "id" : "6544cd596955fe0a1c04fba9",
+        "type" : "soft drink"
+      }
+    } ],
+    "rating" : 5,
+    "status" : "placed"
+  }
+} ]</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Successful operation
+        
+    <h4 class="field-label">400</h4>
+    Bad request
+        <a href="#"></a>
+    <h4 class="field-label">401</h4>
+    Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    Forbidden
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    Not found
+        <a href="#"></a>
+    <h4 class="field-label">500</h4>
+    Internal server error
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="queryPointsForCustomer"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /customer/points/{userId}</code></pre></div>
+    <div class="method-summary">Query point for customer (<span class="nickname">queryPointsForCustomer</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">userId (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash;  default: null </div>
+    </div>  <!-- field-items -->
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      
+      Integer
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>1342</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Successful operation
+        <a href="#Integer">Integer</a>
+    <h4 class="field-label">400</h4>
+    Bad request
+        <a href="#"></a>
+    <h4 class="field-label">401</h4>
+    Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    Forbidden
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    Not found
+        <a href="#"></a>
+    <h4 class="field-label">500</h4>
+    Internal server error
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="registerCustomer"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /customer</code></pre></div>
+    <div class="method-summary">Customer registration (<span class="nickname">registerCustomer</span>)</div>
+    <div class="method-notes"></div>
+
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">UserRegister <a href="#UserRegister">UserRegister</a> (required)</div>
+
+      <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash;  </div>
+
+    </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#User">User</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "mobil" : "36709834234",
+  "address" : "Budapest Lakatos utca 6.",
+  "name" : "Gipsz Jakap",
+  "id" : "6544cd596955fe0a1c04fba9",
+  "email" : "gipsz@jakab.com",
+  "points" : 0
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Customer succesfully registered
+        <a href="#User">User</a>
+    <h4 class="field-label">400</h4>
+    Bad request
+        <a href="#"></a>
+    <h4 class="field-label">409</h4>
+    User with this name already exists
+        <a href="#"></a>
+    <h4 class="field-label">500</h4>
+    Internal server error
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="updateCustomerOrder"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="patch"><code class="huge"><span class="http-method">patch</span> /customer/order/{userId}/{customerOrderId}</code></pre></div>
+    <div class="method-summary">Update an order status or rating (<span class="nickname">updateCustomerOrder</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">customerOrderId (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; ID of the order to update default: null </div><div class="param">userId (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; The ID of the user default: null </div>
+    </div>  <!-- field-items -->
+
+
+
+    <h3 class="field-label">Request headers</h3>
+    <div class="field-items">
+      <div class="param">rating (optional)</div>
+
+      <div class="param-desc"><span class="param-type">Header Parameter</span> &mdash;  default: null format: int32</div>
+<div class="param">status (optional)</div>
+
+      <div class="param-desc"><span class="param-type">Header Parameter</span> &mdash;  default: null </div>
+
+    </div>  <!-- field-items -->
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#Order">Order</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "date" : "2000-01-23T04:56:07.000+00:00",
+  "note" : "note",
+  "foods" : [ {
+    "quantity" : 1,
+    "food" : {
+      "price" : 400,
+      "name" : "Hamburger",
+      "recipe" : [ {
+        "unit" : "kg",
+        "quantity" : 0,
+        "ingerient" : "ingerient"
+      }, {
+        "unit" : "kg",
+        "quantity" : 0,
+        "ingerient" : "ingerient"
+      } ],
+      "id" : "6544cd596955fe0a1c04fba9",
+      "type" : "main course"
+    }
+  }, {
+    "quantity" : 1,
+    "food" : {
+      "price" : 400,
+      "name" : "Hamburger",
+      "recipe" : [ {
+        "unit" : "kg",
+        "quantity" : 0,
+        "ingerient" : "ingerient"
+      }, {
+        "unit" : "kg",
+        "quantity" : 0,
+        "ingerient" : "ingerient"
+      } ],
+      "id" : "6544cd596955fe0a1c04fba9",
+      "type" : "main course"
+    }
+  } ],
+  "drinks" : [ {
+    "quantity" : 1,
+    "drink" : {
+      "price" : 400,
+      "name" : "Cola",
+      "id" : "6544cd596955fe0a1c04fba9",
+      "type" : "soft drink"
+    }
+  }, {
+    "quantity" : 1,
+    "drink" : {
+      "price" : 400,
+      "name" : "Cola",
+      "id" : "6544cd596955fe0a1c04fba9",
+      "type" : "soft drink"
+    }
+  } ],
+  "rating" : 5,
+  "status" : "placed"
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Order rated successfully
+        <a href="#Order">Order</a>
+    <h4 class="field-label">400</h4>
+    Bad request
+        <a href="#"></a>
+    <h4 class="field-label">401</h4>
+    Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    Forbidden
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    Not found
+        <a href="#"></a>
+    <h4 class="field-label">500</h4>
+    Internal server error
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <h1><a name="Employee">Employee</a></h1>
+  <div class="method"><a name="getEmployees"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /employee</code></pre></div>
+    <div class="method-summary">Get all employees (<span class="nickname">getEmployees</span>)</div>
+    <div class="method-notes"></div>
+
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      array[<a href="#User">User</a>]
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>[ {
+  "mobil" : "36709834234",
+  "address" : "Budapest Lakatos utca 6.",
+  "name" : "Gipsz Jakap",
+  "id" : "6544cd596955fe0a1c04fba9",
+  "email" : "gipsz@jakab.com",
+  "points" : 0
+}, {
+  "mobil" : "36709834234",
+  "address" : "Budapest Lakatos utca 6.",
+  "name" : "Gipsz Jakap",
+  "id" : "6544cd596955fe0a1c04fba9",
+  "email" : "gipsz@jakab.com",
+  "points" : 0
+} ]</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Successful operation
+        
+    <h4 class="field-label">400</h4>
+    Bad request
+        <a href="#"></a>
+    <h4 class="field-label">401</h4>
+    Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    Forbidden
+        <a href="#"></a>
+    <h4 class="field-label">500</h4>
+    Internal server error
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="registerEmployee"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /employee</code></pre></div>
+    <div class="method-summary">Register an employee (<span class="nickname">registerEmployee</span>)</div>
+    <div class="method-notes"></div>
+
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">UserRegister <a href="#UserRegister">UserRegister</a> (required)</div>
+
+      <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash;  </div>
+
+    </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#User">User</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "mobil" : "36709834234",
+  "address" : "Budapest Lakatos utca 6.",
+  "name" : "Gipsz Jakap",
+  "id" : "6544cd596955fe0a1c04fba9",
+  "email" : "gipsz@jakab.com",
+  "points" : 0
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">201</h4>
+    Employee succesfully registered
+        <a href="#User">User</a>
+    <h4 class="field-label">400</h4>
+    Bad request
+        <a href="#"></a>
+    <h4 class="field-label">401</h4>
+    Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    Forbidden
+        <a href="#"></a>
+    <h4 class="field-label">409</h4>
+    User with this name already exists
+        <a href="#"></a>
+    <h4 class="field-label">500</h4>
+    Internal server error
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <h1><a name="Menu">Menu</a></h1>
+  <div class="method"><a name="addDrinkToMenu"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /menu/drink</code></pre></div>
+    <div class="method-summary">Add a new drink item (<span class="nickname">addDrinkToMenu</span>)</div>
+    <div class="method-notes"></div>
+
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">Drink <a href="#Drink">Drink</a> (required)</div>
+
+      <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash;  </div>
+
+    </div>  <!-- field-items -->
+
+
+
+
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">201</h4>
+    Drink item added successfully
+        <a href="#"></a>
+    <h4 class="field-label">400</h4>
+    Bad request
+        <a href="#"></a>
+    <h4 class="field-label">401</h4>
+    Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    Forbidden
+        <a href="#"></a>
+    <h4 class="field-label">500</h4>
+    Internal server error
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="addFoodToMenu"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /menu/food</code></pre></div>
+    <div class="method-summary">Add a new food item (<span class="nickname">addFoodToMenu</span>)</div>
+    <div class="method-notes"></div>
+
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">Food <a href="#Food">Food</a> (required)</div>
+
+      <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash;  </div>
+
+    </div>  <!-- field-items -->
+
+
+
+
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">201</h4>
+    Food item added successfully
+        <a href="#"></a>
+    <h4 class="field-label">400</h4>
+    Bad request
+        <a href="#"></a>
+    <h4 class="field-label">401</h4>
+    Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    Forbidden
+        <a href="#"></a>
+    <h4 class="field-label">500</h4>
+    Internal server error
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="deleteDrink"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="delete"><code class="huge"><span class="http-method">delete</span> /menu/drink/{drinkId}</code></pre></div>
+    <div class="method-summary">Delete menu item by ID (<span class="nickname">deleteDrink</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">drinkId (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; ID of the menu item to retrieve/update/delete default: null </div>
+    </div>  <!-- field-items -->
+
+
+
+
+
+
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">204</h4>
+    Successfully deleted
+        <a href="#"></a>
+    <h4 class="field-label">400</h4>
+    Bad request
+        <a href="#"></a>
+    <h4 class="field-label">401</h4>
+    Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    Forbidden
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    Not found
+        <a href="#"></a>
+    <h4 class="field-label">500</h4>
+    Internal server error
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="deleteFood"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="delete"><code class="huge"><span class="http-method">delete</span> /menu/food/{foodId}</code></pre></div>
+    <div class="method-summary">Delete menu item by ID (<span class="nickname">deleteFood</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">foodId (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; ID of the menu item to retrieve/update/delete default: null </div>
+    </div>  <!-- field-items -->
+
+
+
+
+
+
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">204</h4>
+    Successfully deleted
+        <a href="#"></a>
+    <h4 class="field-label">400</h4>
+    Bad request
+        <a href="#"></a>
+    <h4 class="field-label">401</h4>
+    Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    Forbidden
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    Not found
+        <a href="#"></a>
+    <h4 class="field-label">500</h4>
+    Internal server error
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="getDrink"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /menu/drink/{drinkId}</code></pre></div>
+    <div class="method-summary">Get menu item details by ID (<span class="nickname">getDrink</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">drinkId (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; ID of the menu item to retrieve/update/delete default: null </div>
+    </div>  <!-- field-items -->
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#Drink">Drink</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "price" : 400,
+  "name" : "Cola",
+  "id" : "6544cd596955fe0a1c04fba9",
+  "type" : "soft drink"
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Menu item details
+        <a href="#Drink">Drink</a>
+    <h4 class="field-label">400</h4>
+    Bad request
+        <a href="#"></a>
+    <h4 class="field-label">401</h4>
+    Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    Forbidden
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    Not found
+        <a href="#"></a>
+    <h4 class="field-label">500</h4>
+    Internal server error
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="getDrinkMenu"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /menu/drink</code></pre></div>
+    <div class="method-summary">Get all drink items (<span class="nickname">getDrinkMenu</span>)</div>
+    <div class="method-notes"></div>
+
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      array[<a href="#Drink">Drink</a>]
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>[ {
+  "price" : 400,
+  "name" : "Cola",
+  "id" : "6544cd596955fe0a1c04fba9",
+  "type" : "soft drink"
+}, {
+  "price" : 400,
+  "name" : "Cola",
+  "id" : "6544cd596955fe0a1c04fba9",
+  "type" : "soft drink"
+} ]</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    List of drink items
+        
+    <h4 class="field-label">500</h4>
+    Internal server error
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="getFood"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /menu/food/{foodId}</code></pre></div>
+    <div class="method-summary">Get menu item details by ID (<span class="nickname">getFood</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">foodId (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; ID of the menu item to retrieve/update/delete default: null </div>
+    </div>  <!-- field-items -->
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#Food">Food</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "price" : 400,
+  "name" : "Hamburger",
+  "recipe" : [ {
+    "unit" : "kg",
+    "quantity" : 0,
+    "ingerient" : "ingerient"
+  }, {
+    "unit" : "kg",
+    "quantity" : 0,
+    "ingerient" : "ingerient"
+  } ],
+  "id" : "6544cd596955fe0a1c04fba9",
+  "type" : "main course"
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Menu item details
+        <a href="#Food">Food</a>
+    <h4 class="field-label">400</h4>
+    Bad request
+        <a href="#"></a>
+    <h4 class="field-label">401</h4>
+    Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    Forbidden
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    Not found
+        <a href="#"></a>
+    <h4 class="field-label">500</h4>
+    Internal server error
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="getFoodMenu"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /menu/food</code></pre></div>
+    <div class="method-summary">Get all food items (<span class="nickname">getFoodMenu</span>)</div>
+    <div class="method-notes"></div>
+
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      array[<a href="#Food">Food</a>]
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>[ {
+  "price" : 400,
+  "name" : "Hamburger",
+  "recipe" : [ {
+    "unit" : "kg",
+    "quantity" : 0,
+    "ingerient" : "ingerient"
+  }, {
+    "unit" : "kg",
+    "quantity" : 0,
+    "ingerient" : "ingerient"
+  } ],
+  "id" : "6544cd596955fe0a1c04fba9",
+  "type" : "main course"
+}, {
+  "price" : 400,
+  "name" : "Hamburger",
+  "recipe" : [ {
+    "unit" : "kg",
+    "quantity" : 0,
+    "ingerient" : "ingerient"
+  }, {
+    "unit" : "kg",
+    "quantity" : 0,
+    "ingerient" : "ingerient"
+  } ],
+  "id" : "6544cd596955fe0a1c04fba9",
+  "type" : "main course"
+} ]</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    List of food items
+        
+    <h4 class="field-label">500</h4>
+    Internal server error
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="updateDrink"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="patch"><code class="huge"><span class="http-method">patch</span> /menu/drink/{drinkId}</code></pre></div>
+    <div class="method-summary">Partially update menu item details by ID using query parameters (<span class="nickname">updateDrink</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">drinkId (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; ID of the menu item to retrieve/update/delete default: null </div>
+    </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+      <div class="param">name (optional)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; New name for the menu item default: null </div><div class="param">price (optional)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; New price for the menu item default: null </div>
+    </div>  <!-- field-items -->
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#Drink">Drink</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "price" : 400,
+  "name" : "Cola",
+  "id" : "6544cd596955fe0a1c04fba9",
+  "type" : "soft drink"
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Menu item partially updated successfully
+        <a href="#Drink">Drink</a>
+    <h4 class="field-label">400</h4>
+    Bad request
+        <a href="#"></a>
+    <h4 class="field-label">401</h4>
+    Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    Forbidden
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    Not found
+        <a href="#"></a>
+    <h4 class="field-label">500</h4>
+    Internal server error
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="updateFood"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="patch"><code class="huge"><span class="http-method">patch</span> /menu/food/{foodId}</code></pre></div>
+    <div class="method-summary">Partially update menu item details by ID using query parameters (<span class="nickname">updateFood</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">foodId (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; ID of the menu item to retrieve/update/delete default: null </div>
+    </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+      <div class="param">name (optional)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; New name for the menu item default: null </div><div class="param">price (optional)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; New price for the menu item default: null </div>
+    </div>  <!-- field-items -->
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#Food">Food</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "price" : 400,
+  "name" : "Hamburger",
+  "recipe" : [ {
+    "unit" : "kg",
+    "quantity" : 0,
+    "ingerient" : "ingerient"
+  }, {
+    "unit" : "kg",
+    "quantity" : 0,
+    "ingerient" : "ingerient"
+  } ],
+  "id" : "6544cd596955fe0a1c04fba9",
+  "type" : "main course"
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Menu item partially updated successfully
+        <a href="#Food">Food</a>
+    <h4 class="field-label">400</h4>
+    Bad request
+        <a href="#"></a>
+    <h4 class="field-label">401</h4>
+    Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    Forbidden
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    Not found
+        <a href="#"></a>
+    <h4 class="field-label">500</h4>
+    Internal server error
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <h1><a name="Stock">Stock</a></h1>
+  <div class="method"><a name="createDrinkStockItem"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /stock/drink</code></pre></div>
+    <div class="method-summary">Create a new drink stock item (<span class="nickname">createDrinkStockItem</span>)</div>
+    <div class="method-notes"></div>
+
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">DrinkStockItem <a href="#DrinkStockItem">DrinkStockItem</a> (required)</div>
+
+      <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash;  </div>
+
+    </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#DrinkStockItem">DrinkStockItem</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "quantity" : 1,
+  "name" : "coke",
+  "id" : "id"
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">201</h4>
+    Drink stock item created successfully
+        <a href="#DrinkStockItem">DrinkStockItem</a>
+    <h4 class="field-label">400</h4>
+    Invalid input
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="createFoodStockItem"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /stock/food</code></pre></div>
+    <div class="method-summary">Create a new food stock item (<span class="nickname">createFoodStockItem</span>)</div>
+    <div class="method-notes"></div>
+
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">FoodStockItem <a href="#FoodStockItem">FoodStockItem</a> (required)</div>
+
+      <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash;  </div>
+
+    </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#FoodStockItem">FoodStockItem</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "unit" : "kg",
+  "quantity" : 1,
+  "name" : "hús",
+  "id" : "id"
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">201</h4>
+    Food stock item created successfully
+        <a href="#FoodStockItem">FoodStockItem</a>
+    <h4 class="field-label">400</h4>
+    Bad request
+        <a href="#"></a>
+    <h4 class="field-label">401</h4>
+    Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    Forbidden
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    Not found
+        <a href="#"></a>
+    <h4 class="field-label">500</h4>
+    Internal server error
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="deleteDrinkStockItem"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="delete"><code class="huge"><span class="http-method">delete</span> /stock/drink/{drinkStockItemId}</code></pre></div>
+    <div class="method-summary">Delete a drink stock item (<span class="nickname">deleteDrinkStockItem</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">drinkStockItemId (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; ID of the drinkStockItem to retrieve/update/delete default: null </div>
+    </div>  <!-- field-items -->
+
+
+
+
+
+
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">204</h4>
+    Successfully deleted
+        <a href="#"></a>
+    <h4 class="field-label">400</h4>
+    Bad request
+        <a href="#"></a>
+    <h4 class="field-label">401</h4>
+    Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    Forbidden
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    Not found
+        <a href="#"></a>
+    <h4 class="field-label">500</h4>
+    Internal server error
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="deleteFoodStockItem"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="delete"><code class="huge"><span class="http-method">delete</span> /stock/food/{foodStockItemId}</code></pre></div>
+    <div class="method-summary">Delete a food stock item (<span class="nickname">deleteFoodStockItem</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">foodStockItemId (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; ID of the foodStockItem to retrieve/update/delete default: null </div>
+    </div>  <!-- field-items -->
+
+
+
+
+
+
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">204</h4>
+    Successfully deleted
+        <a href="#"></a>
+    <h4 class="field-label">400</h4>
+    Bad request
+        <a href="#"></a>
+    <h4 class="field-label">401</h4>
+    Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    Forbidden
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    Not found
+        <a href="#"></a>
+    <h4 class="field-label">500</h4>
+    Internal server error
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="getAllDrinkStockItems"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /stock/drink</code></pre></div>
+    <div class="method-summary">Get all drink stock items (<span class="nickname">getAllDrinkStockItems</span>)</div>
+    <div class="method-notes"></div>
+
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      array[<a href="#DrinkStockItem">DrinkStockItem</a>]
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>[ {
+  "quantity" : 1,
+  "name" : "coke",
+  "id" : "id"
+}, {
+  "quantity" : 1,
+  "name" : "coke",
+  "id" : "id"
+} ]</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Successful operation
+        
+    <h4 class="field-label">401</h4>
+    Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    Forbidden
+        <a href="#"></a>
+    <h4 class="field-label">500</h4>
+    Internal server error
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="getAllFoodStockItems"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /stock/food</code></pre></div>
+    <div class="method-summary">Get all food stock items (<span class="nickname">getAllFoodStockItems</span>)</div>
+    <div class="method-notes"></div>
+
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      array[<a href="#FoodStockItem">FoodStockItem</a>]
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>[ {
+  "unit" : "kg",
+  "quantity" : 1,
+  "name" : "hús",
+  "id" : "id"
+}, {
+  "unit" : "kg",
+  "quantity" : 1,
+  "name" : "hús",
+  "id" : "id"
+} ]</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Successful operation
+        
+    <h4 class="field-label">401</h4>
+    Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    Forbidden
+        <a href="#"></a>
+    <h4 class="field-label">500</h4>
+    Internal server error
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="partiallyUpdateDrinkStockItem"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="patch"><code class="huge"><span class="http-method">patch</span> /stock/drink/{drinkStockItemId}</code></pre></div>
+    <div class="method-summary">Partially update a drink stock item (<span class="nickname">partiallyUpdateDrinkStockItem</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">drinkStockItemId (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; ID of the drinkStockItem to retrieve/update/delete default: null </div>
+    </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+      <div class="param">name (optional)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Name of the drink stock item to update default: null </div><div class="param">quantity (optional)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; New quantity of the drink stock item default: null format: int32</div>
+    </div>  <!-- field-items -->
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#DrinkStockItem">DrinkStockItem</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "quantity" : 1,
+  "name" : "coke",
+  "id" : "id"
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Drink stock item partially updated successfully
+        <a href="#DrinkStockItem">DrinkStockItem</a>
+    <h4 class="field-label">400</h4>
+    Bad request
+        <a href="#"></a>
+    <h4 class="field-label">401</h4>
+    Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    Forbidden
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    Not found
+        <a href="#"></a>
+    <h4 class="field-label">500</h4>
+    Internal server error
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="partiallyUpdateFoodStockItem"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="patch"><code class="huge"><span class="http-method">patch</span> /stock/food/{foodStockItemId}</code></pre></div>
+    <div class="method-summary">Partially update a food stock item (<span class="nickname">partiallyUpdateFoodStockItem</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">foodStockItemId (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; ID of the foodStockItem to retrieve/update/delete default: null </div>
+    </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+      <div class="param">name (optional)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Name of the food stock item to update default: null </div><div class="param">quantity (optional)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; New quantity of the food stock item default: null format: int32</div><div class="param">unit (optional)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; New unit of the food stock item default: null </div>
+    </div>  <!-- field-items -->
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#FoodStockItem">FoodStockItem</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "unit" : "kg",
+  "quantity" : 1,
+  "name" : "hús",
+  "id" : "id"
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Food stock item partially updated successfully
+        <a href="#FoodStockItem">FoodStockItem</a>
+    <h4 class="field-label">400</h4>
+    Bad request
+        <a href="#"></a>
+    <h4 class="field-label">401</h4>
+    Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    Forbidden
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    Not found
+        <a href="#"></a>
+    <h4 class="field-label">500</h4>
+    Internal server error
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <h1><a name="Table">Table</a></h1>
+  <div class="method"><a name="deleteTable"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="delete"><code class="huge"><span class="http-method">delete</span> /table/{tableNumber}</code></pre></div>
+    <div class="method-summary">Deletes table by number (<span class="nickname">deleteTable</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">tableNumber (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; number of table to return default: null </div>
+    </div>  <!-- field-items -->
+
+
+
+
+
+
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">204</h4>
+    Successfully deleted
+        <a href="#"></a>
+    <h4 class="field-label">400</h4>
+    Bad request
+        <a href="#"></a>
+    <h4 class="field-label">401</h4>
+    Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    Forbidden
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    Not found
+        <a href="#"></a>
+    <h4 class="field-label">500</h4>
+    Internal server error
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="findTable"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /table/{tableNumber}</code></pre></div>
+    <div class="method-summary">Finds table by number (<span class="nickname">findTable</span>)</div>
+    <div class="method-notes">Returns a single table</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">tableNumber (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; number of table to return default: null </div>
+    </div>  <!-- field-items -->
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#Table">Table</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "number" : 10,
+  "capacity" : 10,
+  "status" : "booked"
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Successful operation
+        <a href="#Table">Table</a>
+    <h4 class="field-label">400</h4>
+    Bad request
+        <a href="#"></a>
+    <h4 class="field-label">401</h4>
+    Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    Forbidden
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    Not found
+        <a href="#"></a>
+    <h4 class="field-label">500</h4>
+    Internal server error
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="listTables"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /table</code></pre></div>
+    <div class="method-summary">List tables (<span class="nickname">listTables</span>)</div>
+    <div class="method-notes">Returns a single table</div>
+
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      array[<a href="#Table">Table</a>]
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>[ {
+  "number" : 10,
+  "capacity" : 10,
+  "status" : "booked"
+}, {
+  "number" : 10,
+  "capacity" : 10,
+  "status" : "booked"
+} ]</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Successful operation
+        
+    <h4 class="field-label">400</h4>
+    Bad request
+        <a href="#"></a>
+    <h4 class="field-label">401</h4>
+    Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    Forbidden
+        <a href="#"></a>
+    <h4 class="field-label">500</h4>
+    Internal server error
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="patchTable"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="patch"><code class="huge"><span class="http-method">patch</span> /table/{tableNumber}</code></pre></div>
+    <div class="method-summary">Create or update table by number (<span class="nickname">patchTable</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">tableNumber (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; number of table to return default: null </div>
+    </div>  <!-- field-items -->
+
+
+
+    <h3 class="field-label">Request headers</h3>
+    <div class="field-items">
+      <div class="param">capacity (optional)</div>
+
+      <div class="param-desc"><span class="param-type">Header Parameter</span> &mdash;  default: null </div>
+
+    </div>  <!-- field-items -->
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#Table">Table</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "number" : 10,
+  "capacity" : 10,
+  "status" : "booked"
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Successful operation
+        <a href="#Table">Table</a>
+    <h4 class="field-label">400</h4>
+    Bad request
+        <a href="#"></a>
+    <h4 class="field-label">401</h4>
+    Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    Forbidden
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    Not found
+        <a href="#"></a>
+    <h4 class="field-label">500</h4>
+    Internal server error
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="placeTableOrder"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /table/order/{tableNumber}</code></pre></div>
+    <div class="method-summary">Place an order (<span class="nickname">placeTableOrder</span>)</div>
+    <div class="method-notes">Place a new order in the store</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">tableNumber (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash;  default: null </div>
+    </div>  <!-- field-items -->
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">Order <a href="#Order">Order</a> (optional)</div>
+
+      <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash;  </div>
+
+    </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#TableOrder">TableOrder</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "id" : "6544cd596955fe0a1c04fba9",
+  "table" : {
+    "number" : 10,
+    "capacity" : 10,
+    "status" : "booked"
+  },
+  "order" : {
+    "date" : "2000-01-23T04:56:07.000+00:00",
+    "note" : "note",
+    "foods" : [ {
+      "quantity" : 1,
+      "food" : {
+        "price" : 400,
+        "name" : "Hamburger",
+        "recipe" : [ {
+          "unit" : "kg",
+          "quantity" : 0,
+          "ingerient" : "ingerient"
+        }, {
+          "unit" : "kg",
+          "quantity" : 0,
+          "ingerient" : "ingerient"
+        } ],
+        "id" : "6544cd596955fe0a1c04fba9",
+        "type" : "main course"
+      }
+    }, {
+      "quantity" : 1,
+      "food" : {
+        "price" : 400,
+        "name" : "Hamburger",
+        "recipe" : [ {
+          "unit" : "kg",
+          "quantity" : 0,
+          "ingerient" : "ingerient"
+        }, {
+          "unit" : "kg",
+          "quantity" : 0,
+          "ingerient" : "ingerient"
+        } ],
+        "id" : "6544cd596955fe0a1c04fba9",
+        "type" : "main course"
+      }
+    } ],
+    "drinks" : [ {
+      "quantity" : 1,
+      "drink" : {
+        "price" : 400,
+        "name" : "Cola",
+        "id" : "6544cd596955fe0a1c04fba9",
+        "type" : "soft drink"
+      }
+    }, {
+      "quantity" : 1,
+      "drink" : {
+        "price" : 400,
+        "name" : "Cola",
+        "id" : "6544cd596955fe0a1c04fba9",
+        "type" : "soft drink"
+      }
+    } ],
+    "rating" : 5,
+    "status" : "placed"
+  }
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">201</h4>
+    Order placed successfully
+        <a href="#TableOrder">TableOrder</a>
+    <h4 class="field-label">400</h4>
+    Bad request
+        <a href="#"></a>
+    <h4 class="field-label">401</h4>
+    Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    Forbidden
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    Not found
+        <a href="#"></a>
+    <h4 class="field-label">500</h4>
+    Internal server error
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="queryTableOrders"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /table/order</code></pre></div>
+    <div class="method-summary">Query table orders (<span class="nickname">queryTableOrders</span>)</div>
+    <div class="method-notes">Place a new order in the store</div>
+
+
+
+
+    <h3 class="field-label">Request headers</h3>
+    <div class="field-items">
+      <div class="param">tableNumber (optional)</div>
+
+      <div class="param-desc"><span class="param-type">Header Parameter</span> &mdash;  default: null </div>
+<div class="param">is-current (optional)</div>
+
+      <div class="param-desc"><span class="param-type">Header Parameter</span> &mdash;  default: null </div>
+
+    </div>  <!-- field-items -->
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      array[<a href="#TableOrder">TableOrder</a>]
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>[ {
+  "id" : "6544cd596955fe0a1c04fba9",
+  "table" : {
+    "number" : 10,
+    "capacity" : 10,
+    "status" : "booked"
+  },
+  "order" : {
+    "date" : "2000-01-23T04:56:07.000+00:00",
+    "note" : "note",
+    "foods" : [ {
+      "quantity" : 1,
+      "food" : {
+        "price" : 400,
+        "name" : "Hamburger",
+        "recipe" : [ {
+          "unit" : "kg",
+          "quantity" : 0,
+          "ingerient" : "ingerient"
+        }, {
+          "unit" : "kg",
+          "quantity" : 0,
+          "ingerient" : "ingerient"
+        } ],
+        "id" : "6544cd596955fe0a1c04fba9",
+        "type" : "main course"
+      }
+    }, {
+      "quantity" : 1,
+      "food" : {
+        "price" : 400,
+        "name" : "Hamburger",
+        "recipe" : [ {
+          "unit" : "kg",
+          "quantity" : 0,
+          "ingerient" : "ingerient"
+        }, {
+          "unit" : "kg",
+          "quantity" : 0,
+          "ingerient" : "ingerient"
+        } ],
+        "id" : "6544cd596955fe0a1c04fba9",
+        "type" : "main course"
+      }
+    } ],
+    "drinks" : [ {
+      "quantity" : 1,
+      "drink" : {
+        "price" : 400,
+        "name" : "Cola",
+        "id" : "6544cd596955fe0a1c04fba9",
+        "type" : "soft drink"
+      }
+    }, {
+      "quantity" : 1,
+      "drink" : {
+        "price" : 400,
+        "name" : "Cola",
+        "id" : "6544cd596955fe0a1c04fba9",
+        "type" : "soft drink"
+      }
+    } ],
+    "rating" : 5,
+    "status" : "placed"
+  }
+}, {
+  "id" : "6544cd596955fe0a1c04fba9",
+  "table" : {
+    "number" : 10,
+    "capacity" : 10,
+    "status" : "booked"
+  },
+  "order" : {
+    "date" : "2000-01-23T04:56:07.000+00:00",
+    "note" : "note",
+    "foods" : [ {
+      "quantity" : 1,
+      "food" : {
+        "price" : 400,
+        "name" : "Hamburger",
+        "recipe" : [ {
+          "unit" : "kg",
+          "quantity" : 0,
+          "ingerient" : "ingerient"
+        }, {
+          "unit" : "kg",
+          "quantity" : 0,
+          "ingerient" : "ingerient"
+        } ],
+        "id" : "6544cd596955fe0a1c04fba9",
+        "type" : "main course"
+      }
+    }, {
+      "quantity" : 1,
+      "food" : {
+        "price" : 400,
+        "name" : "Hamburger",
+        "recipe" : [ {
+          "unit" : "kg",
+          "quantity" : 0,
+          "ingerient" : "ingerient"
+        }, {
+          "unit" : "kg",
+          "quantity" : 0,
+          "ingerient" : "ingerient"
+        } ],
+        "id" : "6544cd596955fe0a1c04fba9",
+        "type" : "main course"
+      }
+    } ],
+    "drinks" : [ {
+      "quantity" : 1,
+      "drink" : {
+        "price" : 400,
+        "name" : "Cola",
+        "id" : "6544cd596955fe0a1c04fba9",
+        "type" : "soft drink"
+      }
+    }, {
+      "quantity" : 1,
+      "drink" : {
+        "price" : 400,
+        "name" : "Cola",
+        "id" : "6544cd596955fe0a1c04fba9",
+        "type" : "soft drink"
+      }
+    } ],
+    "rating" : 5,
+    "status" : "placed"
+  }
+} ]</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Successful operation
+        
+    <h4 class="field-label">400</h4>
+    Bad request
+        <a href="#"></a>
+    <h4 class="field-label">401</h4>
+    Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    Forbidden
+        <a href="#"></a>
+    <h4 class="field-label">500</h4>
+    Internal server error
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="updateTableOrder"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="patch"><code class="huge"><span class="http-method">patch</span> /table/order/{tableOrderId}</code></pre></div>
+    <div class="method-summary">Update an order status or rating (<span class="nickname">updateTableOrder</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">tableOrderId (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; ID of the order to update default: null </div>
+    </div>  <!-- field-items -->
+
+
+
+    <h3 class="field-label">Request headers</h3>
+    <div class="field-items">
+      <div class="param">rating (optional)</div>
+
+      <div class="param-desc"><span class="param-type">Header Parameter</span> &mdash;  default: null format: int32</div>
+<div class="param">status (optional)</div>
+
+      <div class="param-desc"><span class="param-type">Header Parameter</span> &mdash;  default: null </div>
+
+    </div>  <!-- field-items -->
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#Order">Order</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "date" : "2000-01-23T04:56:07.000+00:00",
+  "note" : "note",
+  "foods" : [ {
+    "quantity" : 1,
+    "food" : {
+      "price" : 400,
+      "name" : "Hamburger",
+      "recipe" : [ {
+        "unit" : "kg",
+        "quantity" : 0,
+        "ingerient" : "ingerient"
+      }, {
+        "unit" : "kg",
+        "quantity" : 0,
+        "ingerient" : "ingerient"
+      } ],
+      "id" : "6544cd596955fe0a1c04fba9",
+      "type" : "main course"
+    }
+  }, {
+    "quantity" : 1,
+    "food" : {
+      "price" : 400,
+      "name" : "Hamburger",
+      "recipe" : [ {
+        "unit" : "kg",
+        "quantity" : 0,
+        "ingerient" : "ingerient"
+      }, {
+        "unit" : "kg",
+        "quantity" : 0,
+        "ingerient" : "ingerient"
+      } ],
+      "id" : "6544cd596955fe0a1c04fba9",
+      "type" : "main course"
+    }
+  } ],
+  "drinks" : [ {
+    "quantity" : 1,
+    "drink" : {
+      "price" : 400,
+      "name" : "Cola",
+      "id" : "6544cd596955fe0a1c04fba9",
+      "type" : "soft drink"
+    }
+  }, {
+    "quantity" : 1,
+    "drink" : {
+      "price" : 400,
+      "name" : "Cola",
+      "id" : "6544cd596955fe0a1c04fba9",
+      "type" : "soft drink"
+    }
+  } ],
+  "rating" : 5,
+  "status" : "placed"
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Order rated successfully
+        <a href="#Order">Order</a>
+    <h4 class="field-label">400</h4>
+    Bad request
+        <a href="#"></a>
+    <h4 class="field-label">401</h4>
+    Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    Forbidden
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    Not found
+        <a href="#"></a>
+    <h4 class="field-label">500</h4>
+    Internal server error
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <h1><a name="User">User</a></h1>
+  <div class="method"><a name="deleteUserById"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="delete"><code class="huge"><span class="http-method">delete</span> /user/{userId}</code></pre></div>
+    <div class="method-summary">Delete user by ID (<span class="nickname">deleteUserById</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">userId (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; The ID of the user default: null </div>
+    </div>  <!-- field-items -->
+
+
+
+
+
+
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">204</h4>
+    Successfully deleted
+        <a href="#"></a>
+    <h4 class="field-label">400</h4>
+    Bad request
+        <a href="#"></a>
+    <h4 class="field-label">401</h4>
+    Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    Forbidden
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    Not found
+        <a href="#"></a>
+    <h4 class="field-label">500</h4>
+    Internal server error
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="getUserById"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /user/{userId}</code></pre></div>
+    <div class="method-summary">Get user by ID (<span class="nickname">getUserById</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">userId (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; The ID of the user default: null </div>
+    </div>  <!-- field-items -->
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#User">User</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "mobil" : "36709834234",
+  "address" : "Budapest Lakatos utca 6.",
+  "name" : "Gipsz Jakap",
+  "id" : "6544cd596955fe0a1c04fba9",
+  "email" : "gipsz@jakab.com",
+  "points" : 0
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Successful operation
+        <a href="#User">User</a>
+    <h4 class="field-label">400</h4>
+    Bad request
+        <a href="#"></a>
+    <h4 class="field-label">401</h4>
+    Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    Forbidden
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    Not found
+        <a href="#"></a>
+    <h4 class="field-label">500</h4>
+    Internal server error
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="updateUserById"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="put"><code class="huge"><span class="http-method">put</span> /user/{userId}</code></pre></div>
+    <div class="method-summary">Update user by ID (<span class="nickname">updateUserById</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">userId (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; The ID of the user default: null </div>
+    </div>  <!-- field-items -->
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">User <a href="#User">User</a> (required)</div>
+
+      <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash;  </div>
+
+    </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#User">User</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "mobil" : "36709834234",
+  "address" : "Budapest Lakatos utca 6.",
+  "name" : "Gipsz Jakap",
+  "id" : "6544cd596955fe0a1c04fba9",
+  "email" : "gipsz@jakab.com",
+  "points" : 0
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Successful operation
+        <a href="#User">User</a>
+    <h4 class="field-label">400</h4>
+    Bad request
+        <a href="#"></a>
+    <h4 class="field-label">401</h4>
+    Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    Forbidden
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    Not found
+        <a href="#"></a>
+    <h4 class="field-label">500</h4>
+    Internal server error
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+
+  <h2><a name="__Models">Models</a></h2>
+  [ Jump to <a href="#__Methods">Methods</a> ]
+
+  <h3>Table of Contents</h3>
+  <ol>
+    <li><a href="#Booking"><code>Booking</code> - </a></li>
+    <li><a href="#CustomerOrder"><code>CustomerOrder</code> - </a></li>
+    <li><a href="#Drink"><code>Drink</code> - </a></li>
+    <li><a href="#DrinkOrderItem"><code>DrinkOrderItem</code> - </a></li>
+    <li><a href="#DrinkStockItem"><code>DrinkStockItem</code> - </a></li>
+    <li><a href="#Food"><code>Food</code> - </a></li>
+    <li><a href="#FoodOrderItem"><code>FoodOrderItem</code> - </a></li>
+    <li><a href="#FoodStockItem"><code>FoodStockItem</code> - </a></li>
+    <li><a href="#Food_recipe_inner"><code>Food_recipe_inner</code> - </a></li>
+    <li><a href="#MenuItem"><code>MenuItem</code> - </a></li>
+    <li><a href="#NewBooking"><code>NewBooking</code> - </a></li>
+    <li><a href="#Order"><code>Order</code> - </a></li>
+    <li><a href="#Table"><code>Table</code> - </a></li>
+    <li><a href="#TableOrder"><code>TableOrder</code> - </a></li>
+    <li><a href="#User"><code>User</code> - </a></li>
+    <li><a href="#UserLogin"><code>UserLogin</code> - </a></li>
+    <li><a href="#UserRegister"><code>UserRegister</code> - </a></li>
+    <li><a href="#UserSession"><code>UserSession</code> - </a></li>
+  </ol>
+
+  <div class="model">
+    <h3><a name="Booking"><code>Booking</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">id </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">table </div><div class="param-desc"><span class="param-type"><a href="#Table">Table</a></span>  </div>
+<div class="param">customer </div><div class="param-desc"><span class="param-type"><a href="#User">User</a></span>  </div>
+<div class="param">startingDate </div><div class="param-desc"><span class="param-type"><a href="#DateTime">Date</a></span>  format: date-time</div>
+<div class="param">endingDate </div><div class="param-desc"><span class="param-type"><a href="#DateTime">Date</a></span>  format: date-time</div>
+<div class="param">status </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+        <div class="param-enum-header">Enum:</div>
+        <div class="param-enum">pending</div><div class="param-enum">accepted</div>
+<div class="param">peopleCount </div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  </div>
+<div class="param">note (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="CustomerOrder"><code>CustomerOrder</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">id </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">customer </div><div class="param-desc"><span class="param-type"><a href="#User">User</a></span>  </div>
+<div class="param">order </div><div class="param-desc"><span class="param-type"><a href="#Order">Order</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="Drink"><code>Drink</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">id </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">name </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">type </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+        <div class="param-enum-header">Enum:</div>
+        <div class="param-enum">soft drink</div><div class="param-enum">hot drink</div><div class="param-enum">alcoholic drink</div>
+<div class="param">price </div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="DrinkOrderItem"><code>DrinkOrderItem</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">drink </div><div class="param-desc"><span class="param-type"><a href="#Drink">Drink</a></span>  </div>
+<div class="param">quantity </div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  format: int32</div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="DrinkStockItem"><code>DrinkStockItem</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">id (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">name </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">quantity </div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  format: int32</div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="Food"><code>Food</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">id </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">name </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">type </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+        <div class="param-enum-header">Enum:</div>
+        <div class="param-enum">main course</div><div class="param-enum">dessert</div><div class="param-enum">side dish</div><div class="param-enum">soup</div>
+<div class="param">price </div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  </div>
+<div class="param">recipe (optional)</div><div class="param-desc"><span class="param-type"><a href="#Food_recipe_inner">array[Food_recipe_inner]</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="FoodOrderItem"><code>FoodOrderItem</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">food </div><div class="param-desc"><span class="param-type"><a href="#Food">Food</a></span>  </div>
+<div class="param">quantity </div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  format: int32</div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="FoodStockItem"><code>FoodStockItem</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">id (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">name </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">quantity </div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  format: int32</div>
+<div class="param">unit </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+        <div class="param-enum-header">Enum:</div>
+        <div class="param-enum">kg</div><div class="param-enum">liter</div><div class="param-enum">g</div><div class="param-enum">dkg</div><div class="param-enum">dl</div><div class="param-enum">unit</div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="Food_recipe_inner"><code>Food_recipe_inner</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">ingerient (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">unit (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+        <div class="param-enum-header">Enum:</div>
+        <div class="param-enum">kg</div><div class="param-enum">liter</div><div class="param-enum">g</div><div class="param-enum">dkg</div><div class="param-enum">dl</div><div class="param-enum">unit</div>
+<div class="param">quantity (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="MenuItem"><code>MenuItem</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">name (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">price (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="NewBooking"><code>NewBooking</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">tableNumber </div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  </div>
+<div class="param">userMinusid </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">startingDate </div><div class="param-desc"><span class="param-type"><a href="#DateTime">Date</a></span>  format: date-time</div>
+<div class="param">endingDate </div><div class="param-desc"><span class="param-type"><a href="#DateTime">Date</a></span>  format: date-time</div>
+<div class="param">peopleCount </div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  </div>
+<div class="param">note (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="Order"><code>Order</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">status (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+        <div class="param-enum-header">Enum:</div>
+        <div class="param-enum">placed</div><div class="param-enum">cooking</div><div class="param-enum">delivering</div><div class="param-enum">delivered</div>
+<div class="param">date (optional)</div><div class="param-desc"><span class="param-type"><a href="#DateTime">Date</a></span>  format: date-time</div>
+<div class="param">note (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">rating (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  format: int32</div>
+<div class="param">foods </div><div class="param-desc"><span class="param-type"><a href="#FoodOrderItem">array[FoodOrderItem]</a></span>  </div>
+<div class="param">drinks </div><div class="param-desc"><span class="param-type"><a href="#DrinkOrderItem">array[DrinkOrderItem]</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="Table"><code>Table</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">number </div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  format: int32</div>
+<div class="param">capacity </div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  format: int32</div>
+<div class="param">status (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+        <div class="param-enum-header">Enum:</div>
+        <div class="param-enum">booked</div><div class="param-enum">free</div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="TableOrder"><code>TableOrder</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">id </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">table </div><div class="param-desc"><span class="param-type"><a href="#Table">Table</a></span>  </div>
+<div class="param">order </div><div class="param-desc"><span class="param-type"><a href="#Order">Order</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="User"><code>User</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">id (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">name </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">email </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">mobil </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">address </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">points (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="UserLogin"><code>UserLogin</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">name </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">password </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="UserRegister"><code>UserRegister</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">name </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">email </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">mobil </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">address </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">password </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="UserSession"><code>UserSession</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">id </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">user </div><div class="param-desc"><span class="param-type"><a href="#User">User</a></span>  </div>
+<div class="param">role </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  </body>
+</html>
