@@ -20,6 +20,7 @@
                     </div>
                     <p-button *ngIf="hasOneOfTheRoles(['customer'])" icon="pi pi-cart-plus" [rounded]="true" [text]="true" (onClick)="addCart(true, i)"></p-button>
                     <p-button *ngIf="hasOneOfTheRoles(['admin', 'manager'])" icon="pi pi-trash" [rounded]="true" [text]="true" (onClick)="deleteMenuItem_Food(food)"></p-button>
+                    <p-button *ngIf="hasOneOfTheRoles(['admin', 'manager'])" icon="pi pi-pencil" [rounded]="true" [text]="true" (onClick)="updateMenuItem_Food(food)"></p-button>
                 </div>
             </div>
             <p-divider class="text-color-secondary mb-8"></p-divider>
@@ -39,6 +40,7 @@
                     </div>
                     <p-button *ngIf="hasOneOfTheRoles(['customer'])" icon="pi pi-cart-plus" [rounded]="true" [text]="true" (onClick)="addCart(false, i)"></p-button>
                     <p-button *ngIf="hasOneOfTheRoles(['admin', 'manager'])" icon="pi pi-trash" [rounded]="true" [text]="true" (onClick)="deleteMenuItem_Drink(drink)"></p-button>
+                    <p-button *ngIf="hasOneOfTheRoles(['admin', 'manager'])" icon="pi pi-pencil" [rounded]="true" [text]="true" (onClick)="updateMenuItem_Drink(drink)"></p-button>
                 </div>
             </div>
         </div>
@@ -81,4 +83,21 @@
                 </div>
             </form>
         </div>
+        </p-dialog>
+        <p-dialog header="Update menu item" [(visible)]="updateDialogVisible" [style]="{width: '40vw'}">
+            <div class="flex justify-content-center">
+                <form class="w-auto" [formGroup]="updateMenuItem" (submit)="onSubmitUpdate()">
+                    <div class="my-4">
+                        <label for="name">Name</label>
+                        <input id="name" formControlName="name" type="text" class="form-control  text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                    </div>
+                    <div class="my-4">
+                        <label for="price">Price</label>
+                        <input id="price" formControlName="price" [min]="0" type="number" class="form-control  text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                    </div>
+                    <div class="flex justify-content-center">
+                        <p-button severity="secondary" type="submit">Save</p-button>
+                    </div>
+                </form>
+            </div>
     </p-dialog>

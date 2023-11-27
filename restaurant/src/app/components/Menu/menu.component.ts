@@ -40,8 +40,13 @@ export class MenuComponent implements OnInit {
   ]
   drinkList: Drink[] | undefined
   dialogVisible: boolean=false
+  updateDialogVisible: boolean=false
   food: boolean = true
   ingredientList!: FoodStockItem[]
+  updateMenuItem = new FormGroup({
+    name: new FormControl('', [Validators.required]),
+    price: new FormControl(0, [Validators.required]),
+  })
   newMenuItem = new FormGroup({
     name: new FormControl('', [Validators.required]),
     price: new FormControl(0, [Validators.required]),
@@ -49,6 +54,8 @@ export class MenuComponent implements OnInit {
     typeFood: new FormControl(Food.TypeEnum.Soup),
     typeDrink: new FormControl(Drink.TypeEnum.SoftDrink),
   })
+
+  updateingId: string | undefined
 
   constructor(private menuService: MenuService,
               private storeUserService: StoreUserService,
@@ -181,4 +188,52 @@ export class MenuComponent implements OnInit {
         }
       )
     }
+
+    updateMenuItem_Drink(drink: Drink){
+      this.updateingId=drink.id
+      this.updateDialogVisible=true
+      this.food=false
+      this.updateMenuItem.setValue({
+        name: drink.name,
+        price:drink.price,
+      })
+    }
+
+    updateMenuItem_Food(food: Food){
+      this.updateingId=food.id
+      this.updateDialogVisible=true
+      this.food=true
+      this.updateMenuItem.setValue({
+        name: food.name,
+        price: food.price,
+      })
+    }
+
+    onSubmitUpdate(){
+      if(this.food)
+{      var food={
+        name:this.updateMenuItem.value.name!,
+        price: this.updateMenuItem.value.price!
+      }
+      console.log(food)
+      this.menuService.updateFood(this.updateingId!, food.name, food.price).subscribe(
+        (result)=>
+      {  this.updateDialogVisible=false
+        this.updateingId=undefined
+        this.ngOnInit()}
+      )
+    }
+    else{
+      var drink={
+        name:this.updateMenuItem.value.name!,
+        price: this.updateMenuItem.value.price!
+      }
+      this.menuService.updateDrink(this.updateingId!, drink.name, drink.price).subscribe(
+        (result)=>
+      {  this.updateDialogVisible=false
+        this.updateingId=undefined
+      this.ngOnInit()}
+      )
+    }
+  }
   }
