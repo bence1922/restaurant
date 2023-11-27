@@ -21,7 +21,7 @@
                         <td>
                             <p-cellEditor>
                                 <ng-template pTemplate="input">
-                                    <input pInputText type="text">
+                                    <input pInputText type="text" [(ngModel)]="item.name">
                                 </ng-template>
                                 <ng-template pTemplate="output">
                                     {{item.name}}
@@ -31,7 +31,7 @@
                         <td>
                             <p-cellEditor>
                                 <ng-template pTemplate="input">
-                                    <input pInputText type="number">
+                                    <input pInputText type="number" [(ngModel)]="item.quantity">
                                 </ng-template>
                                 <ng-template pTemplate="output">
                                     {{item.quantity}}
@@ -40,7 +40,7 @@
                         <td>
                             <p-cellEditor>
                                 <ng-template pTemplate="input">
-                                    <p-dropdown [options]="units" appendTo="body"></p-dropdown>
+                                    <p-dropdown [options]="units" appendTo="body" [(ngModel)]="item.unit"></p-dropdown>
                                 </ng-template>
                                 <ng-template pTemplate="output">
                                     {{item.unit}}
@@ -49,21 +49,77 @@
                         </td>
                         <td>
                             <p-button *ngIf="!editing" pInitEditableRow icon="pi pi-pencil" [rounded]="true" [text]="true" (click)="onRowEditInit(item)"></p-button>
-                            <p-button *ngIf="!editing" icon="pi pi-trash" [rounded]="true" [text]="true"></p-button>
+                            <p-button *ngIf="!editing" icon="pi pi-trash" [rounded]="true" [text]="true" (onClick)="deleteIngredientFood(item)"></p-button>
                             <p-button *ngIf="editing" pSaveEditableRow icon="pi pi-check" [rounded]="true" [text]="true" (click)="onRowEditSave(item)"></p-button>
                             <p-button *ngIf="editing" pCancelEditableRow icon="pi pi-times" [rounded]="true" [text]="true" (click)="onRowEditCancel(item, ri)"></p-button>
                         </td>
                     </tr>
                 </ng-template>
-                <ng-template pTemplate="paginatorleft">
+                <ng-template pTemplate="caption">
                     <p-button type="button" icon="pi pi-plus" styleClass="p-button-text" (onClick)="newIngredientFormOpenBtnClick()"></p-button>
                 </ng-template>
             </p-table>
         </div>
-        <div *ngIf="newIngredientFormOpen" class="mt-6 ml-6">
-            <div class="text-lg text-color">New Ingredient</div>
-            <form>
-                <div class="col-5 col-offset-1">
+        <div *ngIf="ingredientsDrink!=undefined">
+            <p-table
+                    [value]="ingredientsDrink"
+                    [paginator]="true"
+                    [rows]="10"
+                    [resizableColumns]="true"
+                    dataKey="name" editMode="row">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th pSortableColumn="name" pResizableColumn>Name <p-sortIcon field="name"></p-sortIcon></th>
+                        <th pSortableColumn="quantity">Quantity <p-sortIcon field="quantity"></p-sortIcon></th>
+                        <th class="w-6rem">Action</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-item let-editing="editing" let-ri="rowIndex">
+                    <tr [pEditableRow]="item">
+                        <td>
+                            <p-cellEditor>
+                                <ng-template pTemplate="input">
+                                    <input pInputText type="text" [(ngModel)]="item.name">
+                                </ng-template>
+                                <ng-template pTemplate="output">
+                                    {{item.name}}
+                                </ng-template>
+                            </p-cellEditor>
+                        </td>
+                        <td>
+                            <p-cellEditor>
+                                <ng-template pTemplate="input">
+                                    <input pInputText type="number" [(ngModel)]="item.quantity">
+                                </ng-template>
+                                <ng-template pTemplate="output">
+                                    {{item.quantity}}
+                                </ng-template>
+                            </p-cellEditor></td>
+                        <td>
+                            <p-button *ngIf="!editing" pInitEditableRow icon="pi pi-pencil" [rounded]="true" [text]="true" (click)="onRowEditInit(item)"></p-button>
+                            <p-button *ngIf="!editing" icon="pi pi-trash" [rounded]="true" [text]="true" (onClick)="deleteIngredientFood(item)"></p-button>
+                            <p-button *ngIf="editing" pSaveEditableRow icon="pi pi-check" [rounded]="true" [text]="true" (click)="onRowEditSave(item)"></p-button>
+                            <p-button *ngIf="editing" pCancelEditableRow icon="pi pi-times" [rounded]="true" [text]="true" (click)="onRowEditCancel(item, ri)"></p-button>
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="caption">
+                    <p-button type="button" icon="pi pi-plus" styleClass="p-button-text" (onClick)="newIngredientFormOpenBtnClick()"></p-button>
+                </ng-template>
+            </p-table>
+        </div>
+        <p-dialog header="Add new ingredient" [(visible)]="newIngredientFormOpen" [style]="{width: '60vw'}">
+            <div class="flex ml-5 my-4">
+                <div class="flex align-items-center mr-3">
+                    <input type="radio" name="foodRBtn" [value]="true" [(ngModel)]="food" inputId="food"/>
+                    <label for="food" class="ml-2">Food</label>
+                </div>
+                <div class="flex align-items-center">
+                    <input type="radio" name="foodRBtn" [value]="false" [(ngModel)]="food" inputId="drink"/>
+                    <label for="drink" class="ml-2">Drink</label>
+                </div>
+            </div>
+            <form [formGroup]="newIngredientForm" (submit)="onSubmit()" class="mx-6">
                     <div class="field">
                         <label for="name" class="">Name *</label>
                         <input id="name" formControlName="name" type="text" autocomplete="off" class="form-control text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
@@ -72,15 +128,14 @@
                         <label for="quantity" class="">Quantity *</label>
                         <input id="quantity" formControlName="quantity" type="number" autocomplete="off" class="form-control text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
                     </div>
-                    <div class="field">
+                    <div class="field" *ngIf="food">
                         <label for="unit" class="">Unit *</label>
-                        <select id="unit" fomrControlName="unit" ng-model="newFoodStockItem.unit" ng-options="x for x in units" ></select>
+                        <p-dropdown id="unit" fomrControlName="unit" [options]="units" appendTo="body"></p-dropdown>
                     </div>
                     <div class="flex justify-content-center">
-                        <p-button severity="secondary">Save</p-button>
+                        <p-button severity="secondary" type="submit" [disabled]="!newIngredientForm.valid">Save</p-button>
                     </div>
-                </div>
             </form>
-        </div>
+        </p-dialog>
     </div>
 </div>
