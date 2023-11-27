@@ -72,8 +72,6 @@ export class ReservationComponent implements OnInit {
       note: this.note 
     }
 
-    console.log(newBooking)
-
 
     this.bookingService.bookTable(newBooking ).subscribe(
       (result)=>{

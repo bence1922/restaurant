@@ -50,9 +50,6 @@ export class IngredientsComponent implements OnInit {
         (result)=> this.ingredients=result
       )
 
-      this.ingredientService.getAllDrinkStockItems().subscribe(
-        (result)=> this.ingredientsDrink=result
-      )
   }
 
   canAccess(){
