@@ -77,12 +77,15 @@ export class MenuComponent implements OnInit {
         this.drinkList=result;
       }
     )
+    if(this.hasOneOfTheRoles(["admin"])){
+      this.ingredientService.getAllFoodStockItems().subscribe(
+        (result)=>{
+          this.ingredientList=result
+        }
+      )
+    }
 
-    this.ingredientService.getAllFoodStockItems().subscribe(
-      (result)=>{
-        this.ingredientList=result
-      }
-    )
+
   }
 
   foodRecipeToDescription(recipe?: Array<FoodRecipeInner>){

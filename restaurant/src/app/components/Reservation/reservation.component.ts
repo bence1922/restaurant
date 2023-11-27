@@ -65,7 +65,7 @@ export class ReservationComponent implements OnInit {
 
     var newBooking: NewBooking={
       tableNumber: this.selectedTable!.number,
-      user_id: this.storeUserService.getUserId(),
+      userId: this.storeUserService.getUserId(),
       startingDate: from.toISOString(),
       endingDate: to.toISOString(),
       peopleCount: this.guests,
@@ -90,6 +90,7 @@ export class ReservationComponent implements OnInit {
     time.setMinutes(+timeStringArray[1]);
     startingDate.setHours(time.getHours())
     startingDate.setMinutes(time.getMinutes())
+    
     return startingDate;
   }
 

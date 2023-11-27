@@ -155,7 +155,7 @@ export class CustomerOrderService {
             }
         }
 
-        let localVarPath = `/customer-order/${this.configuration.encodeParam({name: "userId", value: userId, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
+        let localVarPath = `/customer/order/${this.configuration.encodeParam({name: "userId", value: userId, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
         return this.httpClient.request<Order>('post', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -225,7 +225,7 @@ export class CustomerOrderService {
             }
         }
 
-        let localVarPath = `/customer-order/${this.configuration.encodeParam({name: "userId", value: userId, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
+        let localVarPath = `/customer/order/${this.configuration.encodeParam({name: "userId", value: userId, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
         return this.httpClient.request<Array<Order>>('get', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -294,7 +294,7 @@ export class CustomerOrderService {
             }
         }
 
-        let localVarPath = `/customer-order`;
+        let localVarPath = `/customer/order`;
         return this.httpClient.request<Array<CustomerOrder>>('get', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,

@@ -5,10 +5,12 @@ import { DropdownModule } from 'primeng/dropdown';
 import { RatingModule } from 'primeng/rating';
 import { TableModule } from 'primeng/table';
 import { MenuItem } from 'primeng/api';
-import { Drink, Food, Order } from 'src/app/generated-api';
+import { Drink, DrinkOrderItem, Food, FoodOrderItem, MenuService, Order, Table, TableOrder, TableService, } from 'src/app/generated-api';
 import { FormsModule } from '@angular/forms';
 import { DialogModule } from 'primeng/dialog';
 import { SplitButtonModule } from 'primeng/splitbutton';
+import { TableOrderService } from 'src/app/generated-api/api/tableOrder.service';
+import { table } from 'console';
 
 
 @Component({
@@ -19,15 +21,30 @@ import { SplitButtonModule } from 'primeng/splitbutton';
   styleUrls: ['./order-admin-in-place.component.scss'],
 })
 export class OrderAdminInPlaceComponent  implements OnInit{
-  orders!: Order[] 
+  orders!: TableOrder[] 
   statusData!: MenuItem[]
   foodList!: Food[]
   drinkList!: Drink[]
   selectedFood: Food | undefined
   selectedDrink: Drink | undefined
   dialogVisible: boolean=false
-  closingOrder: Order | undefined
   
+  quantity=[1,2,3,4,5,6,7,8,9]
+  selectedTable!: Table
+  //orderId!: string
+  freeTables: Table[] = new Array<Table>()
+  newOrder!: Order
+  selectFood!: Food | undefined
+  selectDrink!: Drink | undefined
+  selectFoodQuantity!: number
+  selectDrinkQuantity!: number
+
+  constructor(
+    private tableOrderService: TableOrderService,
+    private tableService: TableService,
+    private menuService: MenuService
+  ){}
+
   ngOnInit(): void {
     this.statusData=[
       {label: Order.StatusEnum.Placed,},
@@ -35,7 +52,36 @@ export class OrderAdminInPlaceComponent  implements OnInit{
       {label: Order.StatusEnum.Delivering,},
       {label: Order.StatusEnum.Delivered,},
     ]
-    this.orders= new Array<Order>()
+    this.orders= new Array<TableOrder>()
+    const currentTables = new Array<Table>()
+    const allTables = new Array<Table>()
+    this.tableService.queryTableOrders(undefined, true).subscribe((tables) => {
+      this.orders = tables
+      console.log(this.orders)
+      tables.forEach(table => {
+        currentTables.push(table.table)
+      })
+    })
+    this.tableService.listTables().subscribe((tables) => {
+      tables.forEach(table => {
+        allTables.push(table)
+        if(table.status=="free"){
+          this.freeTables.push(table)
+        }
+      })
+    })
+
+    this.menuService.getFoodMenu().subscribe(
+      (result)=> this.foodList=result
+    )
+
+    this.menuService.getDrinkMenu().subscribe(
+      (result)=>{
+        this.drinkList=result
+      }
+    )
+
+    
   }
 
   calculatePrice(order: Order){
@@ -53,20 +99,15 @@ export class OrderAdminInPlaceComponent  implements OnInit{
     }
     return 0
   }
-  calculatePoints(order: Order) : number{
-    if(order!==undefined){
-    return this.calculatePrice(order)/100
-    }
-    return 0
-  }
 
-  deleteOrder(order: Order){
-
-  }
-
-  paid(order: Order){
-    this.dialogVisible=true
-    this.closingOrder=order
+  paid(order: TableOrder){
+    this.tableService.updateTableOrder(order.id, 5, "delivered").subscribe(
+      (result)=>{
+        console.log(result)
+        alert("Success")
+        this.ngOnInit()
+      }
+    )
   }
 
   increase(food: boolean, order: Order, index: number){
@@ -104,10 +145,47 @@ export class OrderAdminInPlaceComponent  implements OnInit{
     }
   }
 
-  closeOrder(){
-    this.dialogVisible=false
+  addToOrder(){
+    const aaafood = {
+      food: this.selectFood,
+      quantity: this.selectFoodQuantity
+    } as FoodOrderItem
+
+    const aaadrink = {
+      drink: this.selectDrink,
+      quantity: this.selectDrinkQuantity
+    } as DrinkOrderItem
+
+    this.newOrder.foods.push(aaafood)
+    this.newOrder.drinks.push(aaadrink)
+    this.selectFood=undefined
+    this.selectDrink=undefined
+    this.selectFoodQuantity=0
+    this.selectDrinkQuantity=0
   }
-  newOrder(){
+
+
+  closeOrder(){
+    this.newOrder.status= Order.StatusEnum.Placed
+    this.newOrder.date=new Date().toISOString()
+    this.newOrder.rating=0
+    this.newOrder.note=""
+    this.tableOrderService.placeOrder(this.selectedTable.number!, this.newOrder).subscribe(
+      (result)=>{
+        this.newOrder=undefined!
+        this.dialogVisible=false
+        this.ngOnInit()
+      }
+    )
+
+  }
+
+  newOrderFunc(){
+    this.newOrder={
+      foods: new Array<FoodOrderItem>(),
+      drinks: new Array<DrinkOrderItem>(),
+    } as Order
+    this.dialogVisible=true
     // TODO: hozzáad egy új ordert + adatbázisba kerül (table-t kell megadni, többi default)
   }
 }

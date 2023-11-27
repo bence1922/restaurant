@@ -13,7 +13,7 @@
 
 export interface NewBooking { 
     tableNumber: number;
-    user_id: string;
+    userId: string;
     startingDate: string;
     endingDate: string;
     peopleCount: number;
